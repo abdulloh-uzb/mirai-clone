@@ -946,5 +946,75 @@
     "pausedTitle": "Curso en pausa",
     "paused": "No pudimos confirmar tu identidad, por lo que tu curso está en pausa. Contáctanos para continuar.",
     "contact": "Contáctanos"
+  },
+  "Assistant": {
+    "title": "Pregunta a la IA",
+    "description": "Respuestas sobre el curso, los pagos y tu cuenta.",
+    "open": "Abrir el asistente",
+    "minimize": "Minimizar",
+    "reset": "Nuevo chat",
+    "close": "Cerrar",
+    "language": "Idioma de las respuestas",
+    "tourTitle": "Mira el recorrido",
+    "tourText": "Un recorrido de un minuto por el curso.",
+    "tourSoon": "El video del recorrido estará disponible pronto.",
+    "suggestionsTitle": "Prueba a preguntar",
+    "placeholder": "Escribe tu pregunta…",
+    "send": "Enviar",
+    "thinking": "Pensando…",
+    "error": "El asistente no está disponible ahora. Inténtalo más tarde.",
+    "disclaimer": "Solo educativo · Información oficial: dmv.ca.gov · La IA puede equivocarse. No es asesoría legal.",
+    "person": "Hablar con una persona",
+    "personText": "Enviaremos esta conversación a nuestro equipo y responderemos por correo.",
+    "email": "Tu correo (si no has iniciado sesión)",
+    "note": "¿Algo que añadir? (opcional)",
+    "submitHandoff": "Enviar al equipo",
+    "handoffDone": "Gracias. Nuestro equipo responderá por correo.",
+    "handoffError": "No pudimos enviarlo. Revisa tu correo e inténtalo de nuevo.",
+    "log": "Conversación",
+    "suggestions": {
+      "home": {
+        "0": "¿Cómo funciona el curso en línea?",
+        "1": "¿Cuánto dura el curso?",
+        "2": "¿El tribunal aceptará mi certificado?",
+        "3": "¿Cuánto cuesta?"
+      },
+      "courses": {
+        "0": "¿Qué incluye el curso?",
+        "1": "¿Puedo tomar el curso en otro idioma?",
+        "2": "¿Cuánto tiempo tengo para terminarlo?"
+      },
+      "court": {
+        "0": "¿Mi tribunal está en la lista?",
+        "1": "¿Cómo se envía mi finalización al tribunal?",
+        "2": "¿Dónde encuentro el número de mi multa?"
+      },
+      "faq": {
+        "0": "¿Puedo pedir un reembolso?",
+        "1": "¿Cómo funciona el examen final?",
+        "2": "¿El curso está aprobado?"
+      },
+      "portal": {
+        "0": "¿El DMV recibió mi finalización?",
+        "1": "¿Cuándo vence mi acceso?",
+        "2": "¿Cuál es la fecha límite de mi tribunal?",
+        "3": "¿Puedo pedir un reembolso?"
+      },
+      "status": {
+        "0": "¿El DMV recibió mi finalización?",
+        "1": "¿Cuándo salen los reportes?",
+        "2": "¿Qué pasa si mi reporte falló?"
+      },
+      "orders": {
+        "0": "¿Puedo pedir un reembolso?",
+        "1": "¿Dónde encuentro mi recibo?",
+        "2": "¿Cómo funcionan los reembolsos?"
+      },
+      "default": {
+        "0": "¿Cómo funciona el curso en línea?",
+        "1": "¿El DMV recibió mi finalización?",
+        "2": "¿Puedo pedir un reembolso?"
+      }
+    }
   }
 }

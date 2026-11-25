@@ -22,12 +22,16 @@
     "db:types": "supabase gen types typescript > src/lib/database.types.ts",
     "db:seed:course": "tsx scripts/generate-course-seed.ts",
     "db:make-admin": "tsx scripts/make-admin.ts",
+    "ai:reindex": "tsx scripts/reindex-kb.ts",
     "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.109",
+    "@ai-sdk/react": "^4.0.187",
     "@hookform/resolvers": "^7.0.9",
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "2.119.2",
+    "ai": "^7.0.182",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.80.0",

@@ -3,6 +3,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import { notFound } from "next/navigation";
+import { AssistantPanel } from "@/components/ai/assistant-panel";
 import { HelpWidget } from "@/components/layout/help-widget";
 import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { LanguageSuggestion } from "@/components/layout/language-suggestion";
@@ -83,6 +84,7 @@ export default async function LocaleLayout({
             </main>
             <SiteFooter />
             <HelpWidget />
+            <AssistantPanel />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

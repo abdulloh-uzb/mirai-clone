@@ -28,6 +28,7 @@ const eslintConfig = defineConfig([
       "src/lib/supabase/service.ts",
       "src/lib/email/env.ts",
       "src/lib/stripe/server.ts",
+      "src/lib/ai/env.ts",
       "src/app/api/stripe/webhook/route.ts",
       "scripts/**",
       "tests/**",

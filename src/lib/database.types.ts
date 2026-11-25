@@ -25,28 +25,28 @@ export type Database = {
           Tables: {
             "ai_conversations": {
                   Row: {
-                    "created_at": string,"id": string,"locale": string,"updated_at": string,"user_id": string | null
+                    "created_at": string,"flagged": boolean,"handed_off_at": string | null,"id": string,"ip_hash": string | null,"locale": string,"page": string | null,"updated_at": string,"user_id": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"id"?: string,"locale"?: string,"updated_at"?: string,"user_id"?: string | null
+                    "created_at"?: string,"flagged"?: boolean,"handed_off_at"?: string | null,"id"?: string,"ip_hash"?: string | null,"locale"?: string,"page"?: string | null,"updated_at"?: string,"user_id"?: string | null
                   }
                   Update: {
-                    "created_at"?: string,"id"?: string,"locale"?: string,"updated_at"?: string,"user_id"?: string | null
+                    "created_at"?: string,"flagged"?: boolean,"handed_off_at"?: string | null,"id"?: string,"ip_hash"?: string | null,"locale"?: string,"page"?: string | null,"updated_at"?: string,"user_id"?: string | null
                   }
                   Relationships: [
                     
                   ]
                 },"ai_messages": {
                   Row: {
-                    "content": string,"conversation_id": string,"created_at": string,"id": string,"role": string,"updated_at": string
+                    "content": string,"conversation_id": string,"cost_usd": number | null,"created_at": string,"flagged": boolean,"id": string,"role": string,"tokens_in": number | null,"tokens_out": number | null,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "content": string,"conversation_id": string,"created_at"?: string,"id"?: string,"role": string,"updated_at"?: string
+                    "content": string,"conversation_id": string,"cost_usd"?: number | null,"created_at"?: string,"flagged"?: boolean,"id"?: string,"role": string,"tokens_in"?: number | null,"tokens_out"?: number | null,"updated_at"?: string
                   }
                   Update: {
-                    "content"?: string,"conversation_id"?: string,"created_at"?: string,"id"?: string,"role"?: string,"updated_at"?: string
+                    "content"?: string,"conversation_id"?: string,"cost_usd"?: number | null,"created_at"?: string,"flagged"?: boolean,"id"?: string,"role"?: string,"tokens_in"?: number | null,"tokens_out"?: number | null,"updated_at"?: string
                   }
                   Relationships: [
                     {
@@ -333,14 +333,14 @@ isOneToOne: false
                   ]
                 },"kb_chunks": {
                   Row: {
-                    "content": string,"created_at": string,"embedding": string | null,"id": string,"locale": string,"source": string,"updated_at": string
+                    "content": string,"created_at": string,"embedding": string | null,"fts": unknown,"id": string,"locale": string,"source": string,"title": string | null,"updated_at": string,"url": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "content": string,"created_at"?: string,"embedding"?: string | null,"id"?: string,"locale": string,"source": string,"updated_at"?: string
+                    "content": string,"created_at"?: string,"embedding"?: string | null,"fts"?: never,"id"?: string,"locale": string,"source": string,"title"?: string | null,"updated_at"?: string,"url"?: string | null
                   }
                   Update: {
-                    "content"?: string,"created_at"?: string,"embedding"?: string | null,"id"?: string,"locale"?: string,"source"?: string,"updated_at"?: string
+                    "content"?: string,"created_at"?: string,"embedding"?: string | null,"fts"?: never,"id"?: string,"locale"?: string,"source"?: string,"title"?: string | null,"updated_at"?: string,"url"?: string | null
                   }
                   Relationships: [
                     
@@ -680,10 +680,32 @@ isOneToOne: false
                 }
           }
           Views: {
-            [_ in never]: never
+            "ai_usage_daily": {
+                  Row: {
+                    "answers": number | null,"cost_usd": number | null,"day": string | null,"tokens_in": number | null,"tokens_out": number | null
+                  }
+                  ComputedFields: never
+                  Relationships: [
+                    
+                  ]
+                }
           }
           Functions: {
-            "admin_update_locked_details":
+            "admin_ai_usage_daily":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "answers": number | null,
+"cost_usd": number | null,
+"day": string | null,
+"tokens_in": number | null,
+"tokens_out": number | null
+            }[]
+                          SetofOptions: {
+        from: "*"
+        to: "ai_usage_daily"
+        isOneToOne: false
+        isSetofReturn: true
+      } },
+"admin_update_locked_details":
 { Args: { "p_dob": string,"p_legal_name": string,"p_license_no": string,"p_reason": string,"p_user_id": string }; Returns: undefined
                            },
 "answer_identity_check":
@@ -724,6 +746,9 @@ isOneToOne: false
                            },
 "fulfill_checkout":
 { Args: { "p_event_id": string,"p_event_type": string,"p_order_id": string,"p_payment_intent"?: string,"p_session_id"?: string }; Returns: boolean
+                           },
+"has_active_exam":
+{ Args: Record<PropertyKey, never>; Returns: boolean
                            },
 "has_driver_details":
 { Args: { "p_enrollment_id": string }; Returns: boolean
@@ -766,6 +791,11 @@ isOneToOne: false
                            },
 "save_driver_details":
 { Args: { "p_citation_no": string,"p_county_id": string,"p_court_due_date": string,"p_dob": string,"p_enrollment_id": string,"p_legal_name": string,"p_license_no": string,"p_license_state": string,"p_phone": string,"p_security_answer": string,"p_security_question": string }; Returns: undefined
+                           },
+"search_kb":
+{ Args: { "p_limit"?: number,"p_locale": string,"p_query": string }; Returns: {
+              "content": string,"id": string,"locale": string,"rank": number,"source": string,"title": string,"url": string
+            }[]
                            },
 "section_quiz_passed":
 { Args: { "p_enrollment_id": string,"p_section_position": number }; Returns: boolean

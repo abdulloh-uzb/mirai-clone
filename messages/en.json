@@ -945,5 +945,75 @@
     "pausedTitle": "Course paused",
     "paused": "We could not confirm your identity, so your course is paused. Contact us to continue.",
     "contact": "Contact us"
+  },
+  "Assistant": {
+    "title": "Ask AI",
+    "description": "Answers about the course, payments and your account.",
+    "open": "Open the assistant",
+    "minimize": "Minimize",
+    "reset": "New chat",
+    "close": "Close",
+    "language": "Answer language",
+    "tourTitle": "Watch the tour",
+    "tourText": "A one-minute walk through how the course works.",
+    "tourSoon": "The tour video is coming soon.",
+    "suggestionsTitle": "Try asking",
+    "placeholder": "Type your question…",
+    "send": "Send",
+    "thinking": "Thinking…",
+    "error": "The assistant is not available right now. Please try again later.",
+    "disclaimer": "Educational only · Official info: dmv.ca.gov · AI can make mistakes. Not legal advice.",
+    "person": "Talk to a person",
+    "personText": "We will send this conversation to our team and reply by email.",
+    "email": "Your email (if you are not signed in)",
+    "note": "Anything to add? (optional)",
+    "submitHandoff": "Send to the team",
+    "handoffDone": "Thanks. Our team will reply by email.",
+    "handoffError": "We could not send this. Check your email address and try again.",
+    "log": "Conversation",
+    "suggestions": {
+      "home": {
+        "0": "How does the online course work?",
+        "1": "How long does the course take?",
+        "2": "Will the court accept my certificate?",
+        "3": "How much does it cost?"
+      },
+      "courses": {
+        "0": "What is included in the course?",
+        "1": "Can I take the course in another language?",
+        "2": "How long do I have to finish?"
+      },
+      "court": {
+        "0": "Is my court on the list?",
+        "1": "How is my completion sent to the court?",
+        "2": "Where do I find my citation number?"
+      },
+      "faq": {
+        "0": "Can I get a refund?",
+        "1": "How does the final exam work?",
+        "2": "Is the course approved?"
+      },
+      "portal": {
+        "0": "Did the DMV get my completion?",
+        "1": "When does my access expire?",
+        "2": "What is my court due date?",
+        "3": "Can I get a refund?"
+      },
+      "status": {
+        "0": "Did the DMV get my completion?",
+        "1": "When do reports go out?",
+        "2": "What if my report failed?"
+      },
+      "orders": {
+        "0": "Can I get a refund?",
+        "1": "Where do I find my receipt?",
+        "2": "How do refunds work?"
+      },
+      "default": {
+        "0": "How does the online course work?",
+        "1": "Did the DMV get my completion?",
+        "2": "Can I get a refund?"
+      }
+    }
   }
 }
