@@ -11,6 +11,7 @@ import {
   SendIcon,
   ShieldCheckIcon,
 } from "lucide-react";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
@@ -42,6 +43,7 @@ export async function CoursePanel({
   priceCents,
   listPriceCents,
   accessDays,
+  action,
 }: {
   courseLanguage: Locale;
   locale: Locale;
@@ -49,6 +51,8 @@ export async function CoursePanel({
   priceCents: number;
   listPriceCents: number | null;
   accessDays: number;
+  /** Replaces the buy link (the Portal renders a checkout form button here). */
+  action?: ReactNode;
 }) {
   const t = await getTranslations("Courses.panel");
   const language = languages[courseLanguage].nativeName;
@@ -98,12 +102,14 @@ export async function CoursePanel({
             </s>
           ) : null}
         </p>
-        <Link
-          href={buyHref(courseLanguage, signedIn)}
-          className={buttonVariants({ size: "lg" })}
-        >
-          {t("start", { language })}
-        </Link>
+        {action ?? (
+          <Link
+            href={buyHref(courseLanguage, signedIn)}
+            className={buttonVariants({ size: "lg" })}
+          >
+            {t("start", { language })}
+          </Link>
+        )}
       </div>
     </section>
   );

@@ -9,7 +9,13 @@ import { cn } from "@/lib/utils";
  * One card per Course language. Each is a plain link to `?course=<lang>`, so
  * choosing works without JavaScript; the chosen card is marked current.
  */
-export async function LanguageCards({ selected }: { selected: Locale }) {
+export async function LanguageCards({
+  selected,
+  pathname = "/courses",
+}: {
+  selected: Locale;
+  pathname?: "/courses" | "/portal";
+}) {
   const t = await getTranslations("Courses");
   return (
     <nav aria-label={t("languagesLabel")}>
@@ -19,7 +25,7 @@ export async function LanguageCards({ selected }: { selected: Locale }) {
           return (
             <li key={lang}>
               <Link
-                href={{ pathname: "/courses", query: { course: lang } }}
+                href={{ pathname, query: { course: lang } }}
                 scroll={false}
                 aria-current={isSelected ? "true" : undefined}
                 className={cn(

@@ -413,14 +413,14 @@ isOneToOne: false
                   ]
                 },"orders": {
                   Row: {
-                    "amount_cents": number,"created_at": string,"currency": string,"id": string,"product": string,"status": string,"stripe_payment_intent": string | null,"stripe_session_id": string | null,"updated_at": string,"user_id": string
+                    "amount_cents": number,"course_locale": string | null,"created_at": string,"currency": string,"id": string,"product": string,"status": string,"stripe_payment_intent": string | null,"stripe_session_id": string | null,"updated_at": string,"user_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "amount_cents": number,"created_at"?: string,"currency"?: string,"id"?: string,"product": string,"status"?: string,"stripe_payment_intent"?: string | null,"stripe_session_id"?: string | null,"updated_at"?: string,"user_id": string
+                    "amount_cents": number,"course_locale"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"product": string,"status"?: string,"stripe_payment_intent"?: string | null,"stripe_session_id"?: string | null,"updated_at"?: string,"user_id": string
                   }
                   Update: {
-                    "amount_cents"?: number,"created_at"?: string,"currency"?: string,"id"?: string,"product"?: string,"status"?: string,"stripe_payment_intent"?: string | null,"stripe_session_id"?: string | null,"updated_at"?: string,"user_id"?: string
+                    "amount_cents"?: number,"course_locale"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"product"?: string,"status"?: string,"stripe_payment_intent"?: string | null,"stripe_session_id"?: string | null,"updated_at"?: string,"user_id"?: string
                   }
                   Relationships: [
                     
@@ -685,6 +685,9 @@ isOneToOne: false
           Functions: {
             "admin_update_locked_details":
 { Args: { "p_dob": string,"p_legal_name": string,"p_license_no": string,"p_reason": string,"p_user_id": string }; Returns: undefined
+                           },
+"fulfill_checkout":
+{ Args: { "p_event_id": string,"p_event_type": string,"p_order_id": string,"p_payment_intent"?: string,"p_session_id"?: string }; Returns: boolean
                            },
 "has_driver_details":
 { Args: { "p_enrollment_id": string }; Returns: boolean

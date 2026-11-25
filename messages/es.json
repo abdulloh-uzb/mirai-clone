@@ -250,8 +250,7 @@
   },
   "Portal": {
     "title": "Mis cursos",
-    "empty": "Tus cursos aparecerán aquí cuando te inscribas.",
-    "paymentsSoon": "Elegiste el curso en {language}. Los pagos llegarán pronto: podrás inscribirte desde aquí."
+    "ordersLink": "Pedidos y recibos"
   },
   "Admin": {
     "title": "Administración",
@@ -756,6 +755,36 @@
       "completed": "Completada",
       "expired": "Vencida",
       "refunded": "Reembolsada"
+    }
+  },
+  "Checkout": {
+    "pay": "Pagar {price} y empezar en {language}",
+    "verifyEmail": "Verifica tu correo antes de pagar. Usa el enlace del aviso de arriba.",
+    "confirming": "Confirmando el pago…",
+    "confirmingText": "Suele tardar unos segundos. Mantén esta página abierta.",
+    "slow": "Está tardando más de lo normal. Actualiza la página o contacta con soporte.",
+    "enrolledTitle": "Estás inscrito",
+    "enrolledText": "Ahora ingresa tus datos de conductor para desbloquear el curso.",
+    "enterDetails": "Ingresar datos de conductor"
+  },
+  "Orders": {
+    "title": "Pedidos y recibos",
+    "date": "Fecha",
+    "product": "Producto",
+    "amount": "Importe",
+    "status": "Estado",
+    "empty": "Aún no tienes pedidos.",
+    "products": {
+      "online_course": "Curso en línea de escuela de tráfico",
+      "classroom": "Curso presencial",
+      "exam_reset": "Reinicio del examen final"
+    },
+    "statuses": {
+      "pending": "Pendiente",
+      "paid": "Pagado",
+      "refunded": "Reembolsado",
+      "partially_refunded": "Reembolso parcial",
+      "failed": "Fallido"
     }
   }
 }
