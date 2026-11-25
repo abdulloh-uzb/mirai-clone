@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { detectIntent, refusalFor } from "./guardrails";
 import { offlineAnswer } from "./offline";
 import { suggestionKeyFor } from "./suggestions";
-import { isExamPath } from "./exam-path";
+import { isExamPath } from "@/lib/exam/exam";
 import type { AccountTools, ReportStatusInfo } from "./tools";
 
 describe("detectIntent", () => {

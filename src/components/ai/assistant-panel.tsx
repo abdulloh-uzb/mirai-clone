@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { usePathname } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
-import { isExamPath } from "@/lib/ai/exam-path";
+import { isExamPath } from "@/lib/exam/exam";
 import { suggestionsFor } from "@/lib/ai/suggestions";
 
 const LANGUAGE_LABELS: Record<Locale, string> = {

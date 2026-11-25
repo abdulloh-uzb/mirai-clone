@@ -81,6 +81,9 @@ export async function Dashboard({
   const days = daysLeft(enrollment.expiresAt, now);
   const banner = accessBanner(days);
   const warning = dueDateWarning(enrollment.courtDueDate, now);
+  // Every lesson done and every section quiz passed (the outline mirrors SQL).
+  const allSectionsDone =
+    outline.length > 0 && outline.every((s) => s.status === "completed");
   const language = languages[enrollment.courseLocale as keyof typeof languages];
   const usable = enrollment.status === "active" && days > 0;
 
@@ -147,6 +150,18 @@ export async function Dashboard({
             {usable && continueHref ? (
               <Button asChild className="mt-4">
                 <Link href={continueHref}>{t("continue")}</Link>
+              </Button>
+            ) : null}
+            {usable && !next && allSectionsDone ? (
+              <Button asChild className="mt-4">
+                <Link href={`/portal/exam/${enrollment.id}`}>
+                  {t("toExam")}
+                </Link>
+              </Button>
+            ) : null}
+            {enrollment.status === "completed" ? (
+              <Button asChild className="mt-4">
+                <Link href="/portal/certificates">{t("getCertificate")}</Link>
               </Button>
             ) : null}
           </div>
