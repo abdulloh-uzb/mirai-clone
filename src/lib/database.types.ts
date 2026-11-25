@@ -23,7 +23,21 @@ export type Database = {
           }
         },"public": {
           Tables: {
-            [_ in never]: never
+            "announcements": {
+                  Row: {
+                    "created_at": string,"id": string,"locale": string,"message": string,"published": boolean,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"locale": string,"message": string,"published"?: boolean,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"locale"?: string,"message"?: string,"published"?: boolean,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                }
           }
           Views: {
             [_ in never]: never
