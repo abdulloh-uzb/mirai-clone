@@ -6,6 +6,6 @@
 
 Spec §6 portal dashboard (enrolled state), portal nav, spec §7 course player: sections unlock in order, lessons, all block types, autosave, minimum time (visible tab + active in last 2 min), access banners.
 
-- [ ] Progress RPCs with time checks
-- [ ] Player UI for all 7 block types, mobile 375 px
-- [ ] Dashboard: progress ring, continue, days left, due-date countdown
+- [x] Progress RPCs with time checks
+- [x] Player UI for all 7 block types, mobile 375 px
+- [x] Dashboard: progress ring, continue, days left, due-date countdown

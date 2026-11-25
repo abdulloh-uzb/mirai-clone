@@ -770,5 +770,79 @@
     "collapsedLabel": "Help & overview",
     "placeholder": "Ask AI anything…",
     "send": "Ask"
+  },
+  "PortalNav": {
+    "label": "Portal",
+    "course": "My course",
+    "account": "Account",
+    "certificates": "Certificates",
+    "faq": "Questions and answers",
+    "askAi": "Ask AI"
+  },
+  "Dashboard": {
+    "title": "My course",
+    "paused": "Your course is paused for review. Contact support to continue.",
+    "locked": "Your course is locked. Contact support for help.",
+    "expired": "Your access has expired. Contact support to discuss your options.",
+    "accessBanner": {
+      "d14": "Your access ends in {days} days. Finish your course in time.",
+      "d7": "Your access ends in {days} days. Please finish soon.",
+      "d1": "Your access ends today or tomorrow. Finish now to keep your progress."
+    },
+    "progressLabel": "Course progress: {pct}%",
+    "currentSection": "Current section",
+    "allDone": "All lessons done",
+    "continue": "Continue",
+    "daysLeft": "Access left",
+    "daysOf": "{days} of {total} days",
+    "courseLanguage": "Course language",
+    "courtDueDate": "Court due date",
+    "dueOverdue": "Past due",
+    "dueIn": "{days, plural, =0 {Due today} one {# day left} other {# days left}} ({date})",
+    "dueMissing": "Not set",
+    "dueSoon": "Your court due date is close. Finish the course and get your certificate in time.",
+    "reporting": "Court reporting",
+    "reportingPlaceholder": "Reported after you pass",
+    "detailsFirst": "You will be asked for your driver details before the first lesson."
+  },
+  "Player": {
+    "title": "Course",
+    "outline": "Course outline",
+    "locked": "Locked",
+    "sectionOf": "Section {section}",
+    "accessBanner": {
+      "d14": "Your access ends within 14 days.",
+      "d7": "Your access ends within 7 days.",
+      "d1": "Your access ends within a day."
+    },
+    "next": "Next",
+    "finishLesson": "Finish lesson",
+    "unlocksIn": "Next unlocks in {time}",
+    "readyToContinue": "You can continue.",
+    "sectionDone": "Section complete.",
+    "takeQuiz": "Take the section quiz",
+    "nextSection": "Next section",
+    "videoSoon": "The video is coming soon. Read the transcript below.",
+    "transcript": "Transcript",
+    "cardFront": "Question",
+    "cardBack": "Answer",
+    "flipHint": "Press to flip the card",
+    "scenario": "Practice scenario",
+    "bestChoice": "Best choice.",
+    "notBest": "Not the best choice.",
+    "orderHint": "Drag the steps, or use the arrow buttons, then check your order.",
+    "moveUp": "Move up: {item}",
+    "moveDown": "Move down: {item}",
+    "checkOrder": "Check order",
+    "orderCorrect": "Correct order.",
+    "orderWrong": "Not quite. Try again.",
+    "errors": {
+      "enrollmentExpired": "Your access has expired.",
+      "enrollmentNotActive": "Your course is not active right now.",
+      "detailsRequired": "Please complete your driver details first.",
+      "lessonLocked": "Finish the earlier lessons first.",
+      "minTimeNotMet": "Please spend a little more time on this lesson.",
+      "generic": "Something went wrong. Please try again."
+    }
   }
 }
