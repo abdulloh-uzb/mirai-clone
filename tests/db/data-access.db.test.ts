@@ -284,25 +284,36 @@ describe("public tables", () => {
     "reviews",
   ] as const;
 
+  /** A published and a draft row; tables with a required category get one. */
+  function insertLiveAndDraft(table: (typeof contentTables)[number]) {
+    const rows = [
+      {
+        locale: "en",
+        slug: `${tag}-live`,
+        title: "Live",
+        body: "",
+        published: true,
+      },
+      {
+        locale: "en",
+        slug: `${tag}-draft`,
+        title: "Draft",
+        body: "",
+        published: false,
+      },
+    ];
+    if (table === "faq_items") {
+      return serviceClient
+        .from(table)
+        .insert(rows.map((row) => ({ ...row, category: "about" })));
+    }
+    return serviceClient.from(table).insert(rows);
+  }
+
   it.each(contentTables)(
     "let a Visitor read published %s rows but not drafts",
     async (table) => {
-      const { error } = await serviceClient.from(table).insert([
-        {
-          locale: "en",
-          slug: `${tag}-live`,
-          title: "Live",
-          body: "",
-          published: true,
-        },
-        {
-          locale: "en",
-          slug: `${tag}-draft`,
-          title: "Draft",
-          body: "",
-          published: false,
-        },
-      ]);
+      const { error } = await insertLiveAndDraft(table);
       if (error) throw error;
 
       const { data } = await visitor()
