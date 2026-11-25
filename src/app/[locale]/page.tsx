@@ -5,6 +5,7 @@ import {
   ClipboardCheckIcon,
   SendIcon,
   SparklesIcon,
+  StarIcon,
   UserPlusIcon,
 } from "lucide-react";
 import type { Metadata } from "next";
@@ -14,6 +15,7 @@ import { notFound } from "next/navigation";
 import { Markdown } from "@/components/content/markdown";
 import { CitationStateSelector } from "@/components/courses/citation-state-selector";
 import { HeroScene } from "@/components/home/hero-scene";
+import { ReviewsMarquee } from "@/components/home/reviews-marquee";
 import { ReviewsCarousel } from "@/components/home/reviews-carousel";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -284,31 +286,40 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         aria-labelledby="course-heading"
         className="mx-auto max-w-6xl px-4 py-8"
       >
-        <div className="grid gap-6 rounded-2xl border bg-card p-6 shadow-sm md:grid-cols-[1fr_auto] md:items-center">
+        <div className="grid gap-6 rounded-3xl border-2 bg-surface-sky p-6 shadow-md md:grid-cols-[1fr_auto] md:items-center md:p-8">
           <div>
             <h2
               id="course-heading"
-              className="text-2xl font-bold tracking-tight"
+              className="text-3xl font-extrabold tracking-tight"
             >
               {t("course.title")}
             </h2>
             <p className="mt-2 text-muted-foreground">{t("course.text")}</p>
             <ul className="mt-4 grid gap-2 sm:grid-cols-3">
               <li className="flex items-center gap-2">
-                <CheckIcon aria-hidden className="size-4 text-primary" />
+                <CheckIcon
+                  aria-hidden
+                  className="size-5 rounded-full bg-brand-green p-0.5 text-[#0f1217]"
+                />
                 {t("course.access", { days: rules.accessDays })}
               </li>
               <li className="flex items-center gap-2">
-                <CheckIcon aria-hidden className="size-4 text-primary" />
+                <CheckIcon
+                  aria-hidden
+                  className="size-5 rounded-full bg-brand-green p-0.5 text-[#0f1217]"
+                />
                 {t("course.interactive")}
               </li>
               <li className="flex items-center gap-2">
-                <SendIcon aria-hidden className="size-4 text-primary" />
+                <SendIcon
+                  aria-hidden
+                  className="size-5 rounded-full bg-brand-green p-1 text-[#0f1217]"
+                />
                 {t("course.reported")}
               </li>
             </ul>
           </div>
-          <Link href="/courses" className={buttonVariants({ size: "lg" })}>
+          <Link href="/courses" className={buttonVariants({ size: "xl" })}>
             {t("course.cta")}
           </Link>
         </div>
@@ -319,53 +330,58 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         aria-labelledby="courts-heading"
         className="mx-auto max-w-6xl px-4 py-16"
       >
-        <h2 id="courts-heading" className={sectionHeading}>
-          {t("courts.heading")}
-        </h2>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          {t("courts.text")}
-        </p>
-        <ul className="mt-6 flex flex-wrap gap-2">
-          {popular.map((county) => (
-            <li key={county.slug}>
-              <Link
-                href={`/courts/${county.slug}`}
-                className="inline-flex min-h-11 items-center rounded-full border bg-card px-4 text-sm font-medium hover:border-primary hover:text-primary"
-              >
-                {county.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-          <Link
-            href="/courts"
-            className="font-medium text-primary hover:underline"
-          >
-            {t("courts.all", { count: counties.length })}
-          </Link>
-          <Link
-            href="/eligibility"
-            className="font-medium text-primary hover:underline"
-          >
-            {t("courts.eligibility")}
-          </Link>
+        <div className="rounded-3xl border-2 bg-card p-6 shadow-md md:p-10">
+          <h2 id="courts-heading" className={sectionHeading}>
+            {t("courts.heading")}
+          </h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            {t("courts.text")}
+          </p>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {popular.map((county) => (
+              <li key={county.slug}>
+                <Link
+                  href={`/courts/${county.slug}`}
+                  className="flex min-h-14 items-center justify-between gap-3 rounded-2xl border-2 border-b-4 border-b-brand-green bg-card px-5 text-base font-bold shadow-sm transition-shadow hover:shadow-md focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                >
+                  {county.name}
+                  <span aria-hidden className="text-brand-green-ink">
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+            <Link
+              href="/courts"
+              className="font-medium text-primary hover:underline"
+            >
+              {t("courts.all", { count: counties.length })}
+            </Link>
+            <Link
+              href="/eligibility"
+              className="font-medium text-primary hover:underline"
+            >
+              {t("courts.eligibility")}
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* 5. Pricing */}
-      <section aria-labelledby="pricing-heading" className="bg-muted/40">
+      <section aria-labelledby="pricing-heading" className="bg-surface-mint">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <h2 id="pricing-heading" className={sectionHeading}>
             {t("pricing.heading")}
           </h2>
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
-            <div className="rounded-2xl border bg-card p-6 shadow-sm">
-              <h3 className="text-lg font-semibold">
+            <div className="rounded-3xl border-2 bg-surface-peach p-6 shadow-md">
+              <h3 className="text-lg font-extrabold">
                 {t("pricing.onlineTitle")}
               </h3>
               <p className="mt-2 flex items-baseline gap-2">
-                <span className="text-3xl font-bold">{price}</span>
+                <span className="text-5xl font-extrabold">{price}</span>
                 {listPrice ? (
                   <s className="text-muted-foreground">
                     <span className="sr-only">{t("hero.listPrice")} </span>
@@ -373,7 +389,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                   </s>
                 ) : null}
               </p>
-              <ul className="mt-4 grid gap-2">
+              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {(
                   [
                     "lessons",
@@ -399,8 +415,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 {t("hero.enroll")}
               </Link>
             </div>
-            <div className="rounded-2xl border bg-card p-6 shadow-sm">
-              <h3 className="text-lg font-semibold">
+            <div className="rounded-3xl border-2 bg-card p-6 shadow-md">
+              <h3 className="text-lg font-extrabold">
                 {t("pricing.refundTitle")}
               </h3>
               <table className="mt-4 w-full text-left text-sm">
@@ -426,7 +442,11 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                       <td className="py-2 pr-2">
                         {t(`pricing.refund.${key}`)}
                       </td>
-                      <td className="py-2 font-bold">{amount}</td>
+                      <td className="py-2">
+                        <span className="rounded-full bg-brand-green px-3 py-1 text-sm font-extrabold text-[#0f1217]">
+                          {amount}
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -438,7 +458,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                 {t("pricing.refundLink")}
               </Link>
             </div>
-            <div className="rounded-2xl border border-dashed bg-card p-6">
+            <div className="rounded-3xl border-2 border-dashed bg-surface-sky p-6">
               <h3 className="text-lg font-semibold">
                 {t("pricing.classroomTitle")}
               </h3>
@@ -488,6 +508,29 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               </p>
             ) : null}
           </div>
+          {average !== null ? (
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 rounded-3xl border-2 bg-surface-peach p-6 shadow-md">
+              <span className="text-6xl font-extrabold">{average}</span>
+              <span aria-hidden className="flex gap-0.5 text-amber-500">
+                {Array.from({ length: 5 }, (_, star) => (
+                  <StarIcon
+                    key={star}
+                    className={cn(
+                      "size-7",
+                      star < Math.round(average) && "fill-current",
+                    )}
+                  />
+                ))}
+              </span>
+              <span className="text-muted-foreground">
+                {t("reviews.average", {
+                  rating: average,
+                  count: reviews.length,
+                })}
+              </span>
+            </div>
+          ) : null}
+          <ReviewsMarquee reviews={reviews} />
           <div className="mt-8">
             <ReviewsCarousel reviews={reviews} />
           </div>
@@ -499,11 +542,15 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         aria-labelledby="ai-heading"
         className="mx-auto max-w-6xl px-4 py-8"
       >
-        <div className="grid gap-4 rounded-2xl bg-primary p-8 text-primary-foreground md:grid-cols-[1fr_auto] md:items-center">
+        <div className="relative grid gap-4 overflow-hidden rounded-3xl bg-brand-navy p-8 text-white shadow-lg md:grid-cols-[1fr_auto] md:items-center md:p-10 dark:bg-surface-sky dark:text-foreground">
+          <div
+            aria-hidden
+            className="absolute -top-16 -right-16 size-56 rounded-full bg-brand-sky/30"
+          />
           <div>
             <h2
               id="ai-heading"
-              className="flex items-center gap-2 text-2xl font-bold tracking-tight"
+              className="relative flex items-center gap-2 text-3xl font-extrabold tracking-tight"
             >
               <SparklesIcon aria-hidden className="size-6" />
               {t("ai.heading")}
@@ -537,9 +584,9 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           {faq.map((entry) => (
             <details
               key={entry.slug}
-              className="group rounded-xl border bg-card px-5 py-4"
+              className="group rounded-2xl border-2 bg-card px-5 py-4 shadow-sm open:border-brand-green"
             >
-              <summary className="cursor-pointer font-semibold">
+              <summary className="cursor-pointer text-lg font-bold">
                 {entry.title}
               </summary>
               <Markdown className="text-muted-foreground">
@@ -562,9 +609,29 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         </Link>
       </section>
 
-      {/* 9. Final call to action */}
-      <section aria-labelledby="final-heading" className="border-t bg-muted/40">
-        <div className="mx-auto max-w-3xl px-4 py-16 text-center">
+      {/* 9. Final call to action: scene with an overlapping card */}
+      <section
+        aria-labelledby="final-heading"
+        className="relative overflow-hidden bg-gradient-to-b from-surface-sky to-surface-mint px-4 pt-16 pb-24"
+      >
+        <svg
+          aria-hidden
+          viewBox="0 0 1200 200"
+          preserveAspectRatio="none"
+          className="absolute inset-x-0 bottom-0 h-40 w-full"
+        >
+          <path
+            d="M0 90 Q200 20 420 80 T860 70 T1200 60 V200 H0Z"
+            fill="#9be07a"
+            opacity="0.6"
+          />
+          <path
+            d="M0 140 Q300 80 600 130 T1200 120 V200 H0Z"
+            fill="#58b947"
+            opacity="0.7"
+          />
+        </svg>
+        <div className="relative mx-auto max-w-3xl rounded-3xl bg-card p-8 text-center shadow-lg md:p-12">
           <h2 id="final-heading" className={sectionHeading}>
             {t("final.heading")}
           </h2>
@@ -572,12 +639,12 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             {t("final.text", { price })}
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link href={enrollHref} className={buttonVariants({ size: "lg" })}>
+            <Link href={enrollHref} className={buttonVariants({ size: "xl" })}>
               {t("hero.enroll")}
             </Link>
             <Link
               href="/eligibility"
-              className={cn(buttonVariants({ size: "lg", variant: "outline" }))}
+              className={cn(buttonVariants({ size: "xl", variant: "outline" }))}
             >
               {t("final.eligibility")}
             </Link>

@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/layout/page-hero";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -62,7 +63,7 @@ export default async function CoursesPage({
     ]);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <>
       <JsonLd
         data={course({
           siteUrl: publicEnv.NEXT_PUBLIC_SITE_URL,
@@ -75,135 +76,134 @@ export default async function CoursesPage({
           languages: routing.locales,
         })}
       />
-      <CitationStateSelector states={states} current={ticketState} />
-      <h1 className="mt-4 text-4xl font-bold tracking-tight text-balance">
-        {t("title")}
-      </h1>
-      <p className="mt-4 max-w-2xl text-lg text-pretty text-muted-foreground">
-        {t("intro")}
-      </p>
+      <PageHero title={t("title")} intro={t("intro")}>
+        <div className="mt-6">
+          <CitationStateSelector states={states} current={ticketState} />
+        </div>
+      </PageHero>
+      <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="grid gap-6 lg:grid-cols-[18rem_1fr]">
+          <LanguageCards selected={courseLanguage} />
+          <CoursePanel
+            courseLanguage={courseLanguage}
+            locale={locale}
+            signedIn={account !== null}
+            priceCents={online.priceCents}
+            listPriceCents={online.listPriceCents}
+            accessDays={rules.accessDays}
+          />
+        </div>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-[18rem_1fr]">
-        <LanguageCards selected={courseLanguage} />
-        <CoursePanel
-          courseLanguage={courseLanguage}
-          locale={locale}
-          signedIn={account !== null}
-          priceCents={online.priceCents}
-          listPriceCents={online.listPriceCents}
-          accessDays={rules.accessDays}
-        />
-      </div>
+        <div className="mt-16 grid gap-12 lg:grid-cols-2">
+          <section aria-labelledby="syllabus-heading">
+            <h2
+              id="syllabus-heading"
+              className="text-2xl font-bold tracking-tight"
+            >
+              {t("syllabusHeading")}
+            </h2>
+            <ol className="mt-4 grid gap-2">
+              {online.sections.map((section) => (
+                <li
+                  key={section.position}
+                  className="flex gap-3 rounded-lg border bg-card px-4 py-3"
+                >
+                  <span className="font-bold text-primary">
+                    {section.position}
+                  </span>
+                  {section.title[locale] ?? section.title.en}
+                </li>
+              ))}
+            </ol>
+          </section>
 
-      <div className="mt-16 grid gap-12 lg:grid-cols-2">
-        <section aria-labelledby="syllabus-heading">
-          <h2
-            id="syllabus-heading"
-            className="text-2xl font-bold tracking-tight"
-          >
-            {t("syllabusHeading")}
-          </h2>
-          <ol className="mt-4 grid gap-2">
-            {online.sections.map((section) => (
-              <li
-                key={section.position}
-                className="flex gap-3 rounded-lg border bg-card px-4 py-3"
+          <div className="grid content-start gap-12">
+            <section aria-labelledby="rules-heading">
+              <h2
+                id="rules-heading"
+                className="text-2xl font-bold tracking-tight"
               >
-                <span className="font-bold text-primary">
-                  {section.position}
-                </span>
-                {section.title[locale] ?? section.title.en}
-              </li>
-            ))}
-          </ol>
-        </section>
+                {t("rulesHeading")}
+              </h2>
+              <ul className="mt-4 list-disc space-y-1 pl-6">
+                <li>
+                  {t("rules.exam", {
+                    questions: rules.examQuestions,
+                    pct: rules.passPct,
+                  })}
+                </li>
+                <li>{t("rules.attempts", { count: rules.maxAttempts })}</li>
+                <li>{t("rules.quizzes")}</li>
+                <li>{t("rules.minimumTime")}</li>
+                <li>{t("rules.access", { days: rules.accessDays })}</li>
+              </ul>
+              <Link
+                href="/school-rules"
+                className="mt-3 inline-block font-medium text-primary hover:underline"
+              >
+                {t("rulesLink")}
+              </Link>
+            </section>
 
-        <div className="grid content-start gap-12">
-          <section aria-labelledby="rules-heading">
-            <h2
-              id="rules-heading"
-              className="text-2xl font-bold tracking-tight"
-            >
-              {t("rulesHeading")}
-            </h2>
-            <ul className="mt-4 list-disc space-y-1 pl-6">
-              <li>
-                {t("rules.exam", {
-                  questions: rules.examQuestions,
-                  pct: rules.passPct,
+            <section aria-labelledby="reporting-heading">
+              <h2
+                id="reporting-heading"
+                className="text-2xl font-bold tracking-tight"
+              >
+                {t("reportingHeading")}
+              </h2>
+              <p className="mt-4">
+                {t("reportingText", {
+                  count: rules.reportTimes.length,
+                  times: new Intl.ListFormat(locale).format(rules.reportTimes),
                 })}
-              </li>
-              <li>{t("rules.attempts", { count: rules.maxAttempts })}</li>
-              <li>{t("rules.quizzes")}</li>
-              <li>{t("rules.minimumTime")}</li>
-              <li>{t("rules.access", { days: rules.accessDays })}</li>
-            </ul>
-            <Link
-              href="/school-rules"
-              className="mt-3 inline-block font-medium text-primary hover:underline"
-            >
-              {t("rulesLink")}
-            </Link>
-          </section>
+              </p>
+            </section>
 
-          <section aria-labelledby="reporting-heading">
+            <section aria-labelledby="refund-heading">
+              <h2
+                id="refund-heading"
+                className="text-2xl font-bold tracking-tight"
+              >
+                {t("refundHeading")}
+              </h2>
+              <ul className="mt-4 list-disc space-y-1 pl-6">
+                <li>{t("refund.full")}</li>
+                <li>{t("refund.half")}</li>
+                <li>{t("refund.none")}</li>
+              </ul>
+              <Link
+                href="/refund-policy"
+                className="mt-3 inline-block font-medium text-primary hover:underline"
+              >
+                {t("refundLink")}
+              </Link>
+            </section>
+          </div>
+        </div>
+
+        <section
+          id="classroom"
+          aria-labelledby="classroom-heading"
+          className="mt-16 grid gap-6 rounded-2xl border bg-muted/40 p-6 md:grid-cols-2"
+        >
+          <div>
             <h2
-              id="reporting-heading"
+              id="classroom-heading"
               className="text-2xl font-bold tracking-tight"
             >
-              {t("reportingHeading")}
+              {t("classroom.heading")}
             </h2>
-            <p className="mt-4">
-              {t("reportingText", {
-                count: rules.reportTimes.length,
-                times: new Intl.ListFormat(locale).format(rules.reportTimes),
-              })}
+            <p className="mt-2 text-2xl font-bold">
+              {formatUsd(classroom.priceCents, locale)}
             </p>
-          </section>
-
-          <section aria-labelledby="refund-heading">
-            <h2
-              id="refund-heading"
-              className="text-2xl font-bold tracking-tight"
-            >
-              {t("refundHeading")}
-            </h2>
-            <ul className="mt-4 list-disc space-y-1 pl-6">
-              <li>{t("refund.full")}</li>
-              <li>{t("refund.half")}</li>
-              <li>{t("refund.none")}</li>
-            </ul>
-            <Link
-              href="/refund-policy"
-              className="mt-3 inline-block font-medium text-primary hover:underline"
-            >
-              {t("refundLink")}
-            </Link>
-          </section>
-        </div>
+            <p className="mt-2 text-muted-foreground">{t("classroom.text")}</p>
+          </div>
+          <ClassroomWaitlistForm
+            counties={counties.map(({ slug, name }) => ({ slug, name }))}
+          />
+        </section>
       </div>
-
-      <section
-        id="classroom"
-        aria-labelledby="classroom-heading"
-        className="mt-16 grid gap-6 rounded-2xl border bg-muted/40 p-6 md:grid-cols-2"
-      >
-        <div>
-          <h2
-            id="classroom-heading"
-            className="text-2xl font-bold tracking-tight"
-          >
-            {t("classroom.heading")}
-          </h2>
-          <p className="mt-2 text-2xl font-bold">
-            {formatUsd(classroom.priceCents, locale)}
-          </p>
-          <p className="mt-2 text-muted-foreground">{t("classroom.text")}</p>
-        </div>
-        <ClassroomWaitlistForm
-          counties={counties.map(({ slug, name }) => ({ slug, name }))}
-        />
-      </section>
-    </div>
+    </>
   );
 }

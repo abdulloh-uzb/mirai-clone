@@ -60,14 +60,14 @@ export async function CoursePanel({
   return (
     <section
       aria-labelledby="course-panel-title"
-      className="rounded-2xl border bg-card p-6 shadow-sm"
+      className="rounded-3xl border-2 bg-card p-6 shadow-md md:p-8"
     >
-      <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+      <span className="inline-block rounded-full bg-brand-green px-3 py-1 text-xs font-extrabold tracking-wide text-[#0f1217] uppercase">
         {t("pill")}
       </span>
       <h2
         id="course-panel-title"
-        className="mt-3 text-2xl font-bold tracking-tight"
+        className="mt-3 text-3xl font-extrabold tracking-tight"
       >
         {t("title")}
       </h2>
@@ -75,7 +75,12 @@ export async function CoursePanel({
         <ul className="grid gap-2 sm:grid-cols-2">
           {FEATURES.map(({ key, icon: Icon }) => (
             <li key={key} className="flex items-center gap-2">
-              <Icon aria-hidden className="size-4 shrink-0 text-primary" />
+              <span
+                aria-hidden
+                className="grid size-7 shrink-0 place-items-center rounded-full bg-surface-mint text-brand-green-ink"
+              >
+                <Icon className="size-4" />
+              </span>
               {t(`features.${key}`, { days: accessDays })}
             </li>
           ))}
@@ -92,7 +97,7 @@ export async function CoursePanel({
       <p className="mt-6 font-medium">{t("inLanguage", { language })}</p>
       <div className="mt-6 flex flex-wrap items-center gap-4">
         <p className="flex items-baseline gap-2">
-          <span className="text-3xl font-bold">
+          <span className="text-4xl font-extrabold">
             {formatUsd(priceCents, locale)}
           </span>
           {listPriceCents ? (
@@ -105,7 +110,7 @@ export async function CoursePanel({
         {action ?? (
           <Link
             href={buyHref(courseLanguage, signedIn)}
-            className={buttonVariants({ size: "lg" })}
+            className={buttonVariants({ size: "xl" })}
           >
             {t("start", { language })}
           </Link>

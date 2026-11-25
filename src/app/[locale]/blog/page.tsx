@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/layout/page-hero";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -48,49 +49,47 @@ export default async function BlogPage({
   ];
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12">
-      <h1 className="text-4xl font-bold tracking-tight text-balance">
-        {t("title")}
-      </h1>
-      <p className="mt-3 max-w-2xl text-muted-foreground">{t("intro")}</p>
+    <>
+      <PageHero title={t("title")} intro={t("intro")} />
+      <div className="mx-auto max-w-5xl px-4 py-10">
+        <nav aria-label={t("filterLabel")}>
+          <ul className="flex flex-wrap gap-2">
+            {filters.map((filter) => (
+              <li key={filter.key}>
+                <Link
+                  href={filter.href}
+                  aria-current={filter.active ? "true" : undefined}
+                  className={cn(
+                    "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+                    filter.active
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "hover:bg-muted",
+                  )}
+                >
+                  {filter.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      <nav aria-label={t("filterLabel")} className="mt-8">
-        <ul className="flex flex-wrap gap-2">
-          {filters.map((filter) => (
-            <li key={filter.key}>
-              <Link
-                href={filter.href}
-                aria-current={filter.active ? "true" : undefined}
-                className={cn(
-                  "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
-                  filter.active
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "hover:bg-muted",
-                )}
-              >
-                {filter.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {posts.length === 0 ? (
-        <p className="mt-10 text-muted-foreground">{t("noPosts")}</p>
-      ) : (
-        <ul
-          aria-label={t("listLabel")}
-          className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {posts.map((post) => (
-            <li key={post.slug} className="flex">
-              <div className="flex w-full flex-col">
-                <PostCard post={post} />
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+        {posts.length === 0 ? (
+          <p className="mt-10 text-muted-foreground">{t("noPosts")}</p>
+        ) : (
+          <ul
+            aria-label={t("listLabel")}
+            className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {posts.map((post) => (
+              <li key={post.slug} className="flex">
+                <div className="flex w-full flex-col">
+                  <PostCard post={post} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   );
 }

@@ -46,7 +46,7 @@ export function CountySearch({ items }: { items: Item[] }) {
       ) : (
         <ul
           aria-label={t("listLabel")}
-          className="mt-2 divide-y rounded-lg border"
+          className="mt-2 grid gap-3 md:grid-cols-2"
         >
           {visible.map((item) => (
             <li key={item.county.slug}>{item.row}</li>

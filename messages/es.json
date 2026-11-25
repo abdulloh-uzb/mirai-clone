@@ -545,6 +545,7 @@
     "metaTitle": "Preguntas frecuentes",
     "metaDescription": "Respuestas sobre el curso, el examen final, los certificados, los reembolsos, los idiomas y más. Busque o explore por tema.",
     "title": "Encuentre una respuesta",
+    "categoriesLabel": "Temas de preguntas",
     "count": "{count, plural, one {# respuesta} other {# respuestas}} en {categories, plural, one {# categoría} other {# categorías}}",
     "searchLabel": "Buscar en las preguntas",
     "searchPlaceholder": "Pruebe \"reembolso\" o \"contraseña\"",

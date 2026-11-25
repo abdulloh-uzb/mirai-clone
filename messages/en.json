@@ -544,6 +544,7 @@
     "metaTitle": "FAQ",
     "metaDescription": "Answers about the course, the final exam, certificates, refunds, languages and more. Search the FAQ or browse by topic.",
     "title": "Find an answer",
+    "categoriesLabel": "Question topics",
     "count": "{count, plural, one {# answer} other {# answers}} in {categories, plural, one {# category} other {# categories}}",
     "searchLabel": "Search the questions",
     "searchPlaceholder": "Try \"refund\" or \"password\"",

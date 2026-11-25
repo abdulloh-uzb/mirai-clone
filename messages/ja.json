@@ -545,6 +545,7 @@
     "metaTitle": "よくある質問",
     "metaDescription": "コース、最終試験、修了証、返金、言語などについての回答です。質問を検索するか、トピックから探せます。",
     "title": "答えを見つける",
+    "categoriesLabel": "質問のカテゴリ",
     "count": "{categories}カテゴリに{count}件の回答",
     "searchLabel": "質問を検索",
     "searchPlaceholder": "「返金」や「パスワード」など",
