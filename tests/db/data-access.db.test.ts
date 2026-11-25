@@ -184,11 +184,14 @@ const roles = {
 describe("server-only tables", () => {
   for (const [role, client] of Object.entries(roles)) {
     it.each(serverOnlyTables)(
-      `return nothing to a ${role} from %s`,
+      `deny a ${role} any read of %s`,
       async (table) => {
-        const { data } = await client().from(table).select("*");
+        const { data, error } = await client().from(table).select("*");
 
-        expect(data ?? []).toEqual([]);
+        // No table privileges for client roles: Postgres refuses the read
+        // outright (42501 insufficient_privilege), not just an empty result.
+        expect(error?.code).toBe("42501");
+        expect(data).toBeNull();
       },
     );
   }

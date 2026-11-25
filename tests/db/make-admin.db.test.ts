@@ -44,6 +44,19 @@ describe("the admin seed script", () => {
     ).rejects.toThrow(/no account/i);
   });
 
+  it("refuses an account that has no profile", async () => {
+    const account = await createStudentAccount();
+    const { error } = await serviceClient
+      .from("profiles")
+      .delete()
+      .eq("user_id", account.id);
+    if (error) throw error;
+
+    await expect(makeAdmin(serviceClient, account.email)).rejects.toThrow(
+      /no profile/i,
+    );
+  });
+
   it("cannot be used by a Student or a Visitor to promote anyone", async () => {
     const student = await signInAsStudent();
 
