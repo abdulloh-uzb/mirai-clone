@@ -1,5 +1,8 @@
 import "server-only";
-import { sendPaymentEmails } from "@/lib/payments/payment-emails";
+import {
+  sendPaymentEmails,
+  sendRefundProcessedEmail,
+} from "@/lib/payments/payment-emails";
 import { createServiceClient } from "@/lib/supabase/service";
 
 /** The part of `Stripe.Event` we read, so the mock route can build one too. */
@@ -20,6 +23,12 @@ export type PaymentDeps = {
     paymentIntent: string | null;
   }) => Promise<boolean>;
   sendEmails: (orderId: string) => Promise<void>;
+  applyRefund: (args: {
+    eventId: string;
+    paymentIntent: string;
+    amountRefunded: number;
+  }) => Promise<boolean>;
+  sendRefundEmail: (paymentIntent: string) => Promise<void>;
 };
 
 const str = (value: unknown): string | null =>
@@ -39,9 +48,26 @@ async function fulfillWithService(
   return data === true;
 }
 
+async function applyRefundWithService(
+  args: Parameters<PaymentDeps["applyRefund"]>[0],
+): Promise<boolean> {
+  const { data, error } = await createServiceClient().rpc(
+    "apply_refund_event",
+    {
+      p_event_id: args.eventId,
+      p_payment_intent: args.paymentIntent,
+      p_amount_refunded: args.amountRefunded,
+    },
+  );
+  if (error) throw error;
+  return data === true;
+}
+
 const defaultDeps: PaymentDeps = {
   fulfill: fulfillWithService,
   sendEmails: sendPaymentEmails,
+  applyRefund: applyRefundWithService,
+  sendRefundEmail: sendRefundProcessedEmail,
 };
 
 /**
@@ -77,7 +103,25 @@ export async function handleStripeEvent(
       }
       return "processed";
     }
-    // Ticket 07 adds charge.refunded here.
+    case "charge.refunded": {
+      const object = event.data.object;
+      const paymentIntent = str(object.payment_intent);
+      const amountRefunded =
+        typeof object.amount_refunded === "number" ? object.amount_refunded : 0;
+      if (!paymentIntent) return "ignored";
+      const applied = await deps.applyRefund({
+        eventId: event.id,
+        paymentIntent,
+        amountRefunded,
+      });
+      if (!applied) return "duplicate";
+      try {
+        await deps.sendRefundEmail(paymentIntent);
+      } catch (error) {
+        console.error("refund email failed", error);
+      }
+      return "processed";
+    }
     default:
       return "ignored";
   }

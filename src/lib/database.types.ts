@@ -413,14 +413,14 @@ isOneToOne: false
                   ]
                 },"orders": {
                   Row: {
-                    "amount_cents": number,"course_locale": string | null,"created_at": string,"currency": string,"id": string,"product": string,"status": string,"stripe_payment_intent": string | null,"stripe_session_id": string | null,"updated_at": string,"user_id": string
+                    "amount_cents": number,"course_locale": string | null,"created_at": string,"currency": string,"id": string,"paid_at": string | null,"product": string,"status": string,"stripe_payment_intent": string | null,"stripe_session_id": string | null,"updated_at": string,"user_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "amount_cents": number,"course_locale"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"product": string,"status"?: string,"stripe_payment_intent"?: string | null,"stripe_session_id"?: string | null,"updated_at"?: string,"user_id": string
+                    "amount_cents": number,"course_locale"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"paid_at"?: string | null,"product": string,"status"?: string,"stripe_payment_intent"?: string | null,"stripe_session_id"?: string | null,"updated_at"?: string,"user_id": string
                   }
                   Update: {
-                    "amount_cents"?: number,"course_locale"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"product"?: string,"status"?: string,"stripe_payment_intent"?: string | null,"stripe_session_id"?: string | null,"updated_at"?: string,"user_id"?: string
+                    "amount_cents"?: number,"course_locale"?: string | null,"created_at"?: string,"currency"?: string,"id"?: string,"paid_at"?: string | null,"product"?: string,"status"?: string,"stripe_payment_intent"?: string | null,"stripe_session_id"?: string | null,"updated_at"?: string,"user_id"?: string
                   }
                   Relationships: [
                     
@@ -689,6 +689,9 @@ isOneToOne: false
 "answer_identity_check":
 { Args: { "p_answer": string,"p_enrollment_id": string,"p_question_key": string }; Returns: Json
                            },
+"apply_refund_event":
+{ Args: { "p_amount_refunded": number,"p_event_id": string,"p_payment_intent": string }; Returns: boolean
+                           },
 "assert_enrollment_usable":
 { Args: { "p_enrollment_id": string }; Returns: {
               "citation_no": string | null,
@@ -743,11 +746,23 @@ isOneToOne: false
 "make_admin":
 { Args: { "target_email": string }; Returns: string
                            },
+"mark_refund":
+{ Args: { "p_actor": string,"p_refund_id": string,"p_status": string }; Returns: undefined
+                           },
 "quiz_attempt_payload":
 { Args: { "p_attempt_id": string }; Returns: Json
                            },
 "record_lesson_time":
 { Args: { "p_block_position": number,"p_enrollment_id": string,"p_lesson_id": string,"p_seconds": number }; Returns: number
+                           },
+"refund_facts":
+{ Args: { "p_order_id": string }; Returns: Json
+                           },
+"refund_pct":
+{ Args: { "p_now"?: string,"p_order_id": string }; Returns: number
+                           },
+"request_refund":
+{ Args: { "p_amount_cents": number,"p_order_id": string,"p_pct": number,"p_reason": string }; Returns: string
                            },
 "save_driver_details":
 { Args: { "p_citation_no": string,"p_county_id": string,"p_court_due_date": string,"p_dob": string,"p_enrollment_id": string,"p_legal_name": string,"p_license_no": string,"p_license_state": string,"p_phone": string,"p_security_answer": string,"p_security_question": string }; Returns: undefined

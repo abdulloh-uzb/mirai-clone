@@ -801,6 +801,36 @@
       "failed": "Fallido"
     }
   },
+  "Refunds": {
+    "preview": "Puedes recuperar {amount} ({pct}%)",
+    "reasons": {
+      "full_window_unstarted": "Estás dentro de los 7 días posteriores al pago y no has empezado el curso.",
+      "half_window_started": "Estás dentro de los 7 días posteriores al pago pero empezaste las lecciones, así que se reembolsa el 50%.",
+      "outside_window": "Ya pasó el plazo de reembolso de 7 días.",
+      "exam_started": "Ya empezaste el examen final, así que el pedido no es reembolsable.",
+      "certificate_issued": "Se emitió un certificado, así que el pedido no es reembolsable.",
+      "not_paid": "Este pedido no está pagado."
+    },
+    "reasonLabel": "¿Por qué pides el reembolso? (opcional)",
+    "request": "Solicitar reembolso",
+    "statuses": {
+      "requested": "Reembolso solicitado",
+      "approved": "Reembolso aprobado",
+      "rejected": "Reembolso denegado",
+      "processed": "Reembolsado",
+      "failed": "Reembolso fallido"
+    },
+    "admin": {
+      "title": "Solicitudes de reembolso",
+      "empty": "No hay solicitudes de reembolso pendientes.",
+      "order": "Pedido",
+      "reason": "Motivo",
+      "amount": "Importe",
+      "approve": "Aprobar",
+      "deny": "Denegar",
+      "none": "Sin motivo"
+    }
+  },
   "PortalNav": {
     "label": "Portal",
     "course": "Mi curso",
