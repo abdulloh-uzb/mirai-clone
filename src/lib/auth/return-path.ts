@@ -1,4 +1,4 @@
-import { routing } from "@/i18n/routing";
+import { localePrefix, splitLocalePath } from "@/i18n/locale-path";
 
 const ORIGIN = "http://same-site.invalid";
 
@@ -20,11 +20,6 @@ export function safeReturnPath(next: string | null | undefined): string | null {
 
 /** The sign-in page in the UI language of `returnTo`, which returns there afterwards. */
 export function signInPathFor(returnTo: string): string {
-  const first = returnTo.split("/")[1]?.split("?")[0] ?? "";
-  const prefix = routing.locales.some(
-    (locale) => locale === first && locale !== routing.defaultLocale,
-  )
-    ? `/${first}`
-    : "";
+  const prefix = localePrefix(splitLocalePath(returnTo).locale);
   return `${prefix}/login?next=${encodeURIComponent(returnTo)}`;
 }

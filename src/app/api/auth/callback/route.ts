@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { safeReturnPath } from "@/lib/auth/return-path";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
-import { routing } from "@/i18n/routing";
+import { localePrefix, splitLocalePath } from "@/i18n/locale-path";
 
 // Every auth email link (verification, magic link, password reset) lands here.
 // It lives under /api so the locale middleware leaves it alone.
@@ -19,16 +19,6 @@ const EMAIL_OTP_TYPES: readonly EmailOtpType[] = [
 
 function isEmailOtpType(value: string | null): value is EmailOtpType {
   return EMAIL_OTP_TYPES.some((type) => type === value);
-}
-
-/** The `/ja`-style prefix of a path, or "" for English. */
-function localePrefixOf(path: string): string {
-  const first = path.split("/")[1] ?? "";
-  return routing.locales.some(
-    (locale) => locale === first && locale !== routing.defaultLocale,
-  )
-    ? `/${first}`
-    : "";
 }
 
 export async function GET(request: NextRequest) {
@@ -47,7 +37,10 @@ export async function GET(request: NextRequest) {
 
   if (error || !data.user) {
     return NextResponse.redirect(
-      new URL(`${localePrefixOf(next)}/login?error=link`, origin),
+      new URL(
+        `${localePrefix(splitLocalePath(next).locale)}/login?error=link`,
+        origin,
+      ),
     );
   }
 

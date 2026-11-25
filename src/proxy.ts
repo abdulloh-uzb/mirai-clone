@@ -4,6 +4,7 @@ import {
   LOCALE_PREFERENCE_COOKIE,
   resolveUiLocale,
 } from "@/i18n/resolve-ui-locale";
+import { splitLocalePath } from "@/i18n/locale-path";
 import { routing } from "@/i18n/routing";
 import { signInPathFor } from "@/lib/auth/return-path";
 import { refreshSession } from "@/lib/supabase/proxy";
@@ -13,16 +14,8 @@ import { refreshSession } from "@/lib/supabase/proxy";
 // `/en/...` to the unprefixed path.
 const intl = createMiddleware(routing);
 
-/** The path without its UI language prefix: `/ja/portal` gives `/portal`. */
-function withoutLocale(pathname: string): string {
-  const [, first = "", ...rest] = pathname.split("/");
-  return routing.locales.some((locale) => locale === first)
-    ? `/${rest.join("/")}`
-    : pathname;
-}
-
 function isPortalPath(pathname: string): boolean {
-  const path = withoutLocale(pathname);
+  const { path } = splitLocalePath(pathname);
   return path === "/portal" || path.startsWith("/portal/");
 }
 

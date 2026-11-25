@@ -1,4 +1,5 @@
 import { hasLocale } from "next-intl";
+import { splitLocalePath } from "./locale-path";
 import { routing, type Locale } from "./routing";
 
 /** Cookie that remembers a Visitor's chosen UI language (set by the switcher). */
@@ -22,10 +23,8 @@ export function resolveUiLocale({
   pathname: string;
   preference: string | null | undefined;
 }): UiLocaleResolution {
-  const firstSegment = pathname.split("/")[1] ?? "";
-  if (hasLocale(routing.locales, firstSegment)) {
-    return { locale: firstSegment };
-  }
+  const named = splitLocalePath(pathname).locale;
+  if (named) return { locale: named };
 
   if (
     pathname === "/" &&
