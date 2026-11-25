@@ -207,6 +207,76 @@
     "ctaBody": "Tome el curso en línea, en el idioma que mejor lea.",
     "ctaButton": "Ver cursos"
   },
+  "Forms": {
+    "honeypotLabel": "Deja este campo vacío",
+    "errors": {
+      "nameRequired": "Escribe tu nombre.",
+      "nameTooLong": "Usa 100 caracteres o menos.",
+      "emailInvalid": "Escribe un correo electrónico válido.",
+      "topicInvalid": "Elige un tema.",
+      "messageTooShort": "Escribe al menos 10 caracteres.",
+      "messageTooLong": "Usa 5.000 caracteres o menos.",
+      "phoneTooLong": "Usa 30 caracteres o menos.",
+      "phoneRequired": "Escribe un teléfono o elige el correo como contacto preferido.",
+      "preferredContactInvalid": "Elige cómo podemos contactarte.",
+      "pageUrlInvalid": "La dirección de la página no es válida.",
+      "screenshotType": "Usa una imagen PNG, JPEG o WebP.",
+      "screenshotTooLarge": "La captura debe pesar 5 MB o menos.",
+      "rateLimited": "Demasiadas solicitudes desde tu conexión. Espera unos minutos e inténtalo de nuevo.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
+  },
+  "Contact": {
+    "title": "Contacto",
+    "intro": "¿Tienes preguntas sobre el curso, los pagos o tu cuenta? Envíanos un mensaje y te responderemos por correo.",
+    "detailsHeading": "Otras formas de contactarnos",
+    "form": {
+      "name": "Tu nombre",
+      "email": "Correo electrónico",
+      "topic": "Tema",
+      "message": "Mensaje",
+      "submit": "Enviar mensaje",
+      "topics": {
+        "general": "Pregunta general",
+        "course": "El curso",
+        "payment": "Pago o reembolso",
+        "technical": "Problema técnico"
+      },
+      "topicPlaceholder": "Elige un tema",
+      "success": "Gracias, tu mensaje fue enviado. Te enviamos una confirmación por correo."
+    }
+  },
+  "Accessibility": {
+    "title": "Accesibilidad",
+    "intro": "Queremos que todas las personas puedan tomar este curso.",
+    "statement": "Esta es una declaración de accesibilidad provisional. La declaración completa se publicará aquí pronto. Si necesitas una adaptación o encuentras una barrera en este sitio, cuéntanos abajo.",
+    "formHeading": "Solicitar una adaptación",
+    "form": {
+      "name": "Tu nombre",
+      "email": "Correo electrónico",
+      "phone": "Teléfono (opcional)",
+      "need": "¿Qué necesitas?",
+      "needHint": "Describe la adaptación o la barrera que encontraste.",
+      "preferredContact": "¿Cómo debemos contactarte?",
+      "contactEmail": "Correo electrónico",
+      "contactPhone": "Teléfono",
+      "submit": "Enviar solicitud",
+      "success": "Gracias, recibimos tu solicitud. Te enviamos una confirmación por correo."
+    }
+  },
+  "BugReport": {
+    "trigger": "¿Tienes un problema?",
+    "title": "¿Tienes un problema?",
+    "description": "Cuéntanos qué salió mal y lo revisaremos.",
+    "close": "Cerrar",
+    "whatHappened": "¿Qué pasó?",
+    "pageUrl": "Página",
+    "email": "Correo electrónico",
+    "screenshot": "Captura de pantalla (opcional)",
+    "screenshotHint": "PNG, JPEG o WebP, hasta 5 MB.",
+    "submit": "Enviar reporte",
+    "success": "Gracias, recibimos tu reporte."
+  },
   "DmvServices": {
     "metaTitle": "Guía de servicios del DMV",
     "metaDescription": "Directorio de trámites comunes del DMV de California con enlaces a las páginas oficiales de dmv.ca.gov. Sin afiliación con el DMV.",

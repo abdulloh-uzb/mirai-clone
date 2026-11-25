@@ -206,6 +206,76 @@
     "ctaBody": "Take the course online, in the language you read best.",
     "ctaButton": "Browse courses"
   },
+  "Forms": {
+    "honeypotLabel": "Leave this field empty",
+    "errors": {
+      "nameRequired": "Enter your name.",
+      "nameTooLong": "Use 100 characters or fewer.",
+      "emailInvalid": "Enter a valid email address.",
+      "topicInvalid": "Choose a topic.",
+      "messageTooShort": "Write at least 10 characters.",
+      "messageTooLong": "Use 5,000 characters or fewer.",
+      "phoneTooLong": "Use 30 characters or fewer.",
+      "phoneRequired": "Enter a phone number, or choose email as the preferred contact.",
+      "preferredContactInvalid": "Choose how we should contact you.",
+      "pageUrlInvalid": "The page address is not valid.",
+      "screenshotType": "Use a PNG, JPEG or WebP image.",
+      "screenshotTooLarge": "The screenshot must be 5 MB or smaller.",
+      "rateLimited": "Too many requests from your connection. Please wait a few minutes and try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "Contact": {
+    "title": "Contact us",
+    "intro": "Questions about the course, payments or your account? Send us a message and we will reply by email.",
+    "detailsHeading": "Other ways to reach us",
+    "form": {
+      "name": "Your name",
+      "email": "Email",
+      "topic": "Topic",
+      "message": "Message",
+      "submit": "Send message",
+      "topics": {
+        "general": "General question",
+        "course": "The course",
+        "payment": "Payment or refund",
+        "technical": "Technical problem"
+      },
+      "topicPlaceholder": "Choose a topic",
+      "success": "Thanks, your message was sent. We emailed you a confirmation."
+    }
+  },
+  "Accessibility": {
+    "title": "Accessibility",
+    "intro": "We want everyone to be able to take this course.",
+    "statement": "This is a placeholder accessibility statement. The full statement will be published here soon. If you need an accommodation or find a barrier on this site, tell us below.",
+    "formHeading": "Request an accommodation",
+    "form": {
+      "name": "Your name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "need": "What do you need?",
+      "needHint": "Describe the accommodation or the barrier you ran into.",
+      "preferredContact": "How should we contact you?",
+      "contactEmail": "Email",
+      "contactPhone": "Phone",
+      "submit": "Send request",
+      "success": "Thanks, we received your request. We emailed you a confirmation."
+    }
+  },
+  "BugReport": {
+    "trigger": "Got a problem?",
+    "title": "Got a problem?",
+    "description": "Tell us what went wrong and we will look into it.",
+    "close": "Close",
+    "whatHappened": "What happened?",
+    "pageUrl": "Page",
+    "email": "Email",
+    "screenshot": "Screenshot (optional)",
+    "screenshotHint": "PNG, JPEG or WebP, up to 5 MB.",
+    "submit": "Send report",
+    "success": "Thanks, we got your report."
+  },
   "DmvServices": {
     "metaTitle": "DMV services guide",
     "metaDescription": "A directory of common California DMV tasks with links to the official dmv.ca.gov pages. Not affiliated with the DMV.",

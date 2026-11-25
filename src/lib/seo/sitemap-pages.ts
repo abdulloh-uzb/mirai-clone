@@ -15,6 +15,8 @@ export type SitemapPage = {
  */
 export const staticSitemapPages: readonly SitemapPage[] = [
   { path: "/" },
+  { path: "/contact" },
+  { path: "/accessibility" },
   { path: "/courts" },
   { path: "/dmv-services" },
 ];

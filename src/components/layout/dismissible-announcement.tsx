@@ -1,7 +1,7 @@
 "use client";
 
 import { MegaphoneIcon, XIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   addDismissed,
   DISMISSED_ANNOUNCEMENTS_COOKIE,
@@ -26,11 +26,14 @@ export function DismissibleAnnouncement({
   message,
   label,
   dismissLabel,
+  action,
 }: {
   id: string;
   message: string;
   label: string;
   dismissLabel: string;
+  /** Extra control next to the message, such as the "Got a problem?" button. */
+  action?: ReactNode;
 }) {
   const [dismissed, setDismissed] = useState(false);
   if (dismissed) return null;
@@ -43,6 +46,7 @@ export function DismissibleAnnouncement({
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2">
         <MegaphoneIcon aria-hidden className="size-4 shrink-0" />
         <p className="flex-1 text-pretty">{message}</p>
+        {action}
         <button
           type="button"
           aria-label={dismissLabel}
