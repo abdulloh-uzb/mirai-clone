@@ -1,5 +1,6 @@
 import "server-only";
 import { cache } from "react";
+import type { Enums } from "@/lib/database.types";
 import { createClient } from "@/lib/supabase/server";
 
 export type CurrentAccount = {
@@ -8,7 +9,7 @@ export type CurrentAccount = {
   firstName: string;
   lastName: string;
   emailVerified: boolean;
-  role: "student" | "admin";
+  role: Enums<"app_role">;
 };
 
 /**
