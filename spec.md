@@ -95,15 +95,8 @@ config/      site.ts, states/ca.ts
 
 ## 4. Global UI (every public page)
 
-1. **Top announcement bar** (admin-editable, dismissible): short message + "See what's new" link (→ `/whats-new` changelog) + "Got a problem?" link (opens bug-report form).
-2. **Sticky header** (rounded floating card style):
-   - Logo (left)
-   - Nav: Courses · DMV Services · Courts · About · FAQs · Blog · Contact
-   - Right: light/dark toggle (pill switch) · language switcher (flag + code, opens 2×2 grid of language cards) · "Create account" button or user menu (avatar + first name → My courses, My certificates, My profile, Log out)
-   - Mobile: hamburger menu
-3. **Floating AI widget** (bottom-right): tour video card ("How it works in 45 seconds", play button, duration) + input "Ask AI anything…".
-4. **Footer**: Courts by county · School rules · FAQ · Blog · About · Contact · Privacy · Terms · Refunds · Accessibility; license placeholder, address, phone, email (each on its own line), © year, demo disclaimer.
-5. Skip-to-content link, visible focus states.
+Open chrome and open https://www.miraitrafficschool.com/ and try to make our website same as this. 
+For such a tasks, use sonnet or haiku.
 
 ---
 
