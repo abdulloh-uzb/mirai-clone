@@ -205,14 +205,22 @@ describe("server-only tables", () => {
   });
 });
 
+async function anyCountyId(): Promise<string> {
+  const county = await single(
+    serviceClient.from("counties").select("id").limit(1).single(),
+  );
+  return county.id;
+}
+
 describe("public tables", () => {
   it("let a Visitor read courts and lessons", async () => {
+    const countyId = await anyCountyId();
     const course = await caCourse();
     const sectionId = course.sections[0]?.id ?? "";
     const writes = await Promise.all([
       serviceClient.from("courts").insert({
         state_code: "CA",
-        county: "Demo",
+        county_id: countyId,
         slug: tag,
         name: "Demo Superior Court",
       }),
@@ -240,12 +248,13 @@ describe("public tables", () => {
   });
 
   it("stamp updated_at when a row changes", async () => {
+    const countyId = await anyCountyId();
     const before = await single(
       serviceClient
         .from("courts")
         .insert({
           state_code: "CA",
-          county: "Demo",
+          county_id: countyId,
           slug: `${tag}-stamp`,
           name: "Old",
         })
