@@ -39,6 +39,9 @@ test("sign-up sends a verification email and shows the banner until it is confir
   await expect(page.getByRole("button", { name: /Sofia/ })).toBeVisible();
 
   const first = await waitForEmail(email);
+  // Supabase Auth refuses a second email to the same user within
+  // `auth.email.max_frequency` (1 s in supabase/config.toml).
+  await page.waitForTimeout(1_500);
   await banner.getByRole("button", { name: "Resend email" }).click();
   await expect(banner).toContainText("We sent a new link");
   const resent = await waitForEmail(email, { after: [first.ID] });
