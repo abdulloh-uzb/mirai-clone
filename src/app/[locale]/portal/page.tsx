@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Dashboard } from "@/components/portal/dashboard";
 import { PaymentPending } from "@/components/portal/payment-pending";
 import { PurchasePanel } from "@/components/portal/purchase-panel";
 import { buttonVariants } from "@/components/ui/button";
@@ -9,6 +10,11 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getCurrentAccount } from "@/lib/auth/current-account";
 import { parseCourseLanguage } from "@/lib/courses/course-language";
+import {
+  getCourseOutline,
+  getCurrentEnrollment,
+} from "@/lib/portal/enrollment";
+import { createClient } from "@/lib/supabase/server";
 import { currentEnrollmentId } from "@/lib/payments/enrollment-status";
 
 export async function generateMetadata({
@@ -37,6 +43,37 @@ export default async function PortalPage({
     searchParams,
   ]);
   if (!account) notFound();
+
+  // Ticket 03: an enrolled Student sees the course dashboard.
+  const enrollment = await getCurrentEnrollment();
+  if (enrollment) {
+    const supabase = await createClient();
+    const now = new Date();
+    if (
+      enrollment.status === "active" &&
+      enrollment.expiresAt &&
+      new Date(enrollment.expiresAt) < now
+    ) {
+      await supabase.rpc("expire_enrollment_if_due", {
+        p_enrollment_id: enrollment.id,
+      });
+      enrollment.status = "expired";
+    }
+    const [outline, details] = await Promise.all([
+      getCourseOutline(enrollment),
+      supabase.rpc("has_driver_details", { p_enrollment_id: enrollment.id }),
+    ]);
+    return (
+      <Dashboard
+        locale={locale}
+        enrollment={enrollment}
+        outline={outline}
+        hasDetails={details.data === true}
+        now={now}
+      />
+    );
+  }
+
   const enrollmentId = await currentEnrollmentId(account.userId);
 
   return (

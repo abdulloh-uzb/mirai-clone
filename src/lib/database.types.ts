@@ -367,14 +367,14 @@ isOneToOne: false
                   ]
                 },"lesson_progress": {
                   Row: {
-                    "completed_at": string | null,"created_at": string,"enrollment_id": string,"id": string,"lesson_id": string,"seconds_spent": number,"updated_at": string
+                    "completed_at": string | null,"created_at": string,"enrollment_id": string,"id": string,"last_block_position": number,"last_heartbeat_at": string | null,"lesson_id": string,"seconds_spent": number,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "completed_at"?: string | null,"created_at"?: string,"enrollment_id": string,"id"?: string,"lesson_id": string,"seconds_spent"?: number,"updated_at"?: string
+                    "completed_at"?: string | null,"created_at"?: string,"enrollment_id": string,"id"?: string,"last_block_position"?: number,"last_heartbeat_at"?: string | null,"lesson_id": string,"seconds_spent"?: number,"updated_at"?: string
                   }
                   Update: {
-                    "completed_at"?: string | null,"created_at"?: string,"enrollment_id"?: string,"id"?: string,"lesson_id"?: string,"seconds_spent"?: number,"updated_at"?: string
+                    "completed_at"?: string | null,"created_at"?: string,"enrollment_id"?: string,"id"?: string,"last_block_position"?: number,"last_heartbeat_at"?: string | null,"lesson_id"?: string,"seconds_spent"?: number,"updated_at"?: string
                   }
                   Relationships: [
                     {
@@ -689,6 +689,36 @@ isOneToOne: false
 "apply_refund_event":
 { Args: { "p_amount_refunded": number,"p_event_id": string,"p_payment_intent": string }; Returns: boolean
                            },
+"assert_enrollment_usable":
+{ Args: { "p_enrollment_id": string }; Returns: {
+              "citation_no": string | null,
+"completed_at": string | null,
+"county_id": string | null,
+"course_id": string,
+"course_locale": string,
+"court_due_date": string | null,
+"court_id": string | null,
+"created_at": string,
+"expires_at": string | null,
+"id": string,
+"order_id": string | null,
+"started_at": string | null,
+"status": string,
+"updated_at": string,
+"user_id": string
+            }
+                          SetofOptions: {
+        from: "*"
+        to: "enrollments"
+        isOneToOne: true
+        isSetofReturn: false
+      } },
+"complete_lesson":
+{ Args: { "p_enrollment_id": string,"p_lesson_id": string }; Returns: undefined
+                           },
+"expire_enrollment_if_due":
+{ Args: { "p_enrollment_id": string }; Returns: boolean
+                           },
 "fulfill_checkout":
 { Args: { "p_event_id": string,"p_event_type": string,"p_order_id": string,"p_payment_intent"?: string,"p_session_id"?: string }; Returns: boolean
                            },
@@ -701,6 +731,9 @@ isOneToOne: false
 "is_admin":
 { Args: Record<PropertyKey, never>; Returns: boolean
                            },
+"lesson_unlocked":
+{ Args: { "p_enrollment_id": string,"p_lesson_id": string }; Returns: boolean
+                           },
 "lock_driver_details":
 { Args: { "p_user_id": string }; Returns: undefined
                            },
@@ -709,6 +742,9 @@ isOneToOne: false
                            },
 "mark_refund":
 { Args: { "p_actor": string,"p_refund_id": string,"p_status": string }; Returns: undefined
+                           },
+"record_lesson_time":
+{ Args: { "p_block_position": number,"p_enrollment_id": string,"p_lesson_id": string,"p_seconds": number }; Returns: number
                            },
 "refund_facts":
 { Args: { "p_order_id": string }; Returns: Json
@@ -721,6 +757,9 @@ isOneToOne: false
                            },
 "save_driver_details":
 { Args: { "p_citation_no": string,"p_county_id": string,"p_court_due_date": string,"p_dob": string,"p_enrollment_id": string,"p_legal_name": string,"p_license_no": string,"p_license_state": string,"p_phone": string,"p_security_answer": string,"p_security_question": string }; Returns: undefined
+                           },
+"section_unlocked":
+{ Args: { "p_enrollment_id": string,"p_section_position": number }; Returns: boolean
                            }
           }
           Enums: {

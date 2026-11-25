@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { notFound, redirect } from "next/navigation";
+import { PortalNav } from "@/components/portal/portal-nav";
 import { getCurrentAccount } from "@/lib/auth/current-account";
 import { signInPathFor } from "@/lib/auth/return-path";
 import { getPathname } from "@/i18n/navigation";
@@ -25,5 +26,10 @@ export default async function PortalLayout({
   if (!account) {
     redirect(signInPathFor(getPathname({ href: "/portal", locale })));
   }
-  return children;
+  return (
+    <>
+      <PortalNav />
+      {children}
+    </>
+  );
 }

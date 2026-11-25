@@ -830,5 +830,79 @@
       "deny": "却下",
       "none": "理由なし"
     }
+  },
+  "PortalNav": {
+    "label": "ポータル",
+    "course": "マイコース",
+    "account": "アカウント",
+    "certificates": "修了証",
+    "faq": "よくある質問",
+    "askAi": "AIに質問"
+  },
+  "Dashboard": {
+    "title": "マイコース",
+    "paused": "コースは確認のため一時停止中です。続けるにはサポートへご連絡ください。",
+    "locked": "コースはロックされています。サポートへご連絡ください。",
+    "expired": "受講期限が切れました。サポートへご相談ください。",
+    "accessBanner": {
+      "d14": "受講期限まであと{days}日です。期限内に修了してください。",
+      "d7": "受講期限まであと{days}日です。お早めに修了してください。",
+      "d1": "受講期限は今日か明日です。進捗を失わないよう今すぐ進めてください。"
+    },
+    "progressLabel": "コースの進捗: {pct}%",
+    "currentSection": "現在のセクション",
+    "allDone": "すべてのレッスンが完了しました",
+    "continue": "続ける",
+    "daysLeft": "残りの受講期間",
+    "daysOf": "{total}日中{days}日",
+    "courseLanguage": "コースの言語",
+    "courtDueDate": "裁判所の期限",
+    "dueOverdue": "期限切れ",
+    "dueIn": "{days, plural, =0 {本日が期限} other {残り#日}}（{date}）",
+    "dueMissing": "未設定",
+    "dueSoon": "裁判所の期限が近づいています。期限内に修了して修了証を受け取ってください。",
+    "reporting": "裁判所への報告",
+    "reportingPlaceholder": "合格後に報告されます",
+    "detailsFirst": "最初のレッスンの前に運転者情報の入力が必要です。"
+  },
+  "Player": {
+    "title": "コース",
+    "outline": "コースの構成",
+    "locked": "ロック中",
+    "sectionOf": "セクション{section}",
+    "accessBanner": {
+      "d14": "受講期限まで14日以内です。",
+      "d7": "受講期限まで7日以内です。",
+      "d1": "受講期限まで1日以内です。"
+    },
+    "next": "次へ",
+    "finishLesson": "レッスンを完了",
+    "unlocksIn": "次へ進めるまであと{time}",
+    "readyToContinue": "次へ進めます。",
+    "sectionDone": "セクションが完了しました。",
+    "takeQuiz": "セクションクイズを受ける",
+    "nextSection": "次のセクション",
+    "videoSoon": "動画は近日公開です。下のスクリプトをお読みください。",
+    "transcript": "スクリプト",
+    "cardFront": "質問",
+    "cardBack": "答え",
+    "flipHint": "押してカードをめくる",
+    "scenario": "練習シナリオ",
+    "bestChoice": "最も適切な選択です。",
+    "notBest": "最適な選択ではありません。",
+    "orderHint": "手順をドラッグするか矢印ボタンで並べ替えて、順番を確認してください。",
+    "moveUp": "上へ移動: {item}",
+    "moveDown": "下へ移動: {item}",
+    "checkOrder": "順番を確認",
+    "orderCorrect": "正しい順番です。",
+    "orderWrong": "惜しい。もう一度お試しください。",
+    "errors": {
+      "enrollmentExpired": "受講期限が切れました。",
+      "enrollmentNotActive": "現在コースは利用できません。",
+      "detailsRequired": "先に運転者情報を入力してください。",
+      "lessonLocked": "先に前のレッスンを完了してください。",
+      "minTimeNotMet": "このレッスンにもう少し時間をかけてください。",
+      "generic": "問題が発生しました。もう一度お試しください。"
+    }
   }
 }
