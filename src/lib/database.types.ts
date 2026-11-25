@@ -705,6 +705,14 @@ isOneToOne: false
         isOneToOne: false
         isSetofReturn: true
       } },
+"admin_dashboard_stats":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
+"admin_search_students":
+{ Args: { "lim"?: number,"off"?: number,"q": string }; Returns: {
+              "created_at": string,"email": string,"first_name": string,"last_name": string,"legal_name": string,"license_no": string,"user_id": string
+            }[]
+                           },
 "admin_update_locked_details":
 { Args: { "p_dob": string,"p_legal_name": string,"p_license_no": string,"p_reason": string,"p_user_id": string }; Returns: undefined
                            },

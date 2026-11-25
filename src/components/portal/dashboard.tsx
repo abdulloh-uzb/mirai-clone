@@ -68,12 +68,15 @@ export async function Dashboard({
   outline,
   hasDetails,
   now,
+  readOnly = false,
 }: {
   locale: Locale;
   enrollment: CurrentEnrollment;
   outline: OutlineSection[];
   hasDetails: boolean;
   now: Date;
+  /** Admin "view as student": no actions are rendered. */
+  readOnly?: boolean;
 }) {
   const t = await getTranslations({ locale, namespace: "Dashboard" });
   const pct = progressPct(outline);
@@ -144,7 +147,7 @@ export async function Dashboard({
                 ? `${next.section.position}. ${next.section.title}`
                 : t("allDone")}
             </p>
-            {usable && continueHref ? (
+            {usable && continueHref && !readOnly ? (
               <Button asChild className="mt-4">
                 <Link href={continueHref}>{t("continue")}</Link>
               </Button>
