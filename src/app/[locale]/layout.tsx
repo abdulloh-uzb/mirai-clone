@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { MAIN_CONTENT_ID, SkipLink } from "@/components/layout/skip-link";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -44,6 +45,7 @@ export default async function LocaleLayout({
         >
           <NextIntlClientProvider>
             <SkipLink />
+            <AnnouncementBar locale={locale} />
             <SiteHeader />
             <VerifyEmailBanner />
             <main

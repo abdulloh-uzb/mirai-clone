@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { HeaderAccount } from "./header-account";
+import { LanguageSwitcher } from "./language-switcher";
 import { MobileMenu } from "./mobile-menu";
 import { mainNav } from "./nav-links";
 import { ThemeToggle } from "./theme-toggle";
@@ -43,6 +44,7 @@ export function SiteHeader() {
 
         <div className="ml-auto flex items-center gap-2 md:ml-0">
           <ThemeToggle label={t("darkTheme")} />
+          <LanguageSwitcher />
           <HeaderAccount />
           <MobileMenu />
         </div>

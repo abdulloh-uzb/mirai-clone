@@ -58,6 +58,14 @@
     "faq": "Вопросы и ответы",
     "backHome": "На главную"
   },
+  "LanguageSwitcher": {
+    "label": "Язык: {language}",
+    "title": "Выберите язык"
+  },
+  "AnnouncementBar": {
+    "label": "Объявление",
+    "dismiss": "Закрыть объявление"
+  },
   "Account": {
     "createAccount": "Создать аккаунт",
     "signIn": "Войти",

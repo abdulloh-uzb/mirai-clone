@@ -23,7 +23,21 @@ export type Database = {
           }
         },"public": {
           Tables: {
-            "profiles": {
+            "announcements": {
+                  Row: {
+                    "created_at": string,"id": string,"locale": string,"message": string,"published": boolean,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"locale": string,"message": string,"published"?: boolean,"updated_at"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"locale"?: string,"message"?: string,"published"?: boolean,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
+                },"profiles": {
                   Row: {
                     "created_at": string,"details_locked_at": string | null,"dob": string | null,"email_verified_at": string | null,"first_name": string,"id": string,"last_name": string,"legal_name": string | null,"license_no": string | null,"license_state": string | null,"phone": string | null,"preferred_locale": string,"role": Database["public"]['Enums']["app_role"],"updated_at": string,"user_id": string
                   }

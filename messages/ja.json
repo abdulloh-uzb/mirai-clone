@@ -58,6 +58,14 @@
     "faq": "よくある質問",
     "backHome": "ホームに戻る"
   },
+  "LanguageSwitcher": {
+    "label": "言語: {language}",
+    "title": "言語を選択"
+  },
+  "AnnouncementBar": {
+    "label": "お知らせ",
+    "dismiss": "お知らせを閉じる"
+  },
   "Account": {
     "createAccount": "アカウント作成",
     "signIn": "ログイン",

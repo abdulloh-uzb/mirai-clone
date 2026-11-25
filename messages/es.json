@@ -58,6 +58,14 @@
     "faq": "Preguntas y respuestas",
     "backHome": "Volver al inicio"
   },
+  "LanguageSwitcher": {
+    "label": "Idioma: {language}",
+    "title": "Elige tu idioma"
+  },
+  "AnnouncementBar": {
+    "label": "Aviso",
+    "dismiss": "Cerrar aviso"
+  },
   "Account": {
     "createAccount": "Crear cuenta",
     "signIn": "Iniciar sesión",
