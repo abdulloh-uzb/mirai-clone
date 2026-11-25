@@ -26,5 +26,5 @@ You implement exactly one ticket of this repo. The coordinator (the main session
 1. Merge the integration branch tip into your branch.
 2. Run `pnpm check:locked` and wait for it to exit. Never report while it is still running.
 3. If it fails, fix and rerun. A test that fails once and passes on rerun is a flake: name it in your report.
-4. Commit with a message starting `Ticket NN:`.
+4. Commit with a Conventional Commits message: `<type>(<scope>): <summary>`, where type is `feat`, `fix`, `test`, `refactor`, `chore` or `docs`, and the scope is the area (e.g. `feat(faq): add FAQ page with search and deep links`). Put `Ticket NN` in the commit body.
 5. Report in at most 10 lines: branch, commit, check result (test counts), anything that differs from the plan, any `TODO(spec):` you left.
