@@ -1016,5 +1016,66 @@
         "2": "返金はできますか？"
       }
     }
+  },
+  "Exam": {
+    "title": "最終試験",
+    "heading": "最終試験",
+    "notEligible": "次の項目を完了すると最終試験を受けられます。",
+    "reasons": {
+      "sectionsIncomplete": "各セクションのクイズに合格してください。",
+      "minTime": "コースに必要な学習時間を満たしてください（現在 {spent} 分 / {required} 分）。",
+      "detailsRequired": "運転者情報を入力してください。",
+      "noAttemptsLeft": "試験の受験回数を使い切りました。",
+      "notActive": "コースは現在利用できません。",
+      "alreadyPassed": "すでに試験に合格しています。"
+    },
+    "continueCourse": "コースを続ける",
+    "enterDetails": "情報を入力する",
+    "confirmTitle": "情報の確認",
+    "confirmIntro": "運転免許証と一致していることを確認してください。試験開始後は変更できません。",
+    "fields": {
+      "legalName": "氏名",
+      "dob": "生年月日",
+      "license": "免許証番号",
+      "county": "裁判所の郡",
+      "citation": "違反切符番号",
+      "dueDate": "裁判所の期限"
+    },
+    "editDetails": "情報を編集",
+    "confirmCheckbox": "内容は正しく、試験開始後にロックされることを理解しました。",
+    "start": "試験を開始",
+    "startNext": "{n} 回目を開始",
+    "attempt": "{n} 回目",
+    "timeLeft": "残り時間",
+    "navigator": "問題一覧",
+    "previous": "前へ",
+    "next": "次へ",
+    "submit": "試験を提出",
+    "submitTitle": "試験を提出しますか？",
+    "unanswered": "未回答の問題が {count, plural, other {# 問}} あります。",
+    "allDone": "すべての問題に回答しました。",
+    "submitConfirm": "今すぐ提出",
+    "keepWorking": "続ける",
+    "score": "{total} 問中 {score} 問正解です。",
+    "passed": "最終試験に合格しました。",
+    "failed": "合格点に達しませんでした。",
+    "attemptsLeft": "残り {count, plural, other {# 回}}。次の受験では別の問題が出題されます。",
+    "locked": "受験回数が残っていません。リセットはサポートにご連絡ください。",
+    "contactSupport": "サポートに連絡",
+    "viewAnswers": "回答を見る",
+    "getCertificate": "証明書を取得",
+    "errors": {
+      "sectionsIncomplete": "先にすべてのセクションクイズに合格してください。",
+      "minTime": "必要な学習時間にまだ達していません。",
+      "detailsRequired": "先に運転者情報を入力してください。",
+      "noAttemptsLeft": "残りの受験回数はありません。",
+      "alreadyPassed": "すでに合格しています。",
+      "notActive": "コースは現在利用できません。",
+      "examExpired": "この試験の制限時間が終了しました。",
+      "alreadySubmitted": "この試験はすでに提出されています。",
+      "noQuestions": "試験の問題がまだありません。",
+      "rateLimited": "試行回数が多すぎます。しばらくお待ちください。",
+      "generic": "問題が発生しました。もう一度お試しください。"
+    }
   }
 }

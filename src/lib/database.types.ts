@@ -247,14 +247,14 @@ isOneToOne: false
                   ]
                 },"enrollments": {
                   Row: {
-                    "citation_no": string | null,"completed_at": string | null,"county_id": string | null,"course_id": string,"course_locale": string,"court_due_date": string | null,"court_id": string | null,"created_at": string,"expires_at": string | null,"id": string,"order_id": string | null,"started_at": string | null,"status": string,"updated_at": string,"user_id": string
+                    "citation_no": string | null,"completed_at": string | null,"county_id": string | null,"course_id": string,"course_locale": string,"court_due_date": string | null,"court_id": string | null,"created_at": string,"exam_resets": number,"expires_at": string | null,"id": string,"order_id": string | null,"started_at": string | null,"status": string,"updated_at": string,"user_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "citation_no"?: string | null,"completed_at"?: string | null,"county_id"?: string | null,"course_id": string,"course_locale": string,"court_due_date"?: string | null,"court_id"?: string | null,"created_at"?: string,"expires_at"?: string | null,"id"?: string,"order_id"?: string | null,"started_at"?: string | null,"status"?: string,"updated_at"?: string,"user_id": string
+                    "citation_no"?: string | null,"completed_at"?: string | null,"county_id"?: string | null,"course_id": string,"course_locale": string,"court_due_date"?: string | null,"court_id"?: string | null,"created_at"?: string,"exam_resets"?: number,"expires_at"?: string | null,"id"?: string,"order_id"?: string | null,"started_at"?: string | null,"status"?: string,"updated_at"?: string,"user_id": string
                   }
                   Update: {
-                    "citation_no"?: string | null,"completed_at"?: string | null,"county_id"?: string | null,"course_id"?: string,"course_locale"?: string,"court_due_date"?: string | null,"court_id"?: string | null,"created_at"?: string,"expires_at"?: string | null,"id"?: string,"order_id"?: string | null,"started_at"?: string | null,"status"?: string,"updated_at"?: string,"user_id"?: string
+                    "citation_no"?: string | null,"completed_at"?: string | null,"county_id"?: string | null,"course_id"?: string,"course_locale"?: string,"court_due_date"?: string | null,"court_id"?: string | null,"created_at"?: string,"exam_resets"?: number,"expires_at"?: string | null,"id"?: string,"order_id"?: string | null,"started_at"?: string | null,"status"?: string,"updated_at"?: string,"user_id"?: string
                   }
                   Relationships: [
                     {
@@ -279,14 +279,14 @@ isOneToOne: false
                   ]
                 },"exam_attempts": {
                   Row: {
-                    "answers": NonNullable<Json>,"created_at": string,"enrollment_id": string,"id": string,"passed": boolean | null,"question_ids": (string)[],"score": number | null,"started_at": string,"submitted_at": string | null,"updated_at": string
+                    "answers": NonNullable<Json>,"attempt_no": number,"created_at": string,"enrollment_id": string,"expires_at": string | null,"id": string,"passed": boolean | null,"question_ids": (string)[],"score": number | null,"started_at": string,"submitted_at": string | null,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "answers"?: NonNullable<Json>,"created_at"?: string,"enrollment_id": string,"id"?: string,"passed"?: boolean | null,"question_ids"?: (string)[],"score"?: number | null,"started_at"?: string,"submitted_at"?: string | null,"updated_at"?: string
+                    "answers"?: NonNullable<Json>,"attempt_no"?: number,"created_at"?: string,"enrollment_id": string,"expires_at"?: string | null,"id"?: string,"passed"?: boolean | null,"question_ids"?: (string)[],"score"?: number | null,"started_at"?: string,"submitted_at"?: string | null,"updated_at"?: string
                   }
                   Update: {
-                    "answers"?: NonNullable<Json>,"created_at"?: string,"enrollment_id"?: string,"id"?: string,"passed"?: boolean | null,"question_ids"?: (string)[],"score"?: number | null,"started_at"?: string,"submitted_at"?: string | null,"updated_at"?: string
+                    "answers"?: NonNullable<Json>,"attempt_no"?: number,"created_at"?: string,"enrollment_id"?: string,"expires_at"?: string | null,"id"?: string,"passed"?: boolean | null,"question_ids"?: (string)[],"score"?: number | null,"started_at"?: string,"submitted_at"?: string | null,"updated_at"?: string
                   }
                   Relationships: [
                     {
@@ -724,6 +724,7 @@ isOneToOne: false
 "court_due_date": string | null,
 "court_id": string | null,
 "created_at": string,
+"exam_resets": number,
 "expires_at": string | null,
 "id": string,
 "order_id": string | null,
@@ -741,11 +742,23 @@ isOneToOne: false
 "complete_lesson":
 { Args: { "p_enrollment_id": string,"p_lesson_id": string }; Returns: undefined
                            },
+"exam_attempt_payload":
+{ Args: { "p_attempt_id": string }; Returns: Json
+                           },
+"exam_eligibility":
+{ Args: { "p_enrollment_id": string }; Returns: Json
+                           },
+"exam_review":
+{ Args: { "p_attempt_id": string }; Returns: Json
+                           },
 "expire_enrollment_if_due":
 { Args: { "p_enrollment_id": string }; Returns: boolean
                            },
 "fulfill_checkout":
 { Args: { "p_event_id": string,"p_event_type": string,"p_order_id": string,"p_payment_intent"?: string,"p_session_id"?: string }; Returns: boolean
+                           },
+"grade_exam_attempt":
+{ Args: { "p_attempt_id": string }; Returns: Json
                            },
 "has_active_exam":
 { Args: Record<PropertyKey, never>; Returns: boolean
@@ -792,6 +805,9 @@ isOneToOne: false
 "save_driver_details":
 { Args: { "p_citation_no": string,"p_county_id": string,"p_court_due_date": string,"p_dob": string,"p_enrollment_id": string,"p_legal_name": string,"p_license_no": string,"p_license_state": string,"p_phone": string,"p_security_answer": string,"p_security_question": string }; Returns: undefined
                            },
+"save_exam_answer":
+{ Args: { "p_attempt_id": string,"p_option_id": string,"p_question_id": string }; Returns: undefined
+                           },
 "search_kb":
 { Args: { "p_limit"?: number,"p_locale": string,"p_query": string }; Returns: {
               "content": string,"id": string,"locale": string,"rank": number,"source": string,"title": string,"url": string
@@ -803,8 +819,14 @@ isOneToOne: false
 "section_unlocked":
 { Args: { "p_enrollment_id": string,"p_section_position": number }; Returns: boolean
                            },
+"start_exam":
+{ Args: { "p_enrollment_id": string }; Returns: Json
+                           },
 "start_quiz":
 { Args: { "p_enrollment_id": string,"p_section_position": number }; Returns: Json
+                           },
+"submit_exam":
+{ Args: { "p_answers"?: Json,"p_attempt_id": string }; Returns: Json
                            },
 "submit_quiz":
 { Args: { "p_answers": Json,"p_attempt_id": string }; Returns: Json

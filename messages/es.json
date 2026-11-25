@@ -1016,5 +1016,66 @@
         "2": "¿Puedo pedir un reembolso?"
       }
     }
+  },
+  "Exam": {
+    "title": "Examen final",
+    "heading": "Examen final",
+    "notEligible": "Podrás hacer el examen final cuando completes lo siguiente:",
+    "reasons": {
+      "sectionsIncomplete": "Aprueba el cuestionario de cada sección.",
+      "minTime": "Dedica el tiempo requerido al curso ({spent} de {required} minutos hasta ahora).",
+      "detailsRequired": "Introduce los datos de tu licencia.",
+      "noAttemptsLeft": "Has usado todos tus intentos del examen.",
+      "notActive": "Tu curso no está activo en este momento.",
+      "alreadyPassed": "Ya aprobaste el examen."
+    },
+    "continueCourse": "Continuar el curso",
+    "enterDetails": "Introducir mis datos",
+    "confirmTitle": "Confirma tus datos",
+    "confirmIntro": "Comprueba que coinciden con tu licencia de conducir. No se podrán cambiar cuando empiece el examen.",
+    "fields": {
+      "legalName": "Nombre legal",
+      "dob": "Fecha de nacimiento",
+      "license": "Número de licencia",
+      "county": "Condado del tribunal",
+      "citation": "Número de infracción",
+      "dueDate": "Fecha límite del tribunal"
+    },
+    "editDetails": "Editar datos",
+    "confirmCheckbox": "Son correctos y entiendo que se bloquean cuando empieza el examen.",
+    "start": "Empezar el examen",
+    "startNext": "Empezar el intento {n}",
+    "attempt": "Intento {n}",
+    "timeLeft": "Tiempo restante",
+    "navigator": "Preguntas",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "submit": "Enviar examen",
+    "submitTitle": "¿Enviar tu examen?",
+    "unanswered": "Tienes {count, plural, one {# pregunta sin responder} other {# preguntas sin responder}}.",
+    "allDone": "Todas las preguntas están respondidas.",
+    "submitConfirm": "Enviar ahora",
+    "keepWorking": "Seguir trabajando",
+    "score": "Acertaste {score} de {total}.",
+    "passed": "Aprobaste el examen final.",
+    "failed": "No alcanzaste la nota mínima.",
+    "attemptsLeft": "{count, plural, one {Queda # intento} other {Quedan # intentos}}. El siguiente intento usa preguntas distintas.",
+    "locked": "No te quedan intentos. Contacta con soporte para pedir un reinicio.",
+    "contactSupport": "Contactar con soporte",
+    "viewAnswers": "Ver tus respuestas",
+    "getCertificate": "Obtener tu certificado",
+    "errors": {
+      "sectionsIncomplete": "Aprueba primero todos los cuestionarios de sección.",
+      "minTime": "Aún no has dedicado el tiempo requerido.",
+      "detailsRequired": "Completa primero los datos de tu licencia.",
+      "noAttemptsLeft": "No quedan intentos.",
+      "alreadyPassed": "Ya aprobaste.",
+      "notActive": "Tu curso no está activo en este momento.",
+      "examExpired": "Se acabó el tiempo de este intento.",
+      "alreadySubmitted": "Este examen ya fue enviado.",
+      "noQuestions": "El examen aún no tiene preguntas.",
+      "rateLimited": "Demasiados intentos. Espera unos minutos.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
   }
 }
