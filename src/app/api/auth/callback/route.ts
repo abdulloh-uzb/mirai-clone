@@ -1,6 +1,6 @@
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
-import { safeNextPath } from "@/lib/auth/safe-next-path";
+import { safeReturnPath } from "@/lib/auth/return-path";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { routing } from "@/i18n/routing";
@@ -33,7 +33,7 @@ function localePrefixOf(path: string): string {
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl;
-  const next = safeNextPath(searchParams.get("next")) ?? "/";
+  const next = safeReturnPath(searchParams.get("next")) ?? "/";
   const code = searchParams.get("code");
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type");

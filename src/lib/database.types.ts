@@ -59,6 +59,9 @@ export type Database = {
           Functions: {
             "is_admin":
 { Args: Record<PropertyKey, never>; Returns: boolean
+                           },
+"make_admin":
+{ Args: { "target_email": string }; Returns: string
                            }
           }
           Enums: {

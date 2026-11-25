@@ -1,5 +1,12 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { serviceClient, visitorClient } from "../support/supabase";
+import {
+  deleteTestUsers,
+  signInAsAdmin,
+  signInAsStudent,
+} from "../support/users";
+
+afterAll(deleteTestUsers);
 
 const service = serviceClient();
 const visitor = visitorClient();
@@ -77,5 +84,70 @@ describe("announcements as a Visitor", () => {
       { message: `${tag} draft` },
       { message: `${tag} live` },
     ]);
+  });
+});
+
+describe("announcements as a Student", () => {
+  it("reads published announcements only and cannot write any", async () => {
+    const student = await signInAsStudent();
+
+    const read = await student.client
+      .from("announcements")
+      .select("id")
+      .like("message", `${tag}%`);
+    const inserted = await student.client
+      .from("announcements")
+      .insert({ locale: "en", message: `${tag} student`, published: true });
+    const updated = await student.client
+      .from("announcements")
+      .update({ message: `${tag} changed` })
+      .eq("id", publishedId)
+      .select();
+
+    expect(read.data).toEqual([{ id: publishedId }]);
+    expect(inserted.error?.code).toBe("42501");
+    expect(updated.data ?? []).toEqual([]);
+  });
+});
+
+describe("announcements as an Admin", () => {
+  it("reads drafts as well as published announcements", async () => {
+    const admin = await signInAsAdmin();
+
+    const { data, error } = await admin.client
+      .from("announcements")
+      .select("id")
+      .like("message", `${tag}%`);
+
+    expect(error).toBeNull();
+    expect(data?.map((row) => row.id).sort()).toEqual(
+      [draftId, publishedId].sort(),
+    );
+  });
+
+  it("creates, publishes and deletes an announcement in a UI language", async () => {
+    const admin = await signInAsAdmin();
+
+    const created = await admin.client
+      .from("announcements")
+      .insert({ locale: "ja", message: `${tag} admin`, published: false })
+      .select("id")
+      .single();
+    expect(created.error).toBeNull();
+    const id = created.data?.id ?? "";
+
+    const published = await admin.client
+      .from("announcements")
+      .update({ published: true })
+      .eq("id", id)
+      .select("published");
+    expect(published.data).toEqual([{ published: true }]);
+
+    const deleted = await admin.client
+      .from("announcements")
+      .delete()
+      .eq("id", id)
+      .select("id");
+    expect(deleted.data).toEqual([{ id }]);
   });
 });
