@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
+import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import { AdminShell } from "@/components/admin/admin-shell";
+import { routing } from "@/i18n/routing";
 import { getCurrentAccount } from "@/lib/auth/current-account";
 
 export const metadata: Metadata = {
@@ -13,8 +16,11 @@ export const metadata: Metadata = {
  */
 export default async function AdminLayout({
   children,
+  params,
 }: LayoutProps<"/[locale]/admin">) {
   const account = await getCurrentAccount();
   if (account?.role !== "admin") notFound();
-  return children;
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) notFound();
+  return <AdminShell locale={locale}>{children}</AdminShell>;
 }

@@ -5,6 +5,8 @@ import {
   type BlockType,
 } from "@/lib/course/blocks";
 import { computeOutline, type OutlineSection } from "@/lib/course/outline";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/lib/database.types";
 import { createClient } from "@/lib/supabase/server";
 
 // Server-only reads for the Student's own enrollment, always with the user's
@@ -85,8 +87,10 @@ function pick(json: unknown, locale: string): string {
 /** Sections and lessons titled in the Course language, with the Student's progress. */
 export async function getCourseOutline(
   enrollment: Pick<CurrentEnrollment, "id" | "courseId" | "courseLocale">,
+  client?: SupabaseClient<Database>,
 ): Promise<OutlineSection[]> {
-  const supabase = await createClient();
+  // Admin "view as student" passes the service client; Students use their own.
+  const supabase = client ?? (await createClient());
   const [sections, progress, quizzes] = await Promise.all([
     supabase
       .from("sections")
