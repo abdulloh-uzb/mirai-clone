@@ -10,7 +10,8 @@ import { signInSchema } from "@/lib/validation/auth";
 import { Link } from "@/i18n/navigation";
 import { FormErrorAlert, TextField, useAuthAction } from "./form-parts";
 
-export function SignInForm() {
+/** `next` is where to return after signing in; the server re-validates it. */
+export function SignInForm({ next }: { next?: string }) {
   const t = useTranslations("Auth.signIn");
   const form = useForm<
     z.input<typeof signInSchema>,
@@ -20,7 +21,10 @@ export function SignInForm() {
     resolver: zodResolver(signInSchema),
     defaultValues: { email: "", password: "" },
   });
-  const { onSubmit, pending, formError } = useAuthAction(form, signIn);
+  const { onSubmit, pending, formError } = useAuthAction(
+    form,
+    (values, locale) => signIn(values, locale, next),
+  );
   const { errors } = form.formState;
 
   return (
@@ -52,7 +56,10 @@ export function SignInForm() {
         {t("submit")}
       </Button>
       <Link
-        href="/login/magic-link"
+        href={{
+          pathname: "/login/magic-link",
+          query: next ? { next } : {},
+        }}
         className="justify-self-center text-sm font-medium text-primary underline"
       >
         {t("magicLink")}

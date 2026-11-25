@@ -2,9 +2,11 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { hasLocale } from "next-intl";
+import { redirect as redirectToPath } from "next/navigation";
 import type { z } from "zod";
 import type { Database } from "@/lib/database.types";
 import { publicEnv } from "@/lib/env";
+import { safeReturnPath } from "@/lib/auth/return-path";
 import { createClient } from "@/lib/supabase/server";
 import {
   emailOnlySchema,
@@ -121,9 +123,14 @@ export async function signUp(
   return { status: "sent" };
 }
 
+/**
+ * Signs in with a password, then returns to `next` (for example the Portal
+ * page that sent a Visitor here) if it is a same-site path, or else home.
+ */
 export async function signIn(
   input: unknown,
   localeInput: unknown,
+  next?: unknown,
 ): Promise<AuthActionResult> {
   const locale = toLocale(localeInput);
   const parsed = signInSchema.safeParse(input);
@@ -136,6 +143,8 @@ export async function signIn(
     // are registered.
     return { status: "error", formError: "invalidCredentials" };
   }
+  const returnTo = safeReturnPath(typeof next === "string" ? next : null);
+  if (returnTo) redirectToPath(returnTo);
   redirect({ href: "/", locale });
   return { status: "sent" };
 }
@@ -143,6 +152,7 @@ export async function signIn(
 export async function sendMagicLink(
   input: unknown,
   localeInput: unknown,
+  next?: unknown,
 ): Promise<AuthActionResult> {
   const locale = toLocale(localeInput);
   const parsed = emailOnlySchema.safeParse(input);
@@ -153,7 +163,10 @@ export async function sendMagicLink(
     email: parsed.data.email,
     options: {
       shouldCreateUser: false,
-      emailRedirectTo: callbackUrl(homePath(locale)),
+      emailRedirectTo: callbackUrl(
+        safeReturnPath(typeof next === "string" ? next : null) ??
+          homePath(locale),
+      ),
     },
   });
   if (error?.status === 429)

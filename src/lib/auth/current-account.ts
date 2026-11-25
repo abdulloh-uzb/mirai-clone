@@ -8,6 +8,7 @@ export type CurrentAccount = {
   firstName: string;
   lastName: string;
   emailVerified: boolean;
+  role: "student" | "admin";
 };
 
 /**
@@ -24,7 +25,7 @@ export const getCurrentAccount = cache(
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("first_name, last_name, email_verified_at")
+      .select("first_name, last_name, email_verified_at, role")
       .eq("user_id", claims.sub)
       .maybeSingle();
     if (!profile) return null;
@@ -35,6 +36,7 @@ export const getCurrentAccount = cache(
       firstName: profile.first_name,
       lastName: profile.last_name,
       emailVerified: profile.email_verified_at !== null,
+      role: profile.role,
     };
   },
 );

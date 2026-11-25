@@ -148,5 +148,13 @@
       "rateLimited": "Demasiados intentos. Espera un minuto e inténtalo de nuevo.",
       "generic": "Algo salió mal. Inténtalo de nuevo."
     }
+  },
+  "Portal": {
+    "title": "Mis cursos",
+    "empty": "Tus cursos aparecerán aquí cuando te inscribas."
+  },
+  "Admin": {
+    "title": "Administración",
+    "empty": "Las herramientas de administración aparecerán aquí."
   }
 }

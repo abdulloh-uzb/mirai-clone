@@ -14,13 +14,17 @@ import {
   useAuthAction,
 } from "./form-parts";
 
-const actions = {
-  magicLink: sendMagicLink,
-  resetRequest: requestPasswordReset,
-} as const;
-
-/** Asks for an email and sends a magic link or a password reset link. */
-export function EmailLinkForm({ kind }: { kind: keyof typeof actions }) {
+/**
+ * Asks for an email and sends a magic link or a password reset link. A magic
+ * link returns to `next` after sign-in; the server re-validates it.
+ */
+export function EmailLinkForm({
+  kind,
+  next,
+}: {
+  kind: "magicLink" | "resetRequest";
+  next?: string;
+}) {
   const t = useTranslations(`Auth.${kind}`);
   const form = useForm<
     z.input<typeof emailOnlySchema>,
@@ -32,7 +36,10 @@ export function EmailLinkForm({ kind }: { kind: keyof typeof actions }) {
   });
   const { onSubmit, pending, formError, sent } = useAuthAction(
     form,
-    actions[kind],
+    (values, locale) =>
+      kind === "magicLink"
+        ? sendMagicLink(values, locale, next)
+        : requestPasswordReset(values, locale),
   );
 
   return (

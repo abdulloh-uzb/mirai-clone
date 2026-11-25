@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { AuthCard } from "@/components/auth/auth-card";
 import { EmailLinkForm } from "@/components/auth/email-link-form";
 import { Link } from "@/i18n/navigation";
@@ -10,8 +10,11 @@ export function generateMetadata({
   return authPageMetadata(params, "magicLink");
 }
 
-export default function MagicLinkPage() {
-  const t = useTranslations("Auth.magicLink");
+export default async function MagicLinkPage({
+  searchParams,
+}: PageProps<"/[locale]/login/magic-link">) {
+  const { next } = await searchParams;
+  const t = await getTranslations("Auth.magicLink");
   return (
     <AuthCard
       title={t("title")}
@@ -22,7 +25,10 @@ export default function MagicLinkPage() {
         </Link>
       }
     >
-      <EmailLinkForm kind="magicLink" />
+      <EmailLinkForm
+        kind="magicLink"
+        next={typeof next === "string" ? next : undefined}
+      />
     </AuthCard>
   );
 }

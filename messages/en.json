@@ -147,5 +147,13 @@
       "rateLimited": "Too many attempts. Please wait a minute and try again.",
       "generic": "Something went wrong. Please try again."
     }
+  },
+  "Portal": {
+    "title": "My courses",
+    "empty": "Your courses will appear here once you enroll."
+  },
+  "Admin": {
+    "title": "Admin",
+    "empty": "Admin tools will appear here."
   }
 }

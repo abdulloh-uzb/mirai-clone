@@ -14,7 +14,8 @@ import {
 import { signOut } from "@/lib/auth/actions";
 import { Link } from "@/i18n/navigation";
 
-// Portal pages arrive in later tickets; until then these fall through to the 404.
+// The Portal exists (an empty placeholder); its certificates and profile pages
+// arrive in later phases and fall through to the 404 until then.
 const items = [
   { key: "myCourses", href: "/portal" },
   { key: "myCertificates", href: "/portal/certificates" },

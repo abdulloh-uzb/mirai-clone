@@ -12,7 +12,7 @@ export function generateMetadata({ params }: PageProps<"/[locale]/login">) {
 export default async function SignInPage({
   searchParams,
 }: PageProps<"/[locale]/login">) {
-  const { error } = await searchParams;
+  const { error, next } = await searchParams;
   const t = await getTranslations("Auth.signIn");
 
   return (
@@ -33,7 +33,7 @@ export default async function SignInPage({
           <FormAlert tone="error">{t("linkError")}</FormAlert>
         </div>
       )}
-      <SignInForm />
+      <SignInForm next={typeof next === "string" ? next : undefined} />
     </AuthCard>
   );
 }

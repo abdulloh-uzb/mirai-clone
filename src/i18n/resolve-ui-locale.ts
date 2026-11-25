@@ -12,8 +12,8 @@ export type UiLocaleResolution = { locale: Locale; redirectTo?: string };
  * 2. otherwise, for the bare root `/` only, a saved preference may redirect;
  * 3. otherwise English. A deep unprefixed path such as `/faq` never redirects.
  *
- * `preference` is the cookie for a Visitor (or the profile for a signed-in
- * Student, once accounts exist).
+ * `preference` is the profile's UI language for a signed-in Student, or the
+ * cookie for a Visitor (the proxy picks which).
  */
 export function resolveUiLocale({
   pathname,
