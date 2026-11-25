@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-hidden="true">
+  <rect width="1200" height="630" fill="#e3ecf8"/>
+  <circle cx="1020" cy="130" r="64" fill="#f6d77a"/>
+  <path d="M0 470 Q250 330 520 440 T1200 400 V630 H0 Z" fill="#b9cfee"/>
+  <path d="M0 540 Q300 450 650 520 T1200 500 V630 H0 Z" fill="#7da2d6"/>
+  <!-- open book -->
+  <g transform="translate(300 170)">
+    <path d="M300 40 Q170 0 0 30 V300 Q170 270 300 310 Z" fill="#ffffff" stroke="#2c4a7a" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M300 40 Q430 0 600 30 V300 Q430 270 300 310 Z" fill="#f5f8fd" stroke="#2c4a7a" stroke-width="8" stroke-linejoin="round"/>
+    <g stroke="#7da2d6" stroke-width="8" stroke-linecap="round">
+      <path d="M50 90 H250"/><path d="M50 130 H250"/><path d="M50 170 H220"/>
+      <path d="M350 90 H550"/><path d="M350 130 H550"/><path d="M350 170 H520"/>
+    </g>
+    <!-- road sign -->
+    <rect x="410" y="205" width="90" height="60" rx="8" fill="#2c4a7a"/>
+    <path d="M430 235 H480 M465 220 L480 235 L465 250" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

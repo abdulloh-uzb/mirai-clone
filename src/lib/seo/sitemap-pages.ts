@@ -22,6 +22,7 @@ export const staticSitemapPages: readonly SitemapPage[] = [
   { path: "/dmv-services" },
   { path: "/courses" },
   { path: "/eligibility" },
+  { path: "/blog" },
 ];
 
 /**
@@ -35,5 +36,10 @@ export const dynamicSitemapSources: readonly (() => Promise<SitemapPage[]>)[] =
       const { listCounties } = await import("@/lib/courts/counties");
       const counties = await listCounties();
       return counties.map((county) => ({ path: `/courts/${county.slug}` }));
+    },
+    // Every published blog post, in the languages that have a Translation.
+    async () => {
+      const { postSitemapPages } = await import("@/lib/blog/posts");
+      return postSitemapPages();
     },
   ];

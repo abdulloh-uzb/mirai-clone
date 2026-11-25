@@ -165,6 +165,25 @@
   "Content": {
     "notTranslated": "Esta página aún no está traducida a su idioma, por eso se muestra en inglés."
   },
+  "Blog": {
+    "metaTitle": "Blog",
+    "metaDescription": "Artículos breves y claros sobre la escuela de tráfico, manejar en California y qué hacer después de una multa.",
+    "title": "Blog",
+    "intro": "Artículos claros sobre la escuela de tráfico, manejar en California y qué hacer después de una multa. Es información general: consulte siempre con su tribunal.",
+    "filterLabel": "Filtrar por categoría",
+    "all": "Todos",
+    "listLabel": "Artículos del blog",
+    "noPosts": "Aún no hay artículos.",
+    "categories": {
+      "traffic-school": "Escuela de tráfico",
+      "california-driving": "Manejar en California",
+      "after-your-ticket": "Después de su multa"
+    },
+    "relatedHeading": "Artículos relacionados",
+    "breadcrumbLabel": "Ruta de navegación",
+    "breadcrumbHome": "Inicio",
+    "breadcrumbBlog": "Blog"
+  },
   "Courts": {
     "metaTitle": "Tribunales por condado",
     "metaDescription": "Encuentre el tribunal superior de su condado de California: juzgados, códigos del tribunal y cómo pedir la escuela de tráfico. Datos de demostración.",

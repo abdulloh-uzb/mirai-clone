@@ -1,8 +1,9 @@
+import { siteConfig } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 import { localizedUrl } from "./metadata";
 
-// Builders for schema.org structured data. Later tickets add faqPage, article
-// and educationalOrganization here.
+// Builders for schema.org structured data. Ticket 09 adds
+// educationalOrganization here.
 
 /** `answer` is plain text (Markdown already stripped). */
 export function faqPage(entries: { question: string; answer: string }[]) {
@@ -14,6 +15,38 @@ export function faqPage(entries: { question: string; answer: string }[]) {
       name: entry.question,
       acceptedAnswer: { "@type": "Answer", text: entry.answer },
     })),
+  };
+}
+
+export type ArticleInput = {
+  siteUrl: string;
+  locale: Locale;
+  /** The path without a language prefix. */
+  path: string;
+  title: string;
+  description: string;
+  /** Site-relative or absolute image. */
+  image: string;
+  datePublished: string;
+  dateModified: string;
+};
+
+export function article(input: ArticleInput) {
+  const base = input.siteUrl.replace(/\/+$/, "");
+  const image = /^https?:\/\//.test(input.image)
+    ? input.image
+    : `${base}${input.image}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.title,
+    description: input.description,
+    image,
+    datePublished: input.datePublished,
+    dateModified: input.dateModified,
+    inLanguage: input.locale,
+    mainEntityOfPage: localizedUrl(input.siteUrl, input.locale, input.path),
+    publisher: { "@type": "Organization", name: siteConfig.name },
   };
 }
 

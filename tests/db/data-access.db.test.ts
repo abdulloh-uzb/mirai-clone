@@ -307,6 +307,11 @@ describe("public tables", () => {
         .from(table)
         .insert(rows.map((row) => ({ ...row, category: "about" })));
     }
+    if (table === "posts") {
+      return serviceClient
+        .from(table)
+        .insert(rows.map((row) => ({ ...row, category: "traffic-school" })));
+    }
     return serviceClient.from(table).insert(rows);
   }
 

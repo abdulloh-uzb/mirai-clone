@@ -164,6 +164,25 @@
   "Content": {
     "notTranslated": "This page isn't translated into your language yet, so it is shown in English."
   },
+  "Blog": {
+    "metaTitle": "Blog",
+    "metaDescription": "Short, plain-language articles on traffic school, driving in California and what to do after a ticket.",
+    "title": "Blog",
+    "intro": "Plain-language articles on traffic school, driving in California and what to do after a ticket. General information only, so always check with your court.",
+    "filterLabel": "Filter by category",
+    "all": "All",
+    "listLabel": "Blog posts",
+    "noPosts": "No posts yet.",
+    "categories": {
+      "traffic-school": "Traffic school",
+      "california-driving": "California driving",
+      "after-your-ticket": "After your ticket"
+    },
+    "relatedHeading": "Related posts",
+    "breadcrumbLabel": "Breadcrumb",
+    "breadcrumbHome": "Home",
+    "breadcrumbBlog": "Blog"
+  },
   "Courts": {
     "metaTitle": "Courts by county",
     "metaDescription": "Find the superior court for your California county: courthouses, court codes and how to ask for traffic school. Demo data.",
