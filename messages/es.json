@@ -404,5 +404,46 @@
         "keywords": "historial conductor manejo puntos infracciones expediente"
       }
     }
+  },
+  "Faq": {
+    "metaTitle": "Preguntas frecuentes",
+    "metaDescription": "Respuestas sobre el curso, el examen final, los certificados, los reembolsos, los idiomas y más. Busque o explore por tema.",
+    "title": "Encuentre una respuesta",
+    "count": "{count, plural, one {# respuesta} other {# respuestas}} en {categories, plural, one {# categoría} other {# categorías}}",
+    "searchLabel": "Buscar en las preguntas",
+    "searchPlaceholder": "Pruebe \"reembolso\" o \"contraseña\"",
+    "popularLabel": "Búsquedas populares",
+    "shortcuts": {
+      "refund": {
+        "label": "Reembolso",
+        "term": "reembolso"
+      },
+      "finalExam": {
+        "label": "Examen final",
+        "term": "examen final"
+      },
+      "certificate": {
+        "label": "Certificado",
+        "term": "certificado"
+      },
+      "password": {
+        "label": "Contraseña",
+        "term": "contraseña"
+      }
+    },
+    "resultCount": "{count, plural, one {# respuesta encontrada} other {# respuestas encontradas}}",
+    "noResults": "Ninguna respuesta coincide con su búsqueda. Pruebe otra palabra o contacte con la escuela.",
+    "categories": {
+      "about": "Sobre la escuela",
+      "course": "El curso",
+      "exam": "El examen final",
+      "certificates": "Certificados e informes",
+      "payments": "Pagos y reembolsos",
+      "eligibility": "Elegibilidad",
+      "language": "Idiomas",
+      "ai": "El asistente de IA",
+      "classroom": "Curso presencial",
+      "contact": "Contacto y ayuda"
+    }
   }
 }

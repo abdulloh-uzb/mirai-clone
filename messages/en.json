@@ -403,5 +403,46 @@
         "keywords": "driver record driving history points violations DMV record"
       }
     }
+  },
+  "Faq": {
+    "metaTitle": "FAQ",
+    "metaDescription": "Answers about the course, the final exam, certificates, refunds, languages and more. Search the FAQ or browse by topic.",
+    "title": "Find an answer",
+    "count": "{count, plural, one {# answer} other {# answers}} in {categories, plural, one {# category} other {# categories}}",
+    "searchLabel": "Search the questions",
+    "searchPlaceholder": "Try \"refund\" or \"password\"",
+    "popularLabel": "Popular searches",
+    "shortcuts": {
+      "refund": {
+        "label": "Refund",
+        "term": "refund"
+      },
+      "finalExam": {
+        "label": "Final exam",
+        "term": "final exam"
+      },
+      "certificate": {
+        "label": "Certificate",
+        "term": "certificate"
+      },
+      "password": {
+        "label": "Password",
+        "term": "password"
+      }
+    },
+    "resultCount": "{count, plural, one {# answer found} other {# answers found}}",
+    "noResults": "No answers match your search. Try another word, or contact the school.",
+    "categories": {
+      "about": "About the school",
+      "course": "The course",
+      "exam": "The final exam",
+      "certificates": "Certificates and reporting",
+      "payments": "Payments and refunds",
+      "eligibility": "Eligibility",
+      "language": "Languages",
+      "ai": "The AI assistant",
+      "classroom": "Classroom course",
+      "contact": "Contact and help"
+    }
   }
 }

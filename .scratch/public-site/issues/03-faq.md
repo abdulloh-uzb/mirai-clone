@@ -4,11 +4,11 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] Migration: `faq_items.category` (checked key list, 10 groups — see spec `TODO(spec)`), `faq_items.featured`; regenerate DB types
-- [ ] Seed ~36 original Q&A × 4 languages; exactly 4 `featured`; answers are consistent with `spec.md` (25 questions, 70%, 2 attempts, 90 days, refund tiers, 3 report batches a day)
-- [ ] Page: H1 "Find an answer", count line, search over title and body (full list without JavaScript), popular shortcuts (refund, final exam, certificate, password), accordions grouped by category, `#slug` opens and scrolls to the item
-- [ ] `FAQPage` JSON-LD; metadata; sitemap entry
-- [ ] E2E: renders in en + one other; search filters; deep link opens the item; mobile search; axe clean. DB: unpublished items invisible to Visitors
-- [ ] `pnpm check:locked` passes
+- [x] Migration: `faq_items.category` (checked key list, 10 groups — see spec `TODO(spec)`), `faq_items.featured`; regenerate DB types
+- [x] Seed ~36 original Q&A × 4 languages; exactly 4 `featured`; answers are consistent with `spec.md` (25 questions, 70%, 2 attempts, 90 days, refund tiers, 3 report batches a day)
+- [x] Page: H1 "Find an answer", count line, search over title and body (full list without JavaScript), popular shortcuts (refund, final exam, certificate, password), accordions grouped by category, `#slug` opens and scrolls to the item
+- [x] `FAQPage` JSON-LD; metadata; sitemap entry
+- [x] E2E: renders in en + one other; search filters; deep link opens the item; mobile search; axe clean. DB: unpublished items invisible to Visitors
+- [x] `pnpm check:locked` passes

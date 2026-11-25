@@ -273,14 +273,14 @@ isOneToOne: false
                   ]
                 },"faq_items": {
                   Row: {
-                    "body": string,"created_at": string,"id": string,"locale": string,"position": number,"published": boolean,"slug": string,"title": string,"updated_at": string
+                    "body": string,"category": string,"created_at": string,"featured": boolean,"id": string,"locale": string,"position": number,"published": boolean,"slug": string,"title": string,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "body"?: string,"created_at"?: string,"id"?: string,"locale": string,"position"?: number,"published"?: boolean,"slug": string,"title": string,"updated_at"?: string
+                    "body"?: string,"category": string,"created_at"?: string,"featured"?: boolean,"id"?: string,"locale": string,"position"?: number,"published"?: boolean,"slug": string,"title": string,"updated_at"?: string
                   }
                   Update: {
-                    "body"?: string,"created_at"?: string,"id"?: string,"locale"?: string,"position"?: number,"published"?: boolean,"slug"?: string,"title"?: string,"updated_at"?: string
+                    "body"?: string,"category"?: string,"created_at"?: string,"featured"?: boolean,"id"?: string,"locale"?: string,"position"?: number,"published"?: boolean,"slug"?: string,"title"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     
