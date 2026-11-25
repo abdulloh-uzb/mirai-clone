@@ -872,7 +872,48 @@
       "detailsRequired": "Completa primero tus datos de conductor.",
       "lessonLocked": "Termina antes las lecciones anteriores.",
       "minTimeNotMet": "Dedica un poco más de tiempo a esta lección.",
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "identityCheckRequired": "Primero responde la verificación de identidad."
+    },
+    "quizPassed": "Cuestionario aprobado."
+  },
+  "Quiz": {
+    "title": "Cuestionario de la sección",
+    "heading": "Cuestionario de la sección",
+    "sectionOf": "Sección {section}",
+    "intro": "Responde todas las preguntas y envía. Necesitas un 70% para aprobar y puedes intentarlo las veces que quieras.",
+    "submit": "Enviar respuestas",
+    "score": "Acertaste {score} de {total}.",
+    "passed": "Aprobaste.",
+    "failed": "Aún no apruebas. Revisa las explicaciones e inténtalo de nuevo con preguntas nuevas.",
+    "correct": "Correcto.",
+    "incorrect": "Incorrecto.",
+    "retry": "Intentar de nuevo (preguntas nuevas)",
+    "continue": "Continuar a la sección {section}",
+    "toExam": "Ir al examen final",
+    "backToSection": "Volver a la sección",
+    "errors": {
+      "enrollmentExpired": "Tu acceso ha caducado.",
+      "enrollmentNotActive": "Tu curso no está activo en este momento.",
+      "detailsRequired": "Primero completa los datos del conductor.",
+      "lessonsIncomplete": "Primero termina todas las lecciones de esta sección.",
+      "sectionLocked": "Primero termina las secciones anteriores.",
+      "noQuestions": "Este cuestionario aún no tiene preguntas.",
+      "identityCheckRequired": "Primero responde la verificación de identidad.",
+      "alreadySubmitted": "Este cuestionario ya se envió.",
       "generic": "Algo salió mal. Inténtalo de nuevo."
     }
+  },
+  "IdentityCheck": {
+    "title": "Verificación rápida de identidad",
+    "intro": "Para mantener válido tu certificado, confirma que eres tú.",
+    "dob": "Tu fecha de nacimiento",
+    "licenseLast4": "Los últimos 4 caracteres de tu número de licencia de conducir",
+    "wrong": "No coincide. Responde esta pregunta.",
+    "error": "No pudimos comprobarlo. Inténtalo de nuevo.",
+    "submit": "Confirmar",
+    "pausedTitle": "Curso en pausa",
+    "paused": "No pudimos confirmar tu identidad, por lo que tu curso está en pausa. Contáctanos para continuar.",
+    "contact": "Contáctanos"
   }
 }

@@ -3,6 +3,10 @@ import { CheckCircle2Icon, CircleIcon, LockIcon } from "lucide-react";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import {
+  IdentityCheckDialog,
+  type IdentityCheck,
+} from "@/components/course/identity-check-dialog";
 import { LessonPlayer } from "@/components/course/lesson-player";
 import { Button } from "@/components/ui/button";
 import { Link, redirect } from "@/i18n/navigation";
@@ -68,6 +72,11 @@ export default async function CourseSectionPage({
   let lesson = section.lessons.find((l) => l.position === wanted) ?? firstOpen;
   if (lesson.status === "locked") lesson = firstOpen;
   if (!lesson) notFound();
+
+  const { data: dueCheck } = await supabase.rpc("identity_check_due", {
+    p_enrollment_id: enrollmentId,
+  });
+  const check = dueCheck as IdentityCheck | null;
 
   const blocks = await getLessonBlocks(lesson.id, enrollment.courseLocale);
   const t = await getTranslations({ locale, namespace: "Player" });
@@ -151,6 +160,9 @@ export default async function CourseSectionPage({
       </aside>
 
       <main id="lesson" className="min-w-0">
+        {check ? (
+          <IdentityCheckDialog enrollmentId={enrollmentId} check={check} />
+        ) : null}
         {banner ? (
           <p
             role="status"
@@ -192,10 +204,14 @@ export default async function CourseSectionPage({
           <div className="mt-8 rounded-xl border bg-card p-4">
             <p className="font-semibold">{t("sectionDone")}</p>
             <div className="mt-3 flex flex-wrap gap-3">
-              {/* The quiz page arrives with ticket 04 and 404s until then. */}
               <Button asChild>
                 <Link href={`${here}/quiz`}>{t("takeQuiz")}</Link>
               </Button>
+              {section.status === "completed" ? (
+                <p className="self-center text-sm text-brand-green">
+                  {t("quizPassed")}
+                </p>
+              ) : null}
               {nextSection && nextSection.status !== "locked" ? (
                 <Button asChild variant="outline">
                   <Link
