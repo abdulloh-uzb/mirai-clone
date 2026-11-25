@@ -3,9 +3,9 @@ import { resolveUiLocale } from "./resolve-ui-locale";
 
 describe("resolveUiLocale", () => {
   it("uses the language named in the URL, ignoring the saved preference", () => {
-    expect(resolveUiLocale({ pathname: "/ja/faq", preference: "ru" })).toEqual(
-      { locale: "ja" },
-    );
+    expect(resolveUiLocale({ pathname: "/ja/faq", preference: "ru" })).toEqual({
+      locale: "ja",
+    });
     expect(resolveUiLocale({ pathname: "/es", preference: "ru" })).toEqual({
       locale: "es",
     });
