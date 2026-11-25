@@ -42,8 +42,11 @@ export function UserMenu({
           >
             {initials}
           </span>
-          <span className="max-w-32 truncate">{firstName}</span>
-          <ChevronDownIcon aria-hidden className="text-muted-foreground" />
+          <span className="max-w-32 truncate max-sm:sr-only">{firstName}</span>
+          <ChevronDownIcon
+            aria-hidden
+            className="text-muted-foreground max-sm:hidden"
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" aria-label={t("menuLabel")}>

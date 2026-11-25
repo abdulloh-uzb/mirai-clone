@@ -24,7 +24,8 @@ export function SiteHeader() {
           >
             R
           </span>
-          <span>{siteConfig.shortName}</span>
+          {/* Wordmark text hidden on phones so the account controls fit. */}
+          <span className="max-sm:sr-only">{siteConfig.shortName}</span>
         </Link>
 
         <nav aria-label={t("mainNav")} className="hidden flex-1 md:block">
