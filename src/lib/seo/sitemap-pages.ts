@@ -17,6 +17,7 @@ export const staticSitemapPages: readonly SitemapPage[] = [
   { path: "/" },
   { path: "/contact" },
   { path: "/accessibility" },
+  { path: "/courts" },
 ];
 
 /**
@@ -24,4 +25,11 @@ export const staticSitemapPages: readonly SitemapPage[] = [
  * is skipped so one broken table never empties the whole sitemap.
  */
 export const dynamicSitemapSources: readonly (() => Promise<SitemapPage[]>)[] =
-  [];
+  [
+    // Every County page, in all four languages (the template is in messages).
+    async () => {
+      const { listCounties } = await import("@/lib/courts/counties");
+      const counties = await listCounties();
+      return counties.map((county) => ({ path: `/courts/${county.slug}` }));
+    },
+  ];

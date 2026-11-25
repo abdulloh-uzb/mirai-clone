@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { buildSitemap } from "./sitemap";
+import { staticSitemapPages } from "./sitemap-pages";
+
+describe("sitemap pages", () => {
+  it("lists the courts page", () => {
+    expect(staticSitemapPages.map((p) => p.path)).toContain("/courts");
+  });
+});
 
 describe("buildSitemap", () => {
   it("lists a page once per language with alternates", () => {

@@ -159,6 +159,26 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"counties": {
+                  Row: {
+                    "case_lookup_url": string | null,"created_at": string,"id": string,"instructions": NonNullable<Json>,"name": string,"popular_rank": number | null,"seat_city": string,"slug": string,"state_code": string,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "case_lookup_url"?: string | null,"created_at"?: string,"id"?: string,"instructions"?: NonNullable<Json>,"name": string,"popular_rank"?: number | null,"seat_city": string,"slug": string,"state_code": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "case_lookup_url"?: string | null,"created_at"?: string,"id"?: string,"instructions"?: NonNullable<Json>,"name"?: string,"popular_rank"?: number | null,"seat_city"?: string,"slug"?: string,"state_code"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "counties_state_code_fkey"
+      columns: ["state_code"]
+isOneToOne: false
+      referencedRelation: "states"
+      referencedColumns: ["code"]
+    }
+                  ]
                 },"courses": {
                   Row: {
                     "active": boolean,"created_at": string,"id": string,"list_price_cents": number | null,"price_cents": number,"slug": string,"state_code": string,"updated_at": string
@@ -181,17 +201,23 @@ isOneToOne: false
                   ]
                 },"courts": {
                   Row: {
-                    "address": string | null,"case_lookup_url": string | null,"citation_regex": string | null,"city": string | null,"county": string,"court_code": string | null,"created_at": string,"id": string,"instructions": NonNullable<Json>,"name": string,"slug": string,"state_code": string,"updated_at": string
+                    "address": string | null,"case_lookup_url": string | null,"citation_regex": string | null,"city": string | null,"county_id": string,"court_code": string | null,"created_at": string,"id": string,"instructions": NonNullable<Json>,"name": string,"slug": string,"state_code": string,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "address"?: string | null,"case_lookup_url"?: string | null,"citation_regex"?: string | null,"city"?: string | null,"county": string,"court_code"?: string | null,"created_at"?: string,"id"?: string,"instructions"?: NonNullable<Json>,"name": string,"slug": string,"state_code": string,"updated_at"?: string
+                    "address"?: string | null,"case_lookup_url"?: string | null,"citation_regex"?: string | null,"city"?: string | null,"county_id": string,"court_code"?: string | null,"created_at"?: string,"id"?: string,"instructions"?: NonNullable<Json>,"name": string,"slug": string,"state_code": string,"updated_at"?: string
                   }
                   Update: {
-                    "address"?: string | null,"case_lookup_url"?: string | null,"citation_regex"?: string | null,"city"?: string | null,"county"?: string,"court_code"?: string | null,"created_at"?: string,"id"?: string,"instructions"?: NonNullable<Json>,"name"?: string,"slug"?: string,"state_code"?: string,"updated_at"?: string
+                    "address"?: string | null,"case_lookup_url"?: string | null,"citation_regex"?: string | null,"city"?: string | null,"county_id"?: string,"court_code"?: string | null,"created_at"?: string,"id"?: string,"instructions"?: NonNullable<Json>,"name"?: string,"slug"?: string,"state_code"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     {
+      foreignKeyName: "courts_county_id_fkey"
+      columns: ["county_id"]
+isOneToOne: false
+      referencedRelation: "counties"
+      referencedColumns: ["id"]
+    },{
       foreignKeyName: "courts_state_code_fkey"
       columns: ["state_code"]
 isOneToOne: false
