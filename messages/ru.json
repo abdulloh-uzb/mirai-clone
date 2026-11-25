@@ -1,7 +1,7 @@
 {
   "_translationNote": "Machine-drafted. Needs native-speaker review before launch.",
   "Metadata": {
-    "title": "RoadReady Traffic School",
+    "title": "{name}",
     "description": "Онлайн-автошкола для водителей Калифорнии, нарушивших ПДД, на английском, японском, испанском и русском."
   },
   "Home": {
@@ -12,7 +12,7 @@
     "label": "Перейти к содержимому"
   },
   "Header": {
-    "homeLink": "RoadReady Traffic School, главная",
+    "homeLink": "{name}, главная",
     "mainNav": "Основное меню",
     "courses": "Курсы",
     "dmvServices": "Услуги DMV",

@@ -3,7 +3,7 @@ import { serviceClient } from "../support/supabase";
 
 // Seeded by supabase/seed.sql.
 const SEEDED_EN =
-  "Welcome to the RoadReady demo. Courses open soon in four languages.";
+  "Welcome to the demo. Courses open soon in four languages.";
 
 test("the announcement bar shows, dismisses and stays dismissed", async ({
   page,
@@ -24,7 +24,7 @@ test("the bar uses the UI language's announcement", async ({ page }) => {
   await page.goto("/ru");
 
   await expect(page.getByRole("region", { name: "Объявление" })).toContainText(
-    "Добро пожаловать в демо RoadReady",
+    "Добро пожаловать в демо",
   );
 });
 

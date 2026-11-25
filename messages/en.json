@@ -1,6 +1,6 @@
 {
   "Metadata": {
-    "title": "RoadReady Traffic School",
+    "title": "{name}",
     "description": "Online traffic school for California drivers, in English, Japanese, Spanish and Russian."
   },
   "Home": {
@@ -11,7 +11,7 @@
     "label": "Skip to content"
   },
   "Header": {
-    "homeLink": "RoadReady Traffic School, home",
+    "homeLink": "{name}, home",
     "mainNav": "Main",
     "courses": "Courses",
     "dmvServices": "DMV Services",

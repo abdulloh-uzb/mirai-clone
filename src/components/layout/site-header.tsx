@@ -15,7 +15,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 rounded-2xl border bg-background/90 px-4 shadow-sm backdrop-blur">
         <Link
           href="/"
-          aria-label={t("homeLink")}
+          aria-label={t("homeLink", { name: siteConfig.name })}
           className="flex items-center gap-2 rounded-md font-bold tracking-tight"
         >
           <span

@@ -1,7 +1,7 @@
 {
   "_translationNote": "Machine-drafted. Needs native-speaker review before launch.",
   "Metadata": {
-    "title": "RoadReady Traffic School",
+    "title": "{name}",
     "description": "Escuela de tráfico en línea para conductores de California, en inglés, japonés, español y ruso."
   },
   "Home": {
@@ -12,7 +12,7 @@
     "label": "Saltar al contenido"
   },
   "Header": {
-    "homeLink": "RoadReady Traffic School, inicio",
+    "homeLink": "{name}, inicio",
     "mainNav": "Principal",
     "courses": "Cursos",
     "dmvServices": "Servicios del DMV",

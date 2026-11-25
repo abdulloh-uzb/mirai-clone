@@ -1,7 +1,7 @@
 {
   "_translationNote": "Machine-drafted. Needs native-speaker review before launch.",
   "Metadata": {
-    "title": "RoadReady Traffic School",
+    "title": "{name}",
     "description": "カリフォルニア州のドライバー向けオンライン交通違反講習。英語・日本語・スペイン語・ロシア語に対応。"
   },
   "Home": {
@@ -12,7 +12,7 @@
     "label": "本文へスキップ"
   },
   "Header": {
-    "homeLink": "RoadReady Traffic School ホーム",
+    "homeLink": "{name} ホーム",
     "mainNav": "メイン",
     "courses": "コース",
     "dmvServices": "DMVサービス",

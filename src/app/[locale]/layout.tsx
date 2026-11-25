@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { VerifyEmailBanner } from "@/components/layout/verify-email-banner";
+import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -21,8 +22,9 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: "Metadata" });
+  const title = t("title", { name: siteConfig.name });
   return {
-    title: { default: t("title"), template: `%s · ${t("title")}` },
+    title: { default: title, template: `%s · ${title}` },
     description: t("description"),
   };
 }
