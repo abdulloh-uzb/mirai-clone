@@ -6,6 +6,7 @@ import {
   DISMISSED_ANNOUNCEMENTS_COOKIE,
   parseDismissed,
 } from "@/lib/dismissed-announcements";
+import { ReportProblem } from "@/components/support/report-problem";
 import { DismissibleAnnouncement } from "./dismissible-announcement";
 
 /** Top bar with the current published announcement for the UI language. */
@@ -26,6 +27,9 @@ export async function AnnouncementBar({ locale }: { locale: Locale }) {
       message={announcement.message}
       label={t("label")}
       dismissLabel={t("dismiss")}
+      action={
+        <ReportProblem className="shrink-0 rounded-sm font-medium underline underline-offset-2 hover:no-underline" />
+      }
     />
   );
 }

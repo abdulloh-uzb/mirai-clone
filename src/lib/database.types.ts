@@ -461,6 +461,20 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"rate_limits": {
+                  Row: {
+                    "hits": number,"key": string,"window_start": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "hits"?: number,"key": string,"window_start": string
+                  }
+                  Update: {
+                    "hits"?: number,"key"?: string,"window_start"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"refunds": {
                   Row: {
                     "amount_cents": number,"approved_by": string | null,"created_at": string,"id": string,"order_id": string,"pct": number,"reason": string,"status": string,"updated_at": string
@@ -599,14 +613,14 @@ isOneToOne: false
                   ]
                 },"tickets": {
                   Row: {
-                    "body": string,"created_at": string,"email": string,"id": string,"status": string,"type": string,"updated_at": string,"user_id": string | null
+                    "attachment_path": string | null,"body": string,"created_at": string,"details": NonNullable<Json>,"email": string,"id": string,"page_url": string | null,"status": string,"type": string,"updated_at": string,"user_id": string | null
                   }
                   ComputedFields: never
                   Insert: {
-                    "body": string,"created_at"?: string,"email": string,"id"?: string,"status"?: string,"type": string,"updated_at"?: string,"user_id"?: string | null
+                    "attachment_path"?: string | null,"body": string,"created_at"?: string,"details"?: NonNullable<Json>,"email": string,"id"?: string,"page_url"?: string | null,"status"?: string,"type": string,"updated_at"?: string,"user_id"?: string | null
                   }
                   Update: {
-                    "body"?: string,"created_at"?: string,"email"?: string,"id"?: string,"status"?: string,"type"?: string,"updated_at"?: string,"user_id"?: string | null
+                    "attachment_path"?: string | null,"body"?: string,"created_at"?: string,"details"?: NonNullable<Json>,"email"?: string,"id"?: string,"page_url"?: string | null,"status"?: string,"type"?: string,"updated_at"?: string,"user_id"?: string | null
                   }
                   Relationships: [
                     
@@ -617,7 +631,10 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            "is_admin":
+            "hit_rate_limit":
+{ Args: { "key": string,"max": number,"window_seconds": number }; Returns: boolean
+                           },
+"is_admin":
 { Args: Record<PropertyKey, never>; Returns: boolean
                            },
 "make_admin":

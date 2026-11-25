@@ -13,7 +13,11 @@ export type SitemapPage = {
  * adds its pages here; pages read from the database (Counties, blog posts)
  * are added through `dynamicSitemapSources` instead.
  */
-export const staticSitemapPages: readonly SitemapPage[] = [{ path: "/" }];
+export const staticSitemapPages: readonly SitemapPage[] = [
+  { path: "/" },
+  { path: "/contact" },
+  { path: "/accessibility" },
+];
 
 /**
  * Readers for database-driven pages. Each returns its pages; a failing reader

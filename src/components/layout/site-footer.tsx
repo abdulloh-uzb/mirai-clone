@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { ReportProblem } from "@/components/support/report-problem";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { footerNav } from "./nav-links";
@@ -51,6 +52,7 @@ export function SiteFooter() {
               {siteConfig.contact.email}
             </a>
           </address>
+          <ReportProblem className="mt-3 rounded-sm text-sm font-medium text-primary underline" />
         </div>
       </div>
 
