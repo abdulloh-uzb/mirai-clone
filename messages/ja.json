@@ -154,7 +154,11 @@
     "findCourt": "裁判所を探す",
     "dmvServices": "DMVサービス",
     "faq": "よくある質問",
-    "backHome": "ホームに戻る"
+    "backHome": "ホームに戻る",
+    "coursesSub": "認可コース",
+    "findCourtSub": "管轄の裁判所とDMVコード",
+    "dmvServicesSub": "更新、ID、書類",
+    "faqSub": "受講資格、試験、修了証、返金"
   },
   "LanguageSwitcher": {
     "label": "言語: {language}",
@@ -757,5 +761,15 @@
       "expired": "期限切れ",
       "refunded": "返金済み"
     }
+  },
+  "HelpWidget": {
+    "region": "ヘルプと概要",
+    "tourLabel": "1分でわかる使い方",
+    "tourTitle": "ツアーを見る",
+    "tourCta": "アシスタントを開く",
+    "minimize": "ヘルプを閉じる",
+    "collapsedLabel": "ヘルプと概要",
+    "placeholder": "AIに何でも質問…",
+    "send": "質問する"
   }
 }

@@ -154,7 +154,11 @@
     "findCourt": "Encuentra tu tribunal",
     "dmvServices": "Servicios del DMV",
     "faq": "Preguntas y respuestas",
-    "backHome": "Volver al inicio"
+    "backHome": "Volver al inicio",
+    "coursesSub": "Curso autorizado",
+    "findCourtSub": "Tu tribunal y su código del DMV",
+    "dmvServicesSub": "Renovaciones, identificaciones, documentos",
+    "faqSub": "Elegibilidad, exámenes, certificados, reembolsos"
   },
   "LanguageSwitcher": {
     "label": "Idioma: {language}",
@@ -757,5 +761,15 @@
       "expired": "Vencida",
       "refunded": "Reembolsada"
     }
+  },
+  "HelpWidget": {
+    "region": "Ayuda y resumen",
+    "tourLabel": "Cómo funciona en 1 minuto",
+    "tourTitle": "Haz el recorrido",
+    "tourCta": "Abrir el asistente",
+    "minimize": "Minimizar la ayuda",
+    "collapsedLabel": "Ayuda y resumen",
+    "placeholder": "Pregunta lo que quieras a la IA…",
+    "send": "Preguntar"
   }
 }

@@ -24,20 +24,15 @@ export function ThemeToggle({ label }: { label: string }) {
       aria-label={label}
       aria-checked={isDark}
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="relative inline-flex h-8 w-14 shrink-0 items-center rounded-full border bg-muted transition-colors"
+      className="relative inline-flex h-8 w-[52px] shrink-0 items-center rounded-full border border-soft-border bg-[#d6ecfb] transition-colors dark:bg-brand-navy/40"
     >
-      <SunIcon
-        aria-hidden
-        className="absolute left-1.5 size-4 text-muted-foreground"
-      />
-      <MoonIcon
-        aria-hidden
-        className="absolute right-1.5 size-4 text-muted-foreground"
-      />
       <span
         aria-hidden
-        className="absolute left-1 size-6 rounded-full bg-background shadow transition-transform dark:translate-x-6 dark:bg-primary"
-      />
+        className="absolute left-1 grid size-6 place-items-center rounded-full bg-white text-amber-500 shadow transition-transform dark:translate-x-5 dark:bg-primary dark:text-primary-foreground"
+      >
+        <SunIcon className="size-3.5 dark:hidden" />
+        <MoonIcon className="hidden size-3.5 dark:block" />
+      </span>
     </button>
   );
 }

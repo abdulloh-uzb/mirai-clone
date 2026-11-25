@@ -1,3 +1,4 @@
+import { CheckIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ReportProblem } from "@/components/support/report-problem";
 import { siteConfig } from "@/config/site";
@@ -8,33 +9,38 @@ export function SiteFooter() {
   const t = useTranslations("Footer");
   const year = new Date().getFullYear();
 
+  const links = footerNav.flatMap((group) => [...group.links]);
+
   return (
-    <footer className="mt-16 border-t bg-muted/40">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
-        <nav aria-label={t("nav")} className="contents">
-          {footerNav.map((group) => (
-            <div key={group.key}>
-              <h2 className="text-sm font-semibold">{t(group.key)}</h2>
-              <ul className="mt-3 space-y-2 text-sm">
-                {group.links.map((link) => (
-                  <li key={link.key}>
-                    <Link
-                      href={link.href}
-                      className="rounded-sm text-muted-foreground hover:text-foreground"
-                    >
-                      {t(link.key)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <footer className="mt-16 px-3 pb-3">
+      <div className="mx-auto max-w-[1440px] rounded-3xl border border-white/85 bg-white/95 px-6 py-6 shadow-md dark:border-white/10 dark:bg-card">
+        <nav aria-label={t("nav")}>
+          <ul className="flex flex-wrap items-center gap-x-1 gap-y-1 text-[13px] font-semibold">
+            {links.map((link) => (
+              <li key={link.key}>
+                <Link
+                  href={link.href}
+                  className="block rounded-lg px-2.5 py-1.5 text-[#424751] hover:bg-accent hover:text-foreground dark:text-muted-foreground"
+                >
+                  {t(link.key)}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <ReportProblem className="rounded-lg px-2.5 py-1.5 text-[#0a52b8] underline dark:text-primary" />
+            </li>
+          </ul>
         </nav>
 
-        <div>
-          <h2 className="text-sm font-semibold">{t("contactHeading")}</h2>
-          <address className="mt-3 flex flex-col gap-1 text-sm text-muted-foreground not-italic">
-            <span>{siteConfig.name}</span>
+        <div className="mt-5 flex flex-col gap-4 border-t pt-5 text-sm text-muted-foreground sm:flex-row sm:justify-between">
+          <address className="flex flex-col gap-1 not-italic">
+            <span className="flex items-center gap-1.5 font-semibold text-foreground">
+              <CheckIcon
+                aria-hidden
+                className="size-4 rounded-full bg-brand-green p-0.5 text-[#0f1217]"
+              />
+              {siteConfig.name}
+            </span>
             <span>{t("license", { number: siteConfig.licenseNumber })}</span>
             {siteConfig.contact.addressLines.map((line) => (
               <span key={line}>{line}</span>
@@ -52,14 +58,10 @@ export function SiteFooter() {
               {siteConfig.contact.email}
             </a>
           </address>
-          <ReportProblem className="mt-3 rounded-sm text-sm font-medium text-primary underline" />
-        </div>
-      </div>
-
-      <div className="border-t">
-        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:justify-between">
-          <p>{t("copyright", { year, name: siteConfig.name })}</p>
-          <p className="font-medium text-foreground">{t("demoNotice")}</p>
+          <div className="flex flex-col gap-1 text-xs sm:items-end sm:text-right">
+            <p>{t("copyright", { year, name: siteConfig.name })}</p>
+            <p className="font-semibold text-foreground">{t("demoNotice")}</p>
+          </div>
         </div>
       </div>
     </footer>

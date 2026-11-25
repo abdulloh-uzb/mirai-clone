@@ -32,11 +32,11 @@ export async function AnnouncementBar({ locale }: { locale: Locale }) {
         <>
           <Link
             href="/whats-new"
-            className="hidden shrink-0 rounded-sm font-medium underline underline-offset-2 hover:no-underline sm:inline"
+            className="hidden shrink-0 rounded-sm font-bold text-[#0a6aa8] underline underline-offset-2 hover:no-underline sm:inline dark:text-primary"
           >
             {t("whatsNew")}
           </Link>
-          <ReportProblem className="shrink-0 rounded-sm font-medium underline underline-offset-2 hover:no-underline" />
+          <ReportProblem className="shrink-0 rounded-sm font-bold text-[#0a6aa8] underline underline-offset-2 hover:no-underline dark:text-primary" />
         </>
       }
     />
