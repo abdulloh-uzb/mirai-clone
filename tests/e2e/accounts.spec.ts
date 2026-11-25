@@ -26,6 +26,8 @@ async function signUpThroughForm(
 test("sign-up sends a verification email and shows the banner until it is confirmed", async ({
   page,
 }) => {
+  // The sign-up action and the pages after it may compile on first hit in `next dev`.
+  test.slow();
   const email = uniqueEmail("signup");
   await signUpThroughForm(page, {
     firstName: "Sofia",
@@ -34,13 +36,20 @@ test("sign-up sends a verification email and shows the banner until it is confir
   });
 
   const banner = page.getByRole("region", { name: "Verify your email" });
-  await expect(banner).toBeVisible();
+  await expect(banner).toBeVisible({ timeout: 30_000 });
   await trackUserByEmail(email);
   await expect(page.getByRole("button", { name: /Sofia/ })).toBeVisible();
 
   const first = await waitForEmail(email);
-  await banner.getByRole("button", { name: "Resend email" }).click();
-  await expect(banner).toContainText("We sent a new link");
+  // Supabase Auth limits link emails to one per address per `max_frequency`
+  // (1s locally), so a resend right after sign-up can be refused. Retry until
+  // that window has passed.
+  await expect(async () => {
+    await banner.getByRole("button", { name: "Resend email" }).click();
+    await expect(banner).toContainText("We sent a new link", {
+      timeout: 3_000,
+    });
+  }).toPass({ timeout: 20_000 });
   const resent = await waitForEmail(email, { after: [first.ID] });
 
   await page.goto(firstLink(resent));
