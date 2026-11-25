@@ -24,7 +24,7 @@ You implement exactly one ticket of this repo. The coordinator (the main session
 ## Finishing
 
 1. Merge the integration branch tip into your branch.
-2. Run `pnpm check:locked` and wait for it to exit. Never report while it is still running.
-3. If it fails, fix and rerun. A test that fails once and passes on rerun is a flake: name it in your report.
+2. Don't run the full `pnpm check` or `pnpm check:locked`: the coordinator's merge gate (`scripts/merge-ticket.sh`) runs it once per ticket. Run only the fast checks: `pnpm lint`, `pnpm typecheck`, `pnpm test:unit`, plus your ticket's own DB tests and e2e specs under the lock (`scripts/with-stack-lock.sh '...'`, `E2E_DEV=1` is fine). Wait for each to exit; never report while one is still running.
+3. If one fails, fix it and run it again. A test that fails once and then passes when run again is a flake: name it in your report.
 4. Commit with a Conventional Commits message: `<type>(<scope>): <summary>`, where type is `feat`, `fix`, `test`, `refactor`, `chore` or `docs`, and the scope is the area (e.g. `feat(faq): add FAQ page with search and deep links`). Put `Ticket NN` in the commit body.
-5. Report in at most 10 lines: branch, commit, check result (test counts), anything that differs from the plan, any `TODO(spec):` you left.
+5. Report in at most 10 lines: branch, commit, what you ran and its result (test counts), anything that differs from the plan, any `TODO(spec):` you left.
