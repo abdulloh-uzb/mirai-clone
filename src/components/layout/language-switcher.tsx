@@ -22,7 +22,7 @@ function rememberLocale(locale: Locale) {
 
 export function LanguageSwitcher() {
   const t = useTranslations("LanguageSwitcher");
-  const current = useLocale() as Locale;
+  const current = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);

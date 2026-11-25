@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { signInSchema, signUpSchema } from "./auth";
+import { localeSchema, signInSchema, signUpSchema } from "./auth";
+
+describe("localeSchema", () => {
+  it("accepts a UI language", () => {
+    expect(localeSchema.parse("ja")).toBe("ja");
+  });
+
+  it.each([undefined, "", "fr", 7])("falls back to English for %s", (value) => {
+    expect(localeSchema.parse(value)).toBe("en");
+  });
+});
 
 const validSignUp = {
   firstName: "Aiko",

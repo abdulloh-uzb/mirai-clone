@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { safeReturnPath, signInPathFor } from "./return-path";
+import { returnPathSchema, safeReturnPath, signInPathFor } from "./return-path";
 
 describe("safeReturnPath", () => {
   it("keeps a same-site relative path with its query and hash", () => {
@@ -47,4 +47,19 @@ describe("signInPathFor", () => {
       "/ru/login?next=%2Fru%2Fportal%3Fpaid%3D1",
     );
   });
+});
+
+describe("returnPathSchema", () => {
+  it("keeps a same-site path", () => {
+    expect(returnPathSchema.parse("/ja/portal?paid=1")).toBe(
+      "/ja/portal?paid=1",
+    );
+  });
+
+  it.each([undefined, null, "", "https://evil.example", "//evil.example", 42])(
+    "gives null for %s",
+    (value) => {
+      expect(returnPathSchema.parse(value)).toBeNull();
+    },
+  );
 });

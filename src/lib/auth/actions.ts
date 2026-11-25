@@ -1,31 +1,30 @@
 "use server";
 
-import type { SupabaseClient } from "@supabase/supabase-js";
-import { hasLocale } from "next-intl";
+import type { AuthError, SupabaseClient } from "@supabase/supabase-js";
 import { redirect as redirectToPath } from "next/navigation";
 import type { z } from "zod";
 import type { Database } from "@/lib/database.types";
 import { publicEnv } from "@/lib/env";
-import { safeReturnPath } from "@/lib/auth/return-path";
+import { returnPathSchema } from "@/lib/auth/return-path";
 import { createClient } from "@/lib/supabase/server";
 import {
   emailOnlySchema,
+  localeSchema,
   newPasswordSchema,
   signInSchema,
   signUpSchema,
   type AuthErrorKey,
+  type AuthFormErrorKey,
 } from "@/lib/validation/auth";
 import { getPathname, redirect } from "@/i18n/navigation";
-import { routing, type Locale } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
 
 // All auth mutations run here, on the server. Inputs are re-validated with the
-// same Zod schemas the forms use.
+// same Zod schemas the forms use. A server action can be called with any
+// payload, so the typed locale and `next` arguments are parsed too.
 //
 // TODO(spec): auth emails use Supabase's built-in English templates. Translate
 // them into the four UI languages when email moves to Resend.
-
-export type AuthFormErrorKey =
-  "invalidCredentials" | "emailTaken" | "rateLimited" | "generic";
 
 export type AuthActionResult =
   | {
@@ -33,14 +32,27 @@ export type AuthActionResult =
       formError?: AuthFormErrorKey;
       fieldErrors?: Record<string, AuthErrorKey>;
     }
-  | { status: "sent" };
+  // The action did what was asked. Actions that send an email report this
+  // whether or not the address has an account.
+  | { status: "ok" };
 
 type Supabase = SupabaseClient<Database>;
 
-function toLocale(value: unknown): Locale {
-  return typeof value === "string" && hasLocale(routing.locales, value)
-    ? value
-    : routing.defaultLocale;
+function isRateLimited(error: AuthError): boolean {
+  return error.status === 429;
+}
+
+/** The form or field error to show for a Supabase Auth failure. */
+function authErrorResult(error: AuthError): AuthActionResult {
+  if (isRateLimited(error))
+    return { status: "error", formError: "rateLimited" };
+  if (error.code === "user_already_exists" || error.code === "email_exists") {
+    return { status: "error", formError: "emailTaken" };
+  }
+  if (error.code === "weak_password") {
+    return { status: "error", fieldErrors: { password: "passwordTooShort" } };
+  }
+  return { status: "error", formError: "generic" };
 }
 
 function fieldErrorsOf(error: z.ZodError): AuthActionResult {
@@ -84,9 +96,9 @@ async function sendVerificationEmail(
 
 export async function signUp(
   input: unknown,
-  localeInput: unknown,
+  localeInput: Locale,
 ): Promise<AuthActionResult> {
-  const locale = toLocale(localeInput);
+  const locale = localeSchema.parse(localeInput);
   const parsed = signUpSchema.safeParse(input);
   if (!parsed.success) return fieldErrorsOf(parsed.error);
   const { email, password, firstName, lastName, preferredLocale } = parsed.data;
@@ -104,23 +116,13 @@ export async function signUp(
       },
     },
   });
-  if (error) {
-    if (error.code === "user_already_exists" || error.code === "email_exists") {
-      return { status: "error", formError: "emailTaken" };
-    }
-    if (error.code === "weak_password") {
-      return { status: "error", fieldErrors: { password: "passwordTooShort" } };
-    }
-    if (error.status === 429)
-      return { status: "error", formError: "rateLimited" };
-    return { status: "error", formError: "generic" };
-  }
+  if (error) return authErrorResult(error);
 
   // The account exists and is signed in even if this email fails; the banner
   // offers a resend.
   await sendVerificationEmail(supabase, email, locale);
   redirect({ href: "/", locale });
-  return { status: "sent" };
+  return { status: "ok" };
 }
 
 /**
@@ -129,10 +131,10 @@ export async function signUp(
  */
 export async function signIn(
   input: unknown,
-  localeInput: unknown,
-  next?: unknown,
+  localeInput: Locale,
+  next?: string | null,
 ): Promise<AuthActionResult> {
-  const locale = toLocale(localeInput);
+  const locale = localeSchema.parse(localeInput);
   const parsed = signInSchema.safeParse(input);
   if (!parsed.success) return fieldErrorsOf(parsed.error);
 
@@ -143,18 +145,18 @@ export async function signIn(
     // are registered.
     return { status: "error", formError: "invalidCredentials" };
   }
-  const returnTo = safeReturnPath(typeof next === "string" ? next : null);
+  const returnTo = returnPathSchema.parse(next);
   if (returnTo) redirectToPath(returnTo);
   redirect({ href: "/", locale });
-  return { status: "sent" };
+  return { status: "ok" };
 }
 
 export async function sendMagicLink(
   input: unknown,
-  localeInput: unknown,
-  next?: unknown,
+  localeInput: Locale,
+  next?: string | null,
 ): Promise<AuthActionResult> {
-  const locale = toLocale(localeInput);
+  const locale = localeSchema.parse(localeInput);
   const parsed = emailOnlySchema.safeParse(input);
   if (!parsed.success) return fieldErrorsOf(parsed.error);
 
@@ -164,22 +166,20 @@ export async function sendMagicLink(
     options: {
       shouldCreateUser: false,
       emailRedirectTo: callbackUrl(
-        safeReturnPath(typeof next === "string" ? next : null) ??
-          homePath(locale),
+        returnPathSchema.parse(next) ?? homePath(locale),
       ),
     },
   });
-  if (error?.status === 429)
-    return { status: "error", formError: "rateLimited" };
+  if (error && isRateLimited(error)) return authErrorResult(error);
   // Unknown emails get the same answer as known ones.
-  return { status: "sent" };
+  return { status: "ok" };
 }
 
 export async function requestPasswordReset(
   input: unknown,
-  localeInput: unknown,
+  localeInput: Locale,
 ): Promise<AuthActionResult> {
-  const locale = toLocale(localeInput);
+  const locale = localeSchema.parse(localeInput);
   const parsed = emailOnlySchema.safeParse(input);
   if (!parsed.success) return fieldErrorsOf(parsed.error);
 
@@ -192,16 +192,15 @@ export async function requestPasswordReset(
       ),
     },
   );
-  if (error?.status === 429)
-    return { status: "error", formError: "rateLimited" };
-  return { status: "sent" };
+  if (error && isRateLimited(error)) return authErrorResult(error);
+  return { status: "ok" };
 }
 
 export async function updatePassword(
   input: unknown,
-  localeInput: unknown,
+  localeInput: Locale,
 ): Promise<AuthActionResult> {
-  const locale = toLocale(localeInput);
+  const locale = localeSchema.parse(localeInput);
   const parsed = newPasswordSchema.safeParse(input);
   if (!parsed.success) return fieldErrorsOf(parsed.error);
 
@@ -209,20 +208,15 @@ export async function updatePassword(
   const { error } = await supabase.auth.updateUser({
     password: parsed.data.password,
   });
-  if (error) {
-    if (error.code === "weak_password") {
-      return { status: "error", fieldErrors: { password: "passwordTooShort" } };
-    }
-    return { status: "error", formError: "generic" };
-  }
+  if (error) return authErrorResult(error);
   redirect({ href: "/", locale });
-  return { status: "sent" };
+  return { status: "ok" };
 }
 
 export async function resendVerificationEmail(
-  localeInput: unknown,
+  localeInput: Locale,
 ): Promise<AuthActionResult> {
-  const locale = toLocale(localeInput);
+  const locale = localeSchema.parse(localeInput);
   const supabase = await createClient();
   const { data } = await supabase.auth.getClaims();
   const email = data?.claims.email;
@@ -230,14 +224,12 @@ export async function resendVerificationEmail(
     return { status: "error", formError: "generic" };
   }
   const { error } = await sendVerificationEmail(supabase, email, locale);
-  if (error?.status === 429)
-    return { status: "error", formError: "rateLimited" };
-  if (error) return { status: "error", formError: "generic" };
-  return { status: "sent" };
+  if (error) return authErrorResult(error);
+  return { status: "ok" };
 }
 
-export async function signOut(localeInput: unknown): Promise<void> {
-  const locale = toLocale(localeInput);
+export async function signOut(localeInput: Locale): Promise<void> {
+  const locale = localeSchema.parse(localeInput);
   const supabase = await createClient();
   await supabase.auth.signOut();
   redirect({ href: "/", locale });

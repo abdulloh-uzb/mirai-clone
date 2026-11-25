@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { localePrefix, splitLocalePath } from "@/i18n/locale-path";
 
 const ORIGIN = "http://same-site.invalid";
@@ -17,6 +18,16 @@ export function safeReturnPath(next: string | null | undefined): string | null {
   }
   return new URL(next, ORIGIN).origin === ORIGIN ? next : null;
 }
+
+/**
+ * A `next` value from a form or a query string: the same-site path, or null
+ * for anything else (including a non-string).
+ */
+export const returnPathSchema = z
+  .string()
+  .nullish()
+  .catch(null)
+  .transform((next) => safeReturnPath(next));
 
 /** The sign-in page in the UI language of `returnTo`, which returns there afterwards. */
 export function signInPathFor(returnTo: string): string {

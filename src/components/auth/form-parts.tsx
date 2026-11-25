@@ -10,31 +10,17 @@ import {
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { AuthActionResult, AuthFormErrorKey } from "@/lib/auth/actions";
-import type { AuthErrorKey } from "@/lib/validation/auth";
+import type { AuthActionResult } from "@/lib/auth/actions";
+import {
+  isAuthMessageKey,
+  type AuthFormErrorKey,
+  type AuthMessageKey,
+} from "@/lib/validation/auth";
 import type { Locale } from "@/i18n/routing";
 
-type ErrorKey = AuthErrorKey | AuthFormErrorKey;
-
-const ERROR_KEYS: readonly ErrorKey[] = [
-  "firstNameRequired",
-  "lastNameRequired",
-  "nameTooLong",
-  "emailInvalid",
-  "passwordRequired",
-  "passwordTooShort",
-  "passwordTooLong",
-  "passwordsDoNotMatch",
-  "localeInvalid",
-  "invalidCredentials",
-  "emailTaken",
-  "rateLimited",
-  "generic",
-];
-
-function asErrorKey(value: string | undefined): ErrorKey | null {
+function asErrorKey(value: string | undefined): AuthMessageKey | null {
   if (!value) return null;
-  return ERROR_KEYS.find((key) => key === value) ?? "generic";
+  return isAuthMessageKey(value) ? value : "generic";
 }
 
 export function ErrorText({ id, error }: { id: string; error?: string }) {
@@ -108,7 +94,7 @@ export function FormErrorAlert({ error }: { error: AuthFormErrorKey | null }) {
 /**
  * Submits a react-hook-form form to an auth server action and maps the
  * result back: field errors onto fields, form errors into an alert, and
- * "sent" into a success state. A redirect from the action navigates away.
+ * "ok" into a success state. A redirect from the action navigates away.
  */
 export function useAuthAction<TIn extends FieldValues, TOut>(
   form: UseFormReturn<TIn, unknown, TOut>,
@@ -117,14 +103,14 @@ export function useAuthAction<TIn extends FieldValues, TOut>(
   const locale = useLocale();
   const [pending, startTransition] = useTransition();
   const [formError, setFormError] = useState<AuthFormErrorKey | null>(null);
-  const [sent, setSent] = useState(false);
+  const [succeeded, setSucceeded] = useState(false);
 
   const onSubmit = form.handleSubmit((values) =>
     startTransition(async () => {
       setFormError(null);
       const result = await action(values, locale);
-      if (result.status === "sent") {
-        setSent(true);
+      if (result.status === "ok") {
+        setSucceeded(true);
         return;
       }
       if (result.formError) setFormError(result.formError);
@@ -134,5 +120,5 @@ export function useAuthAction<TIn extends FieldValues, TOut>(
     }),
   );
 
-  return { onSubmit, pending, formError, sent };
+  return { onSubmit, pending, formError, succeeded };
 }

@@ -21,7 +21,7 @@ export function ResendVerificationButton() {
         onClick={() =>
           startTransition(async () => {
             const outcome = await resendVerificationEmail(locale);
-            setResult(outcome.status === "sent" ? "sent" : "failed");
+            setResult(outcome.status === "ok" ? "sent" : "failed");
           })
         }
       >

@@ -2,8 +2,7 @@ import { expect, test } from "@playwright/test";
 import { serviceClient } from "../support/supabase";
 
 // Seeded by supabase/seed.sql.
-const SEEDED_EN =
-  "Welcome to the demo. Courses open soon in four languages.";
+const SEEDED_EN = "Welcome to the demo. Courses open soon in four languages.";
 
 test("the announcement bar shows, dismisses and stays dismissed", async ({
   page,

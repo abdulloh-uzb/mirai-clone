@@ -5,16 +5,44 @@ import { routing } from "@/i18n/routing";
 // Error messages are keys under `Auth.errors` in the message files, so each
 // side translates them into the UI language.
 
-export type AuthErrorKey =
-  | "firstNameRequired"
-  | "lastNameRequired"
-  | "nameTooLong"
-  | "emailInvalid"
-  | "passwordRequired"
-  | "passwordTooShort"
-  | "passwordTooLong"
-  | "passwordsDoNotMatch"
-  | "localeInvalid";
+/**
+ * Every key under `Auth.errors`. The `field` keys are what the Zod schemas
+ * report on one field; the `form` keys are what a server action reports for
+ * the whole form. All three key types derive from this one list.
+ */
+export const AUTH_ERROR_KEYS = [
+  { kind: "field", key: "firstNameRequired" },
+  { kind: "field", key: "lastNameRequired" },
+  { kind: "field", key: "nameTooLong" },
+  { kind: "field", key: "emailInvalid" },
+  { kind: "field", key: "passwordRequired" },
+  { kind: "field", key: "passwordTooShort" },
+  { kind: "field", key: "passwordTooLong" },
+  { kind: "field", key: "passwordsDoNotMatch" },
+  { kind: "field", key: "localeInvalid" },
+  { kind: "form", key: "invalidCredentials" },
+  { kind: "form", key: "emailTaken" },
+  { kind: "form", key: "rateLimited" },
+  { kind: "form", key: "generic" },
+] as const;
+
+type AuthErrorEntry = (typeof AUTH_ERROR_KEYS)[number];
+
+/** Any auth error message key. */
+export type AuthMessageKey = AuthErrorEntry["key"];
+/** Errors the Zod schemas report on one field. */
+export type AuthErrorKey = Extract<AuthErrorEntry, { kind: "field" }>["key"];
+/** Errors a server action reports for the whole form. */
+export type AuthFormErrorKey = Extract<AuthErrorEntry, { kind: "form" }>["key"];
+
+export function isAuthMessageKey(value: string): value is AuthMessageKey {
+  return AUTH_ERROR_KEYS.some((entry) => entry.key === value);
+}
+
+/** The UI language an auth action runs in. Anything unknown falls back to English. */
+export const localeSchema = z
+  .enum(routing.locales)
+  .catch(routing.defaultLocale);
 
 const message = (key: AuthErrorKey) => ({ error: key });
 

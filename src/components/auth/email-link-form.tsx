@@ -34,7 +34,7 @@ export function EmailLinkForm({
     resolver: zodResolver(emailOnlySchema),
     defaultValues: { email: "" },
   });
-  const { onSubmit, pending, formError, sent } = useAuthAction(
+  const { onSubmit, pending, formError, succeeded } = useAuthAction(
     form,
     (values, locale) =>
       kind === "magicLink"
@@ -45,7 +45,7 @@ export function EmailLinkForm({
   return (
     <form onSubmit={onSubmit} noValidate className="grid gap-4">
       <FormErrorAlert error={formError} />
-      {sent && <FormAlert tone="success">{t("sent")}</FormAlert>}
+      {succeeded && <FormAlert tone="success">{t("sent")}</FormAlert>}
       <TextField
         id="email"
         type="email"
