@@ -58,7 +58,7 @@ for (const c of cases) {
 
     await page.getByRole("searchbox", { name: c.search }).fill("zzzzqq");
     await expect(tiles).toHaveCount(0);
-    await expect(page.getByRole("heading", { level: 2 })).toHaveCount(0);
+    await expect(page.locator("[data-group]:not([hidden])")).toHaveCount(0);
 
     await page.getByRole("searchbox", { name: c.search }).fill("");
     await expect(tiles).toHaveCount(total);
