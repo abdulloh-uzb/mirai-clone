@@ -34,13 +34,16 @@ export function LanguageSwitcher() {
       <PopoverTrigger asChild>
         <button
           type="button"
-          aria-label={t("label", { language: active.nativeName })}
           className="inline-flex h-8 items-center gap-1.5 rounded-full border px-2.5 text-sm font-semibold hover:bg-accent"
         >
           <span aria-hidden className="text-base leading-none">
             {active.flag}
           </span>
-          <span aria-hidden>{active.shortCode}</span>
+          {/* Visible code first, so the accessible name starts with what is shown (WCAG 2.5.3). */}
+          {active.shortCode}
+          <span className="sr-only">
+            , {t("label", { language: active.nativeName })}
+          </span>
         </button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-80 p-3">

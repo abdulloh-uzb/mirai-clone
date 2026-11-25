@@ -115,7 +115,7 @@ test("a Student's saved UI language applies at the root on a fresh browser", asy
   await signIn(page, student);
   await page.goto("/faq");
 
-  await page.getByRole("button", { name: /language/i }).click();
+  await page.getByRole("button", { name: /^(EN|JA|ES|RU)\b/ }).click();
   await page.getByRole("link", { name: "日本語" }).click();
   await expect(page).toHaveURL(/\/ja\/faq$/);
 

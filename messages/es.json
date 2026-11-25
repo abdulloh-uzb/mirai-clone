@@ -12,7 +12,7 @@
     "label": "Saltar al contenido"
   },
   "Header": {
-    "homeLink": "{name}, inicio",
+    "homeLink": "inicio",
     "mainNav": "Principal",
     "courses": "Cursos",
     "dmvServices": "Servicios del DMV",
@@ -156,5 +156,12 @@
   "Admin": {
     "title": "Administración",
     "empty": "Las herramientas de administración aparecerán aquí."
+  },
+  "LanguageSuggestion": {
+    "label": "Sugerencia de idioma",
+    "dismiss": "Ocultar la sugerencia de idioma"
+  },
+  "Content": {
+    "notTranslated": "Esta página aún no está traducida a su idioma, por eso se muestra en inglés."
   }
 }

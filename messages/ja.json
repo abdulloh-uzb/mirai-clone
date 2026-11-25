@@ -12,7 +12,7 @@
     "label": "本文へスキップ"
   },
   "Header": {
-    "homeLink": "{name} ホーム",
+    "homeLink": "ホーム",
     "mainNav": "メイン",
     "courses": "コース",
     "dmvServices": "DMVサービス",
@@ -156,5 +156,12 @@
   "Admin": {
     "title": "管理",
     "empty": "管理ツールはここに表示されます。"
+  },
+  "LanguageSuggestion": {
+    "label": "言語の提案",
+    "dismiss": "言語の提案を閉じる"
+  },
+  "Content": {
+    "notTranslated": "このページはまだ日本語に翻訳されていないため、英語で表示しています。"
   }
 }

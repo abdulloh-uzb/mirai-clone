@@ -76,7 +76,7 @@ Every public page from section 5 of `spec.md`, in all four UI languages, with co
 
 ### Rendering and caching
 
-- Public pages render per request (the phase 1 frame reads cookies and the session). Database reads for content are cached with `"use cache"` and tagged per content type (`courts`, `faq`, `pages`, `posts`, `changelog`, `reviews`, `courses`), so phase 5 admin edits call `revalidateTag`. No page needs the database at build time.
+- Public pages render per request (the phase 1 frame reads cookies and the session). Database reads for content are cached with `unstable_cache` (via `cachedContent` in `src/lib/content/cache.ts`; `"use cache"` needs `cacheComponents`, which option (a) rules out) and tagged per content type (`courts`, `faq`, `pages`, `posts`, `changelog`, `reviews`, `courses`), so phase 5 admin edits call `revalidateTag`. No page needs the database at build time.
 - `TODO(spec):` if Lighthouse mobile falls below 90, move to Next 16 `cacheComponents` with the announcement bar and account menu inside `<Suspense>`.
 
 ### Translations (ADR 0004)

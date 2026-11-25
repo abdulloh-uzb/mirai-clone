@@ -8,7 +8,7 @@
 
 - [ ] Markdown renderer (server, `react-markdown`, raw HTML disabled, external links `rel="noopener noreferrer"`)
 - [ ] Content lookup: returns the published row in the requested UI language, or the English row with a fallback flag; "Not yet translated" notice component
-- [ ] Cached reads with `"use cache"` + `cacheTag(<content type>)`
+- [ ] Cached reads with `unstable_cache` + tags (`"use cache"` needs cacheComponents)
 - [ ] `buildMetadata` helper: title, description, canonical (English when falling back), hreflang for available languages + `x-default`, Open Graph, Twitter, robots `noindex` unless `SITE_INDEXABLE=true` (add to `.env.example` and `src/lib/env.ts`)
 - [ ] `robots.txt` (disallow all unless indexable) and `sitemap.xml` built from a registry that later tickets add to (static pages × 4 languages for now)
 - [ ] Default OG image SVG in `public/placeholder/`

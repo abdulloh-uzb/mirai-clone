@@ -11,7 +11,7 @@
     "label": "Skip to content"
   },
   "Header": {
-    "homeLink": "{name}, home",
+    "homeLink": "home",
     "mainNav": "Main",
     "courses": "Courses",
     "dmvServices": "DMV Services",
@@ -155,5 +155,12 @@
   "Admin": {
     "title": "Admin",
     "empty": "Admin tools will appear here."
+  },
+  "LanguageSuggestion": {
+    "label": "Language suggestion",
+    "dismiss": "Hide language suggestion"
+  },
+  "Content": {
+    "notTranslated": "This page isn't translated into your language yet, so it is shown in English."
   }
 }

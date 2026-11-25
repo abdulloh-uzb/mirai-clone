@@ -1,6 +1,29 @@
-import { useTranslations } from "next-intl";
+import { hasLocale, useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+import { siteConfig } from "@/config/site";
+import { routing } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/seo/page-metadata";
 
-// Placeholder home page. The real home page is built in phase 2.
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]">): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+  return {
+    ...pageMetadata({
+      locale,
+      path: "/",
+      title: t("title", { name: siteConfig.name }),
+      description: t("description"),
+    }),
+    // The home page title is the full site title, without the layout template.
+    title: { absolute: t("title", { name: siteConfig.name }) },
+  };
+}
+
+// Placeholder home page. The real home page is built in phase 2, ticket 09.
 export default function HomePage() {
   const t = useTranslations("Home");
 

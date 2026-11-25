@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="An open road winding through green hills toward the mountains">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfe9f7"/>
+      <stop offset="1" stop-color="#f4f1e6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <circle cx="960" cy="150" r="70" fill="#f7d774"/>
+  <path d="M0 360 L180 240 L330 330 L520 190 L700 320 L860 230 L1040 330 L1200 250 L1200 630 L0 630 Z" fill="#9db7c9"/>
+  <path d="M0 420 C200 360 380 400 600 380 C820 360 1000 400 1200 370 L1200 630 L0 630 Z" fill="#6fae6a"/>
+  <path d="M0 500 C260 450 520 490 760 460 C960 435 1100 460 1200 450 L1200 630 L0 630 Z" fill="#4f9150"/>
+  <path d="M470 630 C540 540 600 470 640 400 L660 400 C650 470 640 540 730 630 Z" fill="#3c4148"/>
+  <path d="M598 630 C610 560 630 480 650 404" stroke="#f3f0e4" stroke-width="6" stroke-dasharray="26 22" fill="none"/>
+  <g transform="translate(150 230)">
+    <rect x="-6" y="70" width="12" height="150" fill="#5b6066"/>
+    <rect x="-90" y="0" width="180" height="90" rx="12" fill="#1f7a4a"/>
+    <rect x="-82" y="8" width="164" height="74" rx="8" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <path d="M-40 45 h70 m-18 -16 l18 16 l-18 16" stroke="#ffffff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

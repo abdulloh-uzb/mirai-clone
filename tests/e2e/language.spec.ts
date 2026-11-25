@@ -37,7 +37,7 @@ test("the switcher keeps the current path and remembers the choice", async ({
 }) => {
   await page.goto("/faq");
 
-  await page.getByRole("button", { name: /language/i }).click();
+  await page.getByRole("button", { name: /^(EN|JA|ES|RU)\b/ }).click();
   await page.getByRole("link", { name: "日本語" }).click();
 
   await expect(page).toHaveURL(/\/ja\/faq$/);
@@ -54,8 +54,8 @@ test("switching back to English from a prefixed page drops the prefix", async ({
 }) => {
   await page.goto("/es/faq");
 
-  await page.getByRole("button", { name: /idioma|language/i }).click();
-  await page.getByRole("link", { name: "English" }).click();
+  await page.getByRole("button", { name: /^(EN|JA|ES|RU)\b/ }).click();
+  await page.getByRole("link", { name: "English", exact: true }).click();
 
   await expect(page).toHaveURL(/localhost:\d+\/faq$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");

@@ -1,3 +1,4 @@
+import { SignpostIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
@@ -15,17 +16,17 @@ export function SiteHeader() {
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 rounded-2xl border bg-background/90 px-4 shadow-sm backdrop-blur">
         <Link
           href="/"
-          aria-label={t("homeLink", { name: siteConfig.name })}
           className="flex items-center gap-2 rounded-md font-bold tracking-tight"
         >
           <span
             aria-hidden
             className="grid size-7 place-items-center rounded-md bg-primary text-sm text-primary-foreground"
           >
-            R
+            <SignpostIcon className="size-4" />
           </span>
           {/* Wordmark text hidden on phones so the account controls fit. */}
           <span className="max-sm:sr-only">{siteConfig.shortName}</span>
+          <span className="sr-only">, {t("homeLink")}</span>
         </Link>
 
         <nav aria-label={t("mainNav")} className="hidden flex-1 md:block">
