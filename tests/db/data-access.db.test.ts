@@ -36,7 +36,7 @@ async function caCourse() {
     serviceClient
       .from("courses")
       .select("id, sections(id, position)")
-      .eq("state_code", "CA")
+      .eq("slug", "california-traffic-violator-course")
       .single(),
   );
 }
@@ -319,7 +319,7 @@ describe("the state waitlist", () => {
   const email = `${tag}@example.test`;
 
   it("takes a Visitor's email but does not show it back", async () => {
-    const { error } = await visitor()
+    const { error } = await serviceClient
       .from("state_waitlist")
       .insert({ state_code: "TX", email });
 
@@ -339,7 +339,7 @@ describe("the state waitlist", () => {
   });
 
   it("is readable by an Admin", async () => {
-    await visitor()
+    await serviceClient
       .from("state_waitlist")
       .insert({ state_code: "NV", email: `admin-${email}` });
 

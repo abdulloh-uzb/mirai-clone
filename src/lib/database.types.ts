@@ -139,6 +139,26 @@ isOneToOne: true
                   Relationships: [
                     
                   ]
+                },"classroom_waitlist": {
+                  Row: {
+                    "county_id": string,"created_at": string,"email": string,"id": string,"locale": string,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "county_id": string,"created_at"?: string,"email": string,"id"?: string,"locale": string,"updated_at"?: string
+                  }
+                  Update: {
+                    "county_id"?: string,"created_at"?: string,"email"?: string,"id"?: string,"locale"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "classroom_waitlist_county_id_fkey"
+      columns: ["county_id"]
+isOneToOne: false
+      referencedRelation: "counties"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"completion_reports": {
                   Row: {
                     "batch_id": string | null,"certificate_id": string,"created_at": string,"error": string | null,"id": string,"regulator_ref": string | null,"status": string,"updated_at": string

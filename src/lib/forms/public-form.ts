@@ -9,7 +9,8 @@ import {
 } from "@/lib/validation/support";
 
 /** Public forms that go through `runPublicForm`. Add a name per new form. */
-export type PublicFormName = "contact" | "ada" | "bug";
+export type PublicFormName =
+  "contact" | "ada" | "bug" | "state-waitlist" | "classroom-waitlist";
 
 export type PublicFormResult =
   | { status: "ok" }
@@ -42,7 +43,8 @@ export async function runPublicForm<T>(options: {
   schema: z.ZodType<T>;
   input: unknown;
   honeypot: unknown;
-  handle: (data: T) => Promise<void>;
+  /** Return a result to report an error; return nothing for success. */
+  handle: (data: T) => Promise<PublicFormResult | void>;
 }): Promise<PublicFormResult> {
   const { form, schema, input, honeypot, handle } = options;
 
@@ -75,8 +77,7 @@ export async function runPublicForm<T>(options: {
       return { status: "error", fieldErrors };
     }
 
-    await handle(parsed.data);
-    return { status: "ok" };
+    return (await handle(parsed.data)) ?? { status: "ok" };
   } catch (error) {
     console.error(`Public form "${form}" failed`, error);
     return { status: "error", formError: "generic" };

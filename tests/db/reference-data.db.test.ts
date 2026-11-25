@@ -43,7 +43,7 @@ describe("the seeded course", () => {
       .select(
         "state_code, price_cents, list_price_cents, active, sections(position, title)",
       )
-      .eq("state_code", "CA")
+      .eq("slug", "california-traffic-violator-course")
       .single();
 
     expect(error).toBeNull();
