@@ -39,3 +39,7 @@ Builds on: ticket 01 (`src/lib/course/blocks.ts`: `parseBlockContent`, block typ
 - Minimum time is enforced in SQL, not only the UI. Never trust the client's `seconds` beyond the cap.
 - Blocks render in the **Course language**, chrome in the UI language.
 - `lesson_blocks` must only be read with the user's client (RLS enrolled read), never the service client.
+
+## Notes from landed tickets
+- Ticket 01: block schemas/`parseBlockContent` in `src/lib/course/blocks.ts`; content source in `scripts/course-content/`; lesson `min_seconds` = 60; CA `min_course_minutes` = 24.
+- Ticket 02: `has_driver_details(p_enrollment_id)` exists; `save_driver_details` is security definer and checks the lock itself; details page is `/portal/details/[enrollmentId]` with `?next=` support (`safeReturnPath`).

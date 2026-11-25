@@ -46,7 +46,7 @@ export async function LanguageCards({
                     </span>
                   ) : null}
                 </span>
-                <span className="rounded-full bg-emerald-600 px-2 py-0.5 text-xs font-bold tracking-wide text-white">
+                <span className="rounded-full bg-brand-green px-2 py-0.5 text-xs font-extrabold tracking-wide text-[#0f1217]">
                   {t("live")}
                 </span>
                 {isSelected ? (

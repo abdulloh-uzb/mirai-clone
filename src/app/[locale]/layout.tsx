@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { Inter, Noto_Sans_JP } from "next/font/google";
 import { notFound } from "next/navigation";
+import { HelpWidget } from "@/components/layout/help-widget";
 import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { LanguageSuggestion } from "@/components/layout/language-suggestion";
 import { MAIN_CONTENT_ID, SkipLink } from "@/components/layout/skip-link";
@@ -13,6 +15,17 @@ import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
 import { isSiteIndexable, publicEnv } from "@/lib/env";
 import "../globals.css";
+
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+  variable: "--font-inter",
+});
+const notoJp = Noto_Sans_JP({
+  display: "swap",
+  variable: "--font-noto-jp",
+  preload: false,
+});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -43,7 +56,11 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   return (
-    <html lang={locale} suppressHydrationWarning className="h-full">
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={`h-full ${inter.variable} ${notoJp.variable}`}
+    >
       <body className="flex min-h-full flex-col antialiased">
         <ThemeProvider
           attribute="class"
@@ -65,6 +82,7 @@ export default async function LocaleLayout({
               {children}
             </main>
             <SiteFooter />
+            <HelpWidget />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
