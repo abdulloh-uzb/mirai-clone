@@ -1,5 +1,31 @@
 import { describe, expect, it } from "vitest";
-import { breadcrumbList } from "./json-ld";
+import { breadcrumbList, faqPage } from "./json-ld";
+
+describe("faqPage", () => {
+  it("lists each question with its accepted answer", () => {
+    expect(
+      faqPage([
+        { question: "Q1?", answer: "A1" },
+        { question: "Q2?", answer: "A2" },
+      ]),
+    ).toEqual({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Q1?",
+          acceptedAnswer: { "@type": "Answer", text: "A1" },
+        },
+        {
+          "@type": "Question",
+          name: "Q2?",
+          acceptedAnswer: { "@type": "Answer", text: "A2" },
+        },
+      ],
+    });
+  });
+});
 
 describe("breadcrumbList", () => {
   it("numbers the items from 1 and links them in the page's language", () => {

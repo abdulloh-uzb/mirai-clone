@@ -4,6 +4,19 @@ import { localizedUrl } from "./metadata";
 // Builders for schema.org structured data. Later tickets add faqPage, article,
 // course and educationalOrganization here.
 
+/** `answer` is plain text (Markdown already stripped). */
+export function faqPage(entries: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: entries.map((entry) => ({
+      "@type": "Question",
+      name: entry.question,
+      acceptedAnswer: { "@type": "Answer", text: entry.answer },
+    })),
+  };
+}
+
 export type BreadcrumbItem = { name: string; path: string };
 
 export function breadcrumbList(

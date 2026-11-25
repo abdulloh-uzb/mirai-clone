@@ -206,5 +206,46 @@
     "ctaHeading": "始める準備はできましたか",
     "ctaBody": "いちばん読みやすい言語で、オンラインで受講できます。",
     "ctaButton": "講座を見る"
+  },
+  "Faq": {
+    "metaTitle": "よくある質問",
+    "metaDescription": "コース、最終試験、修了証、返金、言語などについての回答です。質問を検索するか、トピックから探せます。",
+    "title": "答えを見つける",
+    "count": "{categories}カテゴリに{count}件の回答",
+    "searchLabel": "質問を検索",
+    "searchPlaceholder": "「返金」や「パスワード」など",
+    "popularLabel": "よく検索されるキーワード",
+    "shortcuts": {
+      "refund": {
+        "label": "返金",
+        "term": "返金"
+      },
+      "finalExam": {
+        "label": "最終試験",
+        "term": "最終試験"
+      },
+      "certificate": {
+        "label": "修了証",
+        "term": "修了証"
+      },
+      "password": {
+        "label": "パスワード",
+        "term": "パスワード"
+      }
+    },
+    "resultCount": "{count}件の回答が見つかりました",
+    "noResults": "一致する回答がありません。別の言葉をお試しいただくか、学校にお問い合わせください。",
+    "categories": {
+      "about": "学校について",
+      "course": "コース",
+      "exam": "最終試験",
+      "certificates": "修了証と報告",
+      "payments": "支払いと返金",
+      "eligibility": "受講資格",
+      "language": "言語",
+      "ai": "AIアシスタント",
+      "classroom": "教室コース",
+      "contact": "連絡とサポート"
+    }
   }
 }
