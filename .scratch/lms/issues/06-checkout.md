@@ -1,6 +1,6 @@
 # 06 Stripe checkout, webhook, orders
 
-**Status:** ready-for-agent
+**Status:** resolved
 **Blocked by:** none
 **Plan:** `.scratch/lms/plans/06-checkout.md`
 
@@ -9,3 +9,7 @@ Spec §8 flow 1–4 + mock payments mode (lms spec decision 1). Purchase panel o
 - [x] handleStripeEvent creates order paid + enrollment once
 - [x] Replayed event creates nothing (DB test)
 - [x] Mock checkout route
+
+## Comments
+
+- Landed on `lms` (feature 50f1361). Unit 179 pass, checkout DB 5 pass. Mock payments mode; emails in src/lib/email/payment-templates.ts.
