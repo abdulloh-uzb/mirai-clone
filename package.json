@@ -20,6 +20,7 @@
     "db:new": "supabase migration new",
     "db:env": "supabase status -o env",
     "db:types": "supabase gen types typescript > src/lib/database.types.ts",
+    "db:seed:course": "tsx scripts/generate-course-seed.ts",
     "db:make-admin": "tsx scripts/make-admin.ts",
     "prepare": "git config core.hooksPath .githooks || true"
   },
