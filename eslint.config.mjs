@@ -26,6 +26,7 @@ const eslintConfig = defineConfig([
     files: [
       "src/lib/env.ts",
       "src/lib/supabase/service.ts",
+      "src/lib/email/env.ts",
       "scripts/**",
       "tests/**",
       "*.config.{ts,mts,mjs}",

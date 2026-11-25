@@ -207,6 +207,76 @@
     "ctaBody": "いちばん読みやすい言語で、オンラインで受講できます。",
     "ctaButton": "講座を見る"
   },
+  "Forms": {
+    "honeypotLabel": "この欄は空のままにしてください",
+    "errors": {
+      "nameRequired": "お名前を入力してください。",
+      "nameTooLong": "100文字以内で入力してください。",
+      "emailInvalid": "有効なメールアドレスを入力してください。",
+      "topicInvalid": "トピックを選択してください。",
+      "messageTooShort": "10文字以上入力してください。",
+      "messageTooLong": "5,000文字以内で入力してください。",
+      "phoneTooLong": "30文字以内で入力してください。",
+      "phoneRequired": "電話番号を入力するか、希望の連絡方法でメールを選択してください。",
+      "preferredContactInvalid": "ご希望の連絡方法を選択してください。",
+      "pageUrlInvalid": "ページのアドレスが正しくありません。",
+      "screenshotType": "PNG、JPEG、WebPの画像を使用してください。",
+      "screenshotTooLarge": "スクリーンショットは5 MB以下にしてください。",
+      "rateLimited": "お使いの接続からのリクエストが多すぎます。数分待ってからもう一度お試しください。",
+      "generic": "問題が発生しました。もう一度お試しください。"
+    }
+  },
+  "Contact": {
+    "title": "お問い合わせ",
+    "intro": "コース、お支払い、アカウントについてのご質問はメッセージでお送りください。メールで返信します。",
+    "detailsHeading": "その他の連絡方法",
+    "form": {
+      "name": "お名前",
+      "email": "メールアドレス",
+      "topic": "トピック",
+      "message": "メッセージ",
+      "submit": "メッセージを送信",
+      "topics": {
+        "general": "一般的な質問",
+        "course": "コースについて",
+        "payment": "お支払い・返金",
+        "technical": "技術的な問題"
+      },
+      "topicPlaceholder": "トピックを選択",
+      "success": "メッセージを送信しました。確認メールをお送りしました。"
+    }
+  },
+  "Accessibility": {
+    "title": "アクセシビリティ",
+    "intro": "すべての方がこのコースを受講できるようにしたいと考えています。",
+    "statement": "これは仮のアクセシビリティ方針です。正式な方針は近日中にここで公開します。配慮が必要な場合やサイトに障壁がある場合は、下のフォームからお知らせください。",
+    "formHeading": "配慮のリクエスト",
+    "form": {
+      "name": "お名前",
+      "email": "メールアドレス",
+      "phone": "電話番号（任意）",
+      "need": "必要なことは何ですか？",
+      "needHint": "必要な配慮や、直面した障壁を説明してください。",
+      "preferredContact": "ご希望の連絡方法",
+      "contactEmail": "メール",
+      "contactPhone": "電話",
+      "submit": "リクエストを送信",
+      "success": "リクエストを受け付けました。確認メールをお送りしました。"
+    }
+  },
+  "BugReport": {
+    "trigger": "問題がありますか？",
+    "title": "問題がありますか？",
+    "description": "何が起きたかをお知らせください。確認します。",
+    "close": "閉じる",
+    "whatHappened": "何が起きましたか？",
+    "pageUrl": "ページ",
+    "email": "メールアドレス",
+    "screenshot": "スクリーンショット（任意）",
+    "screenshotHint": "PNG、JPEG、WebP（5 MBまで）。",
+    "submit": "報告を送信",
+    "success": "報告を受け付けました。ありがとうございます。"
+  },
   "Faq": {
     "metaTitle": "よくある質問",
     "metaDescription": "コース、最終試験、修了証、返金、言語などについての回答です。質問を検索するか、トピックから探せます。",
