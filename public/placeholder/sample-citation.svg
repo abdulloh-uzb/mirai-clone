@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-label="Sample traffic ticket">
+  <rect width="480" height="300" fill="#f8fafc"/>
+  <rect x="12" y="12" width="456" height="276" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="28" y="44" font-family="sans-serif" font-size="16" font-weight="700" fill="#334155">SAMPLE NOTICE TO APPEAR</text>
+  <rect x="300" y="24" width="152" height="30" rx="4" fill="#fde68a" stroke="#d97706" stroke-width="2"/>
+  <text x="312" y="45" font-family="monospace" font-size="16" fill="#1e293b">AB-123456</text>
+  <text x="300" y="70" font-family="sans-serif" font-size="11" fill="#d97706">Citation number</text>
+  <g fill="#cbd5e1">
+    <rect x="28" y="90" width="260" height="10" rx="3"/>
+    <rect x="28" y="112" width="200" height="10" rx="3"/>
+    <rect x="28" y="144" width="420" height="10" rx="3"/>
+    <rect x="28" y="166" width="380" height="10" rx="3"/>
+    <rect x="28" y="188" width="400" height="10" rx="3"/>
+    <rect x="28" y="228" width="160" height="10" rx="3"/>
+    <rect x="300" y="228" width="140" height="10" rx="3"/>
+  </g>
+</svg>

@@ -247,17 +247,23 @@ isOneToOne: false
                   ]
                 },"enrollments": {
                   Row: {
-                    "citation_no": string | null,"completed_at": string | null,"course_id": string,"course_locale": string,"court_due_date": string | null,"court_id": string | null,"created_at": string,"expires_at": string | null,"id": string,"order_id": string | null,"started_at": string | null,"status": string,"updated_at": string,"user_id": string
+                    "citation_no": string | null,"completed_at": string | null,"county_id": string | null,"course_id": string,"course_locale": string,"court_due_date": string | null,"court_id": string | null,"created_at": string,"expires_at": string | null,"id": string,"order_id": string | null,"started_at": string | null,"status": string,"updated_at": string,"user_id": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "citation_no"?: string | null,"completed_at"?: string | null,"course_id": string,"course_locale": string,"court_due_date"?: string | null,"court_id"?: string | null,"created_at"?: string,"expires_at"?: string | null,"id"?: string,"order_id"?: string | null,"started_at"?: string | null,"status"?: string,"updated_at"?: string,"user_id": string
+                    "citation_no"?: string | null,"completed_at"?: string | null,"county_id"?: string | null,"course_id": string,"course_locale": string,"court_due_date"?: string | null,"court_id"?: string | null,"created_at"?: string,"expires_at"?: string | null,"id"?: string,"order_id"?: string | null,"started_at"?: string | null,"status"?: string,"updated_at"?: string,"user_id": string
                   }
                   Update: {
-                    "citation_no"?: string | null,"completed_at"?: string | null,"course_id"?: string,"course_locale"?: string,"court_due_date"?: string | null,"court_id"?: string | null,"created_at"?: string,"expires_at"?: string | null,"id"?: string,"order_id"?: string | null,"started_at"?: string | null,"status"?: string,"updated_at"?: string,"user_id"?: string
+                    "citation_no"?: string | null,"completed_at"?: string | null,"county_id"?: string | null,"course_id"?: string,"course_locale"?: string,"court_due_date"?: string | null,"court_id"?: string | null,"created_at"?: string,"expires_at"?: string | null,"id"?: string,"order_id"?: string | null,"started_at"?: string | null,"status"?: string,"updated_at"?: string,"user_id"?: string
                   }
                   Relationships: [
                     {
+      foreignKeyName: "enrollments_county_id_fkey"
+      columns: ["county_id"]
+isOneToOne: false
+      referencedRelation: "counties"
+      referencedColumns: ["id"]
+    },{
       foreignKeyName: "enrollments_course_id_fkey"
       columns: ["course_id"]
 isOneToOne: false
@@ -677,14 +683,26 @@ isOneToOne: false
             [_ in never]: never
           }
           Functions: {
-            "hit_rate_limit":
+            "admin_update_locked_details":
+{ Args: { "p_dob": string,"p_legal_name": string,"p_license_no": string,"p_reason": string,"p_user_id": string }; Returns: undefined
+                           },
+"has_driver_details":
+{ Args: { "p_enrollment_id": string }; Returns: boolean
+                           },
+"hit_rate_limit":
 { Args: { "key": string,"max": number,"window_seconds": number }; Returns: boolean
                            },
 "is_admin":
 { Args: Record<PropertyKey, never>; Returns: boolean
                            },
+"lock_driver_details":
+{ Args: { "p_user_id": string }; Returns: undefined
+                           },
 "make_admin":
 { Args: { "target_email": string }; Returns: string
+                           },
+"save_driver_details":
+{ Args: { "p_citation_no": string,"p_county_id": string,"p_court_due_date": string,"p_dob": string,"p_enrollment_id": string,"p_legal_name": string,"p_license_no": string,"p_license_state": string,"p_phone": string,"p_security_answer": string,"p_security_question": string }; Returns: undefined
                            }
           }
           Enums: {
