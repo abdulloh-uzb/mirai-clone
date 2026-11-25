@@ -56,5 +56,88 @@
     "dmvServices": "DMV services",
     "faq": "Questions and answers",
     "backHome": "Back to home"
+  },
+  "Account": {
+    "createAccount": "Create account",
+    "signIn": "Sign in",
+    "menuLabel": "Account menu",
+    "myCourses": "My courses",
+    "myCertificates": "My certificates",
+    "myProfile": "My profile",
+    "logOut": "Log out"
+  },
+  "VerifyEmail": {
+    "title": "Verify your email",
+    "body": "We sent a confirmation link to {email}. Open it to confirm your address. You'll need a confirmed email before you can buy a course.",
+    "resend": "Resend email",
+    "sending": "Sending…",
+    "sent": "We sent a new link. Check your inbox.",
+    "failed": "We couldn't send the email. Please try again in a minute."
+  },
+  "Auth": {
+    "signUp": {
+      "title": "Create your account",
+      "intro": "Sign up to start your traffic school course.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "passwordHint": "At least 8 characters.",
+      "preferredLanguage": "Preferred language",
+      "submit": "Create account",
+      "haveAccount": "Already have an account?",
+      "signInLink": "Sign in"
+    },
+    "signIn": {
+      "title": "Sign in",
+      "intro": "Welcome back.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "forgotPassword": "Forgot your password?",
+      "magicLink": "Email me a sign-in link instead",
+      "noAccount": "New here?",
+      "signUpLink": "Create an account",
+      "linkError": "That link is invalid or has expired. Please request a new one."
+    },
+    "magicLink": {
+      "title": "Sign in with a link",
+      "intro": "We'll email you a link that signs you in, no password needed.",
+      "email": "Email",
+      "submit": "Email me a link",
+      "sent": "If an account exists for that email, a sign-in link is on its way. Check your inbox.",
+      "backToSignIn": "Back to sign in"
+    },
+    "resetRequest": {
+      "title": "Reset your password",
+      "intro": "Enter your email and we'll send you a link to choose a new password.",
+      "email": "Email",
+      "submit": "Send reset link",
+      "sent": "If an account exists for that email, a reset link is on its way. Check your inbox.",
+      "backToSignIn": "Back to sign in"
+    },
+    "resetUpdate": {
+      "title": "Choose a new password",
+      "password": "New password",
+      "confirmPassword": "Confirm new password",
+      "submit": "Save new password",
+      "needsLink": "Open the reset link from your email to choose a new password.",
+      "requestLink": "Request a new link"
+    },
+    "errors": {
+      "firstNameRequired": "Enter your first name.",
+      "lastNameRequired": "Enter your last name.",
+      "nameTooLong": "Use 50 characters or fewer.",
+      "emailInvalid": "Enter a valid email address.",
+      "passwordRequired": "Enter your password.",
+      "passwordTooShort": "Use at least 8 characters.",
+      "passwordTooLong": "Use 72 characters or fewer.",
+      "passwordsDoNotMatch": "The passwords don't match.",
+      "localeInvalid": "Choose a language.",
+      "invalidCredentials": "Email or password is incorrect.",
+      "emailTaken": "This email is already registered. Sign in instead.",
+      "rateLimited": "Too many attempts. Please wait a minute and try again.",
+      "generic": "Something went wrong. Please try again."
+    }
   }
 }
