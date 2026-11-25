@@ -4,11 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
 type AuthPage =
-  | "signUp"
-  | "signIn"
-  | "magicLink"
-  | "resetRequest"
-  | "resetUpdate";
+  "signUp" | "signIn" | "magicLink" | "resetRequest" | "resetUpdate";
 
 /** Page title for an auth page, in the UI language of the URL. */
 export async function authPageMetadata(

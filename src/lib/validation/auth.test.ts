@@ -10,7 +10,10 @@ const validSignUp = {
 };
 
 function errorFor(
-  result: { success: boolean; error?: { issues: { path: PropertyKey[]; message: string }[] } },
+  result: {
+    success: boolean;
+    error?: { issues: { path: PropertyKey[]; message: string }[] };
+  },
   field: string,
 ) {
   return result.error?.issues.find((issue) => issue.path[0] === field)?.message;
@@ -44,20 +47,27 @@ describe("signUpSchema", () => {
     ["password", { password: "short1" }, "passwordTooShort"],
     ["password", { password: "x".repeat(73) }, "passwordTooLong"],
     ["preferredLocale", { preferredLocale: "fr" }, "localeInvalid"],
-  ])("rejects an invalid %s with a translatable message", (field, change, key) => {
-    const result = signUpSchema.safeParse({ ...validSignUp, ...change });
+  ])(
+    "rejects an invalid %s with a translatable message",
+    (field, change, key) => {
+      const result = signUpSchema.safeParse({ ...validSignUp, ...change });
 
-    expect(result.success).toBe(false);
-    expect(errorFor(result, field)).toBe(key);
-  });
+      expect(result.success).toBe(false);
+      expect(errorFor(result, field)).toBe(key);
+    },
+  );
 
   it("requires every field", () => {
     const result = signUpSchema.safeParse({});
 
     expect(result.success).toBe(false);
-    expect(
-      result.error?.issues.map((issue) => issue.path[0]).sort(),
-    ).toEqual(["email", "firstName", "lastName", "password", "preferredLocale"]);
+    expect(result.error?.issues.map((issue) => issue.path[0]).sort()).toEqual([
+      "email",
+      "firstName",
+      "lastName",
+      "password",
+      "preferredLocale",
+    ]);
   });
 });
 

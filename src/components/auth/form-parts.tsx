@@ -1,7 +1,12 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState, useTransition, type ComponentProps, type ReactNode } from "react";
+import {
+  useState,
+  useTransition,
+  type ComponentProps,
+  type ReactNode,
+} from "react";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

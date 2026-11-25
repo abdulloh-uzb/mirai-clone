@@ -97,3 +97,94 @@ test("a wrong password gets the same generic message as an unknown email", async
   await signInWithPassword(page, uniqueEmail("nobody"), "Wrong-password-1");
   await expect(alert).toHaveText("Email or password is incorrect.");
 });
+
+test("a Student signs in with a magic link", async ({ page }) => {
+  const student = await createStudentAccount({ firstName: "Nadia" });
+
+  await page.goto("/login");
+  await page
+    .getByRole("link", { name: "Email me a sign-in link instead" })
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Sign in with a link" }),
+  ).toBeVisible();
+  await page.getByRole("main").getByLabel("Email").fill(student.email);
+  await page.getByRole("button", { name: "Email me a link" }).click();
+  await expect(page.getByRole("main").getByRole("status")).toContainText(
+    "a sign-in link is on its way",
+  );
+
+  const email = await waitForEmail(student.email);
+  await page.goto(firstLink(email));
+
+  await expect(
+    page.getByRole("banner").getByRole("button", { name: /Nadia/ }),
+  ).toBeVisible();
+});
+
+test("a Student resets their password from the emailed link", async ({
+  page,
+}) => {
+  const student = await createStudentAccount({ firstName: "Omar" });
+  const newPassword = "Brand-new-pass-2";
+
+  await page.goto("/login");
+  await page.getByRole("link", { name: "Forgot your password?" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Reset your password" }),
+  ).toBeVisible();
+  await page.getByRole("main").getByLabel("Email").fill(student.email);
+  await page.getByRole("button", { name: "Send reset link" }).click();
+  await expect(page.getByRole("main").getByRole("status")).toContainText(
+    "a reset link is on its way",
+  );
+
+  const email = await waitForEmail(student.email);
+  await page.goto(firstLink(email));
+  await expect(
+    page.getByRole("heading", { name: "Choose a new password" }),
+  ).toBeVisible();
+  await page.getByLabel("New password", { exact: true }).fill(newPassword);
+  await page.getByLabel("Confirm new password").fill(newPassword);
+  await page.getByRole("button", { name: "Save new password" }).click();
+  await expect(
+    page.getByRole("banner").getByRole("button", { name: /Omar/ }),
+  ).toBeVisible();
+
+  await page.context().clearCookies();
+  await signInWithPassword(page, student.email, newPassword);
+  await expect(
+    page.getByRole("banner").getByRole("button", { name: /Omar/ }),
+  ).toBeVisible();
+});
+
+test("signing up with a registered email says so", async ({ page }) => {
+  const student = await createStudentAccount();
+
+  await signUpThroughForm(page, {
+    firstName: "Again",
+    lastName: "Student",
+    email: student.email,
+  });
+
+  await expect(page.getByRole("main").getByRole("alert")).toHaveText(
+    "This email is already registered. Sign in instead.",
+  );
+});
+
+test("the auth pages follow the UI language in the URL", async ({ page }) => {
+  await page.goto("/ru/signup");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Создайте аккаунт" }),
+  ).toBeVisible();
+  await page
+    .getByRole("main")
+    .getByRole("button", { name: "Создать аккаунт" })
+    .click();
+  await expect(page.getByText("Укажите имя.")).toBeVisible();
+
+  await page.goto("/ja/login");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "ログイン" }),
+  ).toBeVisible();
+});

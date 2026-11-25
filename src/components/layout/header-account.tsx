@@ -17,7 +17,12 @@ export async function HeaderAccount() {
 
   return (
     <>
-      <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+      <Button
+        asChild
+        variant="ghost"
+        size="sm"
+        className="hidden sm:inline-flex"
+      >
         <Link href="/login">{t("signIn")}</Link>
       </Button>
       <Button asChild size="sm">

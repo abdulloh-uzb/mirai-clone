@@ -23,13 +23,14 @@ import { routing, type Locale } from "@/i18n/routing";
 // them into the four UI languages when email moves to Resend.
 
 export type AuthFormErrorKey =
-  | "invalidCredentials"
-  | "emailTaken"
-  | "rateLimited"
-  | "generic";
+  "invalidCredentials" | "emailTaken" | "rateLimited" | "generic";
 
 export type AuthActionResult =
-  | { status: "error"; formError?: AuthFormErrorKey; fieldErrors?: Record<string, AuthErrorKey> }
+  | {
+      status: "error";
+      formError?: AuthFormErrorKey;
+      fieldErrors?: Record<string, AuthErrorKey>;
+    }
   | { status: "sent" };
 
 type Supabase = SupabaseClient<Database>;
@@ -72,7 +73,10 @@ async function sendVerificationEmail(
 ) {
   return supabase.auth.signInWithOtp({
     email,
-    options: { shouldCreateUser: false, emailRedirectTo: callbackUrl(homePath(locale)) },
+    options: {
+      shouldCreateUser: false,
+      emailRedirectTo: callbackUrl(homePath(locale)),
+    },
   });
 }
 
@@ -105,7 +109,8 @@ export async function signUp(
     if (error.code === "weak_password") {
       return { status: "error", fieldErrors: { password: "passwordTooShort" } };
     }
-    if (error.status === 429) return { status: "error", formError: "rateLimited" };
+    if (error.status === 429)
+      return { status: "error", formError: "rateLimited" };
     return { status: "error", formError: "generic" };
   }
 
@@ -151,7 +156,8 @@ export async function sendMagicLink(
       emailRedirectTo: callbackUrl(homePath(locale)),
     },
   });
-  if (error?.status === 429) return { status: "error", formError: "rateLimited" };
+  if (error?.status === 429)
+    return { status: "error", formError: "rateLimited" };
   // Unknown emails get the same answer as known ones.
   return { status: "sent" };
 }
@@ -173,7 +179,8 @@ export async function requestPasswordReset(
       ),
     },
   );
-  if (error?.status === 429) return { status: "error", formError: "rateLimited" };
+  if (error?.status === 429)
+    return { status: "error", formError: "rateLimited" };
   return { status: "sent" };
 }
 
@@ -210,7 +217,8 @@ export async function resendVerificationEmail(
     return { status: "error", formError: "generic" };
   }
   const { error } = await sendVerificationEmail(supabase, email, locale);
-  if (error?.status === 429) return { status: "error", formError: "rateLimited" };
+  if (error?.status === 429)
+    return { status: "error", formError: "rateLimited" };
   if (error) return { status: "error", formError: "generic" };
   return { status: "sent" };
 }

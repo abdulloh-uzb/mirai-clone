@@ -39,7 +39,9 @@ export const getCurrentAccount = cache(
   },
 );
 
-export function initialsOf(account: Pick<CurrentAccount, "firstName" | "lastName" | "email">): string {
+export function initialsOf(
+  account: Pick<CurrentAccount, "firstName" | "lastName" | "email">,
+): string {
   const initials = [account.firstName, account.lastName]
     .map((part) => part.trim().charAt(0))
     .join("")
