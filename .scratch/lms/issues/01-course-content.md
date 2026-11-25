@@ -10,3 +10,7 @@ Seed original course content (spec §7): 8 sections × 3 lessons, blocks of ever
 - [x] Quiz pool ≥ 10 questions per section per language, exam pool ≥ 60 per language
 - [x] CA min_course_minutes matches lesson minimums
 - [x] DB test: counts, every block type present, each question has exactly one correct option
+
+## Comments
+
+- Landed on `lms` (feature 9db0359). Unit 168 pass, course-content DB 6 pass. Exam pool 60/locale.
