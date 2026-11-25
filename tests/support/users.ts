@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/database.types";
+import { createStatelessClient } from "../../src/lib/supabase/stateless";
 import { testEnv } from "./env";
 
 // Test user factory. Every user gets a unique email so tests never collide on
@@ -9,23 +10,19 @@ import { testEnv } from "./env";
 
 type Client = SupabaseClient<Database>;
 
-const noSession = { auth: { persistSession: false, autoRefreshToken: false } };
-
 export const TEST_PASSWORD = "Passw0rd!test";
 
 /** Service-role client. Bypasses RLS: use only for setup, cleanup and checks. */
-export const serviceClient: Client = createClient<Database>(
+export const serviceClient: Client = createStatelessClient(
   testEnv.NEXT_PUBLIC_SUPABASE_URL,
   testEnv.SUPABASE_SERVICE_ROLE_KEY,
-  noSession,
 );
 
 /** A Visitor: the anon key and no session. */
 export function visitor(): Client {
-  return createClient<Database>(
+  return createStatelessClient(
     testEnv.NEXT_PUBLIC_SUPABASE_URL,
     testEnv.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    noSession,
   );
 }
 

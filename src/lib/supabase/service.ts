@@ -1,8 +1,7 @@
 import "server-only";
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import type { Database } from "@/lib/database.types";
 import { publicEnv } from "@/lib/env";
+import { createStatelessClient } from "@/lib/supabase/stateless";
 
 /**
  * Supabase with the service role. Bypasses RLS, so use it only for trusted
@@ -14,9 +13,8 @@ export function createServiceClient() {
     .string()
     .min(1)
     .parse(process.env.SUPABASE_SERVICE_ROLE_KEY);
-  return createClient<Database>(
+  return createStatelessClient(
     publicEnv.NEXT_PUBLIC_SUPABASE_URL,
     serviceRoleKey,
-    { auth: { persistSession: false, autoRefreshToken: false } },
   );
 }

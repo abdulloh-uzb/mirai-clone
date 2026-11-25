@@ -1,6 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
 import type { Locale } from "@/i18n/routing";
-import type { Database } from "@/lib/database.types";
+import { createAnonClient } from "@/lib/supabase/anon";
 
 export type Announcement = { id: string; message: string };
 
@@ -11,14 +10,7 @@ export type Announcement = { id: string; message: string };
 export async function getPublishedAnnouncement(
   locale: Locale,
 ): Promise<Announcement | null> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anonKey) return null;
-
-  const supabase = createClient<Database>(url, anonKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-  const { data, error } = await supabase
+  const { data, error } = await createAnonClient()
     .from("announcements")
     .select("id, message")
     .eq("locale", locale)

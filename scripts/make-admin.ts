@@ -5,11 +5,12 @@
 // It runs with the service role (SUPABASE_SERVICE_ROLE_KEY from `.env.local`)
 // and refuses an email with no account. This is the only way to create the
 // first Admin: no client role can change a role or call `make_admin`.
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { config } from "dotenv";
 import { pathToFileURL } from "node:url";
 import { z } from "zod";
 import type { Database } from "../src/lib/database.types";
+import { createStatelessClient } from "../src/lib/supabase/stateless";
 
 export async function makeAdmin(
   client: SupabaseClient<Database>,
@@ -32,10 +33,9 @@ async function main() {
     .parse(process.env);
   const email = z.email().parse(process.argv[2]?.trim());
 
-  const service = createClient<Database>(
+  const service = createStatelessClient(
     env.NEXT_PUBLIC_SUPABASE_URL,
     env.SUPABASE_SERVICE_ROLE_KEY,
-    { auth: { persistSession: false, autoRefreshToken: false } },
   );
   await makeAdmin(service, email);
   console.log(`${email} is now an Admin.`);
