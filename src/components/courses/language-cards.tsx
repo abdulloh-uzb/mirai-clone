@@ -29,8 +29,9 @@ export async function LanguageCards({
                 scroll={false}
                 aria-current={isSelected ? "true" : undefined}
                 className={cn(
-                  "flex items-center gap-3 rounded-xl border bg-card p-4 shadow-xs transition-colors hover:border-primary focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
-                  isSelected && "border-primary ring-2 ring-primary/30",
+                  "flex items-center gap-3 rounded-2xl border-2 bg-card p-4 shadow-sm transition-colors hover:border-brand-green focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
+                  isSelected &&
+                    "border-brand-green bg-surface-mint ring-2 ring-brand-green/30",
                 )}
               >
                 <span aria-hidden className="text-3xl">
@@ -52,7 +53,7 @@ export async function LanguageCards({
                 {isSelected ? (
                   <CheckIcon
                     aria-label={t("selected")}
-                    className="size-5 text-primary"
+                    className="size-6 rounded-full bg-brand-green p-1 text-[#0f1217]"
                   />
                 ) : null}
               </Link>

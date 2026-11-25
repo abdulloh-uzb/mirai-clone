@@ -13,7 +13,7 @@ import { faqSearchText } from "@/lib/faq/search";
 export async function FaqList({ entries }: { entries: FaqEntry[] }) {
   const t = await getTranslations("Faq");
   return (
-    <div className="mt-8 space-y-10">
+    <div className="mt-6 space-y-10">
       {FAQ_CATEGORIES.map((category) => {
         const items = entries.filter((e) => e.category === category);
         if (items.length === 0) return null;
@@ -25,18 +25,18 @@ export async function FaqList({ entries }: { entries: FaqEntry[] }) {
           >
             <h2
               id={`faq-cat-${category}`}
-              className="text-2xl font-bold tracking-tight"
+              className="scroll-mt-28 text-2xl font-extrabold tracking-tight"
             >
               {t(`categories.${category}`)}
             </h2>
-            <div className="mt-4 divide-y rounded-lg border">
+            <div className="mt-4 grid gap-3">
               {items.map((entry) => (
                 <details
                   key={entry.slug}
                   id={entry.slug}
                   data-faq-item
                   data-search={faqSearchText(entry)}
-                  className="group scroll-mt-24"
+                  className="group scroll-mt-28 rounded-2xl border-2 bg-card shadow-sm open:border-brand-green"
                 >
                   <summary className="flex min-h-12 cursor-pointer items-center justify-between gap-4 px-4 py-3 font-semibold marker:content-none [&::-webkit-details-marker]:hidden">
                     {entry.title}

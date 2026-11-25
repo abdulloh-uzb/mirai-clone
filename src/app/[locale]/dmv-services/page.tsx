@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/layout/page-hero";
 import { ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
@@ -39,64 +40,61 @@ export default async function DmvServicesPage({
   }));
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12">
-      <h1 className="text-4xl font-bold tracking-tight text-balance">
-        {t("title")}
-      </h1>
-      <p
-        role="note"
-        className="mt-4 max-w-2xl rounded-lg border bg-muted px-4 py-3 text-sm"
-      >
-        {t("notice")}
-      </p>
-      <p className="mt-4 max-w-2xl text-lg text-pretty text-muted-foreground">
-        {t("intro")}
-      </p>
-
-      <div className="mt-8">
-        <TileSearch tiles={tiles}>
-          {DMV_SERVICE_GROUPS.map((group) => (
-            <section
-              key={group.id}
-              data-group
-              aria-labelledby={`group-${group.id}`}
-            >
-              <h2
-                id={`group-${group.id}`}
-                className="text-2xl font-bold tracking-tight"
+    <>
+      <PageHero title={t("title")} intro={t("intro")}>
+        <p
+          role="note"
+          className="mt-4 rounded-lg border bg-card/80 px-4 py-3 text-sm"
+        >
+          {t("notice")}
+        </p>
+      </PageHero>
+      <div className="mx-auto max-w-5xl px-4 py-10">
+        <div>
+          <TileSearch tiles={tiles}>
+            {DMV_SERVICE_GROUPS.map((group) => (
+              <section
+                key={group.id}
+                data-group
+                aria-labelledby={`group-${group.id}`}
               >
-                {t(key(`groups.${group.id}`))}
-              </h2>
-              <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {group.tiles.map((tile) => (
-                  <li
-                    key={tile.id}
-                    data-tile={tile.id}
-                    className="flex flex-col rounded-lg border p-4 [&[hidden]]:hidden"
-                  >
-                    <h3 className="font-semibold">
-                      {t(key(`tiles.${tile.id}.title`))}
-                    </h3>
-                    <p className="mt-1 flex-1 text-sm text-muted-foreground">
-                      {t(key(`tiles.${tile.id}.text`))}
-                    </p>
-                    <a
-                      href={tile.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                <h2
+                  id={`group-${group.id}`}
+                  className="text-2xl font-bold tracking-tight"
+                >
+                  {t(key(`groups.${group.id}`))}
+                </h2>
+                <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {group.tiles.map((tile) => (
+                    <li
+                      key={tile.id}
+                      data-tile={tile.id}
+                      className="flex flex-col rounded-lg border p-4 [&[hidden]]:hidden"
                     >
-                      {t("openLink")}
-                      <span className="sr-only"> {t("newTab")}</span>
-                      <ExternalLink className="size-3.5" aria-hidden="true" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </TileSearch>
+                      <h3 className="font-semibold">
+                        {t(key(`tiles.${tile.id}.title`))}
+                      </h3>
+                      <p className="mt-1 flex-1 text-sm text-muted-foreground">
+                        {t(key(`tiles.${tile.id}.text`))}
+                      </p>
+                      <a
+                        href={tile.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                      >
+                        {t("openLink")}
+                        <span className="sr-only"> {t("newTab")}</span>
+                        <ExternalLink className="size-3.5" aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </TileSearch>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

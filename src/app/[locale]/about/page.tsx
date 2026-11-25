@@ -33,7 +33,7 @@ export default async function AboutPage({
 
   // Contact details come from siteConfig, never from the database text.
   return (
-    <ContentPage result={result}>
+    <ContentPage result={result} hero>
       <section
         aria-labelledby="about-contact"
         className="mt-10 rounded-xl border bg-card p-6"

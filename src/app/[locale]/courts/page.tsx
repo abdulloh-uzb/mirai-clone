@@ -1,3 +1,4 @@
+import { PageHero } from "@/components/layout/page-hero";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -41,7 +42,7 @@ export default async function CourtsPage({
     return {
       county,
       row: (
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 px-4 py-3">
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-2xl border-2 border-b-4 border-b-brand-green bg-card px-4 py-3">
           <Link
             href={`/courts/${county.slug}`}
             className="min-w-40 font-semibold text-primary hover:underline"
@@ -65,31 +66,33 @@ export default async function CourtsPage({
   });
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12">
-      <h1 className="text-4xl font-bold tracking-tight text-balance">
-        {t("title")}
-      </h1>
-      <p className="mt-4 max-w-2xl text-lg text-pretty text-muted-foreground">
-        {t("intro")}
-      </p>
+    <>
+      <PageHero title={t("title")} intro={t("intro")} />
+      <div className="mx-auto max-w-5xl px-4 py-10">
+        <section aria-labelledby="popular-heading">
+          <h2
+            id="popular-heading"
+            className="text-2xl font-bold tracking-tight"
+          >
+            {t("popularHeading")}
+          </h2>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {popular.map((county) => (
+              <CountyCard key={county.slug} county={county} />
+            ))}
+          </div>
+        </section>
 
-      <section aria-labelledby="popular-heading" className="mt-10">
-        <h2 id="popular-heading" className="text-2xl font-bold tracking-tight">
-          {t("popularHeading")}
-        </h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {popular.map((county) => (
-            <CountyCard key={county.slug} county={county} />
-          ))}
-        </div>
-      </section>
-
-      <section aria-labelledby="all-heading" className="mt-12">
-        <h2 id="all-heading" className="mb-4 text-2xl font-bold tracking-tight">
-          {t("listHeading")}
-        </h2>
-        <CountySearch items={items} />
-      </section>
-    </div>
+        <section aria-labelledby="all-heading" className="mt-12">
+          <h2
+            id="all-heading"
+            className="mb-4 text-2xl font-bold tracking-tight"
+          >
+            {t("listHeading")}
+          </h2>
+          <CountySearch items={items} />
+        </section>
+      </div>
+    </>
   );
 }

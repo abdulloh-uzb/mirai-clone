@@ -8,6 +8,7 @@ import { describeMarkdown } from "@/lib/content/description";
 import { getPage, type PageRow } from "@/lib/content/pages";
 import type { TranslationResult } from "@/lib/content/translation";
 import { pageMetadata } from "@/lib/seo/page-metadata";
+import { PageHero } from "@/components/layout/page-hero";
 import { Markdown } from "./markdown";
 import { NotTranslatedNotice } from "./not-translated-notice";
 
@@ -18,16 +19,27 @@ import { NotTranslatedNotice } from "./not-translated-notice";
 export function ContentPage({
   result,
   children,
+  hero = false,
 }: {
   result: TranslationResult<PageRow>;
   children?: ReactNode;
+  /** Show the title in the shared page hero band instead of plain text. */
+  hero?: boolean;
 }) {
   const { item, isFallback } = result;
-  return (
-    <article className="mx-auto w-full max-w-3xl px-4 py-12">
-      <h1 className="text-4xl font-bold tracking-tight text-balance">
-        {item.title}
-      </h1>
+  const article = (
+    <article
+      className={
+        hero
+          ? "mx-auto w-full max-w-3xl px-4 py-10"
+          : "mx-auto w-full max-w-3xl px-4 py-12"
+      }
+    >
+      {hero ? null : (
+        <h1 className="text-4xl font-bold tracking-tight text-balance">
+          {item.title}
+        </h1>
+      )}
       {isFallback ? (
         <div className="mt-6">
           <NotTranslatedNotice />
@@ -36,6 +48,13 @@ export function ContentPage({
       <Markdown className="mt-2">{item.body}</Markdown>
       {children}
     </article>
+  );
+  if (!hero) return article;
+  return (
+    <>
+      <PageHero title={item.title} />
+      {article}
+    </>
   );
 }
 

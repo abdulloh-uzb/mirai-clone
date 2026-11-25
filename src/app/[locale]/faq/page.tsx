@@ -5,7 +5,9 @@ import { notFound } from "next/navigation";
 import { FaqHash } from "@/components/faq/faq-hash";
 import { FaqList } from "@/components/faq/faq-list";
 import { FaqSearch } from "@/components/faq/faq-search";
+import { PageHero } from "@/components/layout/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
+import { FAQ_CATEGORIES } from "@/lib/faq/categories";
 import { routing } from "@/i18n/routing";
 import { listFaq } from "@/lib/faq/faq";
 import { stripMarkdown } from "@/lib/faq/search";
@@ -34,17 +36,46 @@ export default async function FaqPage({ params }: PageProps<"/[locale]/faq">) {
   const categoryCount = new Set(entries.map((e) => e.category)).size;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
-      <h1 className="text-4xl font-bold tracking-tight text-balance">
-        {t("title")}
-      </h1>
-      <p className="mt-4 text-lg text-muted-foreground">
-        {t("count", { count: entries.length, categories: categoryCount })}
-      </p>
-      <div className="mt-8">
-        <FaqSearch>
-          <FaqList entries={entries} />
-        </FaqSearch>
+    <>
+      <PageHero
+        title={t("title")}
+        intro={t("count", {
+          count: entries.length,
+          categories: categoryCount,
+        })}
+      />
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 lg:grid-cols-[16rem_1fr]">
+        <nav
+          aria-label={t("categoriesLabel")}
+          className="lg:sticky lg:top-28 lg:self-start"
+        >
+          <ul className="flex flex-wrap gap-2 lg:grid">
+            {FAQ_CATEGORIES.map((category) => {
+              const count = entries.filter(
+                (e) => e.category === category,
+              ).length;
+              if (count === 0) return null;
+              return (
+                <li key={category}>
+                  <a
+                    href={`#faq-cat-${category}`}
+                    className="flex min-h-11 items-center justify-between gap-3 rounded-full border-2 bg-card px-4 text-sm font-semibold hover:border-brand-green focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+                  >
+                    {t(`categories.${category}`)}
+                    <span className="rounded-full bg-surface-mint px-2 py-0.5 text-xs">
+                      {count}
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <div>
+          <FaqSearch>
+            <FaqList entries={entries} />
+          </FaqSearch>
+        </div>
       </div>
       <FaqHash />
       <JsonLd
@@ -55,6 +86,6 @@ export default async function FaqPage({ params }: PageProps<"/[locale]/faq">) {
           })),
         )}
       />
-    </div>
+    </>
   );
 }
