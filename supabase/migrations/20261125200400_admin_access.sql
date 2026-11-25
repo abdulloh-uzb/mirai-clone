@@ -30,9 +30,11 @@ revoke execute on function public.make_admin(text) from public, anon, authentica
 grant execute on function public.make_admin(text) to service_role;
 
 -- Admins read every announcement (drafts too) and write them, per UI language.
--- TODO(spec): every Admin write must reach audit_log (spec section 13). Audit
--- logging of Admin writes arrives in phase 5 with the Admin screens; until then
--- these policies only exist so that phase needs no schema change.
+-- TODO(spec): every Admin write must reach audit_log (spec section 13). A write
+-- made directly by the client through these policies never passes through
+-- server code, so server code cannot audit it. Phase 5 (Admin screens) must
+-- either add an audit trigger on announcements, or drop these client write
+-- policies and write through server code that records each change.
 create policy "Admins read every announcement"
   on public.announcements for select
   to authenticated

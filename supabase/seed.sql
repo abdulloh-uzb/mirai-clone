@@ -27,6 +27,9 @@ values
 
 -- The one course and its eight section titles in every UI language (ticket 05).
 -- Lessons, blocks and questions are seeded by phase 3.
+-- TODO(spec): the price (2499 = $24.99) and struck list price (3499 = $34.99)
+-- are placeholders copied from the hero mock-up in spec section 5; confirm the
+-- real prices before launch.
 with course as (
   insert into public.courses (state_code, slug, price_cents, list_price_cents, active)
   values ('CA', 'california-traffic-violator-course', 2499, 3499, true)
