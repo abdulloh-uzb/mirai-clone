@@ -6,6 +6,6 @@
 
 Spec §7 final exam: unlock rules, confirm-details screen, 25 random questions, 70%, 2 attempts with different questions, lock after 2 fails, no feedback during, review only after pass, server grading, one active exam session, details lock on start.
 
-- [ ] Exam RPCs (start/submit) enforce all rules
-- [ ] DB test: correct answers never returned before submit
-- [ ] Exam UI
+- [x] Exam RPCs (start/submit) enforce all rules
+- [x] DB test: correct answers never returned before submit
+- [x] Exam UI
