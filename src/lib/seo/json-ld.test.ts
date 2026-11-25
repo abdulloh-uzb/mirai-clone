@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { siteConfig } from "@/config/site";
-import { article, breadcrumbList, course, faqPage } from "./json-ld";
+import {
+  article,
+  breadcrumbList,
+  course,
+  educationalOrganization,
+  faqPage,
+} from "./json-ld";
 
 describe("faqPage", () => {
   it("lists each question with its accepted answer", () => {
@@ -109,6 +115,35 @@ describe("course", () => {
       inLanguage: ["en", "es"],
       provider: { name: "School" },
       offers: { price: "24.99", priceCurrency: "USD" },
+    });
+  });
+});
+
+describe("educationalOrganization", () => {
+  const input = {
+    siteUrl: "https://example.test",
+    locale: "ja" as const,
+    name: "School",
+    email: "a@example.test",
+    telephone: "555",
+  };
+
+  it("has no aggregateRating without real reviews", () => {
+    const data = educationalOrganization({ ...input, rating: null });
+    expect(data).toMatchObject({
+      "@type": "EducationalOrganization",
+      url: "https://example.test/ja",
+    });
+    expect(data).not.toHaveProperty("aggregateRating");
+  });
+
+  it("adds aggregateRating from real reviews", () => {
+    const data = educationalOrganization({
+      ...input,
+      rating: { ratingValue: 4.5, reviewCount: 2 },
+    });
+    expect(data).toMatchObject({
+      aggregateRating: { ratingValue: 4.5, reviewCount: 2 },
     });
   });
 });

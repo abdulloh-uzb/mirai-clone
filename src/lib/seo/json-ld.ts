@@ -2,8 +2,7 @@ import { siteConfig } from "@/config/site";
 import type { Locale } from "@/i18n/routing";
 import { localizedUrl } from "./metadata";
 
-// Builders for schema.org structured data. Ticket 09 adds
-// educationalOrganization here.
+// Builders for schema.org structured data.
 
 /** `answer` is plain text (Markdown already stripped). */
 export function faqPage(entries: { question: string; answer: string }[]) {
@@ -100,5 +99,40 @@ export function course(input: CourseInput) {
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
     },
+  };
+}
+
+export type EducationalOrganizationInput = {
+  siteUrl: string;
+  locale: Locale;
+  name: string;
+  email: string;
+  telephone: string;
+  /** From real reviews only (`aggregateRating` in src/lib/reviews/rating.ts). */
+  rating: { ratingValue: number; reviewCount: number } | null;
+};
+
+/** The school, for the home page. Rating appears only when real reviews exist. */
+export function educationalOrganization(input: EducationalOrganizationInput) {
+  const base = input.siteUrl.replace(/\/+$/, "");
+  return {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: input.name,
+    url: localizedUrl(input.siteUrl, input.locale, "/"),
+    logo: `${base}/placeholder/og-default.png`,
+    email: input.email,
+    telephone: input.telephone,
+    areaServed: { "@type": "State", name: "California" },
+    ...(input.rating
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: input.rating.ratingValue,
+            reviewCount: input.rating.reviewCount,
+            bestRating: 5,
+          },
+        }
+      : {}),
   };
 }

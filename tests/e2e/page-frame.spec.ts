@@ -1,13 +1,25 @@
 import { expect, test } from "@playwright/test";
 
 const roots = [
-  { path: "/", lang: "en", heading: "Traffic school, without the traffic" },
-  { path: "/ja", lang: "ja", heading: "渋滞知らずの交通違反講習" },
-  { path: "/es", lang: "es", heading: "Escuela de tráfico, sin el tráfico" },
+  {
+    path: "/",
+    lang: "en",
+    heading: "California traffic school in your language",
+  },
+  {
+    path: "/ja",
+    lang: "ja",
+    heading: "日本語で受けられるカリフォルニア州トラフィックスクール",
+  },
+  {
+    path: "/es",
+    lang: "es",
+    heading: "Escuela de tránsito de California en español",
+  },
   {
     path: "/ru",
     lang: "ru",
-    heading: "Автошкола для нарушителей — без пробок",
+    heading: "Дорожная школа Калифорнии на русском языке",
   },
 ] as const;
 

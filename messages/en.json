@@ -4,8 +4,106 @@
     "description": "Online traffic school for California drivers, in English, Japanese, Spanish and Russian."
   },
   "Home": {
-    "title": "Traffic school, without the traffic",
-    "intro": "Finish your California traffic school online, at your own pace, in the language you read best. The full site is on its way."
+    "hero": {
+      "badge": "Demo traffic school · License {license}",
+      "title": "California traffic school in your language",
+      "intro": "Take the California traffic violator course online, at your own pace, in English, Japanese, Spanish or Russian.",
+      "listPrice": "Regular price:",
+      "save": "SAVE {amount}",
+      "enroll": "Enroll Now",
+      "explore": "Explore Courses",
+      "trust": {
+        "languages": "Self-paced in 4 languages",
+        "access": "{days} days of access",
+        "payments": "Secure Stripe payments"
+      },
+      "imageAlt": "A road winding through green hills toward the sun"
+    },
+    "stepsHeading": "How it works",
+    "steps": {
+      "signUp": {
+        "title": "Sign up",
+        "text": "Create your account and choose the language you'll study in."
+      },
+      "learn": {
+        "title": "Learn at your own pace",
+        "text": "Work through 8 short sections on any device. We save your place."
+      },
+      "exam": {
+        "title": "Pass the final test",
+        "text": "{questions} questions, {pct}% to pass, {attempts} attempts."
+      },
+      "certificate": {
+        "title": "Get your certificate",
+        "text": "Download it right away; we report your completion to the DMV."
+      }
+    },
+    "course": {
+      "title": "California Traffic Violator Course",
+      "text": "The full course for California drivers, with lessons, quizzes and the final exam in your language.",
+      "access": "{days} days of access",
+      "interactive": "Interactive lessons",
+      "reported": "Reported to the DMV 3 times a day",
+      "cta": "See the course"
+    },
+    "courts": {
+      "heading": "Find your court",
+      "text": "Each county page explains how to ask your court for traffic school and where to find your citation number.",
+      "all": "See all {count} courts",
+      "eligibility": "Check if you can take traffic school"
+    },
+    "pricing": {
+      "heading": "Simple pricing",
+      "onlineTitle": "Online course",
+      "includes": {
+        "lessons": "All 8 sections, quizzes and {days} days of access",
+        "exam": "Final exam with 2 attempts",
+        "certificate": "Certificate of completion",
+        "reporting": "Completion reported to the DMV",
+        "support": "Help by email in 4 languages"
+      },
+      "refundTitle": "Refunds",
+      "refundWhen": "When you ask",
+      "refundAmount": "Refund",
+      "refund": {
+        "full": "Within 7 days, no lesson started",
+        "half": "Within 7 days, lessons started, final exam not started",
+        "none": "After 7 days, final exam started or certificate issued"
+      },
+      "refundLink": "Read the refund policy",
+      "classroomTitle": "In-person classroom",
+      "classroomText": "Not open yet. Join the waitlist and we'll tell you when classes start.",
+      "classroomCta": "Join the waitlist"
+    },
+    "reviews": {
+      "heading": "What students say",
+      "average": "Average {rating} out of 5 from {count, plural, one {# review} other {# reviews}}",
+      "sampleLabel": "Sample reviews written for this demo",
+      "carousel": "carousel",
+      "carouselLabel": "Student reviews",
+      "slide": "review",
+      "slideLabel": "{current} of {total}",
+      "stars": "{rating} out of 5 stars",
+      "previous": "Previous review",
+      "next": "Next review",
+      "position": "{current} / {total}"
+    },
+    "ai": {
+      "heading": "Stuck on a rule? Ask the AI assistant",
+      "text": "While you study, the assistant explains traffic rules in your language. It is switched off during the final exam.",
+      "cta": "Try AI assistant",
+      "soon": "Coming soon: the assistant arrives in a later update."
+    },
+    "faq": {
+      "heading": "Common questions",
+      "permalink": "Open in the FAQ",
+      "all": "See all questions"
+    },
+    "final": {
+      "heading": "Ready to clear your ticket?",
+      "text": "Start today for {price}, in the language you read best.",
+      "eligibility": "Check eligibility"
+    }
   },
   "SkipLink": {
     "label": "Skip to content"

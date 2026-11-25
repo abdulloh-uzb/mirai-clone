@@ -5,8 +5,106 @@
     "description": "Escuela de tráfico en línea para conductores de California, en inglés, japonés, español y ruso."
   },
   "Home": {
-    "title": "Escuela de tráfico, sin el tráfico",
-    "intro": "Termina tu escuela de tráfico de California en línea, a tu ritmo y en el idioma que mejor lees. El sitio completo está en camino."
+    "hero": {
+      "badge": "Escuela de tránsito de demostración · Licencia {license}",
+      "title": "Escuela de tránsito de California en español",
+      "intro": "Toma el curso para infractores de tránsito de California en línea, a tu ritmo, en inglés, japonés, español o ruso.",
+      "listPrice": "Precio normal:",
+      "save": "AHORRA {amount}",
+      "enroll": "Inscríbete ahora",
+      "explore": "Ver cursos",
+      "trust": {
+        "languages": "A tu ritmo en 4 idiomas",
+        "access": "{days} días de acceso",
+        "payments": "Pagos seguros con Stripe"
+      },
+      "imageAlt": "Una carretera que cruza colinas verdes hacia el sol"
+    },
+    "stepsHeading": "Cómo funciona",
+    "steps": {
+      "signUp": {
+        "title": "Regístrate",
+        "text": "Crea tu cuenta y elige el idioma en el que vas a estudiar."
+      },
+      "learn": {
+        "title": "Aprende a tu ritmo",
+        "text": "Avanza por 8 secciones cortas en cualquier dispositivo. Guardamos tu progreso."
+      },
+      "exam": {
+        "title": "Aprueba el examen final",
+        "text": "{questions} preguntas, {pct}% para aprobar, {attempts} intentos."
+      },
+      "certificate": {
+        "title": "Recibe tu certificado",
+        "text": "Descárgalo enseguida; nosotros reportamos tu finalización al DMV."
+      }
+    },
+    "course": {
+      "title": "Curso para infractores de tránsito de California",
+      "text": "El curso completo para conductores de California, con lecciones, cuestionarios y examen final en tu idioma.",
+      "access": "{days} días de acceso",
+      "interactive": "Lecciones interactivas",
+      "reported": "Reportado al DMV 3 veces al día",
+      "cta": "Ver el curso"
+    },
+    "courts": {
+      "heading": "Encuentra tu tribunal",
+      "text": "Cada página de condado explica cómo pedir la escuela de tránsito al tribunal y dónde encontrar tu número de multa.",
+      "all": "Ver los {count} tribunales",
+      "eligibility": "Verifica si puedes tomar la escuela de tránsito"
+    },
+    "pricing": {
+      "heading": "Precios simples",
+      "onlineTitle": "Curso en línea",
+      "includes": {
+        "lessons": "Las 8 secciones, cuestionarios y {days} días de acceso",
+        "exam": "Examen final con 2 intentos",
+        "certificate": "Certificado de finalización",
+        "reporting": "Finalización reportada al DMV",
+        "support": "Ayuda por correo en 4 idiomas"
+      },
+      "refundTitle": "Reembolsos",
+      "refundWhen": "Cuándo lo pides",
+      "refundAmount": "Reembolso",
+      "refund": {
+        "full": "Dentro de 7 días, sin lecciones iniciadas",
+        "half": "Dentro de 7 días, lecciones iniciadas, examen final sin empezar",
+        "none": "Después de 7 días, examen final iniciado o certificado emitido"
+      },
+      "refundLink": "Leer la política de reembolsos",
+      "classroomTitle": "Clase presencial",
+      "classroomText": "Aún no está abierta. Únete a la lista de espera y te avisaremos cuando empiecen las clases.",
+      "classroomCta": "Unirme a la lista de espera"
+    },
+    "reviews": {
+      "heading": "Lo que dicen los estudiantes",
+      "average": "Promedio de {rating} de 5 en {count, plural, one {# reseña} other {# reseñas}}",
+      "sampleLabel": "Reseñas de ejemplo escritas para esta demo",
+      "carousel": "carrusel",
+      "carouselLabel": "Reseñas de estudiantes",
+      "slide": "reseña",
+      "slideLabel": "{current} de {total}",
+      "stars": "{rating} de 5 estrellas",
+      "previous": "Reseña anterior",
+      "next": "Reseña siguiente",
+      "position": "{current} / {total}"
+    },
+    "ai": {
+      "heading": "¿Dudas con una regla? Pregunta al asistente de IA",
+      "text": "Mientras estudias, el asistente explica las reglas de tránsito en tu idioma. Se apaga durante el examen final.",
+      "cta": "Probar el asistente de IA",
+      "soon": "Próximamente: el asistente llegará en una actualización posterior."
+    },
+    "faq": {
+      "heading": "Preguntas frecuentes",
+      "permalink": "Abrir en las preguntas frecuentes",
+      "all": "Ver todas las preguntas"
+    },
+    "final": {
+      "heading": "¿Listo para resolver tu multa?",
+      "text": "Empieza hoy por {price}, en el idioma que mejor lees.",
+      "eligibility": "Verificar elegibilidad"
+    }
   },
   "SkipLink": {
     "label": "Saltar al contenido"

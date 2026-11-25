@@ -39,7 +39,7 @@ test("the 404 page responds with status 404 and offers four routes and a way hom
   await main.getByRole("link", { name: "Back to home" }).click();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Traffic school, without the traffic",
+    "California traffic school in your language",
   );
 });
 

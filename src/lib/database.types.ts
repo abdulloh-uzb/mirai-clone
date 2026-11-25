@@ -563,14 +563,14 @@ isOneToOne: false
                   ]
                 },"reviews": {
                   Row: {
-                    "author_name": string,"body": string,"created_at": string,"id": string,"locale": string,"published": boolean,"rating": number,"slug": string,"title": string,"updated_at": string
+                    "author_name": string,"body": string,"created_at": string,"id": string,"is_sample": boolean,"locale": string,"published": boolean,"rating": number,"slug": string,"title": string,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "author_name"?: string,"body"?: string,"created_at"?: string,"id"?: string,"locale": string,"published"?: boolean,"rating"?: number,"slug": string,"title": string,"updated_at"?: string
+                    "author_name"?: string,"body"?: string,"created_at"?: string,"id"?: string,"is_sample"?: boolean,"locale": string,"published"?: boolean,"rating"?: number,"slug": string,"title": string,"updated_at"?: string
                   }
                   Update: {
-                    "author_name"?: string,"body"?: string,"created_at"?: string,"id"?: string,"locale"?: string,"published"?: boolean,"rating"?: number,"slug"?: string,"title"?: string,"updated_at"?: string
+                    "author_name"?: string,"body"?: string,"created_at"?: string,"id"?: string,"is_sample"?: boolean,"locale"?: string,"published"?: boolean,"rating"?: number,"slug"?: string,"title"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     
