@@ -63,7 +63,8 @@
   },
   "AnnouncementBar": {
     "label": "Announcement",
-    "dismiss": "Dismiss announcement"
+    "dismiss": "Dismiss announcement",
+    "whatsNew": "See what's new"
   },
   "Account": {
     "createAccount": "Create account",
@@ -268,9 +269,6 @@
     }
   },
   "Accessibility": {
-    "title": "Accessibility",
-    "intro": "We want everyone to be able to take this course.",
-    "statement": "This is a placeholder accessibility statement. The full statement will be published here soon. If you need an accommodation or find a barrier on this site, tell us below.",
     "formHeading": "Request an accommodation",
     "form": {
       "name": "Your name",
@@ -573,5 +571,15 @@
       "submit": "Join the waitlist",
       "success": "Thanks! You're on the classroom waitlist."
     }
+  },
+  "About": {
+    "contactHeading": "Contact the school",
+    "license": "Demo license number: {number}",
+    "contactLink": "Send us a message"
+  },
+  "WhatsNew": {
+    "metaTitle": "What's new",
+    "title": "What's new",
+    "intro": "Changes to the school and the site, newest first."
   }
 }

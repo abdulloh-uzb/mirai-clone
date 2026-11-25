@@ -64,7 +64,8 @@
   },
   "AnnouncementBar": {
     "label": "Aviso",
-    "dismiss": "Cerrar aviso"
+    "dismiss": "Cerrar aviso",
+    "whatsNew": "Ver novedades"
   },
   "Account": {
     "createAccount": "Crear cuenta",
@@ -269,9 +270,6 @@
     }
   },
   "Accessibility": {
-    "title": "Accesibilidad",
-    "intro": "Queremos que todas las personas puedan tomar este curso.",
-    "statement": "Esta es una declaración de accesibilidad provisional. La declaración completa se publicará aquí pronto. Si necesitas una adaptación o encuentras una barrera en este sitio, cuéntanos abajo.",
     "formHeading": "Solicitar una adaptación",
     "form": {
       "name": "Tu nombre",
@@ -574,5 +572,15 @@
       "submit": "Unirme a la lista de espera",
       "success": "¡Gracias! Estás en la lista de espera de la clase presencial."
     }
+  },
+  "About": {
+    "contactHeading": "Contacta a la escuela",
+    "license": "Número de licencia de demostración: {number}",
+    "contactLink": "Envíanos un mensaje"
+  },
+  "WhatsNew": {
+    "metaTitle": "Novedades",
+    "title": "Novedades",
+    "intro": "Cambios en la escuela y en el sitio, del más reciente al más antiguo."
   }
 }

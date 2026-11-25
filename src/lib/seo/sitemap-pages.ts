@@ -23,6 +23,12 @@ export const staticSitemapPages: readonly SitemapPage[] = [
   { path: "/courses" },
   { path: "/eligibility" },
   { path: "/blog" },
+  { path: "/terms" },
+  { path: "/privacy" },
+  { path: "/refund-policy" },
+  { path: "/school-rules" },
+  { path: "/about" },
+  { path: "/whats-new" },
 ];
 
 /**

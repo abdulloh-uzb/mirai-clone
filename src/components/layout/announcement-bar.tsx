@@ -7,6 +7,7 @@ import {
   parseDismissed,
 } from "@/lib/dismissed-announcements";
 import { ReportProblem } from "@/components/support/report-problem";
+import { Link } from "@/i18n/navigation";
 import { DismissibleAnnouncement } from "./dismissible-announcement";
 
 /** Top bar with the current published announcement for the UI language. */
@@ -28,7 +29,15 @@ export async function AnnouncementBar({ locale }: { locale: Locale }) {
       label={t("label")}
       dismissLabel={t("dismiss")}
       action={
-        <ReportProblem className="shrink-0 rounded-sm font-medium underline underline-offset-2 hover:no-underline" />
+        <>
+          <Link
+            href="/whats-new"
+            className="hidden shrink-0 rounded-sm font-medium underline underline-offset-2 hover:no-underline sm:inline"
+          >
+            {t("whatsNew")}
+          </Link>
+          <ReportProblem className="shrink-0 rounded-sm font-medium underline underline-offset-2 hover:no-underline" />
+        </>
       }
     />
   );
