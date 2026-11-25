@@ -164,6 +164,25 @@
   "Content": {
     "notTranslated": "このページはまだ日本語に翻訳されていないため、英語で表示しています。"
   },
+  "Blog": {
+    "metaTitle": "ブログ",
+    "metaDescription": "交通講習、カリフォルニアでの運転、違反後の対応について、分かりやすく解説する短い記事です。",
+    "title": "ブログ",
+    "intro": "交通講習、カリフォルニアでの運転、違反後の対応についての記事です。一般的な情報ですので、必ずご自身の裁判所に確認してください。",
+    "filterLabel": "カテゴリで絞り込む",
+    "all": "すべて",
+    "listLabel": "ブログ記事",
+    "noPosts": "まだ記事はありません。",
+    "categories": {
+      "traffic-school": "交通講習",
+      "california-driving": "カリフォルニアの運転",
+      "after-your-ticket": "違反の後に"
+    },
+    "relatedHeading": "関連記事",
+    "breadcrumbLabel": "パンくずリスト",
+    "breadcrumbHome": "ホーム",
+    "breadcrumbBlog": "ブログ"
+  },
   "Courts": {
     "metaTitle": "郡別の裁判所",
     "metaDescription": "カリフォルニア州の郡ごとの上位裁判所、裁判所の所在地、コード、交通安全講習の申請方法を確認できます。デモデータです。",

@@ -415,14 +415,14 @@ isOneToOne: false
                   ]
                 },"posts": {
                   Row: {
-                    "body": string,"created_at": string,"excerpt": string,"id": string,"locale": string,"published": boolean,"published_at": string | null,"slug": string,"title": string,"updated_at": string
+                    "body": string,"category": string,"created_at": string,"excerpt": string,"id": string,"locale": string,"published": boolean,"published_at": string | null,"slug": string,"title": string,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "body"?: string,"created_at"?: string,"excerpt"?: string,"id"?: string,"locale": string,"published"?: boolean,"published_at"?: string | null,"slug": string,"title": string,"updated_at"?: string
+                    "body"?: string,"category": string,"created_at"?: string,"excerpt"?: string,"id"?: string,"locale": string,"published"?: boolean,"published_at"?: string | null,"slug": string,"title": string,"updated_at"?: string
                   }
                   Update: {
-                    "body"?: string,"created_at"?: string,"excerpt"?: string,"id"?: string,"locale"?: string,"published"?: boolean,"published_at"?: string | null,"slug"?: string,"title"?: string,"updated_at"?: string
+                    "body"?: string,"category"?: string,"created_at"?: string,"excerpt"?: string,"id"?: string,"locale"?: string,"published"?: boolean,"published_at"?: string | null,"slug"?: string,"title"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     

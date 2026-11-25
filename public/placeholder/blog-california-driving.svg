@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-hidden="true">
+  <rect width="1200" height="630" fill="#fbe9d0"/>
+  <circle cx="190" cy="140" r="70" fill="#f2b84b"/>
+  <path d="M0 330 L220 200 L400 300 L620 150 L860 310 L1200 190 V630 H0 Z" fill="#e8b98a"/>
+  <path d="M0 420 L260 320 L520 410 L800 300 L1200 400 V630 H0 Z" fill="#c98b5b"/>
+  <!-- road with perspective -->
+  <path d="M470 630 L570 380 H630 L730 630 Z" fill="#4a4f55"/>
+  <path d="M600 620 V560 M600 520 V470 M600 440 V400" stroke="#f4f1e6" stroke-width="8" stroke-linecap="round"/>
+  <!-- palm trees -->
+  <g stroke="#6b4a2b" stroke-width="10" stroke-linecap="round" fill="none">
+    <path d="M300 560 Q310 470 290 400"/>
+    <path d="M900 560 Q890 480 910 410"/>
+  </g>
+  <g fill="#2f7a4f">
+    <path d="M290 400 Q240 380 210 410 Q250 390 290 400 Q330 380 370 410 Q330 385 290 400 Q270 350 240 340 Q280 360 290 400 Q310 350 340 340 Q300 360 290 400Z"/>
+    <path d="M910 410 Q860 390 830 420 Q870 400 910 410 Q950 390 990 420 Q950 395 910 410 Q890 360 860 350 Q900 370 910 410 Q930 360 960 350 Q920 370 910 410Z"/>
+  </g>
+</svg>
