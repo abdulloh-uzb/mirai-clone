@@ -13,8 +13,8 @@
 - [x] Citation-state selector chip (used here and by ticket 09): 51 states, cookie `ticket_state`, inactive → "Coming soon — notify me" with State waitlist form (email)
 - [x] `Course` + `offers` JSON-LD; metadata; sitemap entries
 - [x] Unit: eligibility logic, form schemas. E2E: language selection and both buy-button routes; eligibility yes and no paths; selector + notify me; classroom waitlist; mobile; axe clean. DB: clients cannot read either waitlist
-- [x] `pnpm check:locked` passes
+- [ ] `pnpm check:locked` passes
 
 ## Comments
 
-- 2026-11-26: Resolved. Merged the WIP branch `worktree-agent-a15c142415d292222` and finished the ticket in f0c332a (pages, components, sign-up `next`, Portal notice, messages) and d4acab0 (e2e specs). The "3 columns, 2 values" seed bug did not appear: `pnpm db:reset` loads `states.sql` and `classroom.sql` cleanly. Checked with `pnpm lint`, `pnpm typecheck`, `pnpm db:reset` and the unit tests in the pre-commit hook. The e2e and DB suites (including `tests/db/waitlists.db.test.ts`) were not run in this pass, so `pnpm check:locked` is still owed. `TODO(spec)` in `supabase/seed/classroom.sql`: the classroom course has no sections yet.
+- 2026-11-26: Resolved. Merged the WIP branch `worktree-agent-a15c142415d292222` and finished the ticket in f0c332a (pages, components, sign-up `next`, Portal notice, messages) and d4acab0 (e2e specs). The "3 columns, 2 values" seed bug did not appear: `pnpm db:reset` loads `states.sql` and `classroom.sql` cleanly. Checked with `pnpm lint`, `pnpm typecheck`, `pnpm db:reset` and the unit tests in the pre-commit hook. The e2e and DB suites (including `tests/db/waitlists.db.test.ts`) were not run in this pass, so the `pnpm check:locked` box stays open. `TODO(spec)` in `supabase/seed/classroom.sql`: the classroom course has no sections yet.
