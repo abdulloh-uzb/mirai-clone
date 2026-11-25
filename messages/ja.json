@@ -277,6 +277,134 @@
     "submit": "報告を送信",
     "success": "報告を受け付けました。ありがとうございます。"
   },
+  "DmvServices": {
+    "metaTitle": "DMVサービスガイド",
+    "metaDescription": "カリフォルニアDMVの主な手続きと、dmv.ca.gov公式ページへのリンク集。DMVとは無関係です。",
+    "title": "カリフォルニアDMVのサービス",
+    "intro": "引っ越しから免許の更新まで、必要な手続きに合う公式DMVページを探せます。",
+    "notice": "当サイトはカリフォルニアDMVとは無関係で、承認も受けていません。以下のリンクはdmv.ca.govの公式ページを開きます。",
+    "searchLabel": "DMVサービスを検索",
+    "searchPlaceholder": "例:「REAL ID」「更新」",
+    "resultCount": "{count}件のサービスが見つかりました",
+    "noResults": "一致するサービスはありません。",
+    "openLink": "dmv.ca.govで開く",
+    "newTab": "(新しいタブで開きます)",
+    "groups": {
+      "moving": "カリフォルニアへの引っ越し",
+      "renewals": "更新",
+      "real-id": "REAL ID",
+      "vehicles": "車の売買",
+      "replace": "書類の再発行",
+      "status-pay": "状況確認・支払い"
+    },
+    "tiles": {
+      "new-resident-license": {
+        "title": "カリフォルニアへ引っ越した後の免許",
+        "text": "新しい居住者が合法的に運転するために必要なこと。",
+        "keywords": "新規居住者 引っ越し 他州 免許 運転免許 切り替え"
+      },
+      "new-resident-vehicle": {
+        "title": "新規居住者の車両登録",
+        "text": "他州の車をカリフォルニアで登録する方法。",
+        "keywords": "新規居住者 引っ越し 他州 車両 車 登録 ナンバー"
+      },
+      "change-address": {
+        "title": "住所を変更する",
+        "text": "現在の住所をDMVに届け出ます。",
+        "keywords": "住所 引っ越し 変更 転居 郵送先"
+      },
+      "renew-license": {
+        "title": "運転免許を更新する",
+        "text": "期限が近い免許をオンラインまたは窓口で更新。",
+        "keywords": "更新 免許 運転免許 期限切れ 有効期限"
+      },
+      "renew-registration": {
+        "title": "車両登録を更新する",
+        "text": "更新手数料を支払い、ステッカーを最新に。",
+        "keywords": "更新 登録 ステッカー タグ 車 期限切れ"
+      },
+      "renew-id-card": {
+        "title": "IDカードを更新する",
+        "text": "カリフォルニアのIDカードを更新します。",
+        "keywords": "更新 IDカード 身分証"
+      },
+      "make-appointment": {
+        "title": "DMVの予約を取る",
+        "text": "営業所への来訪を予約します。",
+        "keywords": "予約 申し込み 営業所 来訪"
+      },
+      "real-id-overview": {
+        "title": "REAL IDとは",
+        "text": "REAL IDの概要と、必要かどうかの確認。",
+        "keywords": "REAL ID 星 連邦 国内線 空港"
+      },
+      "real-id-documents": {
+        "title": "REAL IDに必要な書類",
+        "text": "持参すべき本人確認と居住の証明書類。",
+        "keywords": "REAL ID 書類 本人確認 居住 出生証明書"
+      },
+      "real-id-apply": {
+        "title": "REAL IDを申請する",
+        "text": "REAL IDの申請を始めます。",
+        "keywords": "REAL ID 申請 手続き"
+      },
+      "buy-vehicle": {
+        "title": "車を購入する",
+        "text": "車やバイクを購入するときの手順と書類。",
+        "keywords": "購入 買う 車 バイク 中古"
+      },
+      "sell-vehicle": {
+        "title": "車を売却・譲渡する",
+        "text": "売却を届け出て、後の責任を避けます。",
+        "keywords": "売却 売る 譲渡 贈与 責任 車"
+      },
+      "transfer-title": {
+        "title": "車の名義(タイトル)を移す",
+        "text": "車両のタイトルの所有者を変更します。",
+        "keywords": "タイトル 名義変更 所有者 譲渡"
+      },
+      "register-new-vehicle": {
+        "title": "新しい車を登録する",
+        "text": "購入したばかりの車を登録します。",
+        "keywords": "登録 新車 車両 ナンバー"
+      },
+      "replace-license": {
+        "title": "紛失・盗難した免許の再発行",
+        "text": "免許証やIDカードの再発行。",
+        "keywords": "再発行 紛失 盗難 免許 ID"
+      },
+      "replace-registration": {
+        "title": "登録証・ステッカーの再発行",
+        "text": "登録証の写しや新しいステッカーを入手。",
+        "keywords": "再発行 紛失 登録証 ステッカー タグ"
+      },
+      "replace-title": {
+        "title": "紛失したタイトルの再発行",
+        "text": "車両タイトルの再発行を申請します。",
+        "keywords": "再発行 紛失 タイトル"
+      },
+      "name-change": {
+        "title": "免許の氏名を変更する",
+        "text": "結婚や裁判所の命令後に氏名を更新。",
+        "keywords": "氏名変更 名前 結婚 離婚 免許"
+      },
+      "check-status": {
+        "title": "申請状況を確認する",
+        "text": "手続きの進み具合を確認します。",
+        "keywords": "状況 確認 追跡 申請 保留"
+      },
+      "pay-fees": {
+        "title": "DMVの手数料を支払う",
+        "text": "登録や免許などの手数料を支払います。",
+        "keywords": "支払い 料金 手数料 登録"
+      },
+      "driver-record": {
+        "title": "運転記録を取得する",
+        "text": "運転履歴と違反点数の写しを請求します。",
+        "keywords": "運転記録 運転履歴 点数 違反"
+      }
+    }
+  },
   "Faq": {
     "metaTitle": "よくある質問",
     "metaDescription": "コース、最終試験、修了証、返金、言語などについての回答です。質問を検索するか、トピックから探せます。",

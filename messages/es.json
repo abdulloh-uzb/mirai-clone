@@ -277,6 +277,134 @@
     "submit": "Enviar reporte",
     "success": "Gracias, recibimos tu reporte."
   },
+  "DmvServices": {
+    "metaTitle": "Guía de servicios del DMV",
+    "metaDescription": "Directorio de trámites comunes del DMV de California con enlaces a las páginas oficiales de dmv.ca.gov. Sin afiliación con el DMV.",
+    "title": "Servicios del DMV de California",
+    "intro": "Encuentre la página oficial del DMV para lo que necesita hacer, desde mudarse a California hasta renovar una licencia.",
+    "notice": "Este sitio no está afiliado ni respaldado por el DMV de California. Los enlaces abren páginas oficiales de dmv.ca.gov.",
+    "searchLabel": "Buscar servicios del DMV",
+    "searchPlaceholder": "Pruebe \"REAL ID\" o \"renovar\"",
+    "resultCount": "{count, plural, one {# servicio encontrado} other {# servicios encontrados}}",
+    "noResults": "Ningún servicio coincide con su búsqueda.",
+    "openLink": "Abrir en dmv.ca.gov",
+    "newTab": "(se abre en una pestaña nueva)",
+    "groups": {
+      "moving": "Mudanza a California",
+      "renewals": "Renovaciones",
+      "real-id": "REAL ID",
+      "vehicles": "Comprar o vender un vehículo",
+      "replace": "Reposición de documentos",
+      "status-pay": "Consultar estado o pagar"
+    },
+    "tiles": {
+      "new-resident-license": {
+        "title": "Obtenga su licencia al mudarse a California",
+        "text": "Qué deben hacer los nuevos residentes para conducir legalmente.",
+        "keywords": "nuevo residente mudanza mudarse otro estado licencia carnet"
+      },
+      "new-resident-vehicle": {
+        "title": "Registre su vehículo como nuevo residente",
+        "text": "Pase un auto de otro estado al registro de California.",
+        "keywords": "nuevo residente mudanza otro estado vehículo auto registro placas"
+      },
+      "change-address": {
+        "title": "Cambie su dirección",
+        "text": "Informe al DMV dónde vive ahora.",
+        "keywords": "dirección domicilio mudanza cambio residencia"
+      },
+      "renew-license": {
+        "title": "Renueve su licencia de conducir",
+        "text": "Renueve una licencia por vencer, en línea o en persona.",
+        "keywords": "renovar renovación licencia vencida vencimiento conducir"
+      },
+      "renew-registration": {
+        "title": "Renueve el registro de su vehículo",
+        "text": "Pague la renovación y mantenga sus calcomanías al día.",
+        "keywords": "renovar renovación registro calcomanía placas auto vencido"
+      },
+      "renew-id-card": {
+        "title": "Renueve una tarjeta de identificación",
+        "text": "Renueve su tarjeta de identificación de California.",
+        "keywords": "renovar renovación identificación tarjeta ID"
+      },
+      "make-appointment": {
+        "title": "Haga una cita en el DMV",
+        "text": "Reserve una visita a una oficina.",
+        "keywords": "cita reservar agendar oficina visita"
+      },
+      "real-id-overview": {
+        "title": "¿Qué es REAL ID?",
+        "text": "Descubra qué es un REAL ID y si lo necesita.",
+        "keywords": "REAL ID estrella federal vuelo aeropuerto"
+      },
+      "real-id-documents": {
+        "title": "Documentos para el REAL ID",
+        "text": "Los comprobantes de identidad y residencia que debe llevar.",
+        "keywords": "REAL ID documentos comprobante identidad residencia acta nacimiento"
+      },
+      "real-id-apply": {
+        "title": "Solicite un REAL ID",
+        "text": "Inicie su solicitud de REAL ID.",
+        "keywords": "REAL ID solicitar solicitud iniciar"
+      },
+      "buy-vehicle": {
+        "title": "Compre un vehículo",
+        "text": "Pasos y trámites al comprar un auto o una moto.",
+        "keywords": "comprar compra auto vehículo moto usado"
+      },
+      "sell-vehicle": {
+        "title": "Venda o regale un vehículo",
+        "text": "Informe la venta para no tener responsabilidad después.",
+        "keywords": "vender venta regalar regalo responsabilidad vehículo auto"
+      },
+      "transfer-title": {
+        "title": "Transfiera el título de un vehículo",
+        "text": "Cambie el propietario en el título.",
+        "keywords": "título transferencia propiedad propietario"
+      },
+      "register-new-vehicle": {
+        "title": "Registre un vehículo nuevo",
+        "text": "Registre el auto que acaba de comprar.",
+        "keywords": "registrar registro nuevo auto vehículo placas"
+      },
+      "replace-license": {
+        "title": "Reponga una licencia perdida o robada",
+        "text": "Obtenga un duplicado de la licencia o la tarjeta de ID.",
+        "keywords": "reponer perdida robada duplicado licencia carnet ID"
+      },
+      "replace-registration": {
+        "title": "Reponga la tarjeta de registro o calcomanías",
+        "text": "Obtenga una copia del registro o calcomanías nuevas.",
+        "keywords": "reponer perdida duplicado registro tarjeta calcomanía placas"
+      },
+      "replace-title": {
+        "title": "Reponga un título perdido",
+        "text": "Solicite un duplicado del título del vehículo.",
+        "keywords": "reponer perdido duplicado título"
+      },
+      "name-change": {
+        "title": "Cambie su nombre en la licencia",
+        "text": "Actualice su nombre legal tras un matrimonio u orden judicial.",
+        "keywords": "cambio nombre matrimonio casada divorcio nombre legal licencia"
+      },
+      "check-status": {
+        "title": "Consulte el estado de una solicitud",
+        "text": "Vea en qué etapa está su trámite.",
+        "keywords": "estado consultar seguimiento solicitud pendiente"
+      },
+      "pay-fees": {
+        "title": "Pague tarifas del DMV",
+        "text": "Pague registro, licencia y otros servicios.",
+        "keywords": "pagar pago tarifas costo registro"
+      },
+      "driver-record": {
+        "title": "Obtenga su historial de conductor",
+        "text": "Solicite una copia de su historial y puntos.",
+        "keywords": "historial conductor manejo puntos infracciones expediente"
+      }
+    }
+  },
   "Faq": {
     "metaTitle": "Preguntas frecuentes",
     "metaDescription": "Respuestas sobre el curso, el examen final, los certificados, los reembolsos, los idiomas y más. Busque o explore por tema.",

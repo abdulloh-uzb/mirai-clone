@@ -276,6 +276,134 @@
     "submit": "Send report",
     "success": "Thanks, we got your report."
   },
+  "DmvServices": {
+    "metaTitle": "DMV services guide",
+    "metaDescription": "A directory of common California DMV tasks with links to the official dmv.ca.gov pages. Not affiliated with the DMV.",
+    "title": "California DMV services",
+    "intro": "Find the right official DMV page for what you need to do, from moving to California to renewing a license.",
+    "notice": "This site is not affiliated with or endorsed by the California DMV. The links below open official pages on dmv.ca.gov.",
+    "searchLabel": "Search DMV services",
+    "searchPlaceholder": "Try \"REAL ID\" or \"renew\"",
+    "resultCount": "{count, plural, one {# service found} other {# services found}}",
+    "noResults": "No services match your search.",
+    "openLink": "Open on dmv.ca.gov",
+    "newTab": "(opens in a new tab)",
+    "groups": {
+      "moving": "Moving to California",
+      "renewals": "Renewals",
+      "real-id": "REAL ID",
+      "vehicles": "Buying or selling a vehicle",
+      "replace": "Replacing documents",
+      "status-pay": "Checking status or paying"
+    },
+    "tiles": {
+      "new-resident-license": {
+        "title": "Get a license after moving to California",
+        "text": "What new residents need to do to drive legally in California.",
+        "keywords": "new resident move moving relocate out of state license licence DL transfer"
+      },
+      "new-resident-vehicle": {
+        "title": "Register your vehicle as a new resident",
+        "text": "Bring a car from another state onto California registration.",
+        "keywords": "new resident move moving out of state vehicle car registration plates"
+      },
+      "change-address": {
+        "title": "Change your address",
+        "text": "Tell the DMV where you live now.",
+        "keywords": "address move moved change residence mailing"
+      },
+      "renew-license": {
+        "title": "Renew your driver license",
+        "text": "Renew an expiring driver license, online or in person.",
+        "keywords": "renew renewal license licence DL expired expiring driver"
+      },
+      "renew-registration": {
+        "title": "Renew your vehicle registration",
+        "text": "Pay renewal fees and keep your tags current.",
+        "keywords": "renew renewal registration tags sticker car expired"
+      },
+      "renew-id-card": {
+        "title": "Renew an ID card",
+        "text": "Renew a California identification card.",
+        "keywords": "renew renewal ID card identification"
+      },
+      "make-appointment": {
+        "title": "Make a DMV appointment",
+        "text": "Book a visit to a field office.",
+        "keywords": "appointment book schedule visit field office"
+      },
+      "real-id-overview": {
+        "title": "What is REAL ID?",
+        "text": "Learn what a REAL ID is and whether you need one.",
+        "keywords": "REAL ID star federal flight airport"
+      },
+      "real-id-documents": {
+        "title": "Documents you need for REAL ID",
+        "text": "The proof of identity and residency to bring.",
+        "keywords": "REAL ID documents proof identity residency birth certificate"
+      },
+      "real-id-apply": {
+        "title": "Apply for a REAL ID",
+        "text": "Start your REAL ID application.",
+        "keywords": "REAL ID apply application start"
+      },
+      "buy-vehicle": {
+        "title": "Buy a vehicle",
+        "text": "Steps and paperwork when you buy a car or motorcycle.",
+        "keywords": "buy purchase bought car vehicle motorcycle used"
+      },
+      "sell-vehicle": {
+        "title": "Sell or give away a vehicle",
+        "text": "Report a sale so you are not liable afterwards.",
+        "keywords": "sell sold sale give gift release liability vehicle car"
+      },
+      "transfer-title": {
+        "title": "Transfer a vehicle title",
+        "text": "Change the owner on a vehicle title.",
+        "keywords": "title transfer ownership pink slip owner"
+      },
+      "register-new-vehicle": {
+        "title": "Register a new vehicle",
+        "text": "Register a car you have just bought.",
+        "keywords": "register registration new car vehicle plates"
+      },
+      "replace-license": {
+        "title": "Replace a lost or stolen license",
+        "text": "Get a duplicate driver license or ID card.",
+        "keywords": "replace lost stolen duplicate license licence DL ID"
+      },
+      "replace-registration": {
+        "title": "Replace a registration card or stickers",
+        "text": "Get a copy of your registration or new tags.",
+        "keywords": "replace lost duplicate registration card sticker tags"
+      },
+      "replace-title": {
+        "title": "Replace a lost title",
+        "text": "Request a duplicate vehicle title.",
+        "keywords": "replace lost duplicate title pink slip"
+      },
+      "name-change": {
+        "title": "Change your name on your license",
+        "text": "Update your legal name after marriage or a court order.",
+        "keywords": "name change marriage married divorce legal name license"
+      },
+      "check-status": {
+        "title": "Check the status of an application",
+        "text": "See where your DMV request stands.",
+        "keywords": "status check track application pending"
+      },
+      "pay-fees": {
+        "title": "Pay DMV fees",
+        "text": "Pay for registration, license and other services.",
+        "keywords": "pay payment fees fee cost registration"
+      },
+      "driver-record": {
+        "title": "Get your driver record",
+        "text": "Request a copy of your driving record and points.",
+        "keywords": "driver record driving history points violations DMV record"
+      }
+    }
+  },
   "Faq": {
     "metaTitle": "FAQ",
     "metaDescription": "Answers about the course, the final exam, certificates, refunds, languages and more. Search the FAQ or browse by topic.",
