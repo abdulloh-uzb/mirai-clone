@@ -800,5 +800,79 @@
       "partially_refunded": "Reembolso parcial",
       "failed": "Fallido"
     }
+  },
+  "PortalNav": {
+    "label": "Portal",
+    "course": "Mi curso",
+    "account": "Cuenta",
+    "certificates": "Certificados",
+    "faq": "Preguntas y respuestas",
+    "askAi": "Preguntar a la IA"
+  },
+  "Dashboard": {
+    "title": "Mi curso",
+    "paused": "Tu curso está en pausa para revisión. Contacta con soporte para continuar.",
+    "locked": "Tu curso está bloqueado. Contacta con soporte.",
+    "expired": "Tu acceso ha caducado. Contacta con soporte para ver tus opciones.",
+    "accessBanner": {
+      "d14": "Tu acceso termina en {days} días. Termina el curso a tiempo.",
+      "d7": "Tu acceso termina en {days} días. Termina pronto.",
+      "d1": "Tu acceso termina hoy o mañana. Termina ahora para no perder tu avance."
+    },
+    "progressLabel": "Progreso del curso: {pct}%",
+    "currentSection": "Sección actual",
+    "allDone": "Todas las lecciones completadas",
+    "continue": "Continuar",
+    "daysLeft": "Acceso restante",
+    "daysOf": "{days} de {total} días",
+    "courseLanguage": "Idioma del curso",
+    "courtDueDate": "Fecha límite del tribunal",
+    "dueOverdue": "Vencida",
+    "dueIn": "{days, plural, =0 {Vence hoy} one {Queda # día} other {Quedan # días}} ({date})",
+    "dueMissing": "Sin indicar",
+    "dueSoon": "La fecha límite de tu tribunal se acerca. Termina el curso y obtén tu certificado a tiempo.",
+    "reporting": "Informe al tribunal",
+    "reportingPlaceholder": "Se informa cuando apruebes",
+    "detailsFirst": "Te pediremos tus datos de conductor antes de la primera lección."
+  },
+  "Player": {
+    "title": "Curso",
+    "outline": "Esquema del curso",
+    "locked": "Bloqueado",
+    "sectionOf": "Sección {section}",
+    "accessBanner": {
+      "d14": "Tu acceso termina en 14 días o menos.",
+      "d7": "Tu acceso termina en 7 días o menos.",
+      "d1": "Tu acceso termina en menos de un día."
+    },
+    "next": "Siguiente",
+    "finishLesson": "Terminar lección",
+    "unlocksIn": "Siguiente se desbloquea en {time}",
+    "readyToContinue": "Ya puedes continuar.",
+    "sectionDone": "Sección completada.",
+    "takeQuiz": "Hacer el cuestionario de la sección",
+    "nextSection": "Siguiente sección",
+    "videoSoon": "El video llegará pronto. Lee la transcripción abajo.",
+    "transcript": "Transcripción",
+    "cardFront": "Pregunta",
+    "cardBack": "Respuesta",
+    "flipHint": "Pulsa para girar la tarjeta",
+    "scenario": "Escenario de práctica",
+    "bestChoice": "La mejor opción.",
+    "notBest": "No es la mejor opción.",
+    "orderHint": "Arrastra los pasos o usa los botones de flecha y comprueba el orden.",
+    "moveUp": "Subir: {item}",
+    "moveDown": "Bajar: {item}",
+    "checkOrder": "Comprobar orden",
+    "orderCorrect": "Orden correcto.",
+    "orderWrong": "Casi. Inténtalo de nuevo.",
+    "errors": {
+      "enrollmentExpired": "Tu acceso ha caducado.",
+      "enrollmentNotActive": "Tu curso no está activo ahora.",
+      "detailsRequired": "Completa primero tus datos de conductor.",
+      "lessonLocked": "Termina antes las lecciones anteriores.",
+      "minTimeNotMet": "Dedica un poco más de tiempo a esta lección.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
   }
 }
