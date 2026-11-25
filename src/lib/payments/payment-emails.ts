@@ -1,6 +1,11 @@
 import "server-only";
 import { getEmailSender } from "@/lib/email";
-import { receiptEmail, welcomeEmail } from "@/lib/email/payment-templates";
+import {
+  receiptEmail,
+  refundProcessedEmail,
+  refundRequestedEmail,
+  welcomeEmail,
+} from "@/lib/email/payment-templates";
 import { languages } from "@/i18n/languages";
 import { getPathname } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
@@ -63,6 +68,74 @@ export async function sendPaymentEmails(orderId: string): Promise<void> {
       name: profile.first_name,
       language: languages[courseLocale].nativeName,
       url: portal,
+    }),
+  });
+}
+
+/** Who to write to, and in which UI language, for a user id. */
+async function recipient(userId: string) {
+  const service = createServiceClient();
+  const { data: profile } = await service
+    .from("profiles")
+    .select("first_name, preferred_locale")
+    .eq("user_id", userId)
+    .single();
+  const { data: authUser } = await service.auth.admin.getUserById(userId);
+  const email = authUser.user?.email;
+  if (!profile || !email) return null;
+  const locale = (routing.locales as readonly string[]).includes(
+    profile.preferred_locale,
+  )
+    ? (profile.preferred_locale as Locale)
+    : routing.defaultLocale;
+  return { email, name: profile.first_name, locale };
+}
+
+/** "We received your refund request" email to the Student. */
+export async function sendRefundRequestedEmail(
+  userId: string,
+  amountCents: number,
+): Promise<void> {
+  const to = await recipient(userId);
+  if (!to) return;
+  await getEmailSender().send({
+    to: to.email,
+    ...refundRequestedEmail({
+      locale: to.locale,
+      name: to.name,
+      amount: formatUsd(amountCents, to.locale),
+    }),
+  });
+}
+
+/** "Refund processed" email, found by the refunded payment. */
+export async function sendRefundProcessedEmail(
+  paymentIntent: string,
+): Promise<void> {
+  const service = createServiceClient();
+  const { data: order } = await service
+    .from("orders")
+    .select("id, user_id")
+    .eq("stripe_payment_intent", paymentIntent)
+    .single();
+  if (!order) return;
+  const { data: refund } = await service
+    .from("refunds")
+    .select("amount_cents")
+    .eq("order_id", order.id)
+    .eq("status", "processed")
+    .order("updated_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  if (!refund) return;
+  const to = await recipient(order.user_id);
+  if (!to) return;
+  await getEmailSender().send({
+    to: to.email,
+    ...refundProcessedEmail({
+      locale: to.locale,
+      name: to.name,
+      amount: formatUsd(refund.amount_cents, to.locale),
     }),
   });
 }

@@ -6,5 +6,5 @@
 
 Spec §8 refunds: pure calculateRefund with full unit tests, request from /portal/orders, admin approve/deny (server actions; admin UI page minimal here), Stripe Refunds API (mock mode aware), charge.refunded revokes enrollment.
 
-- [ ] calculateRefund covers every row of the table
-- [ ] Request → approve → refunded → enrollment status refunded
+- [x] calculateRefund covers every row of the table
+- [x] Request → approve → refunded → enrollment status refunded

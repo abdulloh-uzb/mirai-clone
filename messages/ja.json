@@ -800,5 +800,35 @@
       "partially_refunded": "一部返金",
       "failed": "失敗"
     }
+  },
+  "Refunds": {
+    "preview": "{amount}（{pct}%）が返金されます",
+    "reasons": {
+      "full_window_unstarted": "お支払いから7日以内で、コースは未開始です。",
+      "half_window_started": "お支払いから7日以内ですが、レッスンを開始しているため50%が返金対象です。",
+      "outside_window": "7日間の返金期間を過ぎています。",
+      "exam_started": "最終試験を開始しているため、返金できません。",
+      "certificate_issued": "修了証が発行されているため、返金できません。",
+      "not_paid": "この注文は支払い済みではありません。"
+    },
+    "reasonLabel": "返金を希望する理由（任意）",
+    "request": "返金をリクエスト",
+    "statuses": {
+      "requested": "返金リクエスト中",
+      "approved": "返金承認済み",
+      "rejected": "返金は却下されました",
+      "processed": "返金済み",
+      "failed": "返金に失敗しました"
+    },
+    "admin": {
+      "title": "返金リクエスト",
+      "empty": "待機中の返金リクエストはありません。",
+      "order": "注文",
+      "reason": "理由",
+      "amount": "金額",
+      "approve": "承認",
+      "deny": "却下",
+      "none": "理由なし"
+    }
   }
 }

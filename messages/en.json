@@ -799,5 +799,35 @@
       "partially_refunded": "Partially refunded",
       "failed": "Failed"
     }
+  },
+  "Refunds": {
+    "preview": "You can get {amount} ({pct}%) back",
+    "reasons": {
+      "full_window_unstarted": "You are within 7 days of paying and have not started the course.",
+      "half_window_started": "You are within 7 days of paying but have started lessons, so 50% is refundable.",
+      "outside_window": "The 7-day refund window has passed.",
+      "exam_started": "The final exam has been started, so the order is not refundable.",
+      "certificate_issued": "A certificate was issued, so the order is not refundable.",
+      "not_paid": "This order is not paid."
+    },
+    "reasonLabel": "Why are you asking for a refund? (optional)",
+    "request": "Request refund",
+    "statuses": {
+      "requested": "Refund requested",
+      "approved": "Refund approved",
+      "rejected": "Refund denied",
+      "processed": "Refunded",
+      "failed": "Refund failed"
+    },
+    "admin": {
+      "title": "Refund requests",
+      "empty": "No refund requests are waiting.",
+      "order": "Order",
+      "reason": "Reason",
+      "amount": "Amount",
+      "approve": "Approve",
+      "deny": "Deny",
+      "none": "No reason given"
+    }
   }
 }

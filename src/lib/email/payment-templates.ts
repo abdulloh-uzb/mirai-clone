@@ -129,3 +129,95 @@ export function welcomeEmail(input: {
 }): Message {
   return finish(WELCOME[input.locale](input));
 }
+
+const REFUND_REQUESTED: Record<
+  UiLocale,
+  (i: { name: string; amount: string }) => Parts
+> = {
+  en: (i) => ({
+    subject: "We received your refund request",
+    lines: [
+      `Hi ${i.name},`,
+      "",
+      `We received your refund request for ${i.amount}. An administrator will review it soon.`,
+    ],
+  }),
+  ja: (i) => ({
+    subject: "返金リクエストを受け付けました",
+    lines: [
+      `${i.name} 様`,
+      "",
+      `${i.amount} の返金リクエストを受け付けました。管理者が確認します。`,
+    ],
+  }),
+  es: (i) => ({
+    subject: "Recibimos tu solicitud de reembolso",
+    lines: [
+      `Hola ${i.name},`,
+      "",
+      `Recibimos tu solicitud de reembolso por ${i.amount}. Un administrador la revisará pronto.`,
+    ],
+  }),
+  ru: (i) => ({
+    subject: "Мы получили ваш запрос на возврат",
+    lines: [
+      `Здравствуйте, ${i.name}!`,
+      "",
+      `Мы получили ваш запрос на возврат ${i.amount}. Администратор скоро его рассмотрит.`,
+    ],
+  }),
+};
+
+const REFUND_PROCESSED: Record<
+  UiLocale,
+  (i: { name: string; amount: string }) => Parts
+> = {
+  en: (i) => ({
+    subject: "Your refund was processed",
+    lines: [
+      `Hi ${i.name},`,
+      "",
+      `Your refund of ${i.amount} was processed. Course access has ended.`,
+    ],
+  }),
+  ja: (i) => ({
+    subject: "返金が完了しました",
+    lines: [
+      `${i.name} 様`,
+      "",
+      `${i.amount} の返金が完了しました。コースへのアクセスは終了しました。`,
+    ],
+  }),
+  es: (i) => ({
+    subject: "Tu reembolso fue procesado",
+    lines: [
+      `Hola ${i.name},`,
+      "",
+      `Tu reembolso de ${i.amount} fue procesado. El acceso al curso ha terminado.`,
+    ],
+  }),
+  ru: (i) => ({
+    subject: "Ваш возврат выполнен",
+    lines: [
+      `Здравствуйте, ${i.name}!`,
+      "",
+      `Возврат ${i.amount} выполнен. Доступ к курсу закрыт.`,
+    ],
+  }),
+};
+
+export function refundRequestedEmail(input: {
+  locale: UiLocale;
+  name: string;
+  amount: string;
+}): Message {
+  return finish(REFUND_REQUESTED[input.locale](input));
+}
+
+export function refundProcessedEmail(input: {
+  locale: UiLocale;
+  name: string;
+  amount: string;
+}): Message {
+  return finish(REFUND_PROCESSED[input.locale](input));
+}
