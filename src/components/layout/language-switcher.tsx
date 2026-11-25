@@ -34,7 +34,7 @@ export function LanguageSwitcher() {
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="inline-flex h-8 items-center gap-1.5 rounded-full border px-2.5 text-sm font-semibold hover:bg-accent"
+          className="inline-flex h-8 items-center gap-1.5 rounded-full bg-white/80 px-2.5 text-sm font-bold hover:bg-white dark:bg-white/10 dark:hover:bg-white/15"
         >
           <span aria-hidden className="text-base leading-none">
             {active.flag}
@@ -46,7 +46,7 @@ export function LanguageSwitcher() {
           </span>
         </button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-80 p-3">
+      <PopoverContent align="end" className="w-72 rounded-2xl p-3 shadow-lg">
         <p className="mb-2 px-1 text-sm font-medium text-muted-foreground">
           {t("title")}
         </p>
@@ -76,19 +76,35 @@ export function LanguageSwitcher() {
                       router.push(pathname, { locale });
                     });
                   }}
-                  className="flex items-center gap-2 rounded-xl border p-3 hover:bg-accent aria-[current]:border-primary aria-[current]:bg-accent"
+                  className="relative flex items-center gap-2 rounded-[10px] border-2 border-soft-border bg-card p-2.5 hover:bg-accent aria-[current]:border-brand-green aria-[current]:bg-[#edfae7] aria-[current]:text-[#0f1217]"
                 >
-                  <span aria-hidden className="text-2xl leading-none">
+                  <span
+                    aria-hidden
+                    className="absolute top-1 left-1.5 size-1 rounded-full bg-soft-border"
+                  />
+                  <span
+                    aria-hidden
+                    className="absolute top-1 right-1.5 size-1 rounded-full bg-soft-border"
+                  />
+                  <span
+                    aria-hidden
+                    className="grid size-8 shrink-0 place-items-center rounded-full bg-muted text-lg leading-none"
+                  >
                     {language.flag}
                   </span>
                   <span className="flex flex-col">
-                    <span className="font-semibold">{language.nativeName}</span>
-                    <span aria-hidden className="text-xs text-muted-foreground">
-                      {language.shortCode}
+                    <span className="text-sm font-bold">
+                      {language.nativeName}
+                    </span>
+                    <span aria-hidden className="text-[11px] opacity-70">
+                      {language.englishName}
                     </span>
                   </span>
                   {isCurrent && (
-                    <CheckIcon aria-hidden className="ml-auto size-4" />
+                    <CheckIcon
+                      aria-hidden
+                      className="absolute -top-1.5 -right-1.5 size-5 rounded-full bg-brand-green p-0.5 text-[#0f1217]"
+                    />
                   )}
                 </Link>
               </li>

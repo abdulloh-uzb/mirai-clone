@@ -8,12 +8,12 @@ import {
   UserPlusIcon,
 } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Markdown } from "@/components/content/markdown";
 import { CitationStateSelector } from "@/components/courses/citation-state-selector";
+import { HeroScene } from "@/components/home/hero-scene";
 import { ReviewsCarousel } from "@/components/home/reviews-carousel";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -57,7 +57,8 @@ export async function generateMetadata({
   };
 }
 
-const sectionHeading = "text-3xl font-bold tracking-tight text-balance";
+const sectionHeading =
+  "text-3xl font-extrabold tracking-tight text-balance sm:text-4xl";
 
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
@@ -156,28 +157,39 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
       />
 
       {/* 1. Hero */}
-      <section className="bg-gradient-to-b from-primary/5 to-transparent">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:py-20">
-          <div>
-            <p className="inline-block rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-sm font-medium">
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-y-0 right-0 w-full md:w-[65%]">
+          <HeroScene label={t("hero.imageAlt")} />
+        </div>
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent md:via-background/70"
+        />
+        <div className="relative mx-auto max-w-[1440px] px-6 py-16 md:py-28 lg:px-16">
+          <div className="max-w-[800px]">
+            <p className="flex items-center gap-2 text-sm font-semibold">
+              <CheckIcon
+                aria-hidden
+                className="size-5 rounded-full bg-brand-green p-0.5 text-[#0f1217]"
+              />
               {t("hero.badge", { license: siteConfig.licenseNumber })}
             </p>
-            <h1 className="mt-5 text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+            <h1 className="mt-5 text-[clamp(2.5rem,6vw+1rem,4.5rem)] leading-[1.05] font-extrabold tracking-[-0.025em] text-balance">
               {t("hero.title")}
             </h1>
-            <p className="mt-5 text-lg text-pretty text-muted-foreground">
+            <p className="mt-5 max-w-xl text-lg text-pretty text-muted-foreground">
               {t("hero.intro")}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <span className="text-4xl font-bold">{price}</span>
+              <span className="text-5xl font-extrabold">{price}</span>
               {listPrice ? (
-                <s className="text-xl text-muted-foreground">
+                <s className="text-[22px] text-muted-foreground">
                   <span className="sr-only">{t("hero.listPrice")} </span>
                   {listPrice}
                 </s>
               ) : null}
               {saving ? (
-                <span className="rounded-full bg-emerald-600 px-3 py-1 text-sm font-bold text-white">
+                <span className="rounded-full bg-brand-green px-3 py-1 text-xs font-extrabold tracking-wide text-[#0f1217] uppercase">
                   {t("hero.save", { amount: saving })}
                 </span>
               ) : null}
@@ -185,21 +197,24 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href={enrollHref}
-                className={buttonVariants({ size: "lg" })}
+                className={buttonVariants({ size: "xl" })}
               >
                 {t("hero.enroll")}
               </Link>
               <Link
                 href="/courses"
-                className={buttonVariants({ size: "lg", variant: "outline" })}
+                className={buttonVariants({ size: "xl", variant: "outline" })}
               >
                 {t("hero.explore")}
               </Link>
             </div>
-            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
               {(["languages", "access", "payments"] as const).map((key) => (
                 <li key={key} className="flex items-center gap-1.5">
-                  <CheckIcon aria-hidden className="size-4 text-emerald-600" />
+                  <CheckIcon
+                    aria-hidden
+                    className="size-4 text-brand-green-ink"
+                  />
                   {t(`hero.trust.${key}`, { days: rules.accessDays })}
                 </li>
               ))}
@@ -208,37 +223,57 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               <CitationStateSelector states={states} current={ticketState} />
             </div>
           </div>
-          <Image
-            src="/placeholder/hero-road.svg"
-            alt={t("hero.imageAlt")}
-            width={640}
-            height={400}
-            preload
-            unoptimized
-            className="h-auto w-full rounded-3xl"
-          />
         </div>
       </section>
 
-      {/* 2. How it works */}
-      <section
-        aria-labelledby="how-heading"
-        className="mx-auto max-w-6xl px-4 py-16"
-      >
-        <h2 id="how-heading" className={sectionHeading}>
-          {t("stepsHeading")}
-        </h2>
-        <ol className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* 2. How it works: checkered banner, then alternating sky and mint bands */}
+      <section aria-labelledby="how-heading">
+        <div aria-hidden className="checker-edge h-3.5" />
+        <div className="bg-surface-peach py-10 text-center">
+          <h2
+            id="how-heading"
+            className="mx-auto max-w-3xl px-4 text-3xl font-extrabold tracking-tight text-balance"
+          >
+            {t("stepsHeading")}
+          </h2>
+        </div>
+        <div aria-hidden className="checker-edge h-3.5" />
+        <ol>
           {steps.map(({ icon: Icon, title, text }, index) => (
-            <li key={title} className="rounded-xl border bg-card p-5">
-              <span className="flex items-center gap-3">
-                <span className="grid size-9 place-items-center rounded-full bg-primary font-bold text-primary-foreground">
-                  {index + 1}
-                </span>
-                <Icon aria-hidden className="size-5 text-primary" />
-              </span>
-              <h3 className="mt-4 text-lg font-semibold">{title}</h3>
-              <p className="mt-2 text-muted-foreground">{text}</p>
+            <li
+              key={title}
+              className={cn(
+                "py-12 md:py-20",
+                index % 2 === 0 ? "bg-surface-sky" : "bg-surface-mint",
+              )}
+            >
+              <div
+                className={cn(
+                  "mx-auto grid max-w-[1200px] items-center gap-6 px-6 md:grid-cols-2",
+                  index % 2 === 1 && "md:[&>*:first-child]:order-2",
+                )}
+              >
+                <div>
+                  <span
+                    aria-hidden
+                    className="block text-[clamp(5rem,12vw,7.5rem)] leading-none font-extrabold text-brand-green"
+                  >
+                    {index + 1}
+                  </span>
+                  <h3 className="mt-2 text-3xl font-extrabold tracking-tight">
+                    {title}
+                  </h3>
+                  <p className="mt-3 max-w-md text-lg text-muted-foreground">
+                    {text}
+                  </p>
+                </div>
+                <div
+                  aria-hidden
+                  className="mx-auto grid size-40 place-items-center rounded-[28px] bg-card text-brand-green-ink shadow-md md:size-56"
+                >
+                  <Icon className="size-16 md:size-24" strokeWidth={1.5} />
+                </div>
+              </div>
             </li>
           ))}
         </ol>
@@ -351,7 +386,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
                   <li key={key} className="flex items-start gap-2">
                     <CheckIcon
                       aria-hidden
-                      className="mt-1 size-4 shrink-0 text-emerald-600"
+                      className="mt-1 size-4 shrink-0 text-brand-green-ink"
                     />
                     {t(`pricing.includes.${key}`, { days: rules.accessDays })}
                   </li>

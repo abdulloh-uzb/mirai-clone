@@ -154,7 +154,11 @@
     "findCourt": "Найти свой суд",
     "dmvServices": "Услуги DMV",
     "faq": "Вопросы и ответы",
-    "backHome": "На главную"
+    "backHome": "На главную",
+    "coursesSub": "Лицензированный курс",
+    "findCourtSub": "Ваш суд и его код DMV",
+    "dmvServicesSub": "Продление, удостоверения, документы",
+    "faqSub": "Допуск, экзамены, сертификаты, возвраты"
   },
   "LanguageSwitcher": {
     "label": "Язык: {language}",
@@ -757,5 +761,15 @@
       "expired": "Истекла",
       "refunded": "Возврат"
     }
+  },
+  "HelpWidget": {
+    "region": "Помощь и обзор",
+    "tourLabel": "Как это работает за 1 минуту",
+    "tourTitle": "Пройти обзор",
+    "tourCta": "Открыть помощника",
+    "minimize": "Свернуть помощь",
+    "collapsedLabel": "Помощь и обзор",
+    "placeholder": "Спросите ИИ о чём угодно…",
+    "send": "Спросить"
   }
 }

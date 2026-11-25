@@ -1,6 +1,6 @@
 "use client";
 
-import { MegaphoneIcon, XIcon } from "lucide-react";
+import { CheckIcon, XIcon } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import {
   addDismissed,
@@ -41,11 +41,16 @@ export function DismissibleAnnouncement({
   return (
     <section
       aria-label={label}
-      className="bg-primary text-sm text-primary-foreground"
+      className="bg-gradient-to-r from-[#e8f6e4] to-[#f4fbf2] text-sm text-[#1d283a] dark:from-[#12301f] dark:to-[#0f2a2c] dark:text-[#e9f1f6]"
     >
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2">
-        <MegaphoneIcon aria-hidden className="size-4 shrink-0" />
-        <p className="flex-1 text-pretty">{message}</p>
+        <span
+          aria-hidden
+          className="grid size-5 shrink-0 place-items-center rounded-full bg-brand-green text-[#0f1217]"
+        >
+          <CheckIcon className="size-3.5" />
+        </span>
+        <p className="flex-1 font-semibold text-pretty">{message}</p>
         {action}
         <button
           type="button"
@@ -54,7 +59,7 @@ export function DismissibleAnnouncement({
             rememberDismissed(id);
             setDismissed(true);
           }}
-          className="grid size-7 shrink-0 place-items-center rounded-md hover:bg-primary-foreground/15"
+          className="grid size-7 shrink-0 place-items-center rounded-md text-muted-foreground hover:bg-black/5 dark:hover:bg-white/10"
         >
           <XIcon aria-hidden className="size-4" />
         </button>

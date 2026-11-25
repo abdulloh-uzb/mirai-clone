@@ -153,7 +153,11 @@
     "findCourt": "Find your court",
     "dmvServices": "DMV services",
     "faq": "Questions and answers",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "coursesSub": "Licensed course",
+    "findCourtSub": "Your court and its DMV code",
+    "dmvServicesSub": "Renewals, IDs, documents",
+    "faqSub": "Eligibility, exams, certificates, refunds"
   },
   "LanguageSwitcher": {
     "label": "Language: {language}",
@@ -756,5 +760,15 @@
       "expired": "Expired",
       "refunded": "Refunded"
     }
+  },
+  "HelpWidget": {
+    "region": "Help and overview",
+    "tourLabel": "How it works in 1 minute",
+    "tourTitle": "Take the tour",
+    "tourCta": "Open the assistant",
+    "minimize": "Minimize help",
+    "collapsedLabel": "Help & overview",
+    "placeholder": "Ask AI anything…",
+    "send": "Ask"
   }
 }

@@ -7,28 +7,38 @@ import type { Locale } from "./routing";
  */
 export const languages: Record<
   Locale,
-  { nativeName: string; shortCode: string; flag: string; suggestion: string }
+  {
+    nativeName: string;
+    englishName: string;
+    shortCode: string;
+    flag: string;
+    suggestion: string;
+  }
 > = {
   en: {
     nativeName: "English",
+    englishName: "English",
     shortCode: "EN",
     flag: "🇺🇸",
     suggestion: "View this page in English",
   },
   ja: {
     nativeName: "日本語",
+    englishName: "Japanese",
     shortCode: "JA",
     flag: "🇯🇵",
     suggestion: "このページを日本語で表示",
   },
   es: {
     nativeName: "Español",
+    englishName: "Spanish",
     shortCode: "ES",
     flag: "🇪🇸",
     suggestion: "Ver esta página en español",
   },
   ru: {
     nativeName: "Русский",
+    englishName: "Russian",
     shortCode: "RU",
     flag: "🇷🇺",
     suggestion: "Открыть эту страницу на русском",
