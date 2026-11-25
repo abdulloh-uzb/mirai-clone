@@ -34,7 +34,7 @@ Tickets are not a list of steps. Each has a `**Blocked by:**` line, so they form
 
    Keep it to what an implementer can't infer from the ticket and code. Commit the plan to the integration branch before spawning.
 
-4. **Spawn implementers** for up to 2 planned frontier tickets, in the background, each with `isolation: "worktree"`, `subagent_type: "implementer"`. Prompt with pointers only: spec path, ticket path, plan path, integration branch name. Tell each to report only after its own `pnpm check:locked` has exited.
+4. **Spawn implementers** for up to 2 planned frontier tickets, in the background, each with `isolation: "worktree"`, `subagent_type: "implementer"`. Prompt with pointers only: spec path, ticket path, plan path, integration branch name. Tell each to run only fast and ticket-specific checks and report once they have exited: the full check runs once, in the merge gate (step 5).
 
 5. **When an implementer reports:**
    - If it reports the plan was wrong, fix the plan (you) and resume the same agent with SendMessage. Don't write the code yourself.
