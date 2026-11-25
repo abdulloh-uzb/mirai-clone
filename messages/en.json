@@ -902,7 +902,48 @@
       "detailsRequired": "Please complete your driver details first.",
       "lessonLocked": "Finish the earlier lessons first.",
       "minTimeNotMet": "Please spend a little more time on this lesson.",
+      "generic": "Something went wrong. Please try again.",
+      "identityCheckRequired": "Please answer the identity check first."
+    },
+    "quizPassed": "Quiz passed."
+  },
+  "Quiz": {
+    "title": "Section quiz",
+    "heading": "Section quiz",
+    "sectionOf": "Section {section}",
+    "intro": "Answer every question, then submit. You need 70% to pass and can try again as often as you like.",
+    "submit": "Submit answers",
+    "score": "You got {score} of {total} right.",
+    "passed": "You passed.",
+    "failed": "Not passed yet. Review the explanations and try again with new questions.",
+    "correct": "Correct.",
+    "incorrect": "Not correct.",
+    "retry": "Try again (new questions)",
+    "continue": "Continue to section {section}",
+    "toExam": "Go to the final exam",
+    "backToSection": "Back to the section",
+    "errors": {
+      "enrollmentExpired": "Your access has expired.",
+      "enrollmentNotActive": "Your course is not active right now.",
+      "detailsRequired": "Please complete your driver details first.",
+      "lessonsIncomplete": "Finish every lesson in this section first.",
+      "sectionLocked": "Finish the earlier sections first.",
+      "noQuestions": "This quiz has no questions yet.",
+      "identityCheckRequired": "Please answer the identity check first.",
+      "alreadySubmitted": "This quiz was already submitted.",
       "generic": "Something went wrong. Please try again."
     }
+  },
+  "IdentityCheck": {
+    "title": "Quick identity check",
+    "intro": "To keep your certificate valid, please confirm it is you.",
+    "dob": "Your date of birth",
+    "licenseLast4": "Last 4 characters of your driver license number",
+    "wrong": "That doesn't match. Please try this question.",
+    "error": "We could not check that. Please try again.",
+    "submit": "Confirm",
+    "pausedTitle": "Course paused",
+    "paused": "We could not confirm your identity, so your course is paused. Contact us to continue.",
+    "contact": "Contact us"
   }
 }

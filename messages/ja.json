@@ -903,7 +903,48 @@
       "detailsRequired": "先に運転者情報を入力してください。",
       "lessonLocked": "先に前のレッスンを完了してください。",
       "minTimeNotMet": "このレッスンにもう少し時間をかけてください。",
+      "generic": "問題が発生しました。もう一度お試しください。",
+      "identityCheckRequired": "先に本人確認に回答してください。"
+    },
+    "quizPassed": "テストに合格しました。"
+  },
+  "Quiz": {
+    "title": "セクション確認テスト",
+    "heading": "セクション確認テスト",
+    "sectionOf": "セクション {section}",
+    "intro": "すべての問題に答えてから送信してください。合格には70%が必要で、何度でも再挑戦できます。",
+    "submit": "回答を送信",
+    "score": "{total}問中{score}問正解です。",
+    "passed": "合格しました。",
+    "failed": "まだ合格していません。解説を確認し、新しい問題で再挑戦してください。",
+    "correct": "正解です。",
+    "incorrect": "不正解です。",
+    "retry": "もう一度挑戦（新しい問題）",
+    "continue": "セクション {section} へ進む",
+    "toExam": "最終試験へ進む",
+    "backToSection": "セクションに戻る",
+    "errors": {
+      "enrollmentExpired": "アクセス期間が終了しました。",
+      "enrollmentNotActive": "コースは現在利用できません。",
+      "detailsRequired": "先に運転者情報を入力してください。",
+      "lessonsIncomplete": "先にこのセクションのすべてのレッスンを完了してください。",
+      "sectionLocked": "先に前のセクションを完了してください。",
+      "noQuestions": "このテストにはまだ問題がありません。",
+      "identityCheckRequired": "先に本人確認に回答してください。",
+      "alreadySubmitted": "このテストはすでに送信されています。",
       "generic": "問題が発生しました。もう一度お試しください。"
     }
+  },
+  "IdentityCheck": {
+    "title": "簡単な本人確認",
+    "intro": "証明書の有効性を保つため、ご本人であることを確認してください。",
+    "dob": "生年月日",
+    "licenseLast4": "運転免許証番号の末尾4文字",
+    "wrong": "一致しません。こちらの質問にお答えください。",
+    "error": "確認できませんでした。もう一度お試しください。",
+    "submit": "確認",
+    "pausedTitle": "コースを一時停止しました",
+    "paused": "本人確認ができなかったため、コースを一時停止しました。続けるにはお問い合わせください。",
+    "contact": "お問い合わせ"
   }
 }

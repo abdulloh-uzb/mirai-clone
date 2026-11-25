@@ -686,6 +686,9 @@ isOneToOne: false
             "admin_update_locked_details":
 { Args: { "p_dob": string,"p_legal_name": string,"p_license_no": string,"p_reason": string,"p_user_id": string }; Returns: undefined
                            },
+"answer_identity_check":
+{ Args: { "p_answer": string,"p_enrollment_id": string,"p_question_key": string }; Returns: Json
+                           },
 "apply_refund_event":
 { Args: { "p_amount_refunded": number,"p_event_id": string,"p_payment_intent": string }; Returns: boolean
                            },
@@ -728,6 +731,9 @@ isOneToOne: false
 "hit_rate_limit":
 { Args: { "key": string,"max": number,"window_seconds": number }; Returns: boolean
                            },
+"identity_check_due":
+{ Args: { "p_enrollment_id": string }; Returns: Json
+                           },
 "is_admin":
 { Args: Record<PropertyKey, never>; Returns: boolean
                            },
@@ -742,6 +748,9 @@ isOneToOne: false
                            },
 "mark_refund":
 { Args: { "p_actor": string,"p_refund_id": string,"p_status": string }; Returns: undefined
+                           },
+"quiz_attempt_payload":
+{ Args: { "p_attempt_id": string }; Returns: Json
                            },
 "record_lesson_time":
 { Args: { "p_block_position": number,"p_enrollment_id": string,"p_lesson_id": string,"p_seconds": number }; Returns: number
@@ -758,8 +767,17 @@ isOneToOne: false
 "save_driver_details":
 { Args: { "p_citation_no": string,"p_county_id": string,"p_court_due_date": string,"p_dob": string,"p_enrollment_id": string,"p_legal_name": string,"p_license_no": string,"p_license_state": string,"p_phone": string,"p_security_answer": string,"p_security_question": string }; Returns: undefined
                            },
+"section_quiz_passed":
+{ Args: { "p_enrollment_id": string,"p_section_position": number }; Returns: boolean
+                           },
 "section_unlocked":
 { Args: { "p_enrollment_id": string,"p_section_position": number }; Returns: boolean
+                           },
+"start_quiz":
+{ Args: { "p_enrollment_id": string,"p_section_position": number }; Returns: Json
+                           },
+"submit_quiz":
+{ Args: { "p_answers": Json,"p_attempt_id": string }; Returns: Json
                            }
           }
           Enums: {

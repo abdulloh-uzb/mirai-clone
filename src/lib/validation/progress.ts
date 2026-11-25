@@ -21,6 +21,7 @@ export type ProgressErrorKey =
   | "detailsRequired"
   | "lessonLocked"
   | "minTimeNotMet"
+  | "identityCheckRequired"
   | "generic";
 
 const DB_ERRORS: { match: string; key: ProgressErrorKey }[] = [
@@ -29,6 +30,7 @@ const DB_ERRORS: { match: string; key: ProgressErrorKey }[] = [
   { match: "details_required", key: "detailsRequired" },
   { match: "lesson_locked", key: "lessonLocked" },
   { match: "min_time_not_met", key: "minTimeNotMet" },
+  { match: "identity_check_required", key: "identityCheckRequired" },
 ];
 
 /** Maps a database error message from the progress RPCs to a translation key. */

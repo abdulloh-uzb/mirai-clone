@@ -75,8 +75,9 @@ export function LessonPlayer({
       setError(null);
     } else {
       setError(result.error);
+      if (result.error === "identityCheckRequired") router.refresh();
     }
-  }, [enrollmentId, lessonId]);
+  }, [enrollmentId, lessonId, router]);
 
   useEffect(() => {
     if (completed) return;
@@ -159,6 +160,7 @@ export function LessonPlayer({
       const result = await completeLesson({ enrollmentId, lessonId });
       if (!result.ok) {
         setError(result.error);
+        if (result.error === "identityCheckRequired") router.refresh();
         return;
       }
       if (nextHref) router.push(nextHref);

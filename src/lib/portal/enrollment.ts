@@ -87,7 +87,7 @@ export async function getCourseOutline(
   enrollment: Pick<CurrentEnrollment, "id" | "courseId" | "courseLocale">,
 ): Promise<OutlineSection[]> {
   const supabase = await createClient();
-  const [sections, progress] = await Promise.all([
+  const [sections, progress, quizzes] = await Promise.all([
     supabase
       .from("sections")
       .select("id, position, title, lessons(id, position, title, min_seconds)")
@@ -97,6 +97,11 @@ export async function getCourseOutline(
       .from("lesson_progress")
       .select("lesson_id, seconds_spent, completed_at")
       .eq("enrollment_id", enrollment.id),
+    supabase
+      .from("quiz_attempts")
+      .select("section_id")
+      .eq("enrollment_id", enrollment.id)
+      .eq("passed", true),
   ]);
   const rows = sections.data ?? [];
   return computeOutline({
@@ -119,6 +124,9 @@ export async function getCourseOutline(
       secondsSpent: p.seconds_spent,
       completedAt: p.completed_at,
     })),
+    passedQuizSectionIds: new Set(
+      (quizzes.data ?? []).map((q) => q.section_id),
+    ),
   });
 }
 
