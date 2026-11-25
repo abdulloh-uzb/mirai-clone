@@ -125,6 +125,9 @@ test("a Student signs in with a magic link", async ({ page }) => {
 test("a Student resets their password from the emailed link", async ({
   page,
 }) => {
+  // The emailed link redirects through two routes that `next dev` may compile
+  // on first hit; on a loaded machine that alone can take most of a minute.
+  test.slow();
   const student = await createStudentAccount({ firstName: "Omar" });
   const newPassword = "Brand-new-pass-2";
 
