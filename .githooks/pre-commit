@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Fast gate on every commit: lint (with the convention check), types and unit tests.
+# DB and browser tests need the shared stack; they run in `pnpm check:locked` and scripts/merge-ticket.sh.
+set -euo pipefail
+pnpm -s lint
+pnpm -s typecheck
+pnpm -s test:unit

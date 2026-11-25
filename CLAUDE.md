@@ -14,7 +14,8 @@ Next.js 16 (App Router, `src/` dir, `src/proxy.ts` instead of `middleware.ts`), 
 | --- | --- |
 | `pnpm dev` | Next dev server on :3000 |
 | `pnpm check` | The quality gate: lint, typecheck, unit, db and e2e tests. Must pass before work counts as done |
-| `pnpm lint` | ESLint + `prettier --check` (`pnpm format` fixes formatting) |
+| `pnpm check:locked` | `pnpm db:reset && pnpm check` while holding the shared-stack lock. Use this one when other worktrees are active |
+| `pnpm lint` | ESLint + `prettier --check` (`pnpm format` fixes formatting) + `scripts/check-conventions.ts` (brand only in site config, no hand-written DB enum unions) |
 | `pnpm typecheck` | `next typegen && tsc --noEmit` |
 | `pnpm test:unit` | Vitest `unit` project (`src/**/*.test.ts`, `tests/unit/**`) |
 | `pnpm test:db` | Vitest `db` project (`tests/db/**/*.db.test.ts`) against local Supabase, one file at a time |
@@ -30,13 +31,13 @@ Single tests:
 - Vitest: `pnpm vitest run --project unit src/i18n/fallback.test.ts -t "fills missing"` (use `--project db` for DB tests)
 - Playwright: `pnpm playwright test tests/e2e/not-found.spec.ts -g "shown in ja" --project chromium`. Files named `*.mobile.spec.ts` run only in the `mobile` project (375 px wide).
 
-Parallel agents share one local Supabase stack and port 3000: wrap any command that resets the DB, runs DB tests, runs Playwright or runs `pnpm check` in `flock /tmp/claude-1000/roadready-stack.lock -c '<command>'`.
+Parallel agents share one local Supabase stack and port 3000, so run the full gate as `pnpm check:locked`, and wrap any other DB reset, DB test or Playwright run in `scripts/with-stack-lock.sh '<command>'`. Playwright tests a production build; set `E2E_DEV=1` for a quick single-test run on `next dev`. Tickets land on the integration branch only through `scripts/merge-ticket.sh`. Decisions are in `docs/adr/` (0002 covers the shared stack).
 
 Layout: UI strings in `messages/{en,ja,es,ru}.json` (missing keys fall back to English); routing in `src/i18n/`; brand and contact details only in `src/config/site.ts`; page frame in `src/components/layout/`; shadcn/ui components in `src/components/ui/`.
 
 ## What it is
 
-RoadReady Traffic School is a multilingual online traffic school (LMS) for California drivers. It has one course in four languages (en, ja, es, ru). The stack is Next.js 15 (App Router), Supabase (Postgres with RLS, Auth, Storage and pgvector), Stripe Checkout, next-intl, the Vercel AI SDK, Resend, @react-pdf/renderer, Vitest and Playwright. Spec section 3 has the full stack and the suggested folder layout.
+RoadReady Traffic School is a multilingual online traffic school (LMS) for California drivers. It has one course in four languages (en, ja, es, ru). The stack is Next.js 16 (App Router), Supabase (Postgres with RLS, Auth, Storage and pgvector), Stripe Checkout, next-intl, the Vercel AI SDK, Resend, @react-pdf/renderer, Vitest and Playwright. Spec section 3 has the full stack and the suggested folder layout.
 
 ## Rules that are easy to break
 

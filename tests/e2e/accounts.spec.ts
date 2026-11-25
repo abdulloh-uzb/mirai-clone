@@ -26,8 +26,6 @@ async function signUpThroughForm(
 test("sign-up sends a verification email and shows the banner until it is confirmed", async ({
   page,
 }) => {
-  // The sign-up action and the pages after it may compile on first hit in `next dev`.
-  test.slow();
   const email = uniqueEmail("signup");
   await signUpThroughForm(page, {
     firstName: "Sofia",
@@ -36,7 +34,7 @@ test("sign-up sends a verification email and shows the banner until it is confir
   });
 
   const banner = page.getByRole("region", { name: "Verify your email" });
-  await expect(banner).toBeVisible({ timeout: 30_000 });
+  await expect(banner).toBeVisible();
   await trackUserByEmail(email);
   await expect(page.getByRole("button", { name: /Sofia/ })).toBeVisible();
 
@@ -134,9 +132,6 @@ test("a Student signs in with a magic link", async ({ page }) => {
 test("a Student resets their password from the emailed link", async ({
   page,
 }) => {
-  // The emailed link redirects through two routes that `next dev` may compile
-  // on first hit; on a loaded machine that alone can take most of a minute.
-  test.slow();
   const student = await createStudentAccount({ firstName: "Omar" });
   const newPassword = "Brand-new-pass-2";
 

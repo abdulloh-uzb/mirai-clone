@@ -3,6 +3,11 @@ import { defineConfig, devices } from "@playwright/test";
 // Port comes from PORT (default 3000). Never reuse an existing server: other
 // worktrees may run their own dev server, and tests must hit this one.
 const PORT = Number(process.env.PORT ?? 3000);
+// Tests run against a production build: it compiles once, so first visits don't time out
+// on this low-memory machine. E2E_DEV=1 uses `next dev` for quick runs of a single test.
+const serverCommand = process.env.E2E_DEV
+  ? `pnpm next dev -p ${PORT}`
+  : `pnpm next build && pnpm next start -p ${PORT}`;
 const baseURL = `http://localhost:${PORT}`;
 
 export default defineConfig({
@@ -30,10 +35,10 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `pnpm next dev -p ${PORT}`,
+    command: serverCommand,
     url: baseURL,
     reuseExistingServer: false,
-    timeout: 180_000,
+    timeout: 300_000,
     stdout: "ignore",
     stderr: "pipe",
     gracefulShutdown: { signal: "SIGTERM", timeout: 5_000 },

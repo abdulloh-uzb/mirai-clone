@@ -10,7 +10,27 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "error",
+      "no-restricted-properties": [
+        "error",
+        {
+          object: "process",
+          property: "env",
+          message:
+            "Read env through the Zod-validated publicEnv in src/lib/env.ts (server secrets: src/lib/supabase/service.ts).",
+        },
+      ],
     },
+  },
+  {
+    // The places allowed to read process.env directly.
+    files: [
+      "src/lib/env.ts",
+      "src/lib/supabase/service.ts",
+      "scripts/**",
+      "tests/**",
+      "*.config.{ts,mts,mjs}",
+    ],
+    rules: { "no-restricted-properties": "off" },
   },
   globalIgnores([
     ".next/**",
