@@ -7,6 +7,7 @@ import { MAIN_CONTENT_ID, SkipLink } from "@/components/layout/skip-link";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
+import { VerifyEmailBanner } from "@/components/layout/verify-email-banner";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -46,6 +47,7 @@ export default async function LocaleLayout({
             <SkipLink />
             <AnnouncementBar locale={locale} />
             <SiteHeader />
+            <VerifyEmailBanner />
             <main
               id={MAIN_CONTENT_ID}
               tabIndex={-1}

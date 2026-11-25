@@ -65,5 +65,88 @@
   "AnnouncementBar": {
     "label": "Aviso",
     "dismiss": "Cerrar aviso"
+  },
+  "Account": {
+    "createAccount": "Crear cuenta",
+    "signIn": "Iniciar sesión",
+    "menuLabel": "Menú de la cuenta",
+    "myCourses": "Mis cursos",
+    "myCertificates": "Mis certificados",
+    "myProfile": "Mi perfil",
+    "logOut": "Cerrar sesión"
+  },
+  "VerifyEmail": {
+    "title": "Verifica tu correo electrónico",
+    "body": "Enviamos un enlace de confirmación a {email}. Ábrelo para confirmar tu dirección. Necesitas un correo confirmado para comprar un curso.",
+    "resend": "Reenviar correo",
+    "sending": "Enviando…",
+    "sent": "Enviamos un enlace nuevo. Revisa tu bandeja de entrada.",
+    "failed": "No pudimos enviar el correo. Inténtalo de nuevo en un minuto."
+  },
+  "Auth": {
+    "signUp": {
+      "title": "Crea tu cuenta",
+      "intro": "Regístrate para comenzar tu curso de escuela de tráfico.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "passwordHint": "Al menos 8 caracteres.",
+      "preferredLanguage": "Idioma preferido",
+      "submit": "Crear cuenta",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "signInLink": "Iniciar sesión"
+    },
+    "signIn": {
+      "title": "Iniciar sesión",
+      "intro": "Bienvenido de nuevo.",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "magicLink": "Enviarme un enlace de acceso",
+      "noAccount": "¿Eres nuevo?",
+      "signUpLink": "Crear una cuenta",
+      "linkError": "Ese enlace no es válido o ha caducado. Solicita uno nuevo."
+    },
+    "magicLink": {
+      "title": "Inicia sesión con un enlace",
+      "intro": "Te enviaremos un enlace para iniciar sesión sin contraseña.",
+      "email": "Correo electrónico",
+      "submit": "Enviarme un enlace",
+      "sent": "Si existe una cuenta con ese correo, te enviamos un enlace de acceso. Revisa tu bandeja de entrada.",
+      "backToSignIn": "Volver a iniciar sesión"
+    },
+    "resetRequest": {
+      "title": "Restablece tu contraseña",
+      "intro": "Escribe tu correo y te enviaremos un enlace para elegir una contraseña nueva.",
+      "email": "Correo electrónico",
+      "submit": "Enviar enlace",
+      "sent": "Si existe una cuenta con ese correo, te enviamos un enlace para restablecerla. Revisa tu bandeja de entrada.",
+      "backToSignIn": "Volver a iniciar sesión"
+    },
+    "resetUpdate": {
+      "title": "Elige una contraseña nueva",
+      "password": "Contraseña nueva",
+      "confirmPassword": "Confirma la contraseña nueva",
+      "submit": "Guardar contraseña nueva",
+      "needsLink": "Abre el enlace de tu correo para elegir una contraseña nueva.",
+      "requestLink": "Solicitar un enlace nuevo"
+    },
+    "errors": {
+      "firstNameRequired": "Escribe tu nombre.",
+      "lastNameRequired": "Escribe tu apellido.",
+      "nameTooLong": "Usa 50 caracteres o menos.",
+      "emailInvalid": "Escribe un correo electrónico válido.",
+      "passwordRequired": "Escribe tu contraseña.",
+      "passwordTooShort": "Usa al menos 8 caracteres.",
+      "passwordTooLong": "Usa 72 caracteres o menos.",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden.",
+      "localeInvalid": "Elige un idioma.",
+      "invalidCredentials": "El correo o la contraseña no son correctos.",
+      "emailTaken": "Este correo ya está registrado. Inicia sesión.",
+      "rateLimited": "Demasiados intentos. Espera un minuto e inténtalo de nuevo.",
+      "generic": "Algo salió mal. Inténtalo de nuevo."
+    }
   }
 }

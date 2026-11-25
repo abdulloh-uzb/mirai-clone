@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
+import { HeaderAccount } from "./header-account";
 import { LanguageSwitcher } from "./language-switcher";
 import { MobileMenu } from "./mobile-menu";
 import { mainNav } from "./nav-links";
@@ -23,7 +24,8 @@ export function SiteHeader() {
           >
             R
           </span>
-          <span>{siteConfig.shortName}</span>
+          {/* Wordmark text hidden on phones so the account controls fit. */}
+          <span className="max-sm:sr-only">{siteConfig.shortName}</span>
         </Link>
 
         <nav aria-label={t("mainNav")} className="hidden flex-1 md:block">
@@ -44,6 +46,7 @@ export function SiteHeader() {
         <div className="ml-auto flex items-center gap-2 md:ml-0">
           <ThemeToggle label={t("darkTheme")} />
           <LanguageSwitcher />
+          <HeaderAccount />
           <MobileMenu />
         </div>
       </div>
