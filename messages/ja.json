@@ -1,0 +1,61 @@
+{
+  "_translationNote": "Machine-drafted. Needs native-speaker review before launch.",
+  "Metadata": {
+    "title": "RoadReady Traffic School",
+    "description": "カリフォルニア州のドライバー向けオンライン交通違反講習。英語・日本語・スペイン語・ロシア語に対応。"
+  },
+  "Home": {
+    "title": "渋滞知らずの交通違反講習",
+    "intro": "カリフォルニア州の交通違反講習を、オンラインで、自分のペースで、読みやすい言語で修了できます。サイトは現在準備中です。"
+  },
+  "SkipLink": {
+    "label": "本文へスキップ"
+  },
+  "Header": {
+    "homeLink": "RoadReady Traffic School ホーム",
+    "mainNav": "メイン",
+    "courses": "コース",
+    "dmvServices": "DMVサービス",
+    "courts": "裁判所",
+    "about": "概要",
+    "faq": "よくある質問",
+    "blog": "ブログ",
+    "contact": "お問い合わせ",
+    "darkTheme": "ダークテーマ",
+    "openMenu": "メニューを開く",
+    "closeMenu": "メニューを閉じる",
+    "menuTitle": "メニュー"
+  },
+  "Footer": {
+    "nav": "フッター",
+    "schoolGroup": "スクール",
+    "helpGroup": "ヘルプ",
+    "legalGroup": "規約",
+    "courts": "郡別の裁判所",
+    "schoolRules": "スクール規則",
+    "faq": "よくある質問",
+    "blog": "ブログ",
+    "about": "概要",
+    "contact": "お問い合わせ",
+    "privacy": "プライバシー",
+    "terms": "利用規約",
+    "refunds": "返金",
+    "accessibility": "アクセシビリティ",
+    "contactHeading": "スクールへの連絡先",
+    "license": "ライセンス: {number}",
+    "copyright": "© {year} {name}",
+    "demoNotice": "デモプロジェクトです — 認可を受けたスクールではありません"
+  },
+  "NotFound": {
+    "metaTitle": "ページが見つかりません",
+    "code": "エラー 404",
+    "title": "このページは道を間違えたようです",
+    "body": "お探しのページは見つかりませんでした。以下のいずれかの道から目的地へ向かってください。",
+    "cardTitle": "よく使われるルート",
+    "courses": "コース",
+    "findCourt": "裁判所を探す",
+    "dmvServices": "DMVサービス",
+    "faq": "よくある質問",
+    "backHome": "ホームに戻る"
+  }
+}

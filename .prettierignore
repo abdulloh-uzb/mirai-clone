@@ -1,0 +1,16 @@
+pnpm-lock.yaml
+.next/
+node_modules/
+playwright-report/
+test-results/
+supabase/.temp/
+src/lib/database.types.ts
+.scratch/
+.agents/
+.aider-desk/
+.claude/
+docs/
+spec.md
+CLAUDE.md
+GLOSSARY.md
+skills-lock.json

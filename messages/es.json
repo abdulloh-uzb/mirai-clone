@@ -1,0 +1,61 @@
+{
+  "_translationNote": "Machine-drafted. Needs native-speaker review before launch.",
+  "Metadata": {
+    "title": "RoadReady Traffic School",
+    "description": "Escuela de tráfico en línea para conductores de California, en inglés, japonés, español y ruso."
+  },
+  "Home": {
+    "title": "Escuela de tráfico, sin el tráfico",
+    "intro": "Termina tu escuela de tráfico de California en línea, a tu ritmo y en el idioma que mejor lees. El sitio completo está en camino."
+  },
+  "SkipLink": {
+    "label": "Saltar al contenido"
+  },
+  "Header": {
+    "homeLink": "RoadReady Traffic School, inicio",
+    "mainNav": "Principal",
+    "courses": "Cursos",
+    "dmvServices": "Servicios del DMV",
+    "courts": "Tribunales",
+    "about": "Nosotros",
+    "faq": "Preguntas",
+    "blog": "Blog",
+    "contact": "Contacto",
+    "darkTheme": "Tema oscuro",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "menuTitle": "Menú"
+  },
+  "Footer": {
+    "nav": "Pie de página",
+    "schoolGroup": "Escuela",
+    "helpGroup": "Ayuda",
+    "legalGroup": "Legal",
+    "courts": "Tribunales por condado",
+    "schoolRules": "Reglas de la escuela",
+    "faq": "Preguntas frecuentes",
+    "blog": "Blog",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "privacy": "Privacidad",
+    "terms": "Términos",
+    "refunds": "Reembolsos",
+    "accessibility": "Accesibilidad",
+    "contactHeading": "Contacta con la escuela",
+    "license": "Licencia: {number}",
+    "copyright": "© {year} {name}",
+    "demoNotice": "Proyecto de demostración — no es una escuela con licencia"
+  },
+  "NotFound": {
+    "metaTitle": "Página no encontrada",
+    "code": "Error 404",
+    "title": "Esta página tomó un giro equivocado",
+    "body": "La página que buscabas no está aquí. Alguno de estos caminos te llevará a donde necesitas ir.",
+    "cardTitle": "Rutas populares",
+    "courses": "Cursos",
+    "findCourt": "Encuentra tu tribunal",
+    "dmvServices": "Servicios del DMV",
+    "faq": "Preguntas y respuestas",
+    "backHome": "Volver al inicio"
+  }
+}

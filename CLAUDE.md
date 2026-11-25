@@ -4,9 +4,35 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Status
 
-The repo is still at the spec stage: the only file is `spec.md`, and there's no code yet. `spec.md` is the source of truth. It calls itself `PROJECT_SPEC.md`, but the file on disk is `spec.md`. Read it before writing code and build in the order of its section 16 ("Build plan"). When the spec is unclear, choose the simplest option that satisfies it and leave a `TODO(spec):` comment.
+Phase 1 (foundation) is in progress; phase specs and tickets live under `.scratch/`. `spec.md` is the source of truth. It calls itself `PROJECT_SPEC.md`, but the file on disk is `spec.md`. Read it before writing code and build in the order of its section 16 ("Build plan"). When the spec is unclear, choose the simplest option that satisfies it and leave a `TODO(spec):` comment.
 
-Update this file once the project has been scaffolded. Add the real build, lint and test commands, including how to run a single Vitest or Playwright test.
+## Commands
+
+Next.js 16 (App Router, `src/` dir, `src/proxy.ts` instead of `middleware.ts`), pnpm, Supabase CLI via `pnpm supabase` (needs Docker).
+
+| Command | What it does |
+| --- | --- |
+| `pnpm dev` | Next dev server on :3000 |
+| `pnpm check` | The quality gate: lint, typecheck, unit, db and e2e tests. Must pass before work counts as done |
+| `pnpm lint` | ESLint + `prettier --check` (`pnpm format` fixes formatting) |
+| `pnpm typecheck` | `next typegen && tsc --noEmit` |
+| `pnpm test:unit` | Vitest `unit` project (`src/**/*.test.ts`, `tests/unit/**`) |
+| `pnpm test:db` | Vitest `db` project (`tests/db/**/*.db.test.ts`) against local Supabase, one file at a time |
+| `pnpm test:e2e` | Playwright (`tests/e2e`); starts its own `next dev` on `$PORT` (default 3000), never reuses a running server |
+| `pnpm db:start` / `db:stop` | Start/stop local Supabase (API :54321, DB :54322, Mailpit :54324) |
+| `pnpm db:reset` | Recreate the DB from `supabase/migrations` and run `supabase/seed.sql` |
+| `pnpm db:new <name>` | New migration file. Never edit an applied migration |
+| `pnpm db:env` | Print local URLs and keys for `.env.local` (see `.env.example`) |
+| `pnpm db:types` | Regenerate `src/lib/database.types.ts` (committed) |
+
+Single tests:
+
+- Vitest: `pnpm vitest run --project unit src/i18n/fallback.test.ts -t "fills missing"` (use `--project db` for DB tests)
+- Playwright: `pnpm playwright test tests/e2e/not-found.spec.ts -g "shown in ja" --project chromium`. Files named `*.mobile.spec.ts` run only in the `mobile` project (375 px wide).
+
+Parallel agents share one local Supabase stack and port 3000: wrap any command that resets the DB, runs DB tests, runs Playwright or runs `pnpm check` in `flock /tmp/claude-1000/roadready-stack.lock -c '<command>'`.
+
+Layout: UI strings in `messages/{en,ja,es,ru}.json` (missing keys fall back to English); routing in `src/i18n/`; brand and contact details only in `src/config/site.ts`; page frame in `src/components/layout/`; shadcn/ui components in `src/components/ui/`.
 
 ## What it is
 

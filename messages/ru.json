@@ -1,0 +1,61 @@
+{
+  "_translationNote": "Machine-drafted. Needs native-speaker review before launch.",
+  "Metadata": {
+    "title": "RoadReady Traffic School",
+    "description": "Онлайн-автошкола для водителей Калифорнии, нарушивших ПДД, на английском, японском, испанском и русском."
+  },
+  "Home": {
+    "title": "Автошкола для нарушителей — без пробок",
+    "intro": "Пройдите калифорнийский курс traffic school онлайн, в своём темпе и на языке, который вам удобнее. Полная версия сайта скоро появится."
+  },
+  "SkipLink": {
+    "label": "Перейти к содержимому"
+  },
+  "Header": {
+    "homeLink": "RoadReady Traffic School, главная",
+    "mainNav": "Основное меню",
+    "courses": "Курсы",
+    "dmvServices": "Услуги DMV",
+    "courts": "Суды",
+    "about": "О нас",
+    "faq": "Вопросы",
+    "blog": "Блог",
+    "contact": "Контакты",
+    "darkTheme": "Тёмная тема",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню",
+    "menuTitle": "Меню"
+  },
+  "Footer": {
+    "nav": "Нижнее меню",
+    "schoolGroup": "Школа",
+    "helpGroup": "Помощь",
+    "legalGroup": "Правовая информация",
+    "courts": "Суды по округам",
+    "schoolRules": "Правила школы",
+    "faq": "Вопросы и ответы",
+    "blog": "Блог",
+    "about": "О нас",
+    "contact": "Контакты",
+    "privacy": "Конфиденциальность",
+    "terms": "Условия",
+    "refunds": "Возвраты",
+    "accessibility": "Доступность",
+    "contactHeading": "Связаться со школой",
+    "license": "Лицензия: {number}",
+    "copyright": "© {year} {name}",
+    "demoNotice": "Демонстрационный проект — не лицензированная школа"
+  },
+  "NotFound": {
+    "metaTitle": "Страница не найдена",
+    "code": "Ошибка 404",
+    "title": "Эта страница свернула не туда",
+    "body": "Страницы, которую вы искали, здесь нет. Одна из этих дорог приведёт вас куда нужно.",
+    "cardTitle": "Популярные маршруты",
+    "courses": "Курсы",
+    "findCourt": "Найти свой суд",
+    "dmvServices": "Услуги DMV",
+    "faq": "Вопросы и ответы",
+    "backHome": "На главную"
+  }
+}

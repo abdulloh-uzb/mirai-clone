@@ -1,0 +1,2 @@
+-- Seed data runs after migrations on `pnpm db:reset`.
+-- Reference data is added by the tickets that create its tables.

@@ -1,0 +1,60 @@
+{
+  "Metadata": {
+    "title": "RoadReady Traffic School",
+    "description": "Online traffic school for California drivers, in English, Japanese, Spanish and Russian."
+  },
+  "Home": {
+    "title": "Traffic school, without the traffic",
+    "intro": "Finish your California traffic school online, at your own pace, in the language you read best. The full site is on its way."
+  },
+  "SkipLink": {
+    "label": "Skip to content"
+  },
+  "Header": {
+    "homeLink": "RoadReady Traffic School, home",
+    "mainNav": "Main",
+    "courses": "Courses",
+    "dmvServices": "DMV Services",
+    "courts": "Courts",
+    "about": "About",
+    "faq": "FAQs",
+    "blog": "Blog",
+    "contact": "Contact",
+    "darkTheme": "Dark theme",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menuTitle": "Menu"
+  },
+  "Footer": {
+    "nav": "Footer",
+    "schoolGroup": "School",
+    "helpGroup": "Help",
+    "legalGroup": "Legal",
+    "courts": "Courts by county",
+    "schoolRules": "School rules",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "refunds": "Refunds",
+    "accessibility": "Accessibility",
+    "contactHeading": "Contact the school",
+    "license": "License: {number}",
+    "copyright": "© {year} {name}",
+    "demoNotice": "Demo project — not a licensed school"
+  },
+  "NotFound": {
+    "metaTitle": "Page not found",
+    "code": "Error 404",
+    "title": "This page took a wrong turn",
+    "body": "The page you were looking for is not here. One of these roads should get you where you need to go.",
+    "cardTitle": "Popular routes",
+    "courses": "Courses",
+    "findCourt": "Find your court",
+    "dmvServices": "DMV services",
+    "faq": "Questions and answers",
+    "backHome": "Back to home"
+  }
+}
