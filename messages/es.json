@@ -57,5 +57,13 @@
     "dmvServices": "Servicios del DMV",
     "faq": "Preguntas y respuestas",
     "backHome": "Volver al inicio"
+  },
+  "LanguageSwitcher": {
+    "label": "Idioma: {language}",
+    "title": "Elige tu idioma"
+  },
+  "AnnouncementBar": {
+    "label": "Aviso",
+    "dismiss": "Cerrar aviso"
   }
 }

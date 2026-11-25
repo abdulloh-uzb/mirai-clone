@@ -56,5 +56,13 @@
     "dmvServices": "DMV services",
     "faq": "Questions and answers",
     "backHome": "Back to home"
+  },
+  "LanguageSwitcher": {
+    "label": "Language: {language}",
+    "title": "Choose your language"
+  },
+  "AnnouncementBar": {
+    "label": "Announcement",
+    "dismiss": "Dismiss announcement"
   }
 }
