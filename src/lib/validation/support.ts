@@ -18,6 +18,8 @@ export const FORM_ERROR_KEYS = [
   { kind: "field", key: "pageUrlInvalid" },
   { kind: "field", key: "screenshotType" },
   { kind: "field", key: "screenshotTooLarge" },
+  { kind: "field", key: "stateInvalid" },
+  { kind: "field", key: "countyInvalid" },
   { kind: "form", key: "rateLimited" },
   { kind: "form", key: "generic" },
 ] as const;

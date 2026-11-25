@@ -151,7 +151,8 @@
   },
   "Portal": {
     "title": "Mis cursos",
-    "empty": "Tus cursos aparecerán aquí cuando te inscribas."
+    "empty": "Tus cursos aparecerán aquí cuando te inscribas.",
+    "paymentsSoon": "Elegiste el curso en {language}. Los pagos llegarán pronto: podrás inscribirte desde aquí."
   },
   "Admin": {
     "title": "Administración",
@@ -223,7 +224,9 @@
       "screenshotType": "Usa una imagen PNG, JPEG o WebP.",
       "screenshotTooLarge": "La captura debe pesar 5 MB o menos.",
       "rateLimited": "Demasiadas solicitudes desde tu conexión. Espera unos minutos e inténtalo de nuevo.",
-      "generic": "Algo salió mal. Inténtalo de nuevo."
+      "generic": "Algo salió mal. Inténtalo de nuevo.",
+      "stateInvalid": "Elige un estado que todavía no esté disponible.",
+      "countyInvalid": "Elige tu condado."
     }
   },
   "Contact": {
@@ -444,6 +447,113 @@
       "ai": "El asistente de IA",
       "classroom": "Curso presencial",
       "contact": "Contacto y ayuda"
+    }
+  },
+  "Courses": {
+    "metaTitle": "Curso de escuela de tránsito de California en 4 idiomas",
+    "metaDescription": "El curso para infractores de tránsito de California en inglés, japonés, español o ruso: a tu ritmo, 90 días de acceso y examen final en línea.",
+    "title": "Elige el idioma en el que vas a estudiar",
+    "intro": "Un curso, cuatro idiomas. Las lecciones, los cuestionarios y el examen final están en el idioma que elijas.",
+    "languagesLabel": "Idiomas del curso",
+    "originalCourse": "Curso original",
+    "live": "EN VIVO",
+    "selected": "Seleccionado",
+    "panel": {
+      "pill": "Disponible en 4 idiomas",
+      "title": "Curso para infractores de tránsito de California (TVC)",
+      "features": {
+        "defensiveDriving": "Manejo defensivo",
+        "trafficViolations": "Infracciones de tránsito",
+        "driverAwareness": "Atención al volante",
+        "selfPaced": "A tu ritmo",
+        "access": "{days} días de acceso",
+        "interactive": "Lecciones interactivas",
+        "devices": "Todos los dispositivos",
+        "certificate": "Certificado de finalización",
+        "reported": "Reportado al DMV 3 veces al día",
+        "dmvRules": "Hecho según las reglas de cursos del DMV (demo)"
+      },
+      "deviceAlt": "Una computadora portátil y un teléfono con una lección del curso",
+      "inLanguage": "Lecciones, cuestionarios y examen final en {language}.",
+      "listPrice": "Precio normal:",
+      "start": "Empezar en {language}"
+    },
+    "syllabusHeading": "Lo que aprenderás: 8 secciones",
+    "rulesHeading": "Reglas del curso",
+    "rules": {
+      "exam": "Examen final: {questions} preguntas; apruebas con {pct}% o más.",
+      "attempts": "{count, plural, one {# intento} other {# intentos}} en el examen final.",
+      "quizzes": "Puedes repetir los cuestionarios de cada sección cuantas veces quieras.",
+      "minimumTime": "Cada lección tiene un tiempo mínimo antes de poder avanzar.",
+      "access": "{days} días para terminar desde el día de inscripción."
+    },
+    "rulesLink": "Leer las reglas de la escuela",
+    "reportingHeading": "Reporte al DMV",
+    "reportingText": "Enviamos las finalizaciones al DMV {count, plural, one {una vez al día, a las} other {# veces al día, a las}} {times} (hora del Pacífico).",
+    "refundHeading": "Reembolsos",
+    "refund": {
+      "full": "100% dentro de 7 días si no has empezado ninguna lección.",
+      "half": "50% dentro de 7 días si empezaste lecciones pero no el examen final.",
+      "none": "Sin reembolso después de 7 días, una vez iniciado el examen final o tras emitir un certificado."
+    },
+    "refundLink": "Leer la política de reembolsos",
+    "classroom": {
+      "heading": "Clase presencial (próximamente)",
+      "text": "¿Prefieres un salón de clases? Planeamos clases presenciales. Deja tu correo y tu condado y te avisaremos cuando abran."
+    }
+  },
+  "Eligibility": {
+    "metaTitle": "¿Puedo tomar la escuela de tránsito? Verifica tu elegibilidad",
+    "metaDescription": "Responde 5 preguntas de sí o no para ver si la escuela de tránsito de California es probablemente una opción para tu multa.",
+    "title": "¿Puedo tomar la escuela de tránsito?",
+    "intro": "Responde 5 preguntas rápidas. No guardamos nada de lo que ingreses.",
+    "disclaimer": "Esta es una orientación general para una demo. La decisión final siempre es del tribunal.",
+    "questions": {
+      "validLicense": "¿Tienes una licencia de conducir válida?",
+      "courtAllowed": "¿El tribunal te permitió asistir a la escuela de tránsito por esta multa?",
+      "noRecentSchool": "¿Han pasado al menos 18 meses desde la última vez que asististe a la escuela de tránsito?",
+      "nonCommercial": "¿Conducías un vehículo no comercial con una licencia no comercial?",
+      "eligibleViolation": "¿Tu multa es por una infracción menor en movimiento (por ejemplo, exceso de velocidad o no detenerse en un alto)?"
+    },
+    "yes": "Sí",
+    "no": "No",
+    "check": "Ver mi resultado",
+    "incomplete": "Responde las 5 preguntas.",
+    "eligibleTitle": "Probablemente eres elegible",
+    "eligibleText": "Según tus respuestas, la escuela de tránsito parece una opción. Confírmalo con tu tribunal y luego elige el idioma del curso.",
+    "eligibleCta": "Elegir tu curso",
+    "askCourtTitle": "Primero consulta a tu tribunal",
+    "notEligibleTitle": "Probablemente la escuela de tránsito no es una opción",
+    "blockedBy": "Respondiste \"No\" a: {question}",
+    "nextStep": {
+      "validLicense": "La escuela de tránsito requiere una licencia de conducir válida. Pregunta a tu tribunal por otras opciones.",
+      "courtAllowed": "Solo el tribunal puede permitir la escuela de tránsito. Pregunta a tu tribunal o revisa el aviso que te envió.",
+      "noRecentSchool": "Normalmente solo puedes asistir a la escuela de tránsito una vez cada 18 meses. Tu tribunal te dirá qué hacer en su lugar.",
+      "nonCommercial": "Los conductores y vehículos comerciales normalmente no pueden usar la escuela de tránsito para ocultar una multa. Pregunta a tu tribunal por tus opciones.",
+      "eligibleViolation": "Algunas infracciones no califican. El tribunal decide, así que pregúntale si la tuya califica."
+    },
+    "findCourt": "Buscar tu tribunal"
+  },
+  "CitationState": {
+    "chip": "Multa de: {state}",
+    "label": "¿De qué estado es tu multa?",
+    "optionSoon": "{state} (próximamente)",
+    "comingSoon": "Próximamente — avísame",
+    "comingSoonText": "Todavía no atendemos {state}. Deja tu correo y te avisaremos cuando lo hagamos.",
+    "served": "Atendemos California. Tu curso y tu certificado siguen las reglas de California."
+  },
+  "Waitlists": {
+    "state": {
+      "email": "Correo electrónico",
+      "submit": "Avísame",
+      "success": "¡Gracias! Te escribiremos cuando abramos en {state}."
+    },
+    "classroom": {
+      "email": "Correo electrónico",
+      "county": "Condado",
+      "countyPlaceholder": "Elige tu condado",
+      "submit": "Unirme a la lista de espera",
+      "success": "¡Gracias! Estás en la lista de espera de la clase presencial."
     }
   }
 }

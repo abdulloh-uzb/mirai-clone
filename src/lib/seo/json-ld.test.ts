@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { breadcrumbList, faqPage } from "./json-ld";
+import { breadcrumbList, course, faqPage } from "./json-ld";
 
 describe("faqPage", () => {
   it("lists each question with its accepted answer", () => {
@@ -58,6 +58,29 @@ describe("breadcrumbList", () => {
           item: "https://example.test/ja/courts/los-angeles-county",
         },
       ],
+    });
+  });
+});
+
+describe("course", () => {
+  it("builds a Course whose offer price comes from the cents given", () => {
+    const data = course({
+      siteUrl: "https://example.test",
+      locale: "es",
+      name: "TVC",
+      description: "A course.",
+      path: "/courses",
+      priceCents: 2499,
+      providerName: "School",
+      languages: ["en", "es"],
+    });
+
+    expect(data).toMatchObject({
+      "@type": "Course",
+      url: "https://example.test/es/courses",
+      inLanguage: ["en", "es"],
+      provider: { name: "School" },
+      offers: { price: "24.99", priceCurrency: "USD" },
     });
   });
 });

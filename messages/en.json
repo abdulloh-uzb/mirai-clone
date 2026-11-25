@@ -150,7 +150,8 @@
   },
   "Portal": {
     "title": "My courses",
-    "empty": "Your courses will appear here once you enroll."
+    "empty": "Your courses will appear here once you enroll.",
+    "paymentsSoon": "You chose the course in {language}. Payments arrive soon: you will be able to enroll from here."
   },
   "Admin": {
     "title": "Admin",
@@ -222,7 +223,9 @@
       "screenshotType": "Use a PNG, JPEG or WebP image.",
       "screenshotTooLarge": "The screenshot must be 5 MB or smaller.",
       "rateLimited": "Too many requests from your connection. Please wait a few minutes and try again.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "stateInvalid": "Choose a state that is not open yet.",
+      "countyInvalid": "Choose your county."
     }
   },
   "Contact": {
@@ -443,6 +446,113 @@
       "ai": "The AI assistant",
       "classroom": "Classroom course",
       "contact": "Contact and help"
+    }
+  },
+  "Courses": {
+    "metaTitle": "California traffic school course in 4 languages",
+    "metaDescription": "The California Traffic Violator Course in English, Japanese, Spanish or Russian: self-paced, 90 days of access, final exam online.",
+    "title": "Choose the language you'll study in",
+    "intro": "One course, four languages. Lessons, quizzes and the final exam are all in the language you pick.",
+    "languagesLabel": "Course languages",
+    "originalCourse": "Original course",
+    "live": "LIVE",
+    "selected": "Selected",
+    "panel": {
+      "pill": "Available in 4 languages",
+      "title": "California Traffic Violator Course (TVC)",
+      "features": {
+        "defensiveDriving": "Defensive driving",
+        "trafficViolations": "Traffic violations",
+        "driverAwareness": "Driver awareness",
+        "selfPaced": "Self-paced",
+        "access": "{days} days of access",
+        "interactive": "Interactive lessons",
+        "devices": "All devices",
+        "certificate": "Certificate of completion",
+        "reported": "Reported to the DMV 3 times a day",
+        "dmvRules": "Built to DMV course rules (demo)"
+      },
+      "deviceAlt": "A laptop and a phone showing a course lesson",
+      "inLanguage": "Lessons, quizzes and the final exam in {language}.",
+      "listPrice": "Regular price:",
+      "start": "Start in {language}"
+    },
+    "syllabusHeading": "What you'll learn: 8 sections",
+    "rulesHeading": "Course rules",
+    "rules": {
+      "exam": "Final exam: {questions} questions, pass with {pct}% or more.",
+      "attempts": "{count, plural, one {# attempt} other {# attempts}} at the final exam.",
+      "quizzes": "Section quizzes can be retried as often as you like.",
+      "minimumTime": "Each lesson has a minimum time before you can move on.",
+      "access": "{days} days to finish from the day you enroll."
+    },
+    "rulesLink": "Read the school rules",
+    "reportingHeading": "Reporting to the DMV",
+    "reportingText": "We send completions to the DMV {count, plural, one {once a day at} other {# times a day, at}} {times} (Pacific time).",
+    "refundHeading": "Refunds",
+    "refund": {
+      "full": "100% within 7 days if you haven't started a lesson.",
+      "half": "50% within 7 days if you've started lessons but not the final exam.",
+      "none": "No refund after 7 days, once the final exam has started, or after a certificate is issued."
+    },
+    "refundLink": "Read the refund policy",
+    "classroom": {
+      "heading": "In-person classroom (coming later)",
+      "text": "Prefer a classroom? We plan in-person classes. Leave your email and county and we'll tell you when they open."
+    }
+  },
+  "Eligibility": {
+    "metaTitle": "Can I take traffic school? Eligibility check",
+    "metaDescription": "Answer 5 yes/no questions to see whether California traffic school is likely an option for your ticket.",
+    "title": "Can I take traffic school?",
+    "intro": "Answer 5 quick questions. Nothing you enter is saved.",
+    "disclaimer": "This is general guidance for a demo. Your court always makes the final decision.",
+    "questions": {
+      "validLicense": "Do you have a valid driver's license?",
+      "courtAllowed": "Has the court allowed you to attend traffic school for this ticket?",
+      "noRecentSchool": "Have you gone at least 18 months without attending traffic school?",
+      "nonCommercial": "Were you driving a non-commercial vehicle with a non-commercial license?",
+      "eligibleViolation": "Is your ticket for a minor moving violation (for example speeding or a missed stop sign)?"
+    },
+    "yes": "Yes",
+    "no": "No",
+    "check": "Check my result",
+    "incomplete": "Please answer all 5 questions.",
+    "eligibleTitle": "You're likely eligible",
+    "eligibleText": "Based on your answers, traffic school looks like an option. Confirm with your court, then choose your course language.",
+    "eligibleCta": "Choose your course",
+    "askCourtTitle": "Ask your court first",
+    "notEligibleTitle": "Traffic school is probably not an option",
+    "blockedBy": "You answered \"No\" to: {question}",
+    "nextStep": {
+      "validLicense": "Traffic school needs a valid driver's license. Contact your court about other options.",
+      "courtAllowed": "Only the court can allow traffic school. Ask your court, or check the notice it sent you.",
+      "noRecentSchool": "You can usually attend traffic school only once in 18 months. Your court can tell you what to do instead.",
+      "nonCommercial": "Commercial drivers and vehicles usually can't use traffic school to mask a ticket. Ask your court about your options.",
+      "eligibleViolation": "Some violations don't qualify. Your court decides, so ask it whether yours does."
+    },
+    "findCourt": "Find your court"
+  },
+  "CitationState": {
+    "chip": "Ticket from: {state}",
+    "label": "Where is your ticket from?",
+    "optionSoon": "{state} (coming soon)",
+    "comingSoon": "Coming soon — notify me",
+    "comingSoonText": "We don't serve {state} yet. Leave your email and we'll tell you when we do.",
+    "served": "We serve California. Your course and certificate follow California rules."
+  },
+  "Waitlists": {
+    "state": {
+      "email": "Email",
+      "submit": "Notify me",
+      "success": "Thanks! We'll email you when {state} opens."
+    },
+    "classroom": {
+      "email": "Email",
+      "county": "County",
+      "countyPlaceholder": "Choose your county",
+      "submit": "Join the waitlist",
+      "success": "Thanks! You're on the classroom waitlist."
     }
   }
 }

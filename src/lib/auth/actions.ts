@@ -94,9 +94,14 @@ async function sendVerificationEmail(
   });
 }
 
+/**
+ * Creates an account, then goes to `next` (for example the Portal with the
+ * chosen Course language) if it is a same-site path, or else home.
+ */
 export async function signUp(
   input: unknown,
   localeInput: Locale,
+  next?: string | null,
 ): Promise<AuthActionResult> {
   const locale = localeSchema.parse(localeInput);
   const parsed = signUpSchema.safeParse(input);
@@ -121,6 +126,8 @@ export async function signUp(
   // The account exists and is signed in even if this email fails; the banner
   // offers a resend.
   await sendVerificationEmail(supabase, email, locale);
+  const returnTo = returnPathSchema.parse(next);
+  if (returnTo) redirectToPath(returnTo);
   redirect({ href: "/", locale });
   return { status: "ok" };
 }

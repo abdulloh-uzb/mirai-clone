@@ -24,7 +24,8 @@ const LANGUAGE_NAMES = {
   ru: "Русский",
 } as const satisfies Record<(typeof routing.locales)[number], string>;
 
-export function SignUpForm() {
+/** `next` is where to go after sign-up; the server re-validates it. */
+export function SignUpForm({ next }: { next?: string }) {
   const t = useTranslations("Auth.signUp");
   const locale = useLocale();
   const form = useForm<
@@ -41,7 +42,10 @@ export function SignUpForm() {
       preferredLocale: locale,
     },
   });
-  const { onSubmit, pending, formError } = useAuthAction(form, signUp);
+  const { onSubmit, pending, formError } = useAuthAction(
+    form,
+    (values, locale) => signUp(values, locale, next),
+  );
   const { errors } = form.formState;
 
   return (
