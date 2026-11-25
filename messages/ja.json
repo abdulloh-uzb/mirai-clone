@@ -254,8 +254,7 @@
   },
   "Portal": {
     "title": "マイコース",
-    "empty": "受講登録するとコースがここに表示されます。",
-    "paymentsSoon": "{language}のコースを選択しました。お支払い機能は近日公開予定です。公開後はここから申し込めます。"
+    "ordersLink": "注文と領収書"
   },
   "Admin": {
     "title": "管理",
@@ -771,6 +770,36 @@
     "collapsedLabel": "ヘルプと概要",
     "placeholder": "AIに何でも質問…",
     "send": "質問する"
+  },
+  "Checkout": {
+    "pay": "{price}を支払って{language}で始める",
+    "verifyEmail": "お支払いの前にメールアドレスを確認してください。上のバナーのリンクをご利用ください。",
+    "confirming": "お支払いを確認しています…",
+    "confirmingText": "通常は数秒で完了します。このページを開いたままお待ちください。",
+    "slow": "通常より時間がかかっています。ページを更新するか、サポートにご連絡ください。",
+    "enrolledTitle": "受講登録が完了しました",
+    "enrolledText": "次に、運転者情報を入力してコースを開始してください。",
+    "enterDetails": "運転者情報を入力する"
+  },
+  "Orders": {
+    "title": "注文と領収書",
+    "date": "日付",
+    "product": "商品",
+    "amount": "金額",
+    "status": "状態",
+    "empty": "注文はまだありません。",
+    "products": {
+      "online_course": "オンライン交通安全講習",
+      "classroom": "教室コース",
+      "exam_reset": "最終試験のリセット"
+    },
+    "statuses": {
+      "pending": "保留中",
+      "paid": "支払い済み",
+      "refunded": "返金済み",
+      "partially_refunded": "一部返金",
+      "failed": "失敗"
+    }
   },
   "PortalNav": {
     "label": "ポータル",

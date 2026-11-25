@@ -89,7 +89,9 @@ test("picking Japanese keeps it through sign-up to the Portal", async ({
 
   await expect(page).toHaveURL(/\/portal\?course=ja$/);
   await trackUserByEmail(email);
-  await expect(page.getByRole("status")).toContainText("Payments arrive soon");
+  await expect(
+    page.getByRole("button", { name: /Pay \$24\.99/ }),
+  ).toBeVisible();
 });
 
 test("a signed-in Student's button goes straight to the Portal", async ({

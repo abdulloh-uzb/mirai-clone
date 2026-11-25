@@ -253,8 +253,7 @@
   },
   "Portal": {
     "title": "My courses",
-    "empty": "Your courses will appear here once you enroll.",
-    "paymentsSoon": "You chose the course in {language}. Payments arrive soon: you will be able to enroll from here."
+    "ordersLink": "Orders and receipts"
   },
   "Admin": {
     "title": "Admin",
@@ -770,6 +769,36 @@
     "collapsedLabel": "Help & overview",
     "placeholder": "Ask AI anything…",
     "send": "Ask"
+  },
+  "Checkout": {
+    "pay": "Pay {price} and start in {language}",
+    "verifyEmail": "Verify your email address before paying. Use the link in the banner above.",
+    "confirming": "Confirming payment…",
+    "confirmingText": "This usually takes a few seconds. Please keep this page open.",
+    "slow": "Taking longer than usual. Refresh the page or contact support.",
+    "enrolledTitle": "You are enrolled",
+    "enrolledText": "Next, enter your driver details to unlock the course.",
+    "enterDetails": "Enter your driver details"
+  },
+  "Orders": {
+    "title": "Orders and receipts",
+    "date": "Date",
+    "product": "Product",
+    "amount": "Amount",
+    "status": "Status",
+    "empty": "You have no orders yet.",
+    "products": {
+      "online_course": "Online traffic school course",
+      "classroom": "Classroom course",
+      "exam_reset": "Final exam reset"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "refunded": "Refunded",
+      "partially_refunded": "Partially refunded",
+      "failed": "Failed"
+    }
   },
   "PortalNav": {
     "label": "Portal",
