@@ -1,5 +1,6 @@
 import { readdir } from "node:fs/promises";
 import path from "node:path";
+import { ArrowDownIcon, ArrowLeftIcon, ArrowUpIcon } from "lucide-react";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -12,9 +13,16 @@ import {
 } from "@/components/admin/course-editor";
 import { BlockRenderer } from "@/components/course/blocks/block-renderer";
 import { LANGUAGE_NAMES, LangBadge } from "@/components/admin/lang-badge";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { AdminPageHeader } from "@/components/admin/page-header";
+import { AdminBadge } from "@/components/admin/ui/badge";
+import { AdminButton } from "@/components/admin/ui/button";
+import {
+  AdminCard,
+  AdminCardContent,
+  AdminCardHeader,
+  AdminCardTitle,
+} from "@/components/admin/ui/card";
+import { AdminEmpty } from "@/components/admin/ui/empty";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
@@ -85,66 +93,74 @@ export default async function AdminLessonPage({
   const list = blocks ?? [];
 
   return (
-    <section className="flex flex-col gap-6">
-      <nav className="text-sm">
-        <Link
-          href="/admin/content"
-          className="font-bold text-blue-text hover:underline"
-        >
-          ← {t("back")}
+    <div className="flex flex-col gap-6">
+      <AdminButton asChild variant="ghost" size="sm" className="-ml-2 w-fit">
+        <Link href="/admin/content">
+          <ArrowLeftIcon aria-hidden />
+          {t("back")}
         </Link>
-      </nav>
-      <header className="flex flex-wrap items-center gap-3">
-        {section ? (
-          <Badge tone="info">
-            {t("section", { n: section.position })} · {lesson.position}
-          </Badge>
-        ) : null}
-        <h1 className="min-w-0 flex-1 text-3xl font-bold tracking-tight">
-          {titles.en ?? "—"}
-        </h1>
-        <form action={deleteLesson}>
-          <input type="hidden" name="id" value={lesson.id} />
-          <input type="hidden" name="locale" value={locale} />
-          <ConfirmSubmit
-            size="sm"
-            label={t("deleteLesson")}
-            question={t("deleteLessonConfirm")}
-          />
-        </form>
-      </header>
+      </AdminButton>
+      <AdminPageHeader
+        title={titles.en ?? "—"}
+        meta={
+          section ? (
+            <AdminBadge tone="info">
+              {t("section", { n: section.position })} · {lesson.position}
+            </AdminBadge>
+          ) : null
+        }
+        actions={
+          <form action={deleteLesson}>
+            <input type="hidden" name="id" value={lesson.id} />
+            <input type="hidden" name="locale" value={locale} />
+            <ConfirmSubmit
+              size="sm"
+              label={t("deleteLesson")}
+              question={t("deleteLessonConfirm")}
+            />
+          </form>
+        }
+      />
 
-      <Card>
-        <h2 className="text-xl font-bold">{t("lessonDetails")}</h2>
-        <LessonDetailsForm
-          lesson={{
-            id: lesson.id,
-            sectionId: lesson.section_id,
-            position: lesson.position,
-            minSeconds: lesson.min_seconds,
-            titles,
-          }}
-          sections={sectionOptions}
-        />
-      </Card>
+      <AdminCard>
+        <AdminCardHeader>
+          <AdminCardTitle>{t("lessonDetails")}</AdminCardTitle>
+        </AdminCardHeader>
+        <AdminCardContent>
+          <LessonDetailsForm
+            lesson={{
+              id: lesson.id,
+              sectionId: lesson.section_id,
+              position: lesson.position,
+              minSeconds: lesson.min_seconds,
+              titles,
+            }}
+            sections={sectionOptions}
+          />
+        </AdminCardContent>
+      </AdminCard>
 
       <div className="flex flex-col gap-4">
         <div>
-          <h2 className="text-xl font-bold">{t("blocksTitle")}</h2>
-          <p className="mt-1 text-muted-foreground">{t("blocksIntro")}</p>
+          <h2 className="text-base font-semibold">{t("blocksTitle")}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {t("blocksIntro")}
+          </p>
         </div>
 
         {list.length === 0 ? (
-          <Card variant="tint">
-            <p className="text-muted-foreground">{t("noBlocks")}</p>
-          </Card>
+          <AdminCard>
+            <AdminEmpty title={t("noBlocks")} />
+          </AdminCard>
         ) : null}
 
         {list.map((b, i) => {
           if (!isBlockType(b.type)) return null;
           const type = b.type;
           let preview: React.ReactNode = (
-            <p className="text-sm font-bold text-alert">{t("invalid")}</p>
+            <p className="text-sm font-medium text-red-700 dark:text-red-400">
+              {t("invalid")}
+            </p>
           );
           try {
             preview = (
@@ -162,12 +178,12 @@ export default async function AdminLessonPage({
           }
           const content = (b.content ?? {}) as Titles;
           return (
-            <Card key={b.id} padding="none">
-              <div className="flex flex-wrap items-center gap-2 border-b border-line-blue px-5 py-3">
-                <span className="text-sm font-bold text-muted-foreground">
+            <AdminCard key={b.id}>
+              <div className="flex flex-wrap items-center gap-2 border-b px-4 py-2.5">
+                <span className="text-xs font-medium text-muted-foreground tabular-nums">
                   {i + 1}.
                 </span>
-                <Badge tone="info">{t(`types.${type}`)}</Badge>
+                <AdminBadge tone="info">{t(`types.${type}`)}</AdminBadge>
                 <span className="flex flex-1 gap-1">
                   {COURSE_LOCALES.map((l) => (
                     <LangBadge
@@ -182,7 +198,7 @@ export default async function AdminLessonPage({
                 </span>
                 <form action={moveBlock} className="contents">
                   <input type="hidden" name="id" value={b.id} />
-                  <Button
+                  <AdminButton
                     type="submit"
                     name="dir"
                     value="up"
@@ -192,9 +208,9 @@ export default async function AdminLessonPage({
                     aria-label={t("moveUp")}
                     title={t("moveUp")}
                   >
-                    ↑
-                  </Button>
-                  <Button
+                    <ArrowUpIcon aria-hidden />
+                  </AdminButton>
+                  <AdminButton
                     type="submit"
                     name="dir"
                     value="down"
@@ -204,11 +220,11 @@ export default async function AdminLessonPage({
                     aria-label={t("moveDown")}
                     title={t("moveDown")}
                   >
-                    ↓
-                  </Button>
+                    <ArrowDownIcon aria-hidden />
+                  </AdminButton>
                 </form>
                 <EditToggle label={t("edit")}>
-                  <div className="mt-2 rounded-[18px] border border-line-blue bg-surface p-4">
+                  <div className="mt-2 rounded-lg border bg-muted/30 p-4">
                     <BlockEditor
                       lessonId={lesson.id}
                       block={{ id: b.id, type, content: b.content }}
@@ -225,8 +241,8 @@ export default async function AdminLessonPage({
                   />
                 </form>
               </div>
-              <div className="px-5 py-4">{preview}</div>
-            </Card>
+              <div className="px-4 py-4">{preview}</div>
+            </AdminCard>
           );
         })}
 
@@ -234,6 +250,6 @@ export default async function AdminLessonPage({
           <AddBlock lessonId={lesson.id} images={images} captions={captions} />
         </div>
       </div>
-    </section>
+    </div>
   );
 }

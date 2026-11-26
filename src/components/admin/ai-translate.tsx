@@ -2,7 +2,9 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
+import { SparklesIcon } from "lucide-react";
+import { AdminButton } from "@/components/admin/ui/button";
+import { AdminSelect } from "@/components/admin/ui/select";
 import { translateFields } from "@/lib/admin/translate-actions";
 import { COURSE_LOCALES, type CourseLocale } from "@/lib/course/blocks";
 import { LANGUAGE_NAMES } from "./lang-badge";
@@ -110,21 +112,25 @@ export function AiTranslate({ titles = false }: { titles?: boolean }) {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2 rounded-[14px] border border-dashed border-primary/60 bg-blue-tint px-3 py-2">
-      <span className="text-sm font-bold">✨ {t("label")}</span>
-      <select
+    <div className="flex flex-wrap items-center gap-2 rounded-md border border-dashed bg-muted/40 px-3 py-2">
+      <span className="inline-flex items-center gap-1.5 text-sm font-medium">
+        <SparklesIcon aria-hidden className="size-4 text-primary" />
+        {t("label")}
+      </span>
+      <AdminSelect
         aria-label={t("from")}
         value={source}
         onChange={(e) => setSource(e.target.value as CourseLocale)}
-        className="rounded-[10px] border border-line-blue bg-card px-2 py-1 text-sm"
+        wrapperClassName="w-auto"
+        className="h-8"
       >
         {COURSE_LOCALES.map((l) => (
           <option key={l} value={l}>
             {t("fromLanguage", { language: LANGUAGE_NAMES[l] })}
           </option>
         ))}
-      </select>
-      <Button
+      </AdminSelect>
+      <AdminButton
         type="button"
         size="xs"
         disabled={pending}
@@ -134,14 +140,14 @@ export function AiTranslate({ titles = false }: { titles?: boolean }) {
         }}
       >
         {pending ? t("working") : t("button")}
-      </Button>
+      </AdminButton>
       {message ? (
         <span
           role={message.tone === "error" ? "alert" : "status"}
           className={
             message.tone === "error"
-              ? "text-sm font-bold text-alert"
-              : "text-sm font-bold text-green-ink"
+              ? "text-sm font-medium text-red-700 dark:text-red-400"
+              : "text-sm font-medium text-emerald-700 dark:text-emerald-400"
           }
         >
           {message.text}

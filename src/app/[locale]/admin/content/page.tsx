@@ -1,3 +1,4 @@
+import { ListChecksIcon, PlusIcon } from "lucide-react";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -7,9 +8,10 @@ import {
   SectionTitleForm,
 } from "@/components/admin/course-editor";
 import { LANGUAGE_NAMES, LangBadge } from "@/components/admin/lang-badge";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { AdminPageHeader } from "@/components/admin/page-header";
+import { AdminBadge } from "@/components/admin/ui/badge";
+import { AdminButton } from "@/components/admin/ui/button";
+import { AdminCard } from "@/components/admin/ui/card";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
@@ -43,6 +45,7 @@ export default async function AdminContentPage({
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
   const t = await getTranslations({ locale, namespace: "Admin.editor" });
+  const tNav = await getTranslations({ locale, namespace: "Admin.nav" });
   const svc = createServiceClient();
   const [courses, sections, lessons, blocks] = await Promise.all([
     svc.from("courses").select("id, slug").order("slug"),
@@ -60,16 +63,19 @@ export default async function AdminContentPage({
   }
 
   return (
-    <section className="flex flex-col gap-6">
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-          <p className="mt-2 max-w-2xl text-muted-foreground">{t("intro")}</p>
-        </div>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/admin/content/questions">{t("questionBank")}</Link>
-        </Button>
-      </header>
+    <div className="flex flex-col gap-6">
+      <AdminPageHeader
+        title={tNav("content")}
+        description={t("intro")}
+        actions={
+          <AdminButton asChild variant="outline" size="sm">
+            <Link href="/admin/content/questions">
+              <ListChecksIcon aria-hidden />
+              {t("questionBank")}
+            </Link>
+          </AdminButton>
+        }
+      />
 
       {(courses.data ?? []).map((course) => {
         const courseSections = (sections.data ?? []).filter(
@@ -80,7 +86,7 @@ export default async function AdminContentPage({
         return (
           <div key={course.id} className="flex flex-col gap-4">
             {(courses.data ?? []).length > 1 ? (
-              <h2 className="text-xl font-bold">{course.slug}</h2>
+              <h2 className="text-base font-semibold">{course.slug}</h2>
             ) : null}
             {courseSections.map((section) => {
               const title = titlesOf(section.title);
@@ -88,15 +94,15 @@ export default async function AdminContentPage({
                 (l) => l.section_id === section.id,
               );
               return (
-                <Card key={section.id} padding="none">
-                  <div className="flex flex-wrap items-center gap-3 border-b border-line-blue px-5 py-4">
-                    <Badge tone="info">
+                <AdminCard key={section.id}>
+                  <div className="flex flex-wrap items-center gap-3 border-b px-4 py-3">
+                    <AdminBadge tone="info">
                       {t("section", { n: section.position })}
-                    </Badge>
-                    <h2 className="min-w-0 flex-1 text-lg font-bold">
+                    </AdminBadge>
+                    <h2 className="min-w-0 flex-1 text-sm font-semibold">
                       {title.en ?? "—"}
                     </h2>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-xs text-muted-foreground">
                       {t("lessonsCount", { count: sectionLessons.length })}
                     </span>
                     <EditToggle label={t("editTitle")}>
@@ -107,7 +113,7 @@ export default async function AdminContentPage({
                   </div>
 
                   {sectionLessons.length ? (
-                    <ol className="divide-y divide-line-blue">
+                    <ol className="divide-y">
                       {sectionLessons.map((lesson) => {
                         const lessonTitle = titlesOf(lesson.title);
                         const lessonBlocks =
@@ -116,18 +122,18 @@ export default async function AdminContentPage({
                         return (
                           <li
                             key={lesson.id}
-                            className="flex flex-wrap items-center gap-x-4 gap-y-2 px-5 py-3"
+                            className="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-2.5"
                           >
-                            <span className="w-10 text-sm font-bold text-muted-foreground">
+                            <span className="w-10 text-xs font-medium text-muted-foreground tabular-nums">
                               {section.position}.{lesson.position}
                             </span>
                             <Link
                               href={`/admin/content/lessons/${lesson.id}`}
-                              className="min-w-0 flex-1 font-bold hover:underline"
+                              className="min-w-0 flex-1 text-sm font-medium hover:underline"
                             >
                               {lessonTitle.en ?? "—"}
                             </Link>
-                            <span className="text-sm text-muted-foreground">
+                            <span className="text-xs text-muted-foreground">
                               {t("blocksCount", {
                                 count: lessonBlocks.length,
                               })}{" "}
@@ -152,24 +158,24 @@ export default async function AdminContentPage({
                                 />
                               ))}
                             </span>
-                            <Button asChild variant="outline" size="xs">
+                            <AdminButton asChild variant="outline" size="xs">
                               <Link
                                 href={`/admin/content/lessons/${lesson.id}`}
                               >
                                 {t("edit")}
                               </Link>
-                            </Button>
+                            </AdminButton>
                           </li>
                         );
                       })}
                     </ol>
                   ) : (
-                    <p className="px-5 py-4 text-sm text-muted-foreground">
+                    <p className="px-4 py-4 text-sm text-muted-foreground">
                       {t("noLessons")}
                     </p>
                   )}
 
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line-blue px-5 py-3">
+                  <div className="flex flex-wrap items-center justify-between gap-3 rounded-b-lg border-t bg-muted/30 px-4 py-3">
                     <form action={createLesson}>
                       <input
                         type="hidden"
@@ -177,9 +183,10 @@ export default async function AdminContentPage({
                         value={section.id}
                       />
                       <input type="hidden" name="locale" value={locale} />
-                      <Button type="submit" size="sm">
-                        + {t("addLesson")}
-                      </Button>
+                      <AdminButton type="submit" size="sm" variant="outline">
+                        <PlusIcon aria-hidden />
+                        {t("addLesson")}
+                      </AdminButton>
                     </form>
                     {sectionLessons.length === 0 ? (
                       <form action={deleteSection}>
@@ -191,18 +198,24 @@ export default async function AdminContentPage({
                       </form>
                     ) : null}
                   </div>
-                </Card>
+                </AdminCard>
               );
             })}
             <form action={createSection}>
               <input type="hidden" name="courseId" value={course.id} />
-              <Button type="submit" variant="outline">
-                + {t("addSection")}
-              </Button>
+              <AdminButton
+                type="submit"
+                variant="outline"
+                size="sm"
+                className="w-fit"
+              >
+                <PlusIcon aria-hidden />
+                {t("addSection")}
+              </AdminButton>
             </form>
           </div>
         );
       })}
-    </section>
+    </div>
   );
 }

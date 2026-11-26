@@ -3,10 +3,13 @@
 import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+import { CheckIcon, PlusIcon } from "lucide-react";
+import { AdminButton } from "@/components/admin/ui/button";
+import { AdminField, adminCheckClass } from "@/components/admin/ui/field";
+import { AdminInput } from "@/components/admin/ui/input";
+import { AdminSelect } from "@/components/admin/ui/select";
+import { adminTabClass, adminTabListClass } from "@/components/admin/ui/tabs";
+import { AdminTextarea } from "@/components/admin/ui/textarea";
 import { AiTranslate } from "@/components/admin/ai-translate";
 import { LANGUAGE_NAMES } from "@/components/admin/lang-badge";
 import { SCENARIO_ROWS } from "@/lib/admin/block-form";
@@ -37,9 +40,9 @@ function SaveButton({ label }: { label?: string }) {
   const t = useTranslations("Admin.editor");
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" size="sm" disabled={pending}>
+    <AdminButton type="submit" size="sm" disabled={pending}>
       {pending ? t("saving") : (label ?? t("save"))}
-    </Button>
+    </AdminButton>
   );
 }
 
@@ -47,40 +50,27 @@ function Status({ state }: { state: FormState }) {
   const t = useTranslations("Admin.editor");
   if (state.status === "saved") {
     return (
-      <span role="status" className="text-sm font-bold text-green-ink">
-        ✓ {t("saved")}
+      <span
+        role="status"
+        className="inline-flex items-center gap-1 text-sm font-medium text-emerald-700 dark:text-emerald-400"
+      >
+        <CheckIcon aria-hidden className="size-4" />
+        {t("saved")}
       </span>
     );
   }
   if (state.status === "error") {
     const key = `errors.${state.error}`;
     return (
-      <span role="alert" className="text-sm font-bold text-alert">
+      <span
+        role="alert"
+        className="text-sm font-medium text-red-700 dark:text-red-400"
+      >
         {t.has(key as never) ? t(key as never) : state.error}
       </span>
     );
   }
   return null;
-}
-
-function Field({
-  label,
-  hint,
-  children,
-}: {
-  label: string;
-  hint?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="flex flex-col gap-1.5">
-      <span className="text-[15px] font-bold">{label}</span>
-      {children}
-      {hint ? (
-        <span className="text-sm text-muted-foreground">{hint}</span>
-      ) : null}
-    </label>
-  );
 }
 
 /** Language tabs. Every panel stays in the form, so all four are submitted. */
@@ -98,7 +88,7 @@ function LocaleTabs({
       <div
         role="tablist"
         aria-label={t("languages")}
-        className="flex flex-wrap gap-1 border-b border-line-blue"
+        className={adminTabListClass}
       >
         {COURSE_LOCALES.map((l) => (
           <button
@@ -107,12 +97,7 @@ function LocaleTabs({
             role="tab"
             aria-selected={active === l}
             onClick={() => setActive(l)}
-            className={cn(
-              "-mb-px flex items-center gap-2 rounded-t-[12px] border border-b-0 px-3 py-2 text-sm font-bold",
-              active === l
-                ? "border-line-blue bg-card text-foreground"
-                : "border-transparent text-muted-foreground hover:text-foreground",
-            )}
+            className={adminTabClass}
           >
             {LOCALE_NAMES[l]}
             <span
@@ -123,8 +108,8 @@ function LocaleTabs({
                 language: LOCALE_NAMES[l],
               })}
               className={cn(
-                "size-2 rounded-full",
-                filled[l] ? "bg-brand-green" : "bg-alert-line",
+                "size-1.5 rounded-full",
+                filled[l] ? "bg-emerald-500" : "bg-red-500",
               )}
             />
           </button>
@@ -156,17 +141,17 @@ function TitleInputs({ titles }: { titles: Titles }) {
       <AiTranslate titles />
       <div className="grid gap-3 sm:grid-cols-2">
         {COURSE_LOCALES.map((l) => (
-          <Field
+          <AdminField
             key={l}
             label={t("titleIn", { locale: LOCALE_NAMES[l] })}
             hint={l === "en" ? t("titleHintRequired") : undefined}
           >
-            <Input
+            <AdminInput
               name={`title_${l}`}
               defaultValue={titles[l] ?? ""}
               required={l === "en"}
             />
-          </Field>
+          </AdminField>
         ))}
       </div>
     </div>
@@ -217,26 +202,26 @@ export function LessonDetailsForm({
       <input type="hidden" name="id" value={lesson.id} />
       <TitleInputs titles={lesson.titles} />
       <div className="grid gap-3 sm:grid-cols-3">
-        <Field label={t("sectionField")}>
-          <Select name="sectionId" defaultValue={lesson.sectionId}>
+        <AdminField label={t("sectionField")}>
+          <AdminSelect name="sectionId" defaultValue={lesson.sectionId}>
             {sections.map((s) => (
               <option key={s.value} value={s.value}>
                 {s.label}
               </option>
             ))}
-          </Select>
-        </Field>
-        <Field label={t("position")}>
-          <Input
+          </AdminSelect>
+        </AdminField>
+        <AdminField label={t("position")}>
+          <AdminInput
             name="position"
             type="number"
             min={1}
             defaultValue={lesson.position}
             required
           />
-        </Field>
-        <Field label={t("minMinutes")} hint={t("minMinutesHint")}>
-          <Input
+        </AdminField>
+        <AdminField label={t("minMinutes")} hint={t("minMinutesHint")}>
+          <AdminInput
             name="minMinutes"
             type="number"
             min={0}
@@ -244,7 +229,7 @@ export function LessonDetailsForm({
             defaultValue={lesson.minSeconds / 60}
             required
           />
-        </Field>
+        </AdminField>
       </div>
       <div className="flex items-center gap-3">
         <SaveButton />
@@ -281,46 +266,49 @@ function BlockFields({
   switch (type) {
     case "rich_text":
       return (
-        <Field label={t("markdown")} hint={t("markdownHint")}>
-          <Textarea
+        <AdminField label={t("markdown")} hint={t("markdownHint")}>
+          <AdminTextarea
             name={n("markdown")}
             rows={8}
             defaultValue={s(c, "markdown")}
           />
-        </Field>
+        </AdminField>
       );
     case "image":
       return (
         <>
-          <Field label={t("src")}>
-            <Select name={n("src")} defaultValue={s(c, "src") || images[0]}>
+          <AdminField label={t("src")}>
+            <AdminSelect
+              name={n("src")}
+              defaultValue={s(c, "src") || images[0]}
+            >
               {images.map((src) => (
                 <option key={src} value={src}>
                   {src.split("/").pop()}
                 </option>
               ))}
-            </Select>
-          </Field>
-          <Field label={t("alt")} hint={t("altHint")}>
-            <Input name={n("alt")} defaultValue={s(c, "alt")} />
-          </Field>
-          <Field label={t("caption")}>
-            <Input name={n("caption")} defaultValue={s(c, "caption")} />
-          </Field>
+            </AdminSelect>
+          </AdminField>
+          <AdminField label={t("alt")} hint={t("altHint")}>
+            <AdminInput name={n("alt")} defaultValue={s(c, "alt")} />
+          </AdminField>
+          <AdminField label={t("caption")}>
+            <AdminInput name={n("caption")} defaultValue={s(c, "caption")} />
+          </AdminField>
         </>
       );
     case "video": {
       const own = captions.filter((p) => p.endsWith(`.${l}.vtt`));
       return (
         <>
-          <Field label={t("videoTitle")}>
-            <Input name={n("title")} defaultValue={s(c, "title")} />
-          </Field>
-          <Field label={t("videoSrc")}>
-            <Input name={n("src")} defaultValue={s(c, "src")} />
-          </Field>
-          <Field label={t("captionsSrc")}>
-            <Select
+          <AdminField label={t("videoTitle")}>
+            <AdminInput name={n("title")} defaultValue={s(c, "title")} />
+          </AdminField>
+          <AdminField label={t("videoSrc")}>
+            <AdminInput name={n("src")} defaultValue={s(c, "src")} />
+          </AdminField>
+          <AdminField label={t("captionsSrc")}>
+            <AdminSelect
               name={n("captionsSrc")}
               defaultValue={s(c, "captionsSrc") || own[0] || captions[0]}
             >
@@ -329,51 +317,59 @@ function BlockFields({
                   {src.split("/").pop()}
                 </option>
               ))}
-            </Select>
-          </Field>
-          <Field label={t("transcript")}>
-            <Textarea
+            </AdminSelect>
+          </AdminField>
+          <AdminField label={t("transcript")}>
+            <AdminTextarea
               name={n("transcript")}
               rows={6}
               defaultValue={s(c, "transcript")}
             />
-          </Field>
+          </AdminField>
         </>
       );
     }
     case "callout":
       return (
         <>
-          <Field label={t("tone")}>
-            <Select name={n("tone")} defaultValue={s(c, "tone") || "info"}>
+          <AdminField label={t("tone")}>
+            <AdminSelect name={n("tone")} defaultValue={s(c, "tone") || "info"}>
               {(["info", "tip", "warning"] as const).map((tone) => (
                 <option key={tone} value={tone}>
                   {t(`tones.${tone}`)}
                 </option>
               ))}
-            </Select>
-          </Field>
-          <Field label={t("calloutTitle")}>
-            <Input name={n("title")} defaultValue={s(c, "title")} />
-          </Field>
-          <Field label={t("markdown")} hint={t("markdownHint")}>
-            <Textarea
+            </AdminSelect>
+          </AdminField>
+          <AdminField label={t("calloutTitle")}>
+            <AdminInput name={n("title")} defaultValue={s(c, "title")} />
+          </AdminField>
+          <AdminField label={t("markdown")} hint={t("markdownHint")}>
+            <AdminTextarea
               name={n("markdown")}
               rows={4}
               defaultValue={s(c, "markdown")}
             />
-          </Field>
+          </AdminField>
         </>
       );
     case "flip_card":
       return (
         <div className="grid gap-3 sm:grid-cols-2">
-          <Field label={t("front")}>
-            <Textarea name={n("front")} rows={4} defaultValue={s(c, "front")} />
-          </Field>
-          <Field label={t("back")}>
-            <Textarea name={n("back")} rows={4} defaultValue={s(c, "back")} />
-          </Field>
+          <AdminField label={t("front")}>
+            <AdminTextarea
+              name={n("front")}
+              rows={4}
+              defaultValue={s(c, "front")}
+            />
+          </AdminField>
+          <AdminField label={t("back")}>
+            <AdminTextarea
+              name={n("back")}
+              rows={4}
+              defaultValue={s(c, "back")}
+            />
+          </AdminField>
         </div>
       );
     case "scenario": {
@@ -384,40 +380,40 @@ function BlockFields({
       );
       return (
         <>
-          <Field label={t("prompt")}>
-            <Textarea
+          <AdminField label={t("prompt")}>
+            <AdminTextarea
               name={n("prompt")}
               rows={3}
               defaultValue={s(c, "prompt")}
             />
-          </Field>
+          </AdminField>
           {Array.from({ length: SCENARIO_ROWS }, (_, i) => (
             <fieldset
               key={i}
-              className="grid gap-3 rounded-[14px] border border-line-blue p-3 sm:grid-cols-[1fr_1fr_auto]"
+              className="grid gap-3 rounded-md border p-3 sm:grid-cols-[1fr_1fr_auto]"
             >
-              <legend className="px-1 text-sm font-bold">
+              <legend className="px-1 text-xs font-medium text-muted-foreground">
                 {t("choice", { n: i + 1 })}
               </legend>
-              <Field label={t("choiceText")}>
-                <Input
+              <AdminField label={t("choiceText")}>
+                <AdminInput
                   name={n(`choice${i}.text`)}
                   defaultValue={s(choices[i], "text")}
                 />
-              </Field>
-              <Field label={t("feedback")}>
-                <Input
+              </AdminField>
+              <AdminField label={t("feedback")}>
+                <AdminInput
                   name={n(`choice${i}.feedback`)}
                   defaultValue={s(choices[i], "feedback")}
                 />
-              </Field>
-              <label className="flex items-center gap-2 self-end pb-3 text-sm font-bold">
+              </AdminField>
+              <label className="flex items-center gap-2 self-end pb-2.5 text-sm font-medium">
                 <input
                   type="radio"
                   name={n("best")}
                   value={String(i)}
                   defaultChecked={i === bestIndex}
-                  className="size-4"
+                  className={adminCheckClass}
                 />
                 {t("best")}
               </label>
@@ -430,16 +426,16 @@ function BlockFields({
       const items = Array.isArray(c?.items) ? (c.items as string[]) : [];
       return (
         <>
-          <Field label={t("prompt")}>
-            <Input name={n("prompt")} defaultValue={s(c, "prompt")} />
-          </Field>
-          <Field label={t("items")} hint={t("itemsHint")}>
-            <Textarea
+          <AdminField label={t("prompt")}>
+            <AdminInput name={n("prompt")} defaultValue={s(c, "prompt")} />
+          </AdminField>
+          <AdminField label={t("items")} hint={t("itemsHint")}>
+            <AdminTextarea
               name={n("items")}
               rows={6}
               defaultValue={items.join("\n")}
             />
-          </Field>
+          </AdminField>
         </>
       );
     }
@@ -484,7 +480,7 @@ export function BlockEditor({
       {block ? <input type="hidden" name="id" value={block.id} /> : null}
       {!block ? (
         <fieldset className="flex flex-col gap-2">
-          <legend className="mb-2 text-[15px] font-bold">
+          <legend className="mb-2 text-sm font-medium">
             {t("chooseType")}
           </legend>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -495,13 +491,13 @@ export function BlockEditor({
                 aria-pressed={type === bt}
                 onClick={() => setType(bt)}
                 className={cn(
-                  "flex flex-col items-start gap-0.5 rounded-[14px] border-2 p-3 text-left",
+                  "flex flex-col items-start gap-0.5 rounded-md border p-3 text-left transition-colors",
                   type === bt
-                    ? "border-primary bg-blue-tint"
-                    : "border-line-blue hover:border-primary/60",
+                    ? "border-primary bg-accent"
+                    : "hover:bg-muted/50",
                 )}
               >
-                <span className="font-bold">{t(`types.${bt}`)}</span>
+                <span className="text-sm font-medium">{t(`types.${bt}`)}</span>
                 <span className="text-xs text-muted-foreground">
                   {t(`typeHints.${bt}`)}
                 </span>
@@ -527,9 +523,9 @@ export function BlockEditor({
       <div className="flex flex-wrap items-center gap-3">
         <SaveButton label={block ? undefined : t("createBlock")} />
         {onDone ? (
-          <Button type="button" variant="ghost" size="sm" onClick={onDone}>
+          <AdminButton type="button" variant="ghost" size="sm" onClick={onDone}>
             {t("cancel")}
-          </Button>
+          </AdminButton>
         ) : null}
         <Status state={state} />
       </div>
@@ -547,13 +543,19 @@ export function AddBlock(props: {
   const [open, setOpen] = useState(false);
   if (!open) {
     return (
-      <Button type="button" variant="outline" onClick={() => setOpen(true)}>
-        + {t("addBlock")}
-      </Button>
+      <AdminButton
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() => setOpen(true)}
+      >
+        <PlusIcon aria-hidden />
+        {t("addBlock")}
+      </AdminButton>
     );
   }
   return (
-    <div className="rounded-[22px] border-2 border-dashed border-primary p-5">
+    <div className="rounded-lg border border-dashed border-primary/60 bg-card p-4">
       <BlockEditor {...props} block={null} onDone={() => setOpen(false)} />
     </div>
   );
@@ -571,7 +573,7 @@ export function EditToggle({
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button
+      <AdminButton
         type="button"
         variant={open ? "secondary" : "outline"}
         size="xs"
@@ -579,7 +581,7 @@ export function EditToggle({
         onClick={() => setOpen(!open)}
       >
         {open ? t("cancel") : label}
-      </Button>
+      </AdminButton>
       {open ? <div className="order-last basis-full">{children}</div> : null}
     </>
   );
@@ -596,16 +598,15 @@ export function ConfirmSubmit({
   size?: "xs" | "sm";
 }) {
   return (
-    <Button
+    <AdminButton
       type="submit"
-      variant="ghost"
       size={size}
-      className="text-alert hover:bg-alert-bg"
+      variant={size === "sm" ? "destructive-outline" : "destructive-ghost"}
       onClick={(e) => {
         if (!window.confirm(question)) e.preventDefault();
       }}
     >
       {label}
-    </Button>
+    </AdminButton>
   );
 }
