@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { LANGUAGE_NAMES } from "@/components/admin/lang-badge";
 import { SCENARIO_ROWS } from "@/lib/admin/block-form";
 import {
   saveBlockFields,
@@ -25,12 +26,7 @@ import { cn } from "@/lib/utils";
 // Client parts of Admin › Content: the forms with language tabs and a save
 // status. The server actions in course-actions do the validation and writes.
 
-const LOCALE_NAMES: Record<CourseLocale, string> = {
-  en: "English",
-  ja: "日本語",
-  es: "Español",
-  ru: "Русский",
-};
+const LOCALE_NAMES = LANGUAGE_NAMES;
 
 const idle: FormState = { status: "idle" };
 
@@ -119,8 +115,12 @@ function LocaleTabs({
           >
             {LOCALE_NAMES[l]}
             <span
-              aria-label={filled[l] ? t("translated") : t("missing")}
-              title={filled[l] ? t("translated") : t("missing")}
+              aria-label={t(filled[l] ? "langDone" : "blockMissing", {
+                language: LOCALE_NAMES[l],
+              })}
+              title={t(filled[l] ? "langDone" : "blockMissing", {
+                language: LOCALE_NAMES[l],
+              })}
               className={cn(
                 "size-2 rounded-full",
                 filled[l] ? "bg-brand-green" : "bg-alert-line",

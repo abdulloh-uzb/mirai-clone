@@ -677,7 +677,10 @@
         "best": "Mejor respuesta",
         "items": "Pasos en el orden correcto",
         "itemsHint": "Uno por línea. Los estudiantes los ven mezclados."
-      }
+      },
+      "langDone": "{language}: traducido",
+      "blockMissing": "Aún no hay versión en {language}",
+      "lessonMissing": "{language}: falta traducir parte del texto"
     }
   },
   "LanguageSuggestion": {

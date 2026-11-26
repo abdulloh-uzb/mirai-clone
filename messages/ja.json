@@ -677,7 +677,10 @@
         "best": "最適な回答",
         "items": "正しい順番の手順",
         "itemsHint": "1行に1つ。受講生にはシャッフルして表示されます。"
-      }
+      },
+      "langDone": "{language}：翻訳済み",
+      "blockMissing": "{language} 版はまだ追加されていません",
+      "lessonMissing": "{language}：未翻訳のテキストがあります"
     }
   },
   "LanguageSuggestion": {

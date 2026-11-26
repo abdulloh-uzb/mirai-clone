@@ -11,6 +11,7 @@ import {
   LessonDetailsForm,
 } from "@/components/admin/course-editor";
 import { BlockRenderer } from "@/components/course/blocks/block-renderer";
+import { LANGUAGE_NAMES, LangBadge } from "@/components/admin/lang-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -169,14 +170,14 @@ export default async function AdminLessonPage({
                 <Badge tone="info">{t(`types.${type}`)}</Badge>
                 <span className="flex flex-1 gap-1">
                   {COURSE_LOCALES.map((l) => (
-                    <Badge
+                    <LangBadge
                       key={l}
-                      tone={content[l] ? "success" : "danger"}
-                      title={content[l] ? t("translated") : t("missing")}
-                      className="px-1.5 text-[11px] uppercase"
-                    >
-                      {l}
-                    </Badge>
+                      code={l}
+                      ok={Boolean(content[l])}
+                      tip={t(content[l] ? "langDone" : "blockMissing", {
+                        language: LANGUAGE_NAMES[l],
+                      })}
+                    />
                   ))}
                 </span>
                 <form action={moveBlock} className="contents">

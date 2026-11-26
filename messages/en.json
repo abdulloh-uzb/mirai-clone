@@ -676,7 +676,10 @@
         "best": "Best answer",
         "items": "Steps in the correct order",
         "itemsHint": "One per line. Students see them shuffled."
-      }
+      },
+      "langDone": "{language}: translated",
+      "blockMissing": "{language} version not added yet",
+      "lessonMissing": "{language}: some text is not translated yet"
     }
   },
   "LanguageSuggestion": {

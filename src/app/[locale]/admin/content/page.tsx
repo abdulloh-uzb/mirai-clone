@@ -6,6 +6,7 @@ import {
   EditToggle,
   SectionTitleForm,
 } from "@/components/admin/course-editor";
+import { LANGUAGE_NAMES, LangBadge } from "@/components/admin/lang-badge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -140,16 +141,15 @@ export default async function AdminContentPage({
                               aria-label={t("languages")}
                             >
                               {COURSE_LOCALES.map((l) => (
-                                <Badge
+                                <LangBadge
                                   key={l}
-                                  tone={langs[l] ? "success" : "danger"}
-                                  title={
-                                    langs[l] ? t("translated") : t("missing")
-                                  }
-                                  className="px-1.5 text-[11px] uppercase"
-                                >
-                                  {l}
-                                </Badge>
+                                  code={l}
+                                  ok={langs[l]}
+                                  tip={t(
+                                    langs[l] ? "langDone" : "lessonMissing",
+                                    { language: LANGUAGE_NAMES[l] },
+                                  )}
+                                />
                               ))}
                             </span>
                             <Button asChild variant="outline" size="xs">
