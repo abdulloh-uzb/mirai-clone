@@ -1,0 +1,19 @@
+/* Our additions to the ported reference CSS. */
+
+/* The courses page chooses the language with links (aria-current), the reference with radios (aria-checked). */
+.v2 .cp-row[aria-current="true"] {
+  border-color: var(--logo-green);
+  background: var(--green-tint);
+  box-shadow: 0 18px 34px -24px #0a3d5a8c;
+}
+.v2 .cp-row[aria-current="true"] .cp-tick {
+  opacity: 1;
+  transform: none;
+}
+html[data-theme="dark"] .v2 .cp-row[aria-current="true"] {
+  border-color: var(--logo-green);
+  background: #14301f;
+}
+.v2 .cp-row {
+  text-decoration: none;
+}

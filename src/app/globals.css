@@ -22,6 +22,7 @@
 @import "../styles/reference/legal.css" layer(reference);
 @import "../styles/reference/privacy.css" layer(reference);
 @import "../styles/reference/whats-new.css" layer(reference);
+@import "../styles/reference/ours.css" layer(reference);
 
 @custom-variant dark (&:is(.dark *));
 

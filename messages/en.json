@@ -1813,6 +1813,62 @@
       "promoTick3": "Only {price}",
       "promoCta": "View courses",
       "aboutLabel": "About this guide"
+    },
+    "courses": {
+      "chooseLanguage": "Choose your language",
+      "checkEligibility": "Check eligibility",
+      "syllabusIntro": "Eight sections, the same curriculum in every language. Work through them in order, at your own pace, on any device.",
+      "quizNote": "Each section has a short quiz. You need {pct}% or higher to pass the final exam.",
+      "stepsHeading": "Four steps, start to finish",
+      "stepsIntro": "All online. Nothing to post, nothing to hand in.",
+      "steps": {
+        "choose": {
+          "title": "Choose your language",
+          "text": "Four editions of one course."
+        },
+        "study": {
+          "title": "Study eight sections",
+          "text": "Your own pace, any device. Progress saves itself."
+        },
+        "exam": {
+          "title": "Pass the final exam",
+          "text": "{pct}% to pass, with {count} attempts."
+        },
+        "file": {
+          "title": "We file your certificate",
+          "text": "Reported to the court and the DMV (demo)."
+        }
+      },
+      "formatHeading": "Choose how you complete it",
+      "formatIntro": "The same course either way. Pick the option that fits you.",
+      "recommended": "Recommended",
+      "online": {
+        "title": "Online course",
+        "sub": "Online · Self-paced",
+        "caption": "Demo course price",
+        "c1": "Start immediately",
+        "c2": "Learn at your own pace",
+        "c3": "Complete from any device",
+        "c4": "Available in all four languages",
+        "cta": "Enroll online now",
+        "foot": "Secure · Private · Online"
+      },
+      "classroom": {
+        "title": "Classroom course",
+        "sub": "In person · One-day class",
+        "caption": "One-day classroom",
+        "c1": "One-day instructor-led class",
+        "c2": "Ask questions in real time",
+        "c3": "Certificate filed with the DMV",
+        "c4": "Taught in English at select locations",
+        "cta": "Join the waitlist"
+      },
+      "faqHeading": "Common questions",
+      "faqIntro": "The ones we are asked most, answered in the language you will be studying in.",
+      "faqAll": "View all FAQs",
+      "ctaHeading": "Ready to start the course?",
+      "ctaText": "This is a demo school, not a licensed one. Enroll online and complete the course at your own pace.",
+      "ctaButton": "Enroll now"
     }
   }
 }

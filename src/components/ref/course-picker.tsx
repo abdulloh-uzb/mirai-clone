@@ -7,7 +7,7 @@ export type CourseLang = "en" | "ja" | "es" | "ru";
 
 const ORDER: CourseLang[] = ["en", "ja", "es", "ru"];
 
-function Flag({ code }: { code: CourseLang }) {
+export function Flag({ code }: { code: CourseLang }) {
   return (
     <span className="cc-flag cp-flag">
       <span
