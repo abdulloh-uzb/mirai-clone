@@ -12,9 +12,11 @@ export async function VerifyEmailBanner() {
   return (
     <section
       aria-labelledby="verify-email-title"
-      className="mx-auto mt-3 w-full max-w-6xl px-3"
+      // Floating card: the page heroes slide under the sticky header, so an
+      // in-flow banner here would be covered by them.
+      className="fixed bottom-[calc(16px+var(--consent-h,0px))] left-3 z-50 w-[min(440px,calc(100vw-24px))]"
     >
-      <div className="flex flex-col gap-3 rounded-[18px] border-[1.5px] border-dashed border-primary bg-blue-tint px-4 py-3.5 text-foreground sm:flex-row sm:items-center sm:px-5">
+      <div className="flex flex-col gap-3 rounded-[18px] border-[1.5px] border-dashed border-primary bg-blue-tint px-4 py-3.5 text-foreground shadow-lg">
         <MailWarningIcon
           aria-hidden
           className="hidden size-[22px] shrink-0 text-blue-text sm:block"
