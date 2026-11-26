@@ -17,3 +17,9 @@ html[data-theme="dark"] .v2 .cp-row[aria-current="true"] {
 .v2 .cp-row {
   text-decoration: none;
 }
+
+/* Long footer labels (ru, es) must wrap instead of widening the page. */
+.ftB-nav {
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
