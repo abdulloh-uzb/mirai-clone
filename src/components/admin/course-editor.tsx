@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { AiTranslate } from "@/components/admin/ai-translate";
 import { LANGUAGE_NAMES } from "@/components/admin/lang-badge";
 import { SCENARIO_ROWS } from "@/lib/admin/block-form";
 import {
@@ -151,20 +152,23 @@ function LocaleTabs({
 function TitleInputs({ titles }: { titles: Titles }) {
   const t = useTranslations("Admin.editor");
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      {COURSE_LOCALES.map((l) => (
-        <Field
-          key={l}
-          label={t("titleIn", { locale: LOCALE_NAMES[l] })}
-          hint={l === "en" ? t("titleHintRequired") : undefined}
-        >
-          <Input
-            name={`title_${l}`}
-            defaultValue={titles[l] ?? ""}
-            required={l === "en"}
-          />
-        </Field>
-      ))}
+    <div className="flex flex-col gap-3">
+      <AiTranslate titles />
+      <div className="grid gap-3 sm:grid-cols-2">
+        {COURSE_LOCALES.map((l) => (
+          <Field
+            key={l}
+            label={t("titleIn", { locale: LOCALE_NAMES[l] })}
+            hint={l === "en" ? t("titleHintRequired") : undefined}
+          >
+            <Input
+              name={`title_${l}`}
+              defaultValue={titles[l] ?? ""}
+              required={l === "en"}
+            />
+          </Field>
+        ))}
+      </div>
     </div>
   );
 }
@@ -506,6 +510,7 @@ export function BlockEditor({
           </div>
         </fieldset>
       ) : null}
+      <AiTranslate />
       <LocaleTabs
         key={type}
         filled={filled}

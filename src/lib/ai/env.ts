@@ -10,3 +10,11 @@ export function aiEnv() {
     ipSalt: process.env.SUPABASE_SERVICE_ROLE_KEY ?? "",
   };
 }
+
+/** OpenAI settings for the admin "Translate with AI" button. No key = off. */
+export function translateEnv() {
+  return {
+    apiKey: process.env.OPENAI_API_KEY || undefined,
+    model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+  };
+}

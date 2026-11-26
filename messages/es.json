@@ -680,7 +680,22 @@
       },
       "langDone": "{language}: traducido",
       "blockMissing": "Aún no hay versión en {language}",
-      "lessonMissing": "{language}: falta traducir parte del texto"
+      "lessonMissing": "{language}: falta traducir parte del texto",
+      "ai": {
+        "label": "Traducir con IA",
+        "from": "Idioma de origen",
+        "fromLanguage": "desde {language}",
+        "button": "Completar otros idiomas",
+        "working": "Traduciendo…",
+        "done": "Listo: revisa las otras pestañas de idioma y luego Guarda.",
+        "emptySource": "Primero escribe el texto en {language}.",
+        "overwrite": "Otros idiomas ya tienen texto. ¿Reemplazarlo con la traducción de la IA?",
+        "errors": {
+          "no_key": "La traducción con IA está desactivada: falta OPENAI_API_KEY en el servidor.",
+          "invalid": "No hay nada que traducir.",
+          "failed": "La traducción falló. Inténtalo de nuevo."
+        }
+      }
     }
   },
   "LanguageSuggestion": {

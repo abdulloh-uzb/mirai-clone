@@ -679,7 +679,22 @@
       },
       "langDone": "{language}: translated",
       "blockMissing": "{language} version not added yet",
-      "lessonMissing": "{language}: some text is not translated yet"
+      "lessonMissing": "{language}: some text is not translated yet",
+      "ai": {
+        "label": "Translate with AI",
+        "from": "Source language",
+        "fromLanguage": "from {language}",
+        "button": "Fill other languages",
+        "working": "Translating…",
+        "done": "Done — check the other language tabs, then Save.",
+        "emptySource": "Write the {language} text first.",
+        "overwrite": "Some other languages already have text. Replace it with the AI translation?",
+        "errors": {
+          "no_key": "AI translation is off: OPENAI_API_KEY is not set on the server.",
+          "invalid": "Nothing to translate.",
+          "failed": "Translation failed. Try again."
+        }
+      }
     }
   },
   "LanguageSuggestion": {

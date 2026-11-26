@@ -680,7 +680,22 @@
       },
       "langDone": "{language}：翻訳済み",
       "blockMissing": "{language} 版はまだ追加されていません",
-      "lessonMissing": "{language}：未翻訳のテキストがあります"
+      "lessonMissing": "{language}：未翻訳のテキストがあります",
+      "ai": {
+        "label": "AIで翻訳",
+        "from": "翻訳元の言語",
+        "fromLanguage": "{language} から",
+        "button": "他の言語を入力",
+        "working": "翻訳中…",
+        "done": "完了 — 他の言語タブを確認してから保存してください。",
+        "emptySource": "先に {language} のテキストを入力してください。",
+        "overwrite": "他の言語にすでにテキストがあります。AI翻訳で置き換えますか？",
+        "errors": {
+          "no_key": "AI翻訳は無効です：サーバーに OPENAI_API_KEY が設定されていません。",
+          "invalid": "翻訳する内容がありません。",
+          "failed": "翻訳に失敗しました。もう一度お試しください。"
+        }
+      }
     }
   },
   "LanguageSuggestion": {
