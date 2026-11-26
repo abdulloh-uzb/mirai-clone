@@ -20,6 +20,23 @@ const cases = [
   },
 ] as const;
 
+test("the situation tabs and the group tabs switch their panels", async ({
+  page,
+}) => {
+  await page.goto("/dmv-services");
+  const situations = page.getByRole("tablist", { name: "Your situation" });
+  await expect(situations.getByRole("tab")).toHaveCount(6);
+  await situations.getByRole("tab", { name: /REAL ID/ }).click();
+  await expect(page.locator("#dmPanel")).toContainText("What is REAL ID?");
+
+  const groups = page.getByRole("tablist", { name: "DMV service categories" });
+  await expect(page.locator("[data-group]:visible")).toHaveCount(1);
+  await groups.getByRole("tab", { name: /Renewals/ }).click();
+  await expect(page.locator("[data-group]:visible")).toContainText(
+    "Renew your driver license",
+  );
+});
+
 for (const c of cases) {
   test(`${c.path} shows the notice before the tiles, filters, and is accessible`, async ({
     page,

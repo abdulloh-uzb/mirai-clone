@@ -1762,6 +1762,39 @@
       "aboutHeading": "About {county}",
       "codesHeading": "Your DMV court code",
       "codesBody": "Each courthouse has a court code. Match the code on your ticket or courtesy notice with the courthouses above. This is demo data."
+    },
+    "dmv": {
+      "searchGo": "Search",
+      "sitHeading": "What's happening?",
+      "sitLabel": "Your situation",
+      "allHeading": "All DMV services",
+      "allLabel": "DMV service categories",
+      "situations": {
+        "moved": {
+          "title": "I just moved to California",
+          "description": "Get your California license and update your address."
+        },
+        "expiring": {
+          "title": "Something is about to expire",
+          "description": "Renew your license, registration or permits."
+        },
+        "car": {
+          "title": "I bought or sold a car",
+          "description": "Transfer the title and report the sale."
+        },
+        "lost": {
+          "title": "I lost a card, sticker or plate",
+          "description": "Order a replacement."
+        },
+        "realid": {
+          "title": "I need a REAL ID to fly",
+          "description": "Learn what to bring and how to apply."
+        },
+        "check": {
+          "title": "Check a status or pay a fee",
+          "description": "See where your application stands."
+        }
+      }
     }
   }
 }
