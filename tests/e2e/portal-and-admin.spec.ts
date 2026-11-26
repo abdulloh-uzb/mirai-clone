@@ -133,3 +133,28 @@ test("a Student's saved UI language applies at the root on a fresh browser", asy
     await fresh.close();
   }
 });
+
+test("the Admin shell has its own frame and stage cards open the Students list", async ({
+  page,
+}) => {
+  const admin = await createAdminAccount({ firstName: "Hedy" });
+  await signIn(page, admin);
+  await page.goto("/admin");
+  const nav = page.getByRole("navigation", { name: "Admin sections" });
+  await expect(nav.getByRole("link", { name: "Dashboard" })).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
+  await expect(
+    nav.getByRole("link", { name: "Support requests" }),
+  ).toHaveAttribute("href", "/admin/tickets");
+  await expect(page.getByRole("contentinfo")).toHaveCount(0);
+  await page
+    .getByRole("main")
+    .getByRole("link", { name: /^Registered\b/ })
+    .click();
+  await expect(page).toHaveURL(/\/admin\/students\?stage=registered$/);
+  await expect(
+    nav.getByRole("link", { name: "Students", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
+});
