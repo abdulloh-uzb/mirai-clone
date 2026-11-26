@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { notFound, redirect } from "next/navigation";
+import { LmsRoot } from "@/components/layout/lms-page";
 import { PortalNav } from "@/components/portal/portal-nav";
 import { getCurrentAccount } from "@/lib/auth/current-account";
 import { signInPathFor } from "@/lib/auth/return-path";
@@ -27,9 +28,9 @@ export default async function PortalLayout({
     redirect(signInPathFor(getPathname({ href: "/portal", locale })));
   }
   return (
-    <>
+    <LmsRoot>
       <PortalNav />
       {children}
-    </>
+    </LmsRoot>
   );
 }
