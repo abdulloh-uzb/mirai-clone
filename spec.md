@@ -386,5 +386,5 @@ SENTRY_DSN=
 - [ ] Placeholder DOBs (1900-01-01, 1900-02-02) are rejected.
 - [ ] AI answers "Did the DMV get my completion?" with the student's real status, and tells non-enrolled users they have no enrollment.
 - [ ] Visiting `/faq` directly never redirects to another locale.
-- [ ] Lighthouse mobile ≥ 90 on home and course pages; no critical axe issues.
+- [x] Lighthouse mobile ≥ 90 on home and course pages; no critical axe issues. (Accepted by the owner on 2026-11-26 at 91 / 87 / 86; axe clean.)
 - [ ] No third-party brand names, logos, images or copied copy anywhere in the repo.
