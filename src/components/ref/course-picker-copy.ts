@@ -87,3 +87,14 @@ export const PANEL_COPY: Record<CourseLang, PanelCopy> = {
     go: "Начать на русском",
   },
 };
+
+/**
+ * The /courses panel reuses the first nine rows of `PANEL_COPY` and ends with
+ * this line instead of the home page's "demo course" row.
+ */
+export const DMV_RULES_ROW: Record<CourseLang, string> = {
+  en: "Built to DMV course rules (demo)",
+  ja: "DMVのコース規則に準拠(デモ)",
+  es: "Basado en las reglas de cursos del DMV (demostración)",
+  ru: "Составлен по правилам курсов DMV (демо)",
+};

@@ -910,6 +910,7 @@
     "intro": "1つのコースを4つの言語で。レッスン、小テスト、最終試験はすべて選んだ言語で受けられます。",
     "languagesLabel": "コースの言語",
     "originalCourse": "オリジナルコース",
+    "languageSub": { "ja": "日本語", "es": "スペイン語", "ru": "ロシア語" },
     "live": "公開中",
     "selected": "選択中",
     "panel": {

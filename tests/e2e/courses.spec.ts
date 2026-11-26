@@ -58,7 +58,7 @@ test("/ru/courses renders in Russian", async ({ page }) => {
     "Выберите язык обучения",
   );
   await expect(
-    page.getByRole("link", { name: "Начать: Русский" }),
+    page.getByRole("link", { name: "Начать на русском" }),
   ).toBeVisible();
 });
 
@@ -72,10 +72,10 @@ test("picking Japanese keeps it through sign-up to the Portal", async ({
     .click();
   await expect(page).toHaveURL(/\?course=ja$/);
   await expect(
-    page.getByText("Lessons, quizzes and the final exam in 日本語."),
+    page.getByText("レッスン、小テスト、最終試験はすべて日本語です。"),
   ).toBeVisible();
 
-  const start = page.getByRole("link", { name: "Start in 日本語" });
+  const start = page.getByRole("link", { name: "日本語で始める" });
   await expect(start).toHaveAttribute("href", "/signup?course=ja");
   await start.click();
 
@@ -109,6 +109,6 @@ test("a signed-in Student's button goes straight to the Portal", async ({
 
   await page.goto("/courses?course=es");
   await expect(
-    page.getByRole("link", { name: "Start in Español" }),
+    page.getByRole("link", { name: "Empezar en español" }),
   ).toHaveAttribute("href", "/portal?course=es");
 });

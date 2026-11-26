@@ -909,6 +909,7 @@
     "intro": "One course, four languages. Lessons, quizzes and the final exam are all in the language you pick.",
     "languagesLabel": "Course languages",
     "originalCourse": "Original course",
+    "languageSub": { "ja": "Japanese", "es": "Spanish", "ru": "Russian" },
     "live": "LIVE",
     "selected": "Selected",
     "panel": {

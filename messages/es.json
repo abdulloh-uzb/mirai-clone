@@ -910,6 +910,7 @@
     "intro": "Un curso, cuatro idiomas. Las lecciones, los cuestionarios y el examen final están en el idioma que elijas.",
     "languagesLabel": "Idiomas del curso",
     "originalCourse": "Curso original",
+    "languageSub": { "ja": "Japonés", "es": "Español", "ru": "Ruso" },
     "live": "EN VIVO",
     "selected": "Seleccionado",
     "panel": {

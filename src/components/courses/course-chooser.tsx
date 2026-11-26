@@ -1,23 +1,11 @@
 import { CheckIcon, LanguagesIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Flag } from "@/components/ref/course-picker";
+import { DMV_RULES_ROW, PANEL_COPY } from "@/components/ref/course-picker-copy";
 import { languages } from "@/i18n/languages";
 import { Link } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { buyHref } from "@/lib/courses/course-language";
-
-const FEATURES = [
-  "defensiveDriving",
-  "trafficViolations",
-  "driverAwareness",
-  "selfPaced",
-  "access",
-  "interactive",
-  "devices",
-  "certificate",
-  "reported",
-  "dmvRules",
-] as const;
 
 /**
  * The course language chooser and its panel, in the reference's `.cp` markup.
@@ -36,7 +24,8 @@ export async function CourseChooser({
   accessDays: number;
 }) {
   const t = await getTranslations({ locale, namespace: "Courses" });
-  const language = languages[selected].nativeName;
+  const copy = PANEL_COPY[selected];
+  const features = [...copy.features.slice(0, -1), DMV_RULES_ROW[selected]];
 
   return (
     <div className="cp">
@@ -55,9 +44,11 @@ export async function CourseChooser({
               <Flag code={lang} />
               <span className="cp-n">
                 <b>{languages[lang].nativeName}</b>
-                {lang === routing.defaultLocale ? (
-                  <small lang={locale}>{t("originalCourse")}</small>
-                ) : null}
+                <small lang={locale}>
+                  {lang === "en"
+                    ? t("originalCourse")
+                    : t(`languageSub.${lang}`)}
+                </small>
               </span>
               <span className="cp-pillstat live">{t("live")}</span>
               <span className="cp-tick" aria-hidden="true">
@@ -79,19 +70,23 @@ export async function CourseChooser({
           );
         })}
       </nav>
-      <section className="cp-panel" aria-labelledby="course-panel-title">
+      <section
+        className="cp-panel"
+        lang={selected}
+        aria-labelledby="course-panel-title"
+      >
         <span className="cc-pill">
           <LanguagesIcon aria-hidden />
-          {t("panel.pill")}
+          {copy.badge}
         </span>
         <h2 className="cp-title" id="course-panel-title">
-          {t("panel.title")}
+          {copy.title}
         </h2>
         <ul className="cc-feat">
-          {FEATURES.map((key) => (
-            <li key={key}>
+          {features.map((text, i) => (
+            <li key={i}>
               <CheckIcon aria-hidden />
-              <span>{t(`panel.features.${key}`, { days: accessDays })}</span>
+              <span>{text.replace("{days}", String(accessDays))}</span>
             </li>
           ))}
         </ul>
@@ -108,13 +103,13 @@ export async function CourseChooser({
         </div>
         <div className="cp-foot">
           <p className="cp-line" aria-live="polite">
-            {t("panel.inLanguage", { language })}
+            {copy.line}
           </p>
           <Link
             className="btn btn-primary btn-lg cp-go"
             href={buyHref(selected, signedIn)}
           >
-            {t("panel.start", { language })}
+            {copy.go}
           </Link>
         </div>
       </section>
