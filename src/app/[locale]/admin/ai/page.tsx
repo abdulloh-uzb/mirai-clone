@@ -1,12 +1,32 @@
+import { FlagIcon, MessageSquareIcon, RefreshCwIcon } from "lucide-react";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { AdminPageHeader } from "@/components/admin/page-header";
+import { AdminBadge } from "@/components/admin/ui/badge";
+import { AdminButton } from "@/components/admin/ui/button";
+import {
+  AdminCard,
+  AdminCardContent,
+  AdminCardHeader,
+  AdminCardTitle,
+} from "@/components/admin/ui/card";
+import { AdminEmpty } from "@/components/admin/ui/empty";
+import {
+  AdminTable,
+  AdminTableBody,
+  AdminTableCell,
+  AdminTableHead,
+  AdminTableHeader,
+  AdminTableRow,
+} from "@/components/admin/ui/table";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
 import {
   reindexKnowledgeBaseAction,
   toggleMessageFlag,
 } from "@/lib/admin/content-actions";
+import { cn } from "@/lib/utils";
 import { createServiceClient } from "@/lib/supabase/service";
 
 export default async function AdminAiPage({
@@ -17,6 +37,12 @@ export default async function AdminAiPage({
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
   const t = await getTranslations({ locale, namespace: "Admin.ai" });
+  const tc = await getTranslations({ locale, namespace: "Admin.common" });
+  const tNav = await getTranslations({ locale, namespace: "Admin.nav" });
+  const tDesc = await getTranslations({
+    locale,
+    namespace: "Admin.descriptions",
+  });
   const sp = await searchParams;
   const open = typeof sp.c === "string" ? sp.c : null;
   const svc = createServiceClient();
@@ -37,80 +63,145 @@ export default async function AdminAiPage({
   ]);
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-      <form action={reindexKnowledgeBaseAction} className="mt-4">
-        <button
-          type="submit"
-          className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
-        >
-          {t("reindex")}
-        </button>
-      </form>
+    <div className="flex flex-col gap-6">
+      <AdminPageHeader
+        title={tNav("ai")}
+        description={tDesc("ai")}
+        actions={
+          <form action={reindexKnowledgeBaseAction}>
+            <AdminButton type="submit" variant="outline" size="sm">
+              <RefreshCwIcon aria-hidden />
+              {t("reindex")}
+            </AdminButton>
+          </form>
+        }
+      />
 
-      <h2 className="mt-8 text-xl font-semibold">{t("dailyCost")}</h2>
-      <table className="mt-4 text-left text-sm">
-        <thead>
-          <tr className="text-muted-foreground">
-            <th className="pr-4">{t("day")}</th>
-            <th className="pr-4">{t("answers")}</th>
-            <th className="pr-4">{t("tokens")}</th>
-            <th className="pr-4">{t("cost")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {(usage.data ?? []).map((u) => (
-            <tr key={String(u.day)}>
-              <td className="pr-4">{String(u.day).slice(0, 10)}</td>
-              <td className="pr-4">{u.answers}</td>
-              <td className="pr-4">
-                {u.tokens_in}/{u.tokens_out}
-              </td>
-              <td className="pr-4">{Number(u.cost_usd ?? 0).toFixed(4)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <AdminCard className="overflow-hidden">
+        <AdminCardHeader>
+          <AdminCardTitle>{t("dailyCost")}</AdminCardTitle>
+        </AdminCardHeader>
+        {(usage.data ?? []).length === 0 ? (
+          <AdminEmpty title={tc("nothingYet")} />
+        ) : (
+          <AdminTable>
+            <AdminTableHeader>
+              <AdminTableRow>
+                <AdminTableHead>{t("day")}</AdminTableHead>
+                <AdminTableHead className="text-right">
+                  {t("answers")}
+                </AdminTableHead>
+                <AdminTableHead className="text-right">
+                  {t("tokens")}
+                </AdminTableHead>
+                <AdminTableHead className="text-right">
+                  {t("cost")}
+                </AdminTableHead>
+              </AdminTableRow>
+            </AdminTableHeader>
+            <AdminTableBody>
+              {(usage.data ?? []).map((u) => (
+                <AdminTableRow key={String(u.day)}>
+                  <AdminTableCell className="tabular-nums">
+                    {String(u.day).slice(0, 10)}
+                  </AdminTableCell>
+                  <AdminTableCell className="text-right tabular-nums">
+                    {u.answers}
+                  </AdminTableCell>
+                  <AdminTableCell className="text-right tabular-nums">
+                    {u.tokens_in}/{u.tokens_out}
+                  </AdminTableCell>
+                  <AdminTableCell className="text-right tabular-nums">
+                    {Number(u.cost_usd ?? 0).toFixed(4)}
+                  </AdminTableCell>
+                </AdminTableRow>
+              ))}
+            </AdminTableBody>
+          </AdminTable>
+        )}
+      </AdminCard>
 
-      <h2 className="mt-8 text-xl font-semibold">{t("conversations")}</h2>
-      <ul className="mt-4 flex flex-col gap-1 text-sm">
-        {(convs.data ?? []).map((c) => (
-          <li key={c.id}>
-            <a href={`?c=${c.id}`} className="underline">
-              {c.created_at.slice(0, 16).replace("T", " ")} · {c.locale}
-              {c.page ? ` · ${c.page}` : ""}
-            </a>
-            {c.flagged ? ` · ${t("flagged")}` : ""}
-            {c.handed_off_at ? ` · ${t("handedOff")}` : ""}
-          </li>
-        ))}
-      </ul>
+      <div className="grid items-start gap-6 xl:grid-cols-3">
+        <AdminCard className="overflow-hidden">
+          <AdminCardHeader>
+            <AdminCardTitle>{t("conversations")}</AdminCardTitle>
+          </AdminCardHeader>
+          {(convs.data ?? []).length === 0 ? (
+            <AdminEmpty icon={MessageSquareIcon} title={tc("nothingYet")} />
+          ) : (
+            <ul className="divide-y">
+              {(convs.data ?? []).map((c) => (
+                <li key={c.id}>
+                  <a
+                    href={`?c=${c.id}`}
+                    className={cn(
+                      "flex flex-col gap-1 px-4 py-2.5 text-sm hover:bg-muted/50",
+                      open === c.id && "bg-accent",
+                    )}
+                    aria-current={open === c.id ? "true" : undefined}
+                  >
+                    <span className="tabular-nums">
+                      {c.created_at.slice(0, 16).replace("T", " ")}
+                    </span>
+                    <span className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
+                      <span className="uppercase">{c.locale}</span>
+                      {c.page ? (
+                        <span className="truncate">{c.page}</span>
+                      ) : null}
+                      {c.flagged ? (
+                        <AdminBadge tone="warning">{t("flagged")}</AdminBadge>
+                      ) : null}
+                      {c.handed_off_at ? (
+                        <AdminBadge tone="info">{t("handedOff")}</AdminBadge>
+                      ) : null}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </AdminCard>
 
-      {open ? (
-        <div className="mt-6 flex flex-col gap-2">
-          <h3 className="font-semibold">{t("transcript")}</h3>
-          {(messages.data ?? []).map((m) => (
-            <div key={m.id} className="rounded-md border p-3 text-sm">
-              <p className="text-muted-foreground">
-                {m.role}
-                {m.flagged ? ` · ${t("flagged")}` : ""}
-              </p>
-              <p className="whitespace-pre-wrap">{m.content}</p>
-              <form action={toggleMessageFlag} className="mt-2">
-                <input type="hidden" name="id" value={m.id} />
-                <input
-                  type="hidden"
-                  name="flagged"
-                  value={m.flagged ? "false" : "true"}
-                />
-                <button type="submit" className="underline">
-                  {m.flagged ? t("unflag") : t("flag")}
-                </button>
-              </form>
-            </div>
-          ))}
-        </div>
-      ) : null}
-    </section>
+        <AdminCard className="xl:col-span-2">
+          <AdminCardHeader>
+            <AdminCardTitle>{t("transcript")}</AdminCardTitle>
+          </AdminCardHeader>
+          {open ? (
+            <AdminCardContent className="flex flex-col gap-3">
+              {(messages.data ?? []).map((m) => (
+                <div key={m.id} className="rounded-md border p-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <AdminBadge tone={m.role === "user" ? "neutral" : "info"}>
+                      {m.role}
+                    </AdminBadge>
+                    {m.flagged ? (
+                      <AdminBadge tone="warning">{t("flagged")}</AdminBadge>
+                    ) : null}
+                    <form action={toggleMessageFlag} className="ml-auto">
+                      <input type="hidden" name="id" value={m.id} />
+                      <input
+                        type="hidden"
+                        name="flagged"
+                        value={m.flagged ? "false" : "true"}
+                      />
+                      <AdminButton type="submit" variant="ghost" size="xs">
+                        <FlagIcon aria-hidden />
+                        {m.flagged ? t("unflag") : t("flag")}
+                      </AdminButton>
+                    </form>
+                  </div>
+                  <p className="mt-2 whitespace-pre-wrap">{m.content}</p>
+                </div>
+              ))}
+            </AdminCardContent>
+          ) : (
+            <AdminEmpty
+              icon={MessageSquareIcon}
+              title={t("pickConversation")}
+            />
+          )}
+        </AdminCard>
+      </div>
+    </div>
   );
 }
