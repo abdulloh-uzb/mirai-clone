@@ -48,7 +48,6 @@ export async function RecentStudents({
           <AdminTableHeader>
             <AdminTableRow>
               <AdminTableHead>{tStudents("name")}</AdminTableHead>
-              <AdminTableHead>{tStudents("email")}</AdminTableHead>
               <AdminTableHead>{t("dashboard.stage")}</AdminTableHead>
               <AdminTableHead>{t("dashboard.signedUp")}</AdminTableHead>
             </AdminTableRow>
@@ -63,8 +62,10 @@ export async function RecentStudents({
                   >
                     {r.first_name} {r.last_name}
                   </Link>
+                  <div className="max-w-48 truncate text-xs text-muted-foreground">
+                    {r.email}
+                  </div>
                 </AdminTableCell>
-                <AdminTableCell>{r.email}</AdminTableCell>
                 <AdminTableCell>
                   <StageBadge stage={r.stage} />
                 </AdminTableCell>
