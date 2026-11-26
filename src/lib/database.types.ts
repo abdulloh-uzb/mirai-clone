@@ -725,12 +725,32 @@ isOneToOne: false
         isOneToOne: false
         isSetofReturn: true
       } },
+"admin_attention_items":
+{ Args: { "p_limit"?: number }; Returns: {
+              "amount_cents": number,"detail": string,"due_date": string,"kind": string,"ref_id": string,"since": string,"total": number,"user_email": string,"user_id": string,"user_name": string
+            }[]
+                           },
+"admin_daily_activity":
+{ Args: { "p_days"?: number }; Returns: {
+              "day": string,"enrollments": number,"sales_cents": number
+            }[]
+                           },
 "admin_dashboard_stats":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
 "admin_search_students":
-{ Args: { "lim"?: number,"off"?: number,"q": string }; Returns: {
-              "created_at": string,"email": string,"first_name": string,"last_name": string,"legal_name": string,"license_no": string,"user_id": string
+{ Args: { "lim"?: number,"off"?: number,"q": string,"stage_filter"?: Database["public"]['Enums']["student_stage"] }; Returns: {
+              "created_at": string,"email": string,"first_name": string,"last_name": string,"legal_name": string,"license_no": string,"stage": Database["public"]['Enums']["student_stage"],"user_id": string
+            }[]
+                           },
+"admin_stage_counts":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "stage": Database["public"]['Enums']["student_stage"],"students": number
+            }[]
+                           },
+"admin_student_stages":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "enrollment_id": string,"stage": Database["public"]['Enums']["student_stage"],"user_id": string
             }[]
                            },
 "admin_update_locked_details":
@@ -769,6 +789,9 @@ isOneToOne: false
       } },
 "complete_lesson":
 { Args: { "p_enrollment_id": string,"p_lesson_id": string }; Returns: undefined
+                           },
+"enrollment_stage":
+{ Args: { "p_expires_at"?: string,"p_report_accepted"?: boolean,"p_status"?: string }; Returns: Database["public"]['Enums']["student_stage"]
                            },
 "exam_attempt_payload":
 { Args: { "p_attempt_id": string }; Returns: Json
@@ -881,7 +904,7 @@ isOneToOne: false
                            }
           }
           Enums: {
-            "app_role": "student"|"admin"
+            "app_role": "student"|"admin","student_stage": "registered"|"studying"|"needs_attention"|"completed"|"reported"
           }
           CompositeTypes: {
             [_ in never]: never
@@ -1001,7 +1024,7 @@ export const Constants = {
           }
         },"public": {
           Enums: {
-            "app_role": ["student", "admin"]
+            "app_role": ["student", "admin"],"student_stage": ["registered", "studying", "needs_attention", "completed", "reported"]
           }
         }
 } as const
