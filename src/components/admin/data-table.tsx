@@ -1,11 +1,27 @@
-import type { Locale } from "@/i18n/routing";
+import { SearchXIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
-import { buttonVariants } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
+import {
+  AdminCard,
+  AdminCardDescription,
+  AdminCardTitle,
+} from "@/components/admin/ui/card";
+import { AdminEmpty } from "@/components/admin/ui/empty";
+import { AdminPagination } from "@/components/admin/ui/pagination";
+import {
+  AdminTable,
+  AdminTableBody,
+  AdminTableCell,
+  AdminTableHead,
+  AdminTableHeader,
+  AdminTableRow,
+} from "@/components/admin/ui/table";
 
 export type Column<Row> = {
   header: string;
   cell: (row: Row) => React.ReactNode;
+  /** Applied to both the header and the cells of this column. */
+  className?: string;
 };
 
 /**
@@ -23,6 +39,10 @@ export async function DataTable<Row>({
   pageSize,
   query,
   extraParams,
+  title,
+  description,
+  toolbar,
+  emptyTitle,
 }: {
   locale: Locale;
   columns: Column<Row>[];
@@ -33,6 +53,10 @@ export async function DataTable<Row>({
   pageSize: number;
   query?: string;
   extraParams?: Record<string, string>;
+  title?: string;
+  description?: string;
+  toolbar?: React.ReactNode;
+  emptyTitle?: string;
 }) {
   const t = await getTranslations({ locale, namespace: "Admin.common" });
   const hasNext = rows.length > pageSize;
@@ -45,50 +69,57 @@ export async function DataTable<Row>({
     return qs ? `${basePath}?${qs}` : basePath;
   };
 
-  if (!shown.length) {
-    return <p className="mt-6 text-muted-foreground">{t("noResults")}</p>;
-  }
   return (
-    <div className="mt-6 overflow-x-auto rounded-[22px] border border-line-blue bg-card p-2">
-      <table className="lms-table">
-        <thead>
-          <tr>
-            {columns.map((c) => (
-              <th key={c.header}>{c.header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {shown.map((row) => (
-            <tr key={rowKey(row)}>
+    <AdminCard className="overflow-hidden">
+      {title || toolbar ? (
+        <div className="flex flex-col gap-3 border-b px-4 py-3">
+          {title ? (
+            <div>
+              <AdminCardTitle>{title}</AdminCardTitle>
+              {description ? (
+                <AdminCardDescription>{description}</AdminCardDescription>
+              ) : null}
+            </div>
+          ) : null}
+          {toolbar}
+        </div>
+      ) : null}
+      {shown.length === 0 ? (
+        <AdminEmpty icon={SearchXIcon} title={emptyTitle ?? t("noResults")} />
+      ) : (
+        <AdminTable>
+          <AdminTableHeader>
+            <AdminTableRow>
               {columns.map((c) => (
-                <td key={c.header}>{c.cell(row)}</td>
+                <AdminTableHead key={c.header} className={c.className}>
+                  {c.header}
+                </AdminTableHead>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="flex items-center gap-2 px-2 pt-3 pb-1 text-[15px]">
-        {page > 1 ? (
-          <Link
-            href={href(page - 1)}
-            className={buttonVariants({ variant: "secondary", size: "sm" })}
-          >
-            {t("previous")}
-          </Link>
-        ) : null}
-        <span className="px-2 font-semibold text-muted-foreground">
-          {t("page", { page })}
-        </span>
-        {hasNext ? (
-          <Link
-            href={href(page + 1)}
-            className={buttonVariants({ variant: "secondary", size: "sm" })}
-          >
-            {t("next")}
-          </Link>
-        ) : null}
-      </div>
-    </div>
+            </AdminTableRow>
+          </AdminTableHeader>
+          <AdminTableBody>
+            {shown.map((row) => (
+              <AdminTableRow key={rowKey(row)}>
+                {columns.map((c) => (
+                  <AdminTableCell key={c.header} className={c.className}>
+                    {c.cell(row)}
+                  </AdminTableCell>
+                ))}
+              </AdminTableRow>
+            ))}
+          </AdminTableBody>
+        </AdminTable>
+      )}
+      {shown.length > 0 && (page > 1 || hasNext) ? (
+        <AdminPagination
+          label={t("pagination")}
+          pageLabel={t("page", { page })}
+          previousHref={page > 1 ? href(page - 1) : null}
+          nextHref={hasNext ? href(page + 1) : null}
+          previousLabel={t("previous")}
+          nextLabel={t("next")}
+        />
+      ) : null}
+    </AdminCard>
   );
 }
