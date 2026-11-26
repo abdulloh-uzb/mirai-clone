@@ -972,7 +972,9 @@
     "dueSoon": "La fecha límite de tu tribunal se acerca. Termina el curso y obtén tu certificado a tiempo.",
     "reporting": "Informe al tribunal",
     "reportingPlaceholder": "Se informa cuando apruebes",
-    "detailsFirst": "Te pediremos tus datos de conductor antes de la primera lección."
+    "detailsFirst": "Te pediremos tus datos de conductor antes de la primera lección.",
+    "toExam": "Ir al examen final",
+    "getCertificate": "Obtén tu certificado"
   },
   "Player": {
     "title": "Curso",
@@ -1185,5 +1187,24 @@
       "rateLimited": "Demasiados intentos. Espera unos minutos.",
       "generic": "Algo salió mal. Inténtalo de nuevo."
     }
+  },
+  "Certificates": {
+    "title": "Mis certificados",
+    "empty": "Aún no tienes un curso.",
+    "buy": "Comprar el curso",
+    "inProgress": "Termina el curso y aprueba el examen final para obtener tu certificado.",
+    "continue": "Continuar el curso",
+    "certNo": "Número de certificado",
+    "completedOn": "Completado el",
+    "download": "Descargar PDF",
+    "preparing": "Tu certificado se está preparando. Actualiza en un momento."
+  },
+  "Verify": {
+    "title": "Verificar un certificado",
+    "intro": "Introduce un número de certificado para comprobar que es válido.",
+    "label": "Número de certificado",
+    "button": "Comprobar",
+    "valid": "Certificado válido. Completado el {date}.",
+    "invalid": "No encontramos un certificado válido con este número."
   }
 }

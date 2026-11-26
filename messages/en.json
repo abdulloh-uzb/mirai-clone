@@ -971,7 +971,9 @@
     "dueSoon": "Your court due date is close. Finish the course and get your certificate in time.",
     "reporting": "Court reporting",
     "reportingPlaceholder": "Reported after you pass",
-    "detailsFirst": "You will be asked for your driver details before the first lesson."
+    "detailsFirst": "You will be asked for your driver details before the first lesson.",
+    "toExam": "Go to the final exam",
+    "getCertificate": "Get your certificate"
   },
   "Player": {
     "title": "Course",
@@ -1184,5 +1186,24 @@
       "rateLimited": "Too many tries. Please wait a few minutes.",
       "generic": "Something went wrong. Please try again."
     }
+  },
+  "Certificates": {
+    "title": "My certificates",
+    "empty": "You have no course yet.",
+    "buy": "Buy the course",
+    "inProgress": "Finish your course and pass the final exam to get your certificate.",
+    "continue": "Continue your course",
+    "certNo": "Certificate number",
+    "completedOn": "Completed on",
+    "download": "Download PDF",
+    "preparing": "Your certificate is being prepared. Refresh in a moment."
+  },
+  "Verify": {
+    "title": "Verify a certificate",
+    "intro": "Enter a certificate number to check that it is valid.",
+    "label": "Certificate number",
+    "button": "Check",
+    "valid": "Valid certificate. Completed on {date}.",
+    "invalid": "We couldn't find a valid certificate with this number."
   }
 }

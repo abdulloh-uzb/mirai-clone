@@ -783,6 +783,23 @@ isOneToOne: false
 "is_admin":
 { Args: Record<PropertyKey, never>; Returns: boolean
                            },
+"issue_certificate":
+{ Args: { "p_enrollment_id": string }; Returns: {
+              "cert_no": string,
+"created_at": string,
+"enrollment_id": string,
+"id": string,
+"issued_at": string,
+"pdf_path": string | null,
+"revoked_at": string | null,
+"updated_at": string
+            }
+                          SetofOptions: {
+        from: "*"
+        to: "certificates"
+        isOneToOne: true
+        isSetofReturn: false
+      } },
 "lesson_unlocked":
 { Args: { "p_enrollment_id": string,"p_lesson_id": string }; Returns: boolean
                            },
@@ -838,6 +855,9 @@ isOneToOne: false
                            },
 "submit_quiz":
 { Args: { "p_answers": Json,"p_attempt_id": string }; Returns: Json
+                           },
+"verify_certificate":
+{ Args: { "p_cert_no": string }; Returns: Json
                            }
           }
           Enums: {

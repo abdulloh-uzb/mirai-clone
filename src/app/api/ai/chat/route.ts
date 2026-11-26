@@ -24,7 +24,7 @@ import {
   refusalFor,
   systemPrompt,
 } from "@/lib/ai/guardrails";
-import { isExamPath } from "@/lib/ai/exam-path";
+import { isExamPath } from "@/lib/exam/exam";
 import { offlineAnswer } from "@/lib/ai/offline";
 import { createAccountTools } from "@/lib/ai/tools";
 import { createClient } from "@/lib/supabase/server";

@@ -43,3 +43,6 @@ Builds on 08 (`completion_reports` queued rows, certificates).
 
 - Every request and response logged in `report_attempts`.
 - Cron secret required; never expose service data to the student beyond status/timestamps.
+
+## Added scope: admin Reporting module (moved from ticket 11)
+Replace the `src/app/[locale]/admin/[section]` stub for `reporting` with `src/app/[locale]/admin/reporting/page.tsx` as described in plan 11 "Reporting": batch history (`report_batches`), per-report table with status filter, rejected/error queue with edit (enrollment `citation_no`) + "Re-send" (status → `queued`, attempts 0), "Run batch now" (`runReportBatch({trigger:'manual'})`), CSV export route `src/app/api/admin/reports.csv/route.ts` (admin only). All writes via `adminWrite` (`src/lib/admin/admin-write.ts`). Reuse `src/components/admin/*`.

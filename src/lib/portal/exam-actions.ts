@@ -17,6 +17,7 @@ import {
   type ExamResult,
   type ExamReview,
 } from "@/lib/exam/exam";
+import { issueCertificateFor } from "@/lib/certificates/issue";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 
@@ -125,6 +126,19 @@ export async function submitExam(
   if (error) return { ok: false, error: mapExamError(error.message) };
   const result = examResultSchema.safeParse(data);
   if (!result.success) return { ok: false, error: "generic" };
+  if (result.data.passed) {
+    // The student passed; a failure here is retried from /portal/certificates.
+    const { data: attempt } = await supabase
+      .from("exam_attempts")
+      .select("enrollment_id")
+      .eq("id", parsed.data.attemptId)
+      .single();
+    if (attempt) {
+      await issueCertificateFor(attempt.enrollment_id).catch((e) =>
+        console.error("certificate issue failed", e),
+      );
+    }
+  }
   revalidatePath("/", "layout");
   return { ok: true, result: result.data };
 }
