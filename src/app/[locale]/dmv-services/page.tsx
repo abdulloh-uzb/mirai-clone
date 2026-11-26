@@ -49,8 +49,8 @@ export default async function DmvServicesPage({
           {t("notice")}
         </p>
       </PageHero>
-      <div className="mx-auto max-w-5xl px-4 py-10">
-        <div>
+      <div className="dm-all">
+        <div className="dm-in">
           <TileSearch tiles={tiles}>
             {DMV_SERVICE_GROUPS.map((group) => (
               <section
@@ -58,18 +58,15 @@ export default async function DmvServicesPage({
                 data-group
                 aria-labelledby={`group-${group.id}`}
               >
-                <h2
-                  id={`group-${group.id}`}
-                  className="text-2xl font-bold tracking-tight"
-                >
+                <h2 id={`group-${group.id}`} className="dm-h3">
                   {t(key(`groups.${group.id}`))}
                 </h2>
-                <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <ul className="dm-grid mt-4">
                   {group.tiles.map((tile) => (
                     <li
                       key={tile.id}
                       data-tile={tile.id}
-                      className="flex flex-col rounded-lg border p-4 [&[hidden]]:hidden"
+                      className="v2-pcard [&[hidden]]:hidden"
                     >
                       <h3 className="font-semibold">
                         {t(key(`tiles.${tile.id}.title`))}

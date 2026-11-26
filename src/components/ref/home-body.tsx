@@ -129,6 +129,7 @@ export function HomeBody({
                     {t("t12", v)}
                   </li>
                 </ul>
+                {slots.heroExtra}
               </div>
               <div className="hero-art">
                 <img
@@ -1559,7 +1560,7 @@ export function HomeBody({
                         {t("t103", v)}
                       </b>
                     </p>
-                    <div className="pr-cls-act"></div>
+                    <div className="pr-cls-act">{slots.classroomAction}</div>
                   </div>
                 </div>
               </div>

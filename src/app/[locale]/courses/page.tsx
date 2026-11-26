@@ -81,7 +81,7 @@ export default async function CoursesPage({
           <CitationStateSelector states={states} current={ticketState} />
         </div>
       </PageHero>
-      <div className="mx-auto max-w-6xl px-4 py-12">
+      <div className="v2-container py-12">
         <div className="grid gap-6 lg:grid-cols-[18rem_1fr]">
           <LanguageCards selected={courseLanguage} />
           <CoursePanel

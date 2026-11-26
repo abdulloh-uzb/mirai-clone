@@ -82,7 +82,7 @@ export default async function BlogPage({
                 <ul aria-label={t("listLabel")} className="bg-list">
                   {posts.map((post) => (
                     <li key={post.slug}>
-                      <PostCard post={post} headingLevel="h3" />
+                      <PostCard post={post} />
                     </li>
                   ))}
                 </ul>

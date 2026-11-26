@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { CitationStateSelector } from "@/components/courses/citation-state-selector";
 import { Markdown } from "@/components/content/markdown";
 import { HomeBody } from "@/components/ref/home-body";
 import { V2Accordion } from "@/components/ref/ref-client";
@@ -11,12 +12,14 @@ import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getCurrentAccount } from "@/lib/auth/current-account";
+import { getTicketState } from "@/lib/citation-state.server";
 import { buyHref } from "@/lib/courses/course-language";
 import {
   formatUsd,
   getClassroomCourse,
   getCourseRules,
   getOnlineCourse,
+  listStates,
 } from "@/lib/courses/courses";
 import { listCounties } from "@/lib/courts/counties";
 import { publicEnv } from "@/lib/env";
@@ -58,6 +61,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     counties,
     faq,
     reviews,
+    states,
+    ticketState,
   ] = await Promise.all([
     getTranslations({ locale, namespace: "Home" }),
     getTranslations({ locale, namespace: "Ref.shared" }),
@@ -68,6 +73,8 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
     listCounties(),
     listFeaturedFaq(locale),
     listReviews(locale),
+    listStates(),
+    getTicketState(),
   ]);
 
   const price = formatUsd(online.priceCents, locale);
@@ -86,6 +93,19 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
 
   const slots = {
+    heroExtra: (
+      <div className="mt-6">
+        <CitationStateSelector states={states} current={ticketState} />
+      </div>
+    ),
+    classroomAction: (
+      <Link
+        className="linkish"
+        href={{ pathname: "/courses", hash: "classroom" }}
+      >
+        {t("pricing.classroomCta")}
+      </Link>
+    ),
     reviews: reviews.map((review) => (
       <figure className="rvf-card" key={review.slug}>
         <p>“{review.body}”</p>

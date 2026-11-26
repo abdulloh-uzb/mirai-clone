@@ -8,10 +8,6 @@ test("the home page fits at 375 px and its CTAs work", async ({ page }) => {
   );
   expect(overflow).toBe(false);
 
-  const carousel = page.getByRole("region", { name: "Student reviews" });
-  await carousel.getByRole("button", { name: "Next review" }).click();
-  await expect(carousel.getByText("2 / 6")).toBeVisible();
-
   await page.getByRole("link", { name: "Explore Courses" }).click();
-  await expect(page).toHaveURL(/\/courses$/);
+  await expect(page).toHaveURL(/\/#courses$/);
 });

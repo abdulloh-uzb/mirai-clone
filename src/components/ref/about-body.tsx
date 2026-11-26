@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 // Generated from the reference markup, then edited by hand. Text lives in messages/en.json (Ref.about).
 import { useTranslations } from "next-intl";
-import type { CSSProperties, ReactNode } from "react";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 export function AboutBody({
-  slots = {},
   values = {},
 }: {
-  slots?: Record<string, ReactNode>;
   values?: Record<string, string | number>;
 }) {
   const t = useTranslations("Ref.about");
