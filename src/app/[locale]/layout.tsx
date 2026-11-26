@@ -80,7 +80,7 @@ export default async function LocaleLayout({
       <body className="flex min-h-full flex-col antialiased">
         <ThemeProvider
           nonce={nonce}
-          attribute="class"
+          attribute={["class", "data-theme"]}
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange

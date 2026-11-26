@@ -1,6 +1,25 @@
+@layer theme, base, components, reference, utilities;
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
+/* Reference stylesheets, copied from the design we match. They sit in their own
+   layer below Tailwind utilities, so utility classes still win inside them. */
+@import "../styles/reference/base.css" layer(reference);
+@import "../styles/reference/home.css" layer(reference);
+@import "../styles/reference/courses.css" layer(reference);
+@import "../styles/reference/faq.css" layer(reference);
+@import "../styles/reference/courts.css" layer(reference);
+@import "../styles/reference/county.css" layer(reference);
+@import "../styles/reference/about.css" layer(reference);
+@import "../styles/reference/contact.css" layer(reference);
+@import "../styles/reference/dmv-services.css" layer(reference);
+@import "../styles/reference/blog.css" layer(reference);
+@import "../styles/reference/rules.css" layer(reference);
+@import "../styles/reference/eligibility.css" layer(reference);
+@import "../styles/reference/legal.css" layer(reference);
+@import "../styles/reference/privacy.css" layer(reference);
+@import "../styles/reference/whats-new.css" layer(reference);
 
 @custom-variant dark (&:is(.dark *));
 
@@ -228,4 +247,43 @@
 .deferred-section {
   content-visibility: auto;
   contain-intrinsic-size: auto 600px;
+}
+
+/* Our logo mark, in place of the reference logo image. */
+.v2 .logo {
+  gap: 8px;
+  font-weight: 800;
+  font-size: 19px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.v2 .logo-mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--blue);
+  color: var(--on-blue);
+}
+.v2 .logo-mark svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Footer buttons (privacy choices, report a problem) look like the reference footer links. */
+.v2 .ftB-nav button {
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.v2 .ftB-nav button:hover {
+  background: var(--blue-tint);
 }

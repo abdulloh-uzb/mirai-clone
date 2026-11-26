@@ -1,6 +1,6 @@
 "use client";
 
-import { GlobeIcon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import { useLocale } from "next-intl";
 import type { ComponentProps } from "react";
 import { languages } from "@/i18n/languages";
@@ -13,14 +13,13 @@ export function LanguageTrigger({
   const active = languages[useLocale()];
 
   return (
-    <button
-      type="button"
-      className="inline-flex h-8 items-center gap-1.5 rounded-full bg-white/80 px-2.5 text-sm font-bold hover:bg-white dark:bg-white/10 dark:hover:bg-white/15"
-      {...props}
-    >
-      <GlobeIcon aria-hidden className="size-4" />
+    <button type="button" className="lpill lang-btn" {...props}>
+      <span className="lglyph lflag" aria-hidden="true">
+        {active.flag}
+      </span>
       {/* Visible code first, so the accessible name starts with what is shown (WCAG 2.5.3). */}
-      {active.shortCode}
+      <span className="lc">{active.shortCode}</span>
+      <ChevronDownIcon aria-hidden className="lchev" />
       <span className="sr-only">, {label}</span>
     </button>
   );
