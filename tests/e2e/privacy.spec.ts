@@ -17,6 +17,7 @@ test("the consent banner shows once, stores the choice and can be reopened", asy
   expect(cookies.find((c) => c.name === "consent")?.value).toBe("none");
 
   await page.reload();
+  await page.waitForLoadState("networkidle");
   await expect(banner).toBeHidden();
   await page
     .getByRole("contentinfo")

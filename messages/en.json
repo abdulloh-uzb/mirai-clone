@@ -1895,6 +1895,20 @@
         "vc1808": "Vehicle Code section 1808.7",
         "vc42005": "Vehicle Code section 42005"
       }
+    },
+    "legal": {
+      "kicker": "Legal",
+      "updated": "Last updated: {date}",
+      "contact": "Questions? Contact us",
+      "print": "Print this page",
+      "tabsLabel": "Legal documents",
+      "tabs": {
+        "privacy": "Privacy policy",
+        "terms": "Terms of use",
+        "refund-policy": "Refund policy",
+        "school-rules": "School rules",
+        "accessibility": "Accessibility"
+      }
     }
   }
 }

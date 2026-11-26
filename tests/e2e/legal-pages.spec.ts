@@ -33,9 +33,9 @@ const pages = [
   },
   {
     path: "/about",
-    h1: "About the school",
+    h1: "Built for drivers who are new here.",
     other: "/ja/about",
-    otherH1: "スクールについて",
+    otherH1: "Built for drivers who are new here.",
     legal: false,
   },
   {
@@ -97,14 +97,15 @@ test("/ru/school-rules falls back to English with the notice", async ({
   ).toHaveCount(0);
 });
 
-test("/about shows the contact details from the site config", async ({
+test("/contact shows the contact details from the site config", async ({
   page,
 }) => {
-  await page.goto("/about");
+  await page.goto("/contact");
   await expect(
     page
       .getByRole("main")
-      .getByRole("link", { name: siteConfig.contact.email }),
+      .getByRole("link", { name: siteConfig.contact.email })
+      .first(),
   ).toBeVisible();
   await expect(page.getByText("not a licensed school").first()).toBeVisible();
   await expectNoSeriousA11yIssues(page);

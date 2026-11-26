@@ -101,3 +101,18 @@ export function V2Accordion({
     </>
   );
 }
+
+/** Opens the browser print dialog. */
+export function PrintButton({
+  className,
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <button type="button" className={className} onClick={() => window.print()}>
+      {children}
+    </button>
+  );
+}
