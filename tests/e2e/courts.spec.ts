@@ -92,7 +92,7 @@ const countyCases = [
   {
     path: "/courts/los-angeles-county",
     locale: "en",
-    h1: "Los Angeles County Superior Court",
+    h1: "Got a ticket in Los Angeles County?",
     notice: "Demo data — check with your court",
     cta: "Browse courses",
     courthouses: "Courthouses",
@@ -100,7 +100,7 @@ const countyCases = [
   {
     path: "/ja/courts/los-angeles-county",
     locale: "ja",
-    h1: "Los Angeles 郡上位裁判所",
+    h1: "Got a ticket in Los Angeles County?",
     notice: "デモデータです。必ず管轄の裁判所でご確認ください",
     cta: "講座を見る",
     courthouses: "裁判所の所在地",
@@ -162,6 +162,21 @@ test("clicking a County on the map fills the panel with a link to its court", as
   await expect(
     page.getByRole("heading", { level: 2, name: "Pick your county" }),
   ).toBeVisible();
+});
+
+test("the ticket plan takes a courthouse and a due date and shows the plan", async ({
+  page,
+}) => {
+  await page.goto("/courts/los-angeles-county");
+  const next = page.getByRole("button", { name: "Next", exact: true });
+  await expect(next).toBeDisabled();
+  await page.locator(".ct-row").first().click();
+  await expect(next).toBeEnabled();
+  await next.click();
+  await page.getByLabel("Due date").fill("2099-01-15");
+  await page.getByRole("button", { name: "Next", exact: true }).click();
+  await expect(page.locator(".ct-paper")).toContainText("2099-01-15");
+  await expect(page.locator(".ct-paper")).toContainText("days left");
 });
 
 test("an unknown County is a 404", async ({ page }) => {
