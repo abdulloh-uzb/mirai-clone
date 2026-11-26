@@ -51,44 +51,45 @@ export default async function BlogPage({
   return (
     <V2Root>
       <PageHero art="blog" title={t("title")} intro={t("intro")} />
-      <div className="mx-auto max-w-5xl px-4 py-10">
-        <nav aria-label={t("filterLabel")}>
-          <ul className="flex flex-wrap gap-2">
-            {filters.map((filter) => (
-              <li key={filter.key}>
-                <Link
-                  href={filter.href}
-                  aria-current={filter.active ? "true" : undefined}
-                  className={cn(
-                    "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-medium focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none",
-                    filter.active
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "hover:bg-muted",
-                  )}
-                >
-                  {filter.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <div className="bg">
+        <div className="bg-stages">
+          <div className="bg-in">
+            <nav aria-label={t("filterLabel")} className="bg-bar">
+              <ul className="flex flex-wrap gap-2">
+                {filters.map((filter) => (
+                  <li key={filter.key}>
+                    <Link
+                      href={filter.href}
+                      aria-current={filter.active ? "true" : undefined}
+                      className={cn(
+                        "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold",
+                        filter.active
+                          ? "border-[var(--blue)] bg-[var(--blue)] text-[var(--on-blue)]"
+                          : "hover:bg-[var(--blue-tint)]",
+                      )}
+                    >
+                      {filter.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-        {posts.length === 0 ? (
-          <p className="mt-10 text-muted-foreground">{t("noPosts")}</p>
-        ) : (
-          <ul
-            aria-label={t("listLabel")}
-            className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {posts.map((post) => (
-              <li key={post.slug} className="flex">
-                <div className="flex w-full flex-col">
-                  <PostCard post={post} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+            {posts.length === 0 ? (
+              <p className="mt-10">{t("noPosts")}</p>
+            ) : (
+              <section className="bg-stage">
+                <ul aria-label={t("listLabel")} className="bg-list">
+                  {posts.map((post) => (
+                    <li key={post.slug}>
+                      <PostCard post={post} headingLevel="h3" />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+          </div>
+        </div>
       </div>
     </V2Root>
   );

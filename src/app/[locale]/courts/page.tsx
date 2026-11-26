@@ -1,9 +1,9 @@
+import { MapPinIcon } from "lucide-react";
 import { PageHero, V2Root } from "@/components/layout/page-hero";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { CountyCard } from "@/components/courts/county-card";
 import { CountySearch } from "@/components/courts/county-search";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -24,6 +24,15 @@ export async function generateMetadata({
   });
 }
 
+/** Counties with a map picture in public/reference/counties. */
+const COUNTY_MAPS = new Set([
+  "los-angeles-county",
+  "san-diego-county",
+  "orange-county",
+  "riverside-county",
+  "yolo-county",
+]);
+
 export default async function CourtsPage({
   params,
 }: PageProps<"/[locale]/courts">) {
@@ -42,25 +51,19 @@ export default async function CourtsPage({
     return {
       county,
       row: (
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-2xl border-2 border-b-4 border-b-brand-green bg-card px-4 py-3">
-          <Link
-            href={`/courts/${county.slug}`}
-            className="min-w-40 font-semibold text-link hover:underline"
-          >
-            {county.name}
-          </Link>
-          <span className="text-muted-foreground">{county.seatCity}</span>
-          {first?.courtCode ? (
-            <span className="text-sm text-muted-foreground">
-              {t("courtCode", { code: first.courtCode })}
-            </span>
-          ) : null}
-          {more > 0 ? (
-            <span className="text-sm text-muted-foreground">
-              {t("moreCourthouses", { count: more })}
-            </span>
-          ) : null}
-        </div>
+        <Link className="cx-t" href={`/courts/${county.slug}`}>
+          <MapPinIcon aria-hidden />
+          <span className="cx-t-txt">
+            <b>{county.name}</b>
+            <span className="cx-t-city">{county.seatCity}</span>
+            {first?.courtCode ? (
+              <span className="cx-t-code">
+                {t("courtCode", { code: first.courtCode })}
+                {more > 0 ? <i> +{more}</i> : null}
+              </span>
+            ) : null}
+          </span>
+        </Link>
       ),
     };
   });
@@ -68,31 +71,45 @@ export default async function CourtsPage({
   return (
     <V2Root>
       <PageHero art="courts" title={t("title")} intro={t("intro")} />
-      <div className="mx-auto max-w-5xl px-4 py-10">
-        <section aria-labelledby="popular-heading">
-          <h2
-            id="popular-heading"
-            className="text-2xl font-bold tracking-tight"
-          >
-            {t("popularHeading")}
-          </h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {popular.map((county) => (
-              <CountyCard key={county.slug} county={county} />
-            ))}
+      <section className="cx-work" aria-labelledby="popular-heading">
+        <div className="cx-work-in">
+          <div className="cx-tool">
+            <div className="cx-panel">
+              <h2 id="popular-heading" className="cx-pick-h">
+                {t("popularHeading")}
+              </h2>
+              <div className="cx-quick">
+                {popular.map((county) => (
+                  <Link
+                    key={county.slug}
+                    href={`/courts/${county.slug}`}
+                    className="cx-card"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={
+                        COUNTY_MAPS.has(county.slug)
+                          ? `/reference/counties/${county.slug}-map.webp`
+                          : "/placeholder/county-card.svg"
+                      }
+                      alt=""
+                      width="1800"
+                      height="1200"
+                    />
+                    <span>{county.name}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
-        </section>
-
-        <section aria-labelledby="all-heading" className="mt-12">
-          <h2
-            id="all-heading"
-            className="mb-4 text-2xl font-bold tracking-tight"
-          >
-            {t("listHeading")}
-          </h2>
+        </div>
+      </section>
+      <section className="cx-all" aria-labelledby="all-heading">
+        <div className="cx-all-in">
+          <h2 id="all-heading">{t("listHeading")}</h2>
           <CountySearch items={items} />
-        </section>
-      </div>
+        </div>
+      </section>
     </V2Root>
   );
 }

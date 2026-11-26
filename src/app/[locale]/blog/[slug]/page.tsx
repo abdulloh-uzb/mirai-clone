@@ -119,15 +119,15 @@ export default async function BlogPostPage({
           >
             {t("relatedHeading")}
           </h2>
-          <ul className="mt-6 grid gap-6 sm:grid-cols-2">
-            {related.map((other) => (
-              <li key={other.slug} className="flex">
-                <div className="flex w-full flex-col">
+          <div className="v2 bg">
+            <ul className="bg-list">
+              {related.map((other) => (
+                <li key={other.slug}>
                   <PostCard post={other} headingLevel="h3" />
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       ) : null}
     </div>

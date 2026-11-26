@@ -44,10 +44,7 @@ export function CountySearch({ items }: { items: Item[] }) {
       {visible.length === 0 ? (
         <p className="mt-4">{t("noResults")}</p>
       ) : (
-        <ul
-          aria-label={t("listLabel")}
-          className="mt-2 grid gap-3 md:grid-cols-2"
-        >
+        <ul aria-label={t("listLabel")} className="cx-idx mt-2">
           {visible.map((item) => (
             <li key={item.county.slug}>{item.row}</li>
           ))}
