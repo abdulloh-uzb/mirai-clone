@@ -30,5 +30,5 @@ export async function requestAccountDeletion(): Promise<void> {
     });
     if (error) throw error;
   }
-  revalidatePath("/[locale]/portal/privacy", "page");
+  revalidatePath("/[locale]/(site)/portal/privacy", "page");
 }
