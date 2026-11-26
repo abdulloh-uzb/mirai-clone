@@ -51,3 +51,7 @@ next-env.d.ts
 
 # Agent worktrees
 .claude/worktrees/
+
+# JMeter: session cookies and run output
+/perf/data/
+/perf/results/

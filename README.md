@@ -62,6 +62,18 @@ The seed can be run again safely. Caught emails (sign-up, receipts) are in Mailp
 | `pnpm db:make-admin <email>`              | Make an existing account an Admin                          |
 | `pnpm report:run`                         | Run one completion-report batch                            |
 
+## Performance
+
+JMeter performance, load and stress tests. The plan, targets and how to run them are in [`perf/PLAN.md`](perf/PLAN.md).
+
+```bash
+perf/run.sh performance   # 8 users, 5 min
+perf/run.sh load          # 60 users, 15 min
+perf/run.sh stress        # up to 300 users over 15 min
+```
+
+**Results:** not run yet.
+
 ## Structure
 
 `src/app/[locale]` pages (public, `portal`, `admin`), `src/app/api` routes (Stripe, cron, AI, certificates, export), `src/components`, `src/lib` (domain logic by area), `src/i18n`, `messages/{en,ja,es,ru}.json`, `supabase/migrations`, `tests/{unit,db,e2e}`, `docs/adr`.

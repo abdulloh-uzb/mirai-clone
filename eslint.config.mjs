@@ -35,6 +35,7 @@ const eslintConfig = defineConfig([
       "src/lib/observability/report-error.ts",
       "instrumentation*.ts",
       "scripts/**",
+      "perf/scripts/**",
       "tests/**",
       "*.config.{ts,mts,mjs}",
     ],
