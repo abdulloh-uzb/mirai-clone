@@ -4,7 +4,14 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { CountySearch } from "@/components/courts/county-search";
+import {
+  CountyList,
+  CountyMap,
+  CountyPanel,
+  CourtsExplorer,
+  CourtsSearchForm,
+} from "@/components/courts/courts-explorer";
+import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { listCounties } from "@/lib/courts/counties";
@@ -68,48 +75,76 @@ export default async function CourtsPage({
     };
   });
 
+  const tr = await getTranslations({ locale, namespace: "Ref.courts" });
+  const chips = popular.map((county) => county.name.replace(/ County$/, ""));
+
   return (
     <V2Root>
-      <PageHero art="courts" title={t("title")} intro={t("intro")} />
-      <section className="cx-work" aria-labelledby="popular-heading">
-        <div className="cx-work-in">
-          <div className="cx-tool">
-            <div className="cx-panel">
-              <h2 id="popular-heading" className="cx-pick-h">
-                {t("popularHeading")}
-              </h2>
-              <div className="cx-quick">
-                {popular.map((county) => (
-                  <Link
-                    key={county.slug}
-                    href={`/courts/${county.slug}`}
-                    className="cx-card"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={
-                        COUNTY_MAPS.has(county.slug)
-                          ? `/reference/counties/${county.slug}-map.webp`
-                          : "/placeholder/county-card.svg"
-                      }
-                      alt=""
-                      width="1800"
-                      height="1200"
-                    />
-                    <span>{county.name}</span>
-                  </Link>
-                ))}
-              </div>
+      <CourtsExplorer counties={counties}>
+        <PageHero art="courts" title={t("title")} intro={t("intro")}>
+          <CourtsSearchForm
+            goLabel={tr("searchGo")}
+            popularLabel={tr("popular")}
+            chips={chips}
+          />
+        </PageHero>
+        <section className="cx-work">
+          <div className="cx-work-in" id="cxTool">
+            <div className="cx-tool">
+              <CountyMap label={tr("mapLabel")} source={tr("mapSource")} />
+              <CountyPanel
+                seeLabel={tr("seeCourt")}
+                clearLabel={tr("pickAnother")}
+              >
+                <h2 id="popular-heading" className="cx-pick-h">
+                  {tr("pickHeading")}
+                </h2>
+                <p className="cx-pick-p">{tr("pickHelp")}</p>
+                <div
+                  className="cx-quick"
+                  role="group"
+                  aria-label={t("popularHeading")}
+                >
+                  {popular.map((county) => (
+                    <Link
+                      key={county.slug}
+                      href={`/courts/${county.slug}`}
+                      className="cx-card"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={
+                          COUNTY_MAPS.has(county.slug)
+                            ? `/reference/counties/${county.slug}-map.webp`
+                            : "/placeholder/county-card.svg"
+                        }
+                        alt=""
+                        width="1800"
+                        height="1200"
+                      />
+                      <span>{county.name}</span>
+                    </Link>
+                  ))}
+                </div>
+                <p className="cx-call">
+                  {tr("callUs")}{" "}
+                  <a className="linkish" href={siteConfig.contact.phoneHref}>
+                    {siteConfig.contact.phone}
+                  </a>
+                </p>
+              </CountyPanel>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="cx-all" aria-labelledby="all-heading">
-        <div className="cx-all-in">
-          <h2 id="all-heading">{t("listHeading")}</h2>
-          <CountySearch items={items} />
-        </div>
-      </section>
+        </section>
+        <section className="cx-all" aria-labelledby="all-heading">
+          <div className="cx-all-in">
+            <h2 id="all-heading" tabIndex={-1}>
+              {t("listHeading")}
+            </h2>
+            <CountyList items={items} />
+          </div>
+        </section>
+      </CourtsExplorer>
     </V2Root>
   );
 }

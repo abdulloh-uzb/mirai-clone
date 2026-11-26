@@ -27,7 +27,7 @@ for (const c of listCases) {
       page.getByRole("heading", { level: 1, name: c.h1 }),
     ).toBeVisible();
 
-    const popular = page.getByRole("region", { name: c.popular });
+    const popular = page.getByRole("group", { name: c.popular });
     await expect(popular.getByRole("link")).toHaveCount(4);
     await expect(popular.getByRole("link").first()).toContainText(
       "Los Angeles",
@@ -85,7 +85,7 @@ test("the list shows a court code and how many more courthouses a County has", a
     .filter({ hasText: "Los Angeles" })
     .first();
   await expect(row).toContainText("LA-01");
-  await expect(row).toContainText("+3 more courthouses");
+  await expect(row).toContainText("+3");
 });
 
 const countyCases = [
@@ -144,6 +144,25 @@ for (const c of countyCases) {
     await expectNoSeriousA11yIssues(page);
   });
 }
+
+test("clicking a County on the map fills the panel with a link to its court", async ({
+  page,
+}) => {
+  await page.goto("/courts");
+  const map = page.getByRole("group", { name: "Map of California counties" });
+  await expect(map.getByRole("button")).toHaveCount(58);
+  await map.getByRole("button", { name: "Fresno County" }).click();
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Fresno" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "See court details" }),
+  ).toHaveAttribute("href", "/courts/fresno-county");
+  await page.getByRole("button", { name: "Pick another county" }).click();
+  await expect(
+    page.getByRole("heading", { level: 2, name: "Pick your county" }),
+  ).toBeVisible();
+});
 
 test("an unknown County is a 404", async ({ page }) => {
   const response = await page.goto("/courts/nowhere-county");

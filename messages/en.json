@@ -1717,6 +1717,17 @@
       "call": "Call {phone}",
       "write": "Write to us",
       "askAi": "Ask the assistant"
+    },
+    "courts": {
+      "searchGo": "Search",
+      "popular": "Popular:",
+      "mapLabel": "Map of California counties",
+      "mapSource": "County boundaries: US Census Bureau, public domain.",
+      "seeCourt": "See court details",
+      "pickAnother": "Pick another county",
+      "pickHeading": "Pick your county",
+      "pickHelp": "It is printed on your ticket next to the court name.",
+      "callUs": "Not sure? Contact us:"
     }
   }
 }
