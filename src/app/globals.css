@@ -25,6 +25,7 @@
 @import "../styles/reference/ours.css" layer(reference);
 /* Portal, auth and Admin styles; see the file for how they layer. */
 @import "../styles/lms.css";
+@import "../styles/admin.css";
 
 @custom-variant dark (&:is(.dark *));
 
