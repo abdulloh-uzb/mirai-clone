@@ -171,7 +171,7 @@ export default async function ExamPage({
   // Resume a running attempt.
   let initial = null;
   if (e.activeAttemptId) {
-    const res = await startExam({ enrollmentId });
+    const res = await startExam({ enrollmentId }, { revalidate: false });
     if (res.ok && res.exam) initial = res.exam;
   }
 

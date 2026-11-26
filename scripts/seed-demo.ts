@@ -350,8 +350,21 @@ async function main() {
     password: env.DEMO_PASSWORD,
     issueCertificate: issueCertificateFor,
   });
-  // TODO(spec): once ticket 09 lands, run one report batch here
-  // (`runReportBatch` in src/lib/reporting/run-batch.ts) so the demo certificate shows as accepted.
+  // Report the demo completion: first batch sends it, the second sees it accepted.
+  process.env.MOCK_REPORTING_ALWAYS_ACCEPT = "1";
+  const { adapterFor } = await import("../src/lib/reporting/adapters");
+  const { runBatch } = await import("../src/lib/reporting/run-batch-core");
+  const service = createStatelessClient(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.SUPABASE_SERVICE_ROLE_KEY,
+  );
+  for (let i = 0; i < 2; i++) {
+    const counts = await runBatch(
+      { service, adapterFor },
+      { trigger: "manual", now: new Date() },
+    );
+    console.log(`Report batch ${i + 1}: ${JSON.stringify(counts)}`);
+  }
   console.log("Demo data ready.");
 }
 

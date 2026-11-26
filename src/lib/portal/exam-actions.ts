@@ -61,6 +61,8 @@ export async function getExamEligibility(
 /** Starts or resumes the exam. Correct answers are never in the output. */
 export async function startExam(
   input: unknown,
+  // The exam page resumes an attempt while rendering, where revalidating is not allowed.
+  options?: { revalidate?: boolean },
 ): Promise<
   | { ok: true; exam: ExamPayload }
   | { ok: true; exam: null; finished: ExamResult }
@@ -80,13 +82,13 @@ export async function startExam(
   if (error) return { ok: false, error: mapExamError(error.message) };
   const exam = examPayloadSchema.safeParse(data);
   if (exam.success) {
-    revalidatePath("/", "layout");
+    if (options?.revalidate !== false) revalidatePath("/", "layout");
     return { ok: true, exam: exam.data };
   }
   // Time ran out on an earlier attempt and that ended the course.
   const finished = examResultSchema.safeParse(data);
   if (finished.success) {
-    revalidatePath("/", "layout");
+    if (options?.revalidate !== false) revalidatePath("/", "layout");
     return { ok: true, exam: null, finished: finished.data };
   }
   return { ok: false, error: "generic" };

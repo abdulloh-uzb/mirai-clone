@@ -97,6 +97,9 @@ test("signup, pay, study, pass the exam and get a verifiable certificate", async
   await page.goto(`/portal/exam/${enrollmentId}`);
   await page.getByTestId("exam-confirm-check").check();
   await page.getByRole("button", { name: "Start the exam" }).click();
+  await expect(page.locator("fieldset legend")).toBeVisible({
+    timeout: 20_000,
+  });
   for (let i = 0; i < 25; i++) {
     const legend = await page.locator("fieldset legend").innerText();
     const text = legend.replace(/^\d+\.\s*/, "");
@@ -113,7 +116,11 @@ test("signup, pay, study, pass the exam and get a verifiable certificate", async
       .filter({ hasText: correct.text })
       .first()
       .click();
-    if (i < 24) await page.getByRole("button", { name: "Next" }).click();
+    if (i < 24)
+      await page
+        .getByTestId("exam-runner")
+        .getByRole("button", { name: "Next", exact: true })
+        .click();
   }
   await page.getByRole("button", { name: "Submit exam" }).click();
   await page.getByRole("button", { name: "Submit now" }).click();
