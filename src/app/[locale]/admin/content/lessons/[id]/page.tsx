@@ -1,82 +1,51 @@
+import { readdir } from "node:fs/promises";
+import path from "node:path";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import type { Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import {
+  AddBlock,
+  BlockEditor,
+  ConfirmSubmit,
+  EditToggle,
+  LessonDetailsForm,
+} from "@/components/admin/course-editor";
 import { BlockRenderer } from "@/components/course/blocks/block-renderer";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
-import { deleteBlock, saveBlock } from "@/lib/admin/content-actions";
+import { deleteBlock } from "@/lib/admin/content-actions";
+import { deleteLesson, moveBlock } from "@/lib/admin/course-actions";
 import {
   BLOCK_TYPES,
   COURSE_LOCALES,
   parseBlockContent,
+  type BlockType,
+  type CourseLocale,
 } from "@/lib/course/blocks";
 import { createServiceClient } from "@/lib/supabase/service";
 
-const field = "rounded-md border bg-background px-2 py-1 text-sm";
+type Titles = Partial<Record<CourseLocale, string>>;
 
-async function BlockForm({
-  lessonId,
-  block,
-  locale,
-}: {
-  locale: Locale;
-  lessonId: string;
-  block: {
-    id: string;
-    position: number;
-    type: string;
-    content: unknown;
-  } | null;
-}) {
-  const t = await getTranslations({ locale, namespace: "Admin.lesson" });
-  const content = (block?.content ?? {}) as Record<string, unknown>;
-  return (
-    <form action={saveBlock} className="mt-2 flex flex-col gap-3">
-      <input type="hidden" name="lessonId" value={lessonId} />
-      {block ? <input type="hidden" name="id" value={block.id} /> : null}
-      <div className="flex gap-3">
-        <label className="flex flex-col gap-1 text-sm">
-          {t("position")}
-          <input
-            name="position"
-            type="number"
-            min={1}
-            defaultValue={block?.position}
-            required
-            className={field}
-          />
-        </label>
-        <label className="flex flex-col gap-1 text-sm">
-          {t("type")}
-          <select name="type" defaultValue={block?.type} className={field}>
-            {BLOCK_TYPES.map((t) => (
-              <option key={t}>{t}</option>
-            ))}
-          </select>
-        </label>
-      </div>
-      {COURSE_LOCALES.map((l) => (
-        <label key={l} className="flex flex-col gap-1 text-sm">
-          {l === "en"
-            ? t("contentLabel", { locale: l })
-            : t("contentLabelBlank", { locale: l })}
-          <textarea
-            name={`content_${l}`}
-            rows={5}
-            defaultValue={content[l] ? JSON.stringify(content[l], null, 2) : ""}
-            className={`${field} font-mono`}
-          />
-        </label>
-      ))}
-      <button
-        type="submit"
-        className="w-fit rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
-      >
-        {block ? t("saveBlock") : t("addBlock")}
-      </button>
-    </form>
-  );
+/** Files block editors can pick: the placeholder pictures and caption tracks. */
+async function placeholderFiles(dir: string, ext: string): Promise<string[]> {
+  const base = "/placeholder/course" + (dir ? `/${dir}` : "");
+  try {
+    const files = await readdir(path.join(process.cwd(), "public", base));
+    return files
+      .filter((f) => f.endsWith(ext))
+      .sort()
+      .map((f) => `${base}/${f}`);
+  } catch {
+    return [];
+  }
+}
+
+function isBlockType(v: string): v is BlockType {
+  return (BLOCK_TYPES as readonly string[]).includes(v);
 }
 
 export default async function AdminLessonPage({
@@ -85,33 +54,98 @@ export default async function AdminLessonPage({
   const { locale, id } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
-  const t = await getTranslations({ locale, namespace: "Admin.lesson" });
-  const tc = await getTranslations({ locale, namespace: "Admin.common" });
+  const t = await getTranslations({ locale, namespace: "Admin.editor" });
   const svc = createServiceClient();
   const { data: lesson } = await svc
     .from("lessons")
-    .select("id, title")
+    .select("id, title, position, min_seconds, section_id")
     .eq("id", id)
     .maybeSingle();
   if (!lesson) notFound();
-  const { data: blocks } = await svc
-    .from("lesson_blocks")
-    .select("id, position, type, content")
-    .eq("lesson_id", id)
-    .order("position");
-  const title =
-    (lesson.title as Record<string, string>).en ?? t("fallbackTitle");
+  const [{ data: blocks }, { data: sections }, images, captions] =
+    await Promise.all([
+      svc
+        .from("lesson_blocks")
+        .select("id, position, type, content")
+        .eq("lesson_id", id)
+        .order("position"),
+      svc.from("sections").select("id, position, title").order("position"),
+      placeholderFiles("", ".svg"),
+      placeholderFiles("captions", ".vtt"),
+    ]);
+  const titles = (lesson.title ?? {}) as Titles;
+  const section = (sections ?? []).find((s) => s.id === lesson.section_id);
+  const sectionOptions = (sections ?? []).map((s) => ({
+    value: s.id,
+    label: `${t("section", { n: s.position })} · ${
+      (s.title as Titles).en ?? "—"
+    }`,
+  }));
+  const list = blocks ?? [];
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
-      <div className="mt-4 flex flex-col gap-2">
-        {(blocks ?? []).map((b) => {
+    <section className="flex flex-col gap-6">
+      <nav className="text-sm">
+        <Link
+          href="/admin/content"
+          className="font-bold text-blue-text hover:underline"
+        >
+          ← {t("back")}
+        </Link>
+      </nav>
+      <header className="flex flex-wrap items-center gap-3">
+        {section ? (
+          <Badge tone="info">
+            {t("section", { n: section.position })} · {lesson.position}
+          </Badge>
+        ) : null}
+        <h1 className="min-w-0 flex-1 text-3xl font-bold tracking-tight">
+          {titles.en ?? "—"}
+        </h1>
+        <form action={deleteLesson}>
+          <input type="hidden" name="id" value={lesson.id} />
+          <input type="hidden" name="locale" value={locale} />
+          <ConfirmSubmit
+            size="sm"
+            label={t("deleteLesson")}
+            question={t("deleteLessonConfirm")}
+          />
+        </form>
+      </header>
+
+      <Card>
+        <h2 className="text-xl font-bold">{t("lessonDetails")}</h2>
+        <LessonDetailsForm
+          lesson={{
+            id: lesson.id,
+            sectionId: lesson.section_id,
+            position: lesson.position,
+            minSeconds: lesson.min_seconds,
+            titles,
+          }}
+          sections={sectionOptions}
+        />
+      </Card>
+
+      <div className="flex flex-col gap-4">
+        <div>
+          <h2 className="text-xl font-bold">{t("blocksTitle")}</h2>
+          <p className="mt-1 text-muted-foreground">{t("blocksIntro")}</p>
+        </div>
+
+        {list.length === 0 ? (
+          <Card variant="tint">
+            <p className="text-muted-foreground">{t("noBlocks")}</p>
+          </Card>
+        ) : null}
+
+        {list.map((b, i) => {
+          if (!isBlockType(b.type)) return null;
+          const type = b.type;
           let preview: React.ReactNode = (
-            <p className="text-sm text-destructive">{t("invalid")}</p>
+            <p className="text-sm font-bold text-alert">{t("invalid")}</p>
           );
           try {
-            const type = b.type as (typeof BLOCK_TYPES)[number];
             preview = (
               <BlockRenderer
                 block={{
@@ -125,29 +159,79 @@ export default async function AdminLessonPage({
           } catch {
             // keep the invalid-content notice
           }
+          const content = (b.content ?? {}) as Titles;
           return (
-            <details key={b.id} className="rounded-md border p-3">
-              <summary className="cursor-pointer text-sm font-medium">
-                {b.position}. {b.type}
-              </summary>
-              <BlockForm lessonId={id} block={b} locale={locale} />
-              <form action={deleteBlock} className="mt-2">
-                <input type="hidden" name="id" value={b.id} />
-                <button type="submit" className="text-sm text-destructive">
-                  {tc("delete")}
-                </button>
-              </form>
-              <h3 className="mt-4 text-sm font-semibold">{t("preview")}</h3>
-              <div className="mt-2 rounded-md border p-3">{preview}</div>
-            </details>
+            <Card key={b.id} padding="none">
+              <div className="flex flex-wrap items-center gap-2 border-b border-line-blue px-5 py-3">
+                <span className="text-sm font-bold text-muted-foreground">
+                  {i + 1}.
+                </span>
+                <Badge tone="info">{t(`types.${type}`)}</Badge>
+                <span className="flex flex-1 gap-1">
+                  {COURSE_LOCALES.map((l) => (
+                    <Badge
+                      key={l}
+                      tone={content[l] ? "success" : "danger"}
+                      title={content[l] ? t("translated") : t("missing")}
+                      className="px-1.5 text-[11px] uppercase"
+                    >
+                      {l}
+                    </Badge>
+                  ))}
+                </span>
+                <form action={moveBlock} className="contents">
+                  <input type="hidden" name="id" value={b.id} />
+                  <Button
+                    type="submit"
+                    name="dir"
+                    value="up"
+                    variant="ghost"
+                    size="icon-xs"
+                    disabled={i === 0}
+                    aria-label={t("moveUp")}
+                    title={t("moveUp")}
+                  >
+                    ↑
+                  </Button>
+                  <Button
+                    type="submit"
+                    name="dir"
+                    value="down"
+                    variant="ghost"
+                    size="icon-xs"
+                    disabled={i === list.length - 1}
+                    aria-label={t("moveDown")}
+                    title={t("moveDown")}
+                  >
+                    ↓
+                  </Button>
+                </form>
+                <EditToggle label={t("edit")}>
+                  <div className="mt-2 rounded-[18px] border border-line-blue bg-surface p-4">
+                    <BlockEditor
+                      lessonId={lesson.id}
+                      block={{ id: b.id, type, content: b.content }}
+                      images={images}
+                      captions={captions}
+                    />
+                  </div>
+                </EditToggle>
+                <form action={deleteBlock}>
+                  <input type="hidden" name="id" value={b.id} />
+                  <ConfirmSubmit
+                    label={t("delete")}
+                    question={t("deleteBlockConfirm")}
+                  />
+                </form>
+              </div>
+              <div className="px-5 py-4">{preview}</div>
+            </Card>
           );
         })}
-        <details className="rounded-md border border-dashed p-3">
-          <summary className="cursor-pointer text-sm font-medium">
-            {t("newBlock")}
-          </summary>
-          <BlockForm lessonId={id} block={null} locale={locale} />
-        </details>
+
+        <div>
+          <AddBlock lessonId={lesson.id} images={images} captions={captions} />
+        </div>
       </div>
     </section>
   );

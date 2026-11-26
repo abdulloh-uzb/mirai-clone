@@ -9,6 +9,7 @@ import type { Messages } from "./fallback";
  */
 export const CLIENT_NAMESPACES = [
   "Accessibility.form",
+  "Admin.editor",
   "Account",
   "Assistant",
   "Auth",

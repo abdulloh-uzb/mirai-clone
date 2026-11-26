@@ -7,7 +7,11 @@ function Select({ className, ...props }: React.ComponentProps<"select">) {
   return (
     <select
       data-slot="select"
-      className={cn(fieldControlClass, "lms-select h-[52px] pr-11", className)}
+      className={cn(
+        fieldControlClass, // `:read-only` always matches a select; keep the normal field look.
+        "lms-select h-[52px] pr-11 read-only:border-solid read-only:bg-card read-only:text-foreground",
+        className,
+      )}
       {...props}
     />
   );
