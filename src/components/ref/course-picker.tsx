@@ -3,7 +3,9 @@
 import { useState, type KeyboardEvent, type ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 
-export type CourseLang = "en" | "ja" | "es" | "ru";
+import { PANEL_COPY, type CourseLang } from "./course-picker-copy";
+
+export type { CourseLang };
 
 const ORDER: CourseLang[] = ["en", "ja", "es", "ru"];
 
@@ -56,22 +58,22 @@ export function CoursePicker({
   groupLabel,
   statusLabel,
   rows,
-  lines,
-  goLabels,
   hrefs,
   altLabel,
-  panelTop,
+  days,
+  icons,
 }: {
   groupLabel: string;
   statusLabel: string;
   rows: Record<CourseLang, { name: string; sub: string }>;
-  lines: Record<CourseLang, string>;
-  goLabels: Record<CourseLang, string>;
   hrefs: Record<CourseLang, string>;
   altLabel: string;
-  panelTop: ReactNode;
+  days: number;
+  /** Pill icon first, then one icon per feature row. */
+  icons: ReactNode[];
 }) {
   const [active, setActive] = useState<CourseLang>("en");
+  const copy = PANEL_COPY[active];
 
   function choose(code: CourseLang) {
     setActive(code);
@@ -136,8 +138,20 @@ export function CoursePicker({
           );
         })}
       </div>
-      <div className="cp-panel" lang="en">
-        {panelTop}
+      <div className="cp-panel" lang={active}>
+        <span className="cc-pill">
+          {icons[0]}
+          {copy.badge}
+        </span>
+        <h3 className="cp-title">{copy.title}</h3>
+        <ul className="cc-feat">
+          {copy.features.map((text, i) => (
+            <li key={i}>
+              {icons[i + 1]}
+              <span>{text.replace("{days}", String(days))}</span>
+            </li>
+          ))}
+        </ul>
         <div className="cc-pic cp-pic cp-pic-stack">
           {ORDER.map((code) => (
             <div
@@ -158,15 +172,11 @@ export function CoursePicker({
           ))}
         </div>
         <div className="cp-foot">
-          <p className="cp-line" aria-live="polite" lang="en">
-            {lines[active]}
+          <p className="cp-line" aria-live="polite">
+            {copy.line}
           </p>
-          <Link
-            className="btn btn-primary btn-lg cp-go"
-            href={hrefs[active]}
-            lang="en"
-          >
-            {goLabels[active]}
+          <Link className="btn btn-primary btn-lg cp-go" href={hrefs[active]}>
+            {copy.go}
           </Link>
         </div>
       </div>

@@ -110,16 +110,27 @@ test("the course language cards select in place and update the panel", async ({
     page.getByText("Lessons, quizzes and the final exam in English."),
   ).toBeVisible();
 
+  const japanese = group.getByRole("radio", { name: /日本語/ });
+  await japanese.scrollIntoViewIfNeeded();
+  await japanese.click();
+  await expect(
+    page.getByRole("heading", { name: /カリフォルニア交通違反者コース/ }),
+  ).toBeVisible();
+  await expect(page.getByText("4言語で受講できます")).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "日本語で始める" }),
+  ).toHaveAttribute("href", "/signup?course=ja");
+
   await spanish.scrollIntoViewIfNeeded();
   await spanish.click();
   await expect(page).toHaveURL(/\/$/);
   await expect(spanish).toHaveAttribute("aria-checked", "true");
   await expect(english).toHaveAttribute("aria-checked", "false");
   await expect(
-    page.getByText("Lessons, quizzes and the final exam in Español."),
+    page.getByText("Lecciones, cuestionarios y examen final en español."),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Start in Español" }),
+    page.getByRole("link", { name: "Empezar en español" }),
   ).toHaveAttribute("href", "/signup?course=es");
 
   await spanish.press("ArrowRight");
@@ -128,6 +139,6 @@ test("the course language cards select in place and update the panel", async ({
     "true",
   );
   await expect(
-    page.getByRole("link", { name: "Start in Русский" }),
+    page.getByRole("link", { name: "Начать на русском" }),
   ).toHaveAttribute("href", "/signup?course=ru");
 });
