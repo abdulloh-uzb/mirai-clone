@@ -1205,5 +1205,24 @@
     "button": "Check",
     "valid": "Valid certificate. Completed on {date}.",
     "invalid": "We couldn't find a valid certificate with this number."
+  },
+  "Consent": {
+    "title": "Cookies and analytics",
+    "body": "We use analytics only if you accept. We never send your name, email or license number.",
+    "accept": "Accept analytics",
+    "decline": "Decline",
+    "choices": "Privacy choices"
+  },
+  "Privacy": {
+    "title": "Privacy choices and data deletion",
+    "exportHeading": "Download my data",
+    "exportBody": "Get a JSON file with your profile, enrollments, orders, exam results, certificates, requests and AI conversations.",
+    "exportButton": "Download my data",
+    "deleteHeading": "Delete my account",
+    "deleteBody": "Course completion records must be kept for 3 years, so an administrator reviews each request and tells you what can be deleted.",
+    "deleteButton": "Request account deletion",
+    "deletePending": "Your deletion request was received and is waiting for review.",
+    "cookiesHeading": "Cookies and analytics",
+    "cookiesBody": "Analytics are off unless you accept them. You can change your choice at any time."
   }
 }

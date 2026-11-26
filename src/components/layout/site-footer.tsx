@@ -1,5 +1,6 @@
 import { CheckIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { PrivacyChoicesButton } from "@/components/privacy/cookie-consent";
 import { ReportProblem } from "@/components/support/report-problem";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
@@ -26,6 +27,9 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <PrivacyChoicesButton className="block rounded-lg px-2.5 py-1.5 text-[#424751] hover:bg-accent hover:text-foreground dark:text-muted-foreground" />
+            </li>
             <li>
               <ReportProblem className="rounded-lg px-2.5 py-1.5 text-[#0a52b8] underline dark:text-primary" />
             </li>

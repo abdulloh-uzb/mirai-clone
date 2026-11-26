@@ -1206,5 +1206,24 @@
     "button": "Comprobar",
     "valid": "Certificado válido. Completado el {date}.",
     "invalid": "No encontramos un certificado válido con este número."
+  },
+  "Consent": {
+    "title": "Cookies y analítica",
+    "body": "Usamos analítica solo si la aceptas. Nunca enviamos tu nombre, correo ni número de licencia.",
+    "accept": "Aceptar analítica",
+    "decline": "Rechazar",
+    "choices": "Opciones de privacidad"
+  },
+  "Privacy": {
+    "title": "Opciones de privacidad y eliminación de datos",
+    "exportHeading": "Descargar mis datos",
+    "exportBody": "Obtén un archivo JSON con tu perfil, inscripciones, pedidos, resultados de examen, certificados, solicitudes y conversaciones con la IA.",
+    "exportButton": "Descargar mis datos",
+    "deleteHeading": "Eliminar mi cuenta",
+    "deleteBody": "Los registros de finalización deben conservarse 3 años, así que un administrador revisa cada solicitud y te dice qué se puede eliminar.",
+    "deleteButton": "Solicitar la eliminación de la cuenta",
+    "deletePending": "Recibimos tu solicitud de eliminación y está pendiente de revisión.",
+    "cookiesHeading": "Cookies y analítica",
+    "cookiesBody": "La analítica está desactivada salvo que la aceptes. Puedes cambiar tu elección en cualquier momento."
   }
 }

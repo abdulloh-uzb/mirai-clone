@@ -22,6 +22,7 @@
     "db:types": "supabase gen types typescript > src/lib/database.types.ts",
     "db:seed:course": "tsx scripts/generate-course-seed.ts",
     "db:make-admin": "tsx scripts/make-admin.ts",
+    "db:seed:demo": "tsx scripts/seed-demo.ts",
     "ai:reindex": "tsx scripts/reindex-kb.ts",
     "prepare": "git config core.hooksPath .githooks || true"
   },
@@ -39,6 +40,7 @@
     "next": "16.4.6",
     "next-intl": "4.16.2",
     "next-themes": "0.4.6",
+    "posthog-js": "^1.455.2",
     "qrcode": "^1.5.4",
     "radix-ui": "^1.8.1",
     "react": "19.3.0",

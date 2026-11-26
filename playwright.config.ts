@@ -18,7 +18,28 @@ export default defineConfig({
   reporter: [["list"]],
   timeout: 60_000,
   expect: { timeout: 10_000 },
-  use: { baseURL, trace: "retain-on-failure", locale: "en-US" },
+  use: {
+    baseURL,
+    trace: "retain-on-failure",
+    locale: "en-US",
+    // The consent banner is already answered, so it never covers other tests.
+    // tests/e2e/privacy.spec.ts starts without it.
+    storageState: {
+      cookies: [
+        {
+          name: "consent",
+          value: "none",
+          domain: "localhost",
+          path: "/",
+          expires: -1,
+          httpOnly: false,
+          secure: false,
+          sameSite: "Lax",
+        },
+      ],
+      origins: [],
+    },
+  },
   projects: [
     {
       name: "chromium",

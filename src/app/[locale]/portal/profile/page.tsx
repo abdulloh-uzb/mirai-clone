@@ -133,7 +133,7 @@ export default async function ProfilePage({
         )}
       </div>
 
-      <Link href="/privacy" className="text-sm underline">
+      <Link href="/portal/privacy" className="text-sm underline">
         {t("privacy")}
       </Link>
     </section>
