@@ -3,6 +3,49 @@ import { getEmailSender } from "./index";
 
 vi.mock("server-only", () => ({}));
 
+const { sendMail, createTransport } = vi.hoisted(() => {
+  const sendMail = vi.fn(async () => ({}));
+  const createTransport = vi.fn(() => ({ sendMail }));
+  return { sendMail, createTransport };
+});
+vi.mock("nodemailer", () => ({ default: { createTransport } }));
+
+describe("SMTP sender", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+    sendMail.mockClear();
+    createTransport.mockClear();
+  });
+
+  it("uses SMTP when SMTP_HOST is set and there is no Resend key", async () => {
+    vi.stubEnv("RESEND_API_KEY", "");
+    vi.stubEnv("SMTP_HOST", "smtp.example.test");
+    vi.stubEnv("SMTP_PORT", "465");
+    vi.stubEnv("SMTP_USER", "user@example.test");
+    vi.stubEnv("SMTP_PASSWORD", "secret");
+    vi.stubEnv("EMAIL_FROM", "School <user@example.test>");
+    await getEmailSender().send({
+      to: "a@example.test",
+      subject: "Hi",
+      text: "Body",
+    });
+    expect(createTransport).toHaveBeenCalledWith(
+      expect.objectContaining({
+        host: "smtp.example.test",
+        port: 465,
+        secure: true,
+        auth: { user: "user@example.test", pass: "secret" },
+      }),
+    );
+    expect(sendMail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        from: "School <user@example.test>",
+        to: "a@example.test",
+      }),
+    );
+  });
+});
+
 const message = { to: "a@example.test", subject: "Hi", text: "Body" };
 
 afterEach(() => {
