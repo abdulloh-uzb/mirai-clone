@@ -16,6 +16,34 @@ _Avoid_: Teacher, staff, moderator
 Someone browsing without being signed in. A visitor has no role.
 _Avoid_: Guest, anonymous user
 
+## Student stages
+
+Every Student is in exactly one stage, set by their most recent enrollment. Admins see the counts and lists by stage.
+
+**Registered**:
+Has an account but no paid course: never bought it, or got a full refund.
+_Avoid_: Lead, unpaid user
+
+**Studying**:
+Has paid and is working through the course; has not yet passed the final exam.
+_Avoid_: Paid (on its own), active student, in progress
+
+**Needs attention**:
+Has paid but cannot go on without an Admin: paused after failed identity checks, locked after failing the final exam twice, or out of access time before finishing.
+_Avoid_: Blocked, stuck
+
+**Completed**:
+Passed the final exam and received a certificate.
+_Avoid_: Exam passed, graduated, finished
+
+**Reported**:
+Completed, and the DMV has accepted the school's completion report.
+_Avoid_: Submitted (a report can be submitted and still rejected), DMV done
+
+**Completion report**:
+The school's electronic notice to the DMV that a Student completed the course. It is sent in batches, can be accepted or rejected, and an Admin can correct and re-send a rejected one.
+_Avoid_: DMV submission, certificate (the certificate goes to the Student)
+
 ## Language
 
 **UI language**:
@@ -47,7 +75,7 @@ _Avoid_: Court (when one building is meant), branch
 ## Site content
 
 **Support request**:
-A message a person sends to the school: a contact message, a "Got a problem?" report, an accessibility (ADA) request or an AI handoff.
+Shown to Admins as "Support requests". A message a person sends to the school: a contact message, a "Got a problem?" report, an accessibility (ADA) request or an AI handoff.
 _Avoid_: Ticket (clashes with Citation), issue, case
 
 **Translation**:
