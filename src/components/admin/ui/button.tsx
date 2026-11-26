@@ -17,6 +17,10 @@ export const adminButtonVariants = cva(
         ghost: "text-foreground hover:bg-accent hover:text-accent-foreground",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90",
+        "destructive-outline":
+          "border border-input bg-background text-red-700 shadow-xs hover:border-red-300 hover:bg-red-50 dark:text-red-400 dark:hover:border-red-900 dark:hover:bg-red-950",
+        "destructive-ghost":
+          "text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950",
         link: "h-auto px-0 text-link underline-offset-4 hover:underline",
       },
       size: {
@@ -25,6 +29,7 @@ export const adminButtonVariants = cva(
         xs: "h-7 gap-1 px-2 text-xs",
         icon: "size-9",
         "icon-sm": "size-8",
+        "icon-xs": "size-7",
       },
     },
     defaultVariants: { variant: "default", size: "default" },

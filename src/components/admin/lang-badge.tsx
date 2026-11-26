@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+import { AdminBadge } from "@/components/admin/ui/badge";
 import { cn } from "@/lib/utils";
 
 export const LANGUAGE_NAMES = {
@@ -23,19 +23,19 @@ export function LangBadge({
 }) {
   return (
     <span className="group relative inline-flex" tabIndex={0} aria-label={tip}>
-      <Badge
+      <AdminBadge
         tone={ok ? "success" : "danger"}
-        className="px-1.5 text-[11px] uppercase"
+        className="px-1 text-[10px] uppercase"
         aria-hidden="true"
       >
         {code}
-      </Badge>
+      </AdminBadge>
       <span
         role="tooltip"
         className={cn(
-          "pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 -translate-x-1/2 rounded-[10px] px-2.5 py-1.5 text-xs font-bold whitespace-nowrap shadow-lg",
+          "pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 -translate-x-1/2 rounded-md px-2 py-1 text-xs font-medium whitespace-nowrap shadow-md",
           "invisible opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-visible:visible group-focus-visible:opacity-100",
-          ok ? "bg-foreground text-background" : "bg-alert text-white",
+          ok ? "bg-foreground text-background" : "bg-destructive text-white",
         )}
       >
         {tip}

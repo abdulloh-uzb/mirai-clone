@@ -1,29 +1,44 @@
 import { useTranslations } from "next-intl";
-import { Badge } from "@/components/ui/badge";
+import { AdminBadge, type AdminBadgeTone } from "@/components/admin/ui/badge";
 
-type Tone = "success" | "warning" | "danger" | "neutral";
-
-const TONES: Record<string, Tone> = {
-  active: "success",
-  completed: "success",
-  paid: "success",
-  processed: "success",
+const TONE: Record<string, AdminBadgeTone> = {
+  active: "info",
   paused: "warning",
-  pending: "warning",
-  requested: "warning",
   locked: "danger",
   expired: "danger",
+  completed: "success",
+  refunded: "neutral",
+  partially_refunded: "neutral",
+  pending: "warning",
+  paid: "success",
   failed: "danger",
+  requested: "warning",
+  approved: "info",
   rejected: "danger",
+  processed: "success",
+  queued: "neutral",
+  sent: "info",
+  accepted: "done",
+  error: "danger",
+  open: "warning",
+  in_progress: "info",
+  closed: "neutral",
 };
 
-export function StatusBadge({ status }: { status: string }) {
+export function StatusBadge({
+  status,
+  label,
+}: {
+  status: string;
+  label?: string;
+}) {
   const t = useTranslations("Admin.statuses");
   return (
-    <Badge tone={TONES[status] ?? "neutral"}>
-      {t.has(status as never)
-        ? t(status as never)
-        : status.replaceAll("_", " ")}
-    </Badge>
+    <AdminBadge tone={TONE[status] ?? "neutral"}>
+      {label ??
+        (t.has(status as never)
+          ? t(status as never)
+          : status.replaceAll("_", " "))}
+    </AdminBadge>
   );
 }

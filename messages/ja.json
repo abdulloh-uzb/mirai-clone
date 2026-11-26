@@ -299,7 +299,9 @@
       "update": "更新",
       "newItem": "新規{label}",
       "you": "(自分)",
-      "language": "言語"
+      "language": "言語",
+      "summary": "概要",
+      "pagination": "ページ送り"
     },
     "dashboard": {
       "sales": "売上",
@@ -387,7 +389,11 @@
       "incorrect": "不正解",
       "noneYet": "まだありません",
       "stageFilterLabel": "ステージで絞り込み",
-      "stage": "ステージ"
+      "stage": "ステージ",
+      "question": "質問",
+      "result": "結果",
+      "refunds": "返金",
+      "action": "操作"
     },
     "enrollments": {
       "title": "受講",
@@ -504,7 +510,14 @@
       "locked": "ロック中",
       "expired": "期限切れ",
       "failed": "失敗",
-      "rejected": "却下"
+      "rejected": "却下",
+      "refunded": "返金済み",
+      "partially_refunded": "一部返金",
+      "approved": "承認済み",
+      "queued": "送信待ち",
+      "sent": "送信済み",
+      "accepted": "受理",
+      "error": "エラー"
     },
     "courts": {
       "title": "裁判所",
@@ -549,7 +562,8 @@
       "handedOff": "引き継ぎ済み",
       "transcript": "会話履歴",
       "flag": "フラグを付ける",
-      "unflag": "フラグを外す"
+      "unflag": "フラグを外す",
+      "pickConversation": "会話を選ぶと会話履歴が表示されます。"
     },
     "tickets": {
       "title": "チケット",
@@ -565,7 +579,9 @@
         "open": "未対応",
         "in_progress": "対応中",
         "closed": "完了"
-      }
+      },
+      "filterType": "種類で絞り込み",
+      "filterStatus": "状態で絞り込み"
     },
     "content": {
       "title": "コンテンツ",
@@ -779,6 +795,17 @@
       "needs_attention": "一時停止・ロック・受講期限切れ",
       "completed": "合格済み・修了報告は未受理",
       "reported": "DMVが修了報告を受理"
+    },
+    "descriptions": {
+      "students": "受講者アカウントの一覧です。氏名、メール、免許番号、違反切符番号で検索できます。",
+      "enrollments": "すべての受講登録(新しい順)。",
+      "orders": "支払いと、判断待ちの返金申請。",
+      "reporting": "DMVへの修了報告:要対応の報告、すべての報告、過去のバッチ。",
+      "questions": "小テストと修了試験の問題。正解はこの画面にのみ表示されます。",
+      "siteContent": "公開ページ、FAQ、お知らせ、価格(言語別)。",
+      "tickets": "お問い合わせフォーム、不具合報告、ADA依頼、AIからの引き継ぎ。",
+      "ai": "アシスタントの利用状況、コスト、会話。確認が必要な回答にフラグを付けます。",
+      "settings": "管理者アカウント、州の設定、ウェイトリスト、メールテンプレート。"
     }
   },
   "LanguageSuggestion": {

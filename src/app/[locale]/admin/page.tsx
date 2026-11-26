@@ -8,6 +8,7 @@ import {
 import { hasLocale } from "next-intl";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { AdminPageHeader } from "@/components/admin/page-header";
 import { ActivityChart } from "@/components/admin/dashboard/activity-chart";
 import { AttentionList } from "@/components/admin/dashboard/attention-list";
 import { KpiCard } from "@/components/admin/dashboard/kpi-card";
@@ -62,14 +63,10 @@ export default async function AdminPage({
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          {t("nav.dashboard")}
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {t("dashboard.subtitle")}
-        </p>
-      </div>
+      <AdminPageHeader
+        title={t("nav.dashboard")}
+        description={t("dashboard.subtitle")}
+      />
       <section aria-labelledby="dash-kpis">
         <h2 id="dash-kpis" className="sr-only">
           {t("dashboard.kpiHeading")}

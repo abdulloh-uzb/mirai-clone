@@ -298,7 +298,9 @@
       "update": "Update",
       "newItem": "New {label}",
       "you": "(you)",
-      "language": "Language"
+      "language": "Language",
+      "summary": "Summary",
+      "pagination": "Pagination"
     },
     "dashboard": {
       "sales": "Sales",
@@ -386,7 +388,11 @@
       "incorrect": "Incorrect",
       "noneYet": "Nothing yet",
       "stageFilterLabel": "Filter by stage",
-      "stage": "Stage"
+      "stage": "Stage",
+      "question": "Question",
+      "result": "Result",
+      "refunds": "Refunds",
+      "action": "Action"
     },
     "enrollments": {
       "title": "Enrollments",
@@ -503,7 +509,14 @@
       "locked": "locked",
       "expired": "expired",
       "failed": "failed",
-      "rejected": "rejected"
+      "rejected": "rejected",
+      "refunded": "refunded",
+      "partially_refunded": "partially refunded",
+      "approved": "approved",
+      "queued": "queued",
+      "sent": "sent",
+      "accepted": "accepted",
+      "error": "error"
     },
     "courts": {
       "title": "Courts",
@@ -548,7 +561,8 @@
       "handedOff": "handed off",
       "transcript": "Transcript",
       "flag": "Flag",
-      "unflag": "Unflag"
+      "unflag": "Unflag",
+      "pickConversation": "Pick a conversation to read its transcript."
     },
     "tickets": {
       "title": "Tickets",
@@ -564,7 +578,9 @@
         "open": "open",
         "in_progress": "in progress",
         "closed": "closed"
-      }
+      },
+      "filterType": "Filter by type",
+      "filterStatus": "Filter by status"
     },
     "content": {
       "title": "Content",
@@ -778,6 +794,17 @@
       "needs_attention": "Paused, locked or out of access time",
       "completed": "Passed; completion report not yet accepted",
       "reported": "DMV accepted the completion report"
+    },
+    "descriptions": {
+      "students": "Everyone with a student account. Search by name, email, license or citation number.",
+      "enrollments": "Every course enrollment, newest first.",
+      "orders": "Payments, and the refund requests waiting for a decision.",
+      "reporting": "Completion reports to the DMV: what needs fixing, every report, and past batches.",
+      "questions": "Quiz and final exam questions. Correct answers are shown only here.",
+      "siteContent": "Public pages, FAQ, announcements and prices, per language.",
+      "tickets": "Messages from the contact form, bug reports, ADA requests and AI handoffs.",
+      "ai": "Assistant usage, cost and conversations. Flag answers that need review.",
+      "settings": "Admin accounts, state config, waitlists and email templates."
     }
   },
   "LanguageSuggestion": {

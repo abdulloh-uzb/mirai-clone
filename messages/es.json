@@ -299,7 +299,9 @@
       "update": "Actualizar",
       "newItem": "Nuevo: {label}",
       "you": "(tú)",
-      "language": "Idioma"
+      "language": "Idioma",
+      "summary": "Resumen",
+      "pagination": "Paginación"
     },
     "dashboard": {
       "sales": "Ventas",
@@ -387,7 +389,11 @@
       "incorrect": "Incorrecta",
       "noneYet": "Nada todavía",
       "stageFilterLabel": "Filtrar por etapa",
-      "stage": "Etapa"
+      "stage": "Etapa",
+      "question": "Pregunta",
+      "result": "Resultado",
+      "refunds": "Reembolsos",
+      "action": "Acción"
     },
     "enrollments": {
       "title": "Inscripciones",
@@ -504,7 +510,14 @@
       "locked": "bloqueado",
       "expired": "caducado",
       "failed": "fallido",
-      "rejected": "rechazado"
+      "rejected": "rechazado",
+      "refunded": "reembolsado",
+      "partially_refunded": "reembolso parcial",
+      "approved": "aprobado",
+      "queued": "en cola",
+      "sent": "enviado",
+      "accepted": "aceptado",
+      "error": "error"
     },
     "courts": {
       "title": "Juzgados",
@@ -549,7 +562,8 @@
       "handedOff": "derivada",
       "transcript": "Transcripción",
       "flag": "Marcar",
-      "unflag": "Quitar marca"
+      "unflag": "Quitar marca",
+      "pickConversation": "Elige una conversación para leer la transcripción."
     },
     "tickets": {
       "title": "Tickets",
@@ -565,7 +579,9 @@
         "open": "abierto",
         "in_progress": "en curso",
         "closed": "cerrado"
-      }
+      },
+      "filterType": "Filtrar por tipo",
+      "filterStatus": "Filtrar por estado"
     },
     "content": {
       "title": "Contenido",
@@ -779,6 +795,17 @@
       "needs_attention": "Pausado, bloqueado o sin tiempo de acceso",
       "completed": "Aprobado; informe de finalización aún no aceptado",
       "reported": "El DMV aceptó el informe de finalización"
+    },
+    "descriptions": {
+      "students": "Todas las cuentas de estudiante. Busca por nombre, correo, licencia o número de citación.",
+      "enrollments": "Todas las inscripciones a cursos, de la más reciente a la más antigua.",
+      "orders": "Pagos y solicitudes de reembolso pendientes de decisión.",
+      "reporting": "Informes de finalización al DMV: los que hay que corregir, todos los informes y los lotes anteriores.",
+      "questions": "Preguntas de cuestionarios y del examen final. Las respuestas correctas solo se muestran aquí.",
+      "siteContent": "Páginas públicas, preguntas frecuentes, avisos y precios, por idioma.",
+      "tickets": "Mensajes del formulario de contacto, informes de errores, solicitudes ADA y derivaciones de la IA.",
+      "ai": "Uso, coste y conversaciones del asistente. Marca las respuestas que haya que revisar.",
+      "settings": "Cuentas de administrador, configuración por estado, listas de espera y plantillas de correo."
     }
   },
   "LanguageSuggestion": {
