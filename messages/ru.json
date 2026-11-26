@@ -176,7 +176,8 @@
     "myCourses": "Мои курсы",
     "myCertificates": "Мои сертификаты",
     "myProfile": "Мой профиль",
-    "logOut": "Выйти"
+    "logOut": "Выйти",
+    "adminPanel": "Панель администратора"
   },
   "VerifyEmail": {
     "title": "Подтвердите адрес электронной почты",

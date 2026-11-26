@@ -176,7 +176,8 @@
     "myCourses": "Mis cursos",
     "myCertificates": "Mis certificados",
     "myProfile": "Mi perfil",
-    "logOut": "Cerrar sesión"
+    "logOut": "Cerrar sesión",
+    "adminPanel": "Panel de administración"
   },
   "VerifyEmail": {
     "title": "Verifica tu correo electrónico",

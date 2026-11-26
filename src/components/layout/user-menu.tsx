@@ -3,7 +3,7 @@
 import { lazy, Suspense, useState } from "react";
 import { UserMenuTrigger } from "./user-menu-trigger";
 
-type Props = { initials: string; firstName: string };
+type Props = { initials: string; firstName: string; isAdmin?: boolean };
 
 // The dropdown (Radix menu) loads on the first click, not with the page.
 const UserMenuDropdown = lazy(() =>
@@ -13,10 +13,21 @@ const UserMenuDropdown = lazy(() =>
 export function UserMenu(props: Props) {
   const [requested, setRequested] = useState(false);
   return requested ? (
-    <Suspense fallback={<UserMenuTrigger {...props} />}>
+    <Suspense
+      fallback={
+        <UserMenuTrigger
+          initials={props.initials}
+          firstName={props.firstName}
+        />
+      }
+    >
       <UserMenuDropdown {...props} />
     </Suspense>
   ) : (
-    <UserMenuTrigger {...props} onClick={() => setRequested(true)} />
+    <UserMenuTrigger
+      initials={props.initials}
+      firstName={props.firstName}
+      onClick={() => setRequested(true)}
+    />
   );
 }

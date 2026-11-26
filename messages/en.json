@@ -175,7 +175,8 @@
     "myCourses": "My courses",
     "myCertificates": "My certificates",
     "myProfile": "My profile",
-    "logOut": "Log out"
+    "logOut": "Log out",
+    "adminPanel": "Admin panel"
   },
   "VerifyEmail": {
     "title": "Verify your email",

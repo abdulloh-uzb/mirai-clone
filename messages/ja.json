@@ -176,7 +176,8 @@
     "myCourses": "マイコース",
     "myCertificates": "修了証",
     "myProfile": "プロフィール",
-    "logOut": "ログアウト"
+    "logOut": "ログアウト",
+    "adminPanel": "管理画面"
   },
   "VerifyEmail": {
     "title": "メールアドレスを確認してください",

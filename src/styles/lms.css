@@ -285,3 +285,9 @@ html.dark .lms-scope {
     cursor: pointer;
   }
 }
+
+/* LMS pages scroll their content under the sticky header. Fill the strip above
+   the floating header card with the band colour so nothing shows through it. */
+body:has(.lms-band) .v2 .hdr {
+  background: var(--lms-band) top left / 100% 10px no-repeat;
+}

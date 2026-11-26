@@ -10,7 +10,11 @@ export async function HeaderAccount() {
 
   if (account) {
     return (
-      <UserMenu initials={initialsOf(account)} firstName={account.firstName} />
+      <UserMenu
+        initials={initialsOf(account)}
+        firstName={account.firstName}
+        isAdmin={account.role === "admin"}
+      />
     );
   }
 

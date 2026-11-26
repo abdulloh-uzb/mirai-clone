@@ -146,7 +146,7 @@ export async function signIn(
   if (!parsed.success) return fieldErrorsOf(parsed.error);
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
   if (error) {
     // One generic message for every failure, so nobody can learn which emails
     // are registered.
@@ -154,7 +154,13 @@ export async function signIn(
   }
   const returnTo = returnPathSchema.parse(next);
   if (returnTo) redirectToPath(returnTo);
-  redirect({ href: "/", locale });
+  // Admins land in the admin panel; the /admin pages check the role again.
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("user_id", data.user.id)
+    .maybeSingle();
+  redirect({ href: profile?.role === "admin" ? "/admin" : "/", locale });
   return { status: "ok" };
 }
 

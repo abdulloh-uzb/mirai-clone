@@ -24,9 +24,11 @@ const items = [
 export function UserMenuDropdown({
   initials,
   firstName,
+  isAdmin = false,
 }: {
   initials: string;
   firstName: string;
+  isAdmin?: boolean;
 }) {
   const t = useTranslations("Account");
   const locale = useLocale();
@@ -38,6 +40,14 @@ export function UserMenuDropdown({
         <UserMenuTrigger initials={initials} firstName={firstName} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" aria-label={t("menuLabel")}>
+        {isAdmin && (
+          <>
+            <DropdownMenuItem asChild>
+              <Link href="/admin">{t("adminPanel")}</Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
         {items.map((item) => (
           <DropdownMenuItem key={item.key} asChild>
             <Link href={item.href}>{t(item.key)}</Link>
