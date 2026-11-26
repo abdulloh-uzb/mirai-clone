@@ -48,11 +48,11 @@ export function SignInForm({ next }: { next?: string }) {
       />
       <Link
         href="/reset-password"
-        className="justify-self-start text-sm font-medium text-link underline"
+        className="-mt-1 justify-self-start text-[15px] font-bold text-blue-text underline underline-offset-3 hover:text-primary"
       >
         {t("forgotPassword")}
       </Link>
-      <Button type="submit" disabled={pending}>
+      <Button type="submit" size="lg" className="w-full" disabled={pending}>
         {t("submit")}
       </Button>
       <Link
@@ -60,7 +60,7 @@ export function SignInForm({ next }: { next?: string }) {
           pathname: "/login/magic-link",
           query: next ? { next } : {},
         }}
-        className="justify-self-center text-sm font-medium text-link underline"
+        className="inline-flex min-h-11 items-center justify-center rounded-full border-2 border-line-blue bg-hero px-5 text-[15px] font-bold text-foreground transition-colors hover:bg-line-blue"
       >
         {t("magicLink")}
       </Link>

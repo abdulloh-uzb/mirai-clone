@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import type { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Select } from "@/components/ui/select";
 import { signUp } from "@/lib/auth/actions";
 import { signUpSchema } from "@/lib/validation/auth";
 import { routing } from "@/i18n/routing";
@@ -84,11 +85,10 @@ export function SignUpForm({ next }: { next?: string }) {
         error={errors.password?.message}
         {...form.register("password")}
       />
-      <div className="grid gap-2">
+      <div className="grid gap-1.5">
         <Label htmlFor="preferredLocale">{t("preferredLanguage")}</Label>
-        <select
+        <Select
           id="preferredLocale"
-          className="h-9 w-full rounded-md border border-input bg-background px-3 text-base shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
           aria-invalid={errors.preferredLocale ? true : undefined}
           {...form.register("preferredLocale")}
         >
@@ -97,13 +97,18 @@ export function SignUpForm({ next }: { next?: string }) {
               {LANGUAGE_NAMES[code]}
             </option>
           ))}
-        </select>
+        </Select>
         <ErrorText
           id="preferredLocale-error"
           error={errors.preferredLocale?.message}
         />
       </div>
-      <Button type="submit" disabled={pending} className="mt-2">
+      <Button
+        type="submit"
+        size="lg"
+        disabled={pending}
+        className="mt-2 w-full"
+      >
         {t("submit")}
       </Button>
     </form>
