@@ -1,3 +1,4 @@
+import { LmsBody, LmsHero } from "@/components/layout/lms-page";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -48,59 +49,61 @@ export default async function ReportStatusPage({
   const done = report?.status === "accepted";
 
   return (
-    <section className="mx-auto max-w-2xl px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-      {!report ? (
-        <p className="mt-6 text-muted-foreground">{t("none")}</p>
-      ) : (
-        <>
-          <ol className="mt-8 space-y-6 border-l-2 pl-6">
-            {steps.map((step) => (
-              <li key={step.key} className="relative">
-                <span
-                  className={cn(
-                    "absolute top-1 -left-[33px] size-4 rounded-full border-2 bg-background",
-                    step.at &&
-                      (step.key === "rejected"
-                        ? "border-destructive bg-destructive"
-                        : "border-primary bg-primary"),
-                  )}
-                />
-                <p
-                  className={cn(
-                    "font-medium",
-                    !step.at && "text-muted-foreground",
-                    step.key === "rejected" && "text-destructive",
-                  )}
-                >
-                  {t(`step.${step.key}`)}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {step.at ? fmt(step.at) : t("pending")}
-                </p>
-                {step.key === "rejected" ? (
-                  <p className="mt-1 text-sm text-destructive">
-                    {t("rejectedText")}
+    <>
+      <LmsHero title={t("title")} art="filed" />
+      <LmsBody className="max-w-3xl">
+        {!report ? (
+          <p className="mt-6 text-muted-foreground">{t("none")}</p>
+        ) : (
+          <>
+            <ol className="mt-8 space-y-6 border-l-2 pl-6">
+              {steps.map((step) => (
+                <li key={step.key} className="relative">
+                  <span
+                    className={cn(
+                      "absolute top-1 -left-[33px] size-4 rounded-full border-2 bg-background",
+                      step.at &&
+                        (step.key === "rejected"
+                          ? "border-destructive bg-destructive"
+                          : "border-primary bg-primary"),
+                    )}
+                  />
+                  <p
+                    className={cn(
+                      "font-medium",
+                      !step.at && "text-muted-foreground",
+                      step.key === "rejected" && "text-destructive",
+                    )}
+                  >
+                    {t(`step.${step.key}`)}
                   </p>
-                ) : null}
-              </li>
-            ))}
-          </ol>
-          {!done ? (
-            <p className="mt-8 text-sm text-muted-foreground">
-              {t("nextBatch", {
-                time: fmt(nextReportingSlot(new Date()).toISOString()),
-              })}
-            </p>
-          ) : null}
-        </>
-      )}
-      <Link
-        href="/portal"
-        className="mt-8 inline-block font-medium text-link hover:underline"
-      >
-        {t("back")}
-      </Link>
-    </section>
+                  <p className="text-sm text-muted-foreground">
+                    {step.at ? fmt(step.at) : t("pending")}
+                  </p>
+                  {step.key === "rejected" ? (
+                    <p className="mt-1 text-sm text-destructive">
+                      {t("rejectedText")}
+                    </p>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
+            {!done ? (
+              <p className="mt-8 text-sm text-muted-foreground">
+                {t("nextBatch", {
+                  time: fmt(nextReportingSlot(new Date()).toISOString()),
+                })}
+              </p>
+            ) : null}
+          </>
+        )}
+        <Link
+          href="/portal"
+          className="mt-8 inline-block font-medium text-link hover:underline"
+        >
+          {t("back")}
+        </Link>
+      </LmsBody>
+    </>
   );
 }

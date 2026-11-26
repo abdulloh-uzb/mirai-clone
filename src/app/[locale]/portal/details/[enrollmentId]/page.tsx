@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { LmsBody, LmsHero } from "@/components/layout/lms-page";
 import {
   DriverDetailsForm,
   type CountyOption,
@@ -51,29 +52,32 @@ export default async function DriverDetailsPage({
   }));
 
   return (
-    <section className="mx-auto max-w-xl px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-      <p className="mt-3 mb-8 text-muted-foreground">{t("intro")}</p>
-      <DriverDetailsForm
-        enrollmentId={details.enrollmentId}
-        defaults={{
-          legalName: details.legalName,
-          dob: details.dob,
-          licenseNo: details.licenseNo,
-          licenseState: details.licenseState,
-          phone: details.phone,
-          countySlug: details.countySlug,
-          citationNo: details.citationNo,
-          courtDueDate: details.courtDueDate,
-          securityQuestion: (details.securityQuestion ||
-            "first_car") as "first_car",
-          securityAnswer: "",
-        }}
-        counties={counties}
-        locked={details.locked}
-        hasSecurityAnswer={details.hasSecurityAnswer}
-        nextPath={nextPath}
-      />
-    </section>
+    <>
+      <LmsHero title={t("title")} intro={t("intro")} art="ticket" />
+      <LmsBody className="max-w-3xl">
+        <div className="rounded-[22px] border-t-[6px] border-b-[6px] border-t-brand-sky border-b-brand-green bg-card p-5 shadow-panel sm:p-8">
+          <DriverDetailsForm
+            enrollmentId={details.enrollmentId}
+            defaults={{
+              legalName: details.legalName,
+              dob: details.dob,
+              licenseNo: details.licenseNo,
+              licenseState: details.licenseState,
+              phone: details.phone,
+              countySlug: details.countySlug,
+              citationNo: details.citationNo,
+              courtDueDate: details.courtDueDate,
+              securityQuestion: (details.securityQuestion ||
+                "first_car") as "first_car",
+              securityAnswer: "",
+            }}
+            counties={counties}
+            locked={details.locked}
+            hasSecurityAnswer={details.hasSecurityAnswer}
+            nextPath={nextPath}
+          />
+        </div>
+      </LmsBody>
+    </>
   );
 }
