@@ -8,11 +8,14 @@ import {
   type ReactNode,
 } from "react";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { CircleAlertIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Notice } from "@/components/ui/notice";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import type { PublicFormResult } from "@/lib/forms/public-form";
-import { cn } from "@/lib/utils";
 import {
   HONEYPOT_FIELD,
   isFormMessageKey,
@@ -34,7 +37,11 @@ export function ErrorText({ id, error }: { id: string; error?: string }) {
   const key = asErrorKey(error);
   if (!key) return null;
   return (
-    <p id={id} className="text-sm text-destructive">
+    <p
+      id={id}
+      className="flex items-start gap-2 text-[15px] leading-snug font-semibold text-alert"
+    >
+      <CircleAlertIcon aria-hidden className="mt-px size-[18px] shrink-0" />
       {t(key)}
     </p>
   );
@@ -57,7 +64,7 @@ function Field({
   children,
 }: Common & { children: ReactNode }) {
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-1.5">
       <Label htmlFor={id}>{label}</Label>
       {children}
       {hint && (
@@ -89,9 +96,6 @@ export function TextField({
   );
 }
 
-const controlClass =
-  "w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive md:text-sm dark:bg-input/30";
-
 export function TextareaField({
   id,
   label,
@@ -101,12 +105,11 @@ export function TextareaField({
 }: Common & ComponentProps<"textarea">) {
   return (
     <Field id={id} label={label} error={error} hint={hint}>
-      <textarea
+      <Textarea
         id={id}
         rows={5}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy(id, hint, error)}
-        className={cn(controlClass, "min-h-28")}
         {...textarea}
       />
     </Field>
@@ -123,15 +126,14 @@ export function SelectField({
 }: Common & ComponentProps<"select">) {
   return (
     <Field id={id} label={label} error={error} hint={hint}>
-      <select
+      <Select
         id={id}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy(id, hint, error)}
-        className={cn(controlClass, "h-9 py-1")}
         {...select}
       >
         {children}
-      </select>
+      </Select>
     </Field>
   );
 }
@@ -166,16 +168,12 @@ export function FormAlert({
   children: ReactNode;
 }) {
   return (
-    <p
+    <Notice
       role={tone === "error" ? "alert" : "status"}
-      className={
-        tone === "error"
-          ? "rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive"
-          : "rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-sm"
-      }
+      tone={tone === "error" ? "error" : "success"}
     >
       {children}
-    </p>
+    </Notice>
   );
 }
 
@@ -193,7 +191,7 @@ export function SubmitButton({
   children: ReactNode;
 }) {
   return (
-    <Button type="submit" disabled={pending}>
+    <Button type="submit" size="lg" disabled={pending}>
       {children}
     </Button>
   );

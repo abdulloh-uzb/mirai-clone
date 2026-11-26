@@ -8,8 +8,10 @@ import {
   type ReactNode,
 } from "react";
 import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { CircleAlertIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Notice } from "@/components/ui/notice";
 import type { AuthActionResult } from "@/lib/auth/actions";
 import {
   isAuthMessageKey,
@@ -28,7 +30,11 @@ export function ErrorText({ id, error }: { id: string; error?: string }) {
   const key = asErrorKey(error);
   if (!key) return null;
   return (
-    <p id={id} className="text-sm text-destructive">
+    <p
+      id={id}
+      className="flex items-start gap-2 text-[15px] leading-snug font-semibold text-alert"
+    >
+      <CircleAlertIcon aria-hidden className="mt-px size-[18px] shrink-0" />
       {t(key)}
     </p>
   );
@@ -46,7 +52,7 @@ export function TextField({ id, label, error, hint, ...input }: FieldProps) {
     .filter(Boolean)
     .join(" ");
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-1.5">
       <Label htmlFor={id}>{label}</Label>
       <Input
         id={id}
@@ -72,16 +78,12 @@ export function FormAlert({
   children: ReactNode;
 }) {
   return (
-    <p
+    <Notice
       role={tone === "error" ? "alert" : "status"}
-      className={
-        tone === "error"
-          ? "rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive"
-          : "rounded-md border border-primary/40 bg-primary/10 px-3 py-2 text-sm"
-      }
+      tone={tone === "error" ? "error" : "success"}
     >
       {children}
-    </p>
+    </Notice>
   );
 }
 
