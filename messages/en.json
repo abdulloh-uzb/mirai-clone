@@ -1656,7 +1656,9 @@
       "t127": "The {name} car parked at a courthouse with a finish flag",
       "t128": "Traffic Violator Course is Now Open",
       "t129": "Demo school (license {license}). Enroll online and complete at your own pace.",
-      "t130": "Online course"
+      "t130": "Online course",
+      "line": "Lessons, quizzes and the final exam in {language}.",
+      "go": "Start in {language}"
     },
     "shared": {
       "courtsCount": "{count, plural, one {# traffic court} other {# traffic courts}}"
@@ -1708,6 +1710,13 @@
       "t44": "Secure, structured online platform",
       "t45": "Accessible on mobile, tablet, and desktop",
       "t46": "Clear boundary between education and law"
+    },
+    "faq": {
+      "searchGo": "Search",
+      "didntFind": "Didn't find it?",
+      "call": "Call {phone}",
+      "write": "Write to us",
+      "askAi": "Ask the assistant"
     }
   }
 }

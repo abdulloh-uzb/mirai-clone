@@ -97,3 +97,37 @@ test("the reviews are labelled as samples", async ({ page }) => {
   ).toBeVisible();
   await expect(page.locator(".rvf-card").first()).toBeAttached();
 });
+
+test("the course language cards select in place and update the panel", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const group = page.getByRole("radiogroup", { name: "Course language" });
+  const english = group.getByRole("radio", { name: /English/ });
+  const spanish = group.getByRole("radio", { name: /Español/ });
+  await expect(english).toHaveAttribute("aria-checked", "true");
+  await expect(
+    page.getByText("Lessons, quizzes and the final exam in English."),
+  ).toBeVisible();
+
+  await spanish.scrollIntoViewIfNeeded();
+  await spanish.click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(spanish).toHaveAttribute("aria-checked", "true");
+  await expect(english).toHaveAttribute("aria-checked", "false");
+  await expect(
+    page.getByText("Lessons, quizzes and the final exam in Español."),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Start in Español" }),
+  ).toHaveAttribute("href", "/signup?course=es");
+
+  await spanish.press("ArrowRight");
+  await expect(group.getByRole("radio", { name: /Русский/ })).toHaveAttribute(
+    "aria-checked",
+    "true",
+  );
+  await expect(
+    page.getByRole("link", { name: "Start in Русский" }),
+  ).toHaveAttribute("href", "/signup?course=ru");
+});

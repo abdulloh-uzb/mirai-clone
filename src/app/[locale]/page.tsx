@@ -165,6 +165,12 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         <HomeBody
           locale={locale}
           enrollHref={enrollHref}
+          enrollHrefs={{
+            en: buyHref("en", account !== null),
+            ja: buyHref("ja", account !== null),
+            es: buyHref("es", account !== null),
+            ru: buyHref("ru", account !== null),
+          }}
           slots={slots}
           values={{
             price,

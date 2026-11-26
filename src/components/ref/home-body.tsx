@@ -4,14 +4,17 @@ import { useTranslations } from "next-intl";
 import type { CSSProperties, ReactNode } from "react";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
+import { CoursePicker } from "./course-picker";
 import { CountyFilterInput, OpenAssistantButton } from "./ref-client";
 export function HomeBody({
   slots = {},
   values = {},
   enrollHref,
+  enrollHrefs,
   locale,
 }: {
   enrollHref: string;
+  enrollHrefs: Record<"en" | "ja" | "es" | "ru", string>;
   locale: string;
   slots?: Record<string, ReactNode>;
   values?: Record<string, string | number>;
@@ -495,417 +498,260 @@ export function HomeBody({
             <div className="in stop-below" id="courses">
               <div className="band-bare">
                 <div className="cp cp-compact">
-                  <div
-                    className="cp-list"
-                    role="radiogroup"
-                    aria-label={t("t31", v)}
-                  >
-                    <Link href="/courses" className="cp-row">
-                      <span className="cc-flag cp-flag">
-                        <span
-                          className="flex size-full shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-border/50"
-                          aria-hidden="true"
-                        >
+                  <CoursePicker
+                    groupLabel={t("t31", v)}
+                    statusLabel={t("t33", v)}
+                    altLabel={t("t49", v)}
+                    rows={{
+                      en: { name: t("t19", v), sub: t("t32", v) },
+                      ja: { name: t("t20", v), sub: t("t34", v) },
+                      es: { name: t("t21", v), sub: t("t35", v) },
+                      ru: { name: t("t22", v), sub: t("t36", v) },
+                    }}
+                    lines={{
+                      en: t("t50", v),
+                      ja: t("line", { ...v, language: t("t20", v) }),
+                      es: t("line", { ...v, language: t("t21", v) }),
+                      ru: t("line", { ...v, language: t("t22", v) }),
+                    }}
+                    goLabels={{
+                      en: t("t51", v),
+                      ja: t("go", { ...v, language: t("t20", v) }),
+                      es: t("go", { ...v, language: t("t21", v) }),
+                      ru: t("go", { ...v, language: t("t22", v) }),
+                    }}
+                    hrefs={enrollHrefs}
+                    panelTop={
+                      <>
+                        <span className="cc-pill">
                           <svg
-                            viewBox="0 0 32 32"
-                            className="size-full"
-                            focusable="false"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-languages"
+                            aria-hidden="true"
                           >
-                            <rect width="32" height="32" fill="#fff" />
-                            <rect width="32" height="3" fill="#B22234" />
-                            <rect y="6" width="32" height="3" fill="#B22234" />
-                            <rect y="12" width="32" height="3" fill="#B22234" />
-                            <rect y="18" width="32" height="3" fill="#B22234" />
-                            <rect y="24" width="32" height="3" fill="#B22234" />
-                            <rect y="30" width="32" height="2" fill="#B22234" />
-                            <rect width="14" height="17" fill="#3C3B6E" />
+                            <path d="m5 8 6 6" />
+                            <path d="m4 14 6-6 2-3" />
+                            <path d="M2 5h12" />
+                            <path d="M7 2h1" />
+                            <path d="m22 22-5-10-5 10" />
+                            <path d="M14 18h6" />
                           </svg>
+                          {t("t37", v)}
                         </span>
-                      </span>
-                      <span className="cp-n">
-                        <b>{t("t19", v)}</b>
-                        <small lang="en">{t("t32", v)}</small>
-                      </span>
-                      <span className="cp-pillstat live">{t("t33", v)}</span>
-                      <span className="cp-tick" aria-hidden="true">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="m5 12.5 4.5 4.5L19 7.5" />
-                        </svg>
-                      </span>
-                    </Link>
-                    <Link href="/courses" className="cp-row">
-                      <span className="cc-flag cp-flag">
-                        <span
-                          className="flex size-full shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-border/50"
-                          aria-hidden="true"
-                        >
-                          <svg
-                            viewBox="0 0 32 32"
-                            className="size-full"
-                            focusable="false"
-                          >
-                            <rect width="32" height="32" fill="#fff" />
-                            <circle cx="16" cy="16" r="8" fill="#BC002D" />
-                          </svg>
-                        </span>
-                      </span>
-                      <span className="cp-n">
-                        <b>{t("t20", v)}</b>
-                        <small lang="en">{t("t34", v)}</small>
-                      </span>
-                      <span className="cp-pillstat live">{t("t33", v)}</span>
-                      <span className="cp-tick" aria-hidden="true">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="m5 12.5 4.5 4.5L19 7.5" />
-                        </svg>
-                      </span>
-                    </Link>
-                    <Link href="/courses" className="cp-row">
-                      <span className="cc-flag cp-flag">
-                        <span
-                          className="flex size-full shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-border/50"
-                          aria-hidden="true"
-                        >
-                          <svg
-                            viewBox="0 0 32 32"
-                            className="size-full"
-                            focusable="false"
-                          >
-                            <rect width="32" height="32" fill="#AA151B" />
-                            <rect y="8" width="32" height="16" fill="#F1BF00" />
-                          </svg>
-                        </span>
-                      </span>
-                      <span className="cp-n">
-                        <b>{t("t21", v)}</b>
-                        <small lang="en">{t("t35", v)}</small>
-                      </span>
-                      <span className="cp-pillstat live">{t("t33", v)}</span>
-                      <span className="cp-tick" aria-hidden="true">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="m5 12.5 4.5 4.5L19 7.5" />
-                        </svg>
-                      </span>
-                    </Link>
-                    <Link href="/courses" className="cp-row">
-                      <span className="cc-flag cp-flag">
-                        <span
-                          className="flex size-full shrink-0 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-border/50"
-                          aria-hidden="true"
-                        >
-                          <svg
-                            viewBox="0 0 32 32"
-                            className="size-full"
-                            focusable="false"
-                          >
-                            <rect width="32" height="32" fill="#fff" />
-                            <rect
-                              y="10.66"
-                              width="32"
-                              height="10.67"
-                              fill="#0039A6"
-                            />
-                            <rect
-                              y="21.33"
-                              width="32"
-                              height="10.67"
-                              fill="#D52B1E"
-                            />
-                          </svg>
-                        </span>
-                      </span>
-                      <span className="cp-n">
-                        <b>{t("t22", v)}</b>
-                        <small lang="en">{t("t36", v)}</small>
-                      </span>
-                      <span className="cp-pillstat live">{t("t33", v)}</span>
-                      <span className="cp-tick" aria-hidden="true">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="m5 12.5 4.5 4.5L19 7.5" />
-                        </svg>
-                      </span>
-                    </Link>
-                  </div>
-                  <div className="cp-panel" lang="en">
-                    <span className="cc-pill">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-languages"
-                        aria-hidden="true"
-                      >
-                        <path d="m5 8 6 6" />
-                        <path d="m4 14 6-6 2-3" />
-                        <path d="M2 5h12" />
-                        <path d="M7 2h1" />
-                        <path d="m22 22-5-10-5 10" />
-                        <path d="M14 18h6" />
-                      </svg>
-                      {t("t37", v)}
-                    </span>
-                    <h3 className="cp-title">{t("t38", v)}</h3>
-                    <ul className="cc-feat">
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-shield"
-                          aria-hidden="true"
-                        >
-                          <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-                        </svg>
-                        <span>{t("t39", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-triangle-alert"
-                          aria-hidden="true"
-                        >
-                          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
-                          <path d="M12 9v4" />
-                          <path d="M12 17h.01" />
-                        </svg>
-                        <span>{t("t40", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-eye"
-                          aria-hidden="true"
-                        >
-                          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
-                        <span>{t("t41", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-clock"
-                          aria-hidden="true"
-                        >
-                          <circle cx="12" cy="12" r="10" />
-                          <polyline points="12 6 12 12 16 14" />
-                        </svg>
-                        <span>{t("t42", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-calendar-clock"
-                          aria-hidden="true"
-                        >
-                          <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" />
-                          <path d="M16 2v4" />
-                          <path d="M8 2v4" />
-                          <path d="M3 10h5" />
-                          <path d="M17.5 17.5 16 16.3V14" />
-                          <circle cx="16" cy="16" r="6" />
-                        </svg>
-                        <span>{t("t43", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-book-open"
-                          aria-hidden="true"
-                        >
-                          <path d="M12 7v14" />
-                          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
-                        </svg>
-                        <span>{t("t44", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-monitor"
-                          aria-hidden="true"
-                        >
-                          <rect width="20" height="14" x="2" y="3" rx="2" />
-                          <line x1="8" x2="16" y1="21" y2="21" />
-                          <line x1="12" x2="12" y1="17" y2="21" />
-                        </svg>
-                        <span>{t("t45", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-award"
-                          aria-hidden="true"
-                        >
-                          <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
-                          <circle cx="12" cy="8" r="6" />
-                        </svg>
-                        <span>{t("t46", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-file-check"
-                          aria-hidden="true"
-                        >
-                          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-                          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-                          <path d="m9 15 2 2 4-4" />
-                        </svg>
-                        <span>{t("t47", v)}</span>
-                      </li>
-                      <li>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-landmark"
-                          aria-hidden="true"
-                        >
-                          <line x1="3" x2="21" y1="22" y2="22" />
-                          <line x1="6" x2="6" y1="18" y2="11" />
-                          <line x1="10" x2="10" y1="18" y2="11" />
-                          <line x1="14" x2="14" y1="18" y2="11" />
-                          <line x1="18" x2="18" y1="18" y2="11" />
-                          <polygon points="12 2 20 7 4 7" />
-                        </svg>
-                        <span>{t("t48", v)}</span>
-                      </li>
-                    </ul>
-                    <div className="cc-pic cp-pic cp-pic-stack">
-                      <div className="cp-pic-i" data-on="">
-                        <img
-                          alt={t("t49", v)}
-                          width="1448"
-                          height="1086"
-                          src="/reference/course-en.webp"
-                        />
-                      </div>
-                      <div className="cp-pic-i" aria-hidden="true"></div>
-                      <div className="cp-pic-i" aria-hidden="true"></div>
-                      <div className="cp-pic-i" aria-hidden="true"></div>
-                    </div>
-                    <div className="cp-foot">
-                      <p className="cp-line" aria-live="polite" lang="en">
-                        {t("t50", v)}
-                      </p>
-                      <Link
-                        className="btn btn-primary btn-lg cp-go"
-                        href={enrollHref}
-                      >
-                        {t("t51", v)}
-                      </Link>
-                    </div>
-                  </div>
+                        <h3 className="cp-title">{t("t38", v)}</h3>
+                        <ul className="cc-feat">
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-shield"
+                              aria-hidden="true"
+                            >
+                              <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                            </svg>
+                            <span>{t("t39", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-triangle-alert"
+                              aria-hidden="true"
+                            >
+                              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+                              <path d="M12 9v4" />
+                              <path d="M12 17h.01" />
+                            </svg>
+                            <span>{t("t40", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-eye"
+                              aria-hidden="true"
+                            >
+                              <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                              <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            <span>{t("t41", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-clock"
+                              aria-hidden="true"
+                            >
+                              <circle cx="12" cy="12" r="10" />
+                              <polyline points="12 6 12 12 16 14" />
+                            </svg>
+                            <span>{t("t42", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-calendar-clock"
+                              aria-hidden="true"
+                            >
+                              <path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5" />
+                              <path d="M16 2v4" />
+                              <path d="M8 2v4" />
+                              <path d="M3 10h5" />
+                              <path d="M17.5 17.5 16 16.3V14" />
+                              <circle cx="16" cy="16" r="6" />
+                            </svg>
+                            <span>{t("t43", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-book-open"
+                              aria-hidden="true"
+                            >
+                              <path d="M12 7v14" />
+                              <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+                            </svg>
+                            <span>{t("t44", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-monitor"
+                              aria-hidden="true"
+                            >
+                              <rect width="20" height="14" x="2" y="3" rx="2" />
+                              <line x1="8" x2="16" y1="21" y2="21" />
+                              <line x1="12" x2="12" y1="17" y2="21" />
+                            </svg>
+                            <span>{t("t45", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-award"
+                              aria-hidden="true"
+                            >
+                              <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+                              <circle cx="12" cy="8" r="6" />
+                            </svg>
+                            <span>{t("t46", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-file-check"
+                              aria-hidden="true"
+                            >
+                              <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                              <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                              <path d="m9 15 2 2 4-4" />
+                            </svg>
+                            <span>{t("t47", v)}</span>
+                          </li>
+                          <li>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-landmark"
+                              aria-hidden="true"
+                            >
+                              <line x1="3" x2="21" y1="22" y2="22" />
+                              <line x1="6" x2="6" y1="18" y2="11" />
+                              <line x1="10" x2="10" y1="18" y2="11" />
+                              <line x1="14" x2="14" y1="18" y2="11" />
+                              <line x1="18" x2="18" y1="18" y2="11" />
+                              <polygon points="12 2 20 7 4 7" />
+                            </svg>
+                            <span>{t("t48", v)}</span>
+                          </li>
+                        </ul>
+                      </>
+                    }
+                  />
                 </div>
               </div>
             </div>
