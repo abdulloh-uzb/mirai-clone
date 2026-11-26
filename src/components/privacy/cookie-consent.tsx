@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { publicEnv } from "@/lib/env";
 import {
   CONSENT_OPEN_EVENT,
   parseConsent,
@@ -11,18 +10,17 @@ import {
   type Consent,
 } from "@/lib/privacy/consent";
 
-const POSTHOG_KEY = publicEnv.NEXT_PUBLIC_POSTHOG_KEY;
-const POSTHOG_HOST = publicEnv.NEXT_PUBLIC_POSTHOG_HOST;
-
 let loaded = false;
 
 /** Loads PostHog only after consent and only when a key is set. No PII is sent. */
-async function startAnalytics() {
-  if (!POSTHOG_KEY || loaded) return;
+type Analytics = { posthogKey?: string; posthogHost: string };
+
+async function startAnalytics({ posthogKey, posthogHost }: Analytics) {
+  if (!posthogKey || loaded) return;
   loaded = true;
   const { default: posthog } = await import("posthog-js");
-  posthog.init(POSTHOG_KEY, {
-    api_host: POSTHOG_HOST,
+  posthog.init(posthogKey, {
+    api_host: posthogHost,
     person_profiles: "identified_only",
     autocapture: false,
     capture_pageview: "history_change",
@@ -36,13 +34,15 @@ async function startAnalytics() {
  * Cookie banner. Analytics stay off until "Accept analytics"; "Decline" is
  * equally prominent. The footer's "Privacy choices" button reopens it.
  */
-export function CookieConsent() {
+// The keys come from the server (lib/env), so the zod env schema stays out of the browser bundle.
+export function CookieConsent({ posthogKey, posthogHost }: Analytics) {
   const t = useTranslations("Consent");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const current = parseConsent(document.cookie);
-    if (current === "analytics") void startAnalytics();
+    if (current === "analytics")
+      void startAnalytics({ posthogKey, posthogHost });
     // Deferred: the cookie is only readable in the browser.
     const timer = setTimeout(() => {
       if (current === null) setOpen(true);
@@ -53,12 +53,12 @@ export function CookieConsent() {
       clearTimeout(timer);
       window.removeEventListener(CONSENT_OPEN_EVENT, reopen);
     };
-  }, []);
+  }, [posthogKey, posthogHost]);
 
   function choose(value: Consent) {
     document.cookie = serializeConsent(value);
     setOpen(false);
-    if (value === "analytics") void startAnalytics();
+    if (value === "analytics") void startAnalytics({ posthogKey, posthogHost });
   }
 
   if (!open) return null;

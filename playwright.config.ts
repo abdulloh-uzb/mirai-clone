@@ -59,6 +59,8 @@ export default defineConfig({
     command: serverCommand,
     url: baseURL,
     reuseExistingServer: false,
+    // The production build only serves the mock checkout with PAYMENTS_MOCK=1.
+    env: { PAYMENTS_MOCK: "1" },
     timeout: 300_000,
     stdout: "ignore",
     stderr: "pipe",

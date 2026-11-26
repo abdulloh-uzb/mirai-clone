@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { AssistantPanel } from "@/components/ai/assistant-panel";
+import { LazyAssistantPanel } from "@/components/ai/lazy-assistant-panel";
 import { CookieConsent } from "@/components/privacy/cookie-consent";
 import { HelpWidget } from "@/components/layout/help-widget";
 import { AnnouncementBar } from "@/components/layout/announcement-bar";
@@ -15,6 +15,8 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { VerifyEmailBanner } from "@/components/layout/verify-email-banner";
 import { siteConfig } from "@/config/site";
+import { CLIENT_NAMESPACES, pickNamespaces } from "@/i18n/client-messages";
+import type { Messages } from "@/i18n/fallback";
 import { routing } from "@/i18n/routing";
 import { isSiteIndexable, publicEnv } from "@/lib/env";
 import "../globals.css";
@@ -60,6 +62,12 @@ export default async function LocaleLayout({
   // Set by the proxy; makes every page dynamic, which a nonce needs.
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
+  // Only what client components read goes to the browser.
+  const clientMessages = pickNamespaces(
+    (await getMessages()) as Messages,
+    CLIENT_NAMESPACES,
+  );
+
   return (
     <html
       lang={locale}
@@ -74,7 +82,7 @@ export default async function LocaleLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextIntlClientProvider>
+          <NextIntlClientProvider messages={clientMessages}>
             <SkipLink />
             <LanguageSuggestion />
             <AnnouncementBar locale={locale} />
@@ -89,8 +97,11 @@ export default async function LocaleLayout({
             </main>
             <SiteFooter />
             <HelpWidget />
-            <AssistantPanel />
-            <CookieConsent />
+            <LazyAssistantPanel />
+            <CookieConsent
+              posthogKey={publicEnv.NEXT_PUBLIC_POSTHOG_KEY}
+              posthogHost={publicEnv.NEXT_PUBLIC_POSTHOG_HOST}
+            />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

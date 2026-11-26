@@ -2,6 +2,7 @@
 
 import { ChevronDownIcon, MapPinIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useId, useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -15,7 +16,12 @@ import {
   TICKET_STATE_MAX_AGE,
 } from "@/lib/citation-state";
 import { cn } from "@/lib/utils";
-import { StateWaitlistForm } from "./state-waitlist-form";
+
+// The waitlist form (react-hook-form and zod) loads only when a coming-soon state is picked.
+const StateWaitlistForm = dynamic(
+  () => import("./state-waitlist-form").then((m) => m.StateWaitlistForm),
+  { ssr: false },
+);
 
 export type StateOption = { code: string; name: string; active: boolean };
 

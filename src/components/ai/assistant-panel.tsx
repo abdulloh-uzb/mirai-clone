@@ -31,11 +31,18 @@ type HandoffState = "closed" | "open" | "sending" | "done" | "error";
  * The AI assistant: a right-side sheet opened by the `open-ai-assistant`
  * window event (help widget, portal nav). Never opens on the exam pages.
  */
-export function AssistantPanel() {
+export function AssistantPanel({
+  initialOpen = false,
+}: {
+  /** Set when the panel was loaded because someone asked to open it. */
+  initialOpen?: boolean;
+}) {
   const t = useTranslations("Assistant");
   const uiLocale = useLocale() as Locale;
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(
+    () => initialOpen && !isExamPath(window.location.pathname),
+  );
   const [chatLocale, setChatLocale] = useState<Locale>(uiLocale);
   const [conversationId, setConversationId] = useState(() =>
     crypto.randomUUID(),
