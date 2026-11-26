@@ -1,3 +1,5 @@
+import { Card } from "@/components/ui/card";
+
 export function StatCard({
   label,
   value,
@@ -8,12 +10,12 @@ export function StatCard({
   hint?: string;
 }) {
   return (
-    <div className="rounded-xl border bg-card p-4">
-      <p className="text-sm text-muted-foreground">{label}</p>
-      <p className="mt-1 text-2xl font-semibold">{value}</p>
-      {hint ? (
-        <p className="mt-1 text-xs text-muted-foreground">{hint}</p>
-      ) : null}
-    </div>
+    <Card padding="sm" className="gap-1 p-5">
+      <p className="text-sm font-bold text-muted-foreground">{label}</p>
+      <p className="text-[26px] leading-tight font-extrabold tracking-tight">
+        {value}
+      </p>
+      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
+    </Card>
   );
 }

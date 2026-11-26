@@ -1,5 +1,6 @@
 import type { Locale } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
+import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 
 export type Column<Row> = {
@@ -48,33 +49,45 @@ export async function DataTable<Row>({
     return <p className="mt-6 text-muted-foreground">{t("noResults")}</p>;
   }
   return (
-    <div className="mt-6 overflow-x-auto">
-      <table className="w-full text-left text-sm">
+    <div className="mt-6 overflow-x-auto rounded-[22px] border border-line-blue bg-card p-2">
+      <table className="lms-table">
         <thead>
-          <tr className="border-b text-muted-foreground">
+          <tr>
             {columns.map((c) => (
-              <th key={c.header} className="py-2 pr-4 font-medium">
-                {c.header}
-              </th>
+              <th key={c.header}>{c.header}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {shown.map((row) => (
-            <tr key={rowKey(row)} className="border-b align-top">
+            <tr key={rowKey(row)}>
               {columns.map((c) => (
-                <td key={c.header} className="py-2 pr-4">
-                  {c.cell(row)}
-                </td>
+                <td key={c.header}>{c.cell(row)}</td>
               ))}
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="mt-4 flex items-center gap-4 text-sm">
-        {page > 1 ? <Link href={href(page - 1)}>{t("previous")}</Link> : null}
-        <span className="text-muted-foreground">{t("page", { page })}</span>
-        {hasNext ? <Link href={href(page + 1)}>{t("next")}</Link> : null}
+      <div className="flex items-center gap-2 px-2 pt-3 pb-1 text-[15px]">
+        {page > 1 ? (
+          <Link
+            href={href(page - 1)}
+            className={buttonVariants({ variant: "secondary", size: "sm" })}
+          >
+            {t("previous")}
+          </Link>
+        ) : null}
+        <span className="px-2 font-semibold text-muted-foreground">
+          {t("page", { page })}
+        </span>
+        {hasNext ? (
+          <Link
+            href={href(page + 1)}
+            className={buttonVariants({ variant: "secondary", size: "sm" })}
+          >
+            {t("next")}
+          </Link>
+        ) : null}
       </div>
     </div>
   );
