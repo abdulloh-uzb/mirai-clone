@@ -70,3 +70,22 @@ Changes:
 
 Tried and dropped: `experimental.inlineCss` (HTML doubled, TBT worse); `preload: false` for Inter
 (font swap caused CLS 0.13).
+
+## Ticket 18, iteration 2 (shared layout baseline)
+
+Re-measured (Lighthouse 12 mobile, `next start`, 3 runs each, machine quieter than iteration 1):
+`/` 93, 87, 91 (median 91); `/courses` 87, 93, 87 (median 87); `/courts/los-angeles-county` 85, 86, 94 (median 86).
+Scores are bimodal: LCP is either 2.5-2.6 s (score 92-94) or 3.4-3.5 s (score 85-88), depending on
+whether the ~200 ms framework hydration task starts before the LCP paint. TBT is 200-300 ms in both modes.
+
+Findings:
+
+- LCP element is the hero `<h1>` (server-rendered text), so there is no image or markup to fix.
+- Shared first-load JS is about 215 KB gzip: react-dom 71 KB, Next client 32 KB, polyfills 40 KB
+  (nomodule-style, still fetched), intl-messageformat 12 KB, small rest. The layout islands (cookie banner,
+  language suggestion, help widget, assistant) are already lazy or tiny; no single one is worth deferring.
+- RSC payload is 118 KB of a 210 KB HTML response (client messages 26 KB).
+- Tried `font-display: optional` for Inter: no change (88/88/87 on `/`), reverted.
+
+Not done: the target needs a smaller framework hydration cost (for example partial prerendering, or removing
+`NextIntlClientProvider` messages from the root), which is a larger change than this pass. The box stays unticked.
