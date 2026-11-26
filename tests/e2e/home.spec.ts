@@ -5,13 +5,15 @@ import { createStudentAccount, deleteTestUsers } from "../support/users";
 
 test.afterAll(deleteTestUsers);
 
-// The reference-design copy is English only for now; other languages fall back to it.
-for (const path of ["/", "/ja", "/es", "/ru"]) {
+for (const [path, heading] of [
+  ["/", "California Traffic School in Your Language."],
+  ["/ja", "日本語で受けられるカリフォルニア州トラフィックスクール"],
+  ["/es", "Escuela de tránsito de California en español"],
+  ["/ru", "Дорожная школа Калифорнии на русском языке"],
+] as const) {
   test(`${path} shows the H1`, async ({ page }) => {
     await page.goto(path);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      "California Traffic School in Your Language.",
-    );
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(heading);
   });
 }
 

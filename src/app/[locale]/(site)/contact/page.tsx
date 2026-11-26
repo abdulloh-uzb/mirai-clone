@@ -32,7 +32,7 @@ export default async function ContactPage() {
   return (
     <V2Root className="ct-page">
       <PageHero title={t("title")} intro={t("intro")} art="contact">
-        <div className="ct-acts">
+        <div className="cn-acts">
           <a className="btn btn-primary btn-lg" href={contact.phoneHref}>
             <span>{contact.phone}</span>
           </a>
@@ -44,10 +44,10 @@ export default async function ContactPage() {
           </a>
         </div>
       </PageHero>
-      <section className="ct-work">
-        <div className="ct-work-in">
+      <section className="cn-work">
+        <div className="cn-work-in">
           <aside aria-labelledby="contact-details">
-            <h2 id="contact-details" className="ct-h">
+            <h2 id="contact-details" className="cn-h">
               {t("detailsHeading")}
             </h2>
             <address className="ct-fix not-italic">

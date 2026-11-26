@@ -100,7 +100,7 @@ const countyCases = [
   {
     path: "/ja/courts/los-angeles-county",
     locale: "ja",
-    h1: "Got a ticket in Los Angeles County?",
+    h1: "Los Angeles郡で違反切符を受け取りましたか？",
     notice: "デモデータです。必ず管轄の裁判所でご確認ください",
     cta: "講座を見る",
     courthouses: "裁判所の所在地",
