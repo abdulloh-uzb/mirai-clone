@@ -1,8 +1,16 @@
 "use client";
 
+import {
+  AwardIcon,
+  CircleAlertIcon,
+  PencilIcon,
+  TimerIcon,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, useTransition } from "react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Notice } from "@/components/ui/notice";
 import { Link } from "@/i18n/navigation";
 import {
   formatRemaining,
@@ -112,43 +120,58 @@ export function ExamRunner({
         role="status"
         data-testid="exam-result"
         className={cn(
-          "space-y-4 rounded-xl border p-6",
+          "grid gap-4 rounded-[22px] border-t-[6px] border-b-[6px] bg-card p-6 shadow-panel sm:p-8",
           result.passed
-            ? "border-brand-green/50 bg-brand-green/10"
-            : "border-destructive/50 bg-destructive/10",
+            ? "border-t-brand-sky border-b-brand-green"
+            : "border-t-alert-line border-b-alert-line",
         )}
       >
-        <p className="text-xl font-semibold">
+        <span
+          aria-hidden
+          className={cn(
+            "grid size-14 place-items-center rounded-full",
+            result.passed
+              ? "bg-green-tint text-green-ink"
+              : "bg-alert-bg text-alert",
+          )}
+        >
+          {result.passed ? (
+            <AwardIcon className="size-7" />
+          ) : (
+            <CircleAlertIcon className="size-7" />
+          )}
+        </span>
+        <p className="text-[28px] leading-tight font-extrabold tracking-tight">
           {t("score", { score: result.score, total: result.total })}
         </p>
-        <p>{result.passed ? t("passed") : t("failed")}</p>
+        <p className="text-lg">{result.passed ? t("passed") : t("failed")}</p>
         {!result.passed ? (
-          <p className="text-sm">
+          <p className="text-[16px] text-muted-foreground">
             {result.attemptsLeft > 0
               ? t("attemptsLeft", { count: result.attemptsLeft })
               : t("locked")}
           </p>
         ) : null}
-        <div className="flex flex-wrap gap-3">
+        <div className="mt-2 flex flex-wrap gap-3">
           {result.passed ? (
             <>
-              <Button asChild variant="outline">
+              <Button asChild size="lg">
+                <Link href="/portal/certificates">{t("getCertificate")}</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
                 <Link href={`/portal/exam/${enrollmentId}?review=1`}>
                   {t("viewAnswers")}
                 </Link>
               </Button>
-              <Button asChild>
-                <Link href="/portal/certificates">{t("getCertificate")}</Link>
-              </Button>
             </>
           ) : result.attemptsLeft > 0 ? (
-            <Button asChild>
+            <Button asChild size="lg">
               <Link href={`/portal/exam/${enrollmentId}`} prefetch={false}>
                 {t("startNext", { n: attemptNo + 1 })}
               </Link>
             </Button>
           ) : (
-            <Button asChild variant="outline">
+            <Button asChild size="lg" variant="outline">
               <Link href="/contact">{t("contactSupport")}</Link>
             </Button>
           )}
@@ -159,10 +182,19 @@ export function ExamRunner({
 
   if (!exam) {
     return (
-      <section className="space-y-4" data-testid="exam-confirm">
-        <h2 className="text-xl font-semibold">{t("confirmTitle")}</h2>
-        <p className="text-sm text-muted-foreground">{t("confirmIntro")}</p>
-        <dl className="grid gap-2 rounded-xl border bg-card p-4 text-sm sm:grid-cols-2">
+      <section
+        className="grid gap-5 rounded-[22px] border-t-[6px] border-b-[6px] border-t-brand-sky border-b-brand-green bg-card p-6 shadow-panel sm:p-8"
+        data-testid="exam-confirm"
+      >
+        <div>
+          <h2 className="text-[26px] leading-tight font-extrabold tracking-tight">
+            {t("confirmTitle")}
+          </h2>
+          <p className="mt-2 text-[17px] text-muted-foreground">
+            {t("confirmIntro")}
+          </p>
+        </div>
+        <dl className="grid gap-3 sm:grid-cols-2">
           {(
             [
               ["legalName", details.legalName],
@@ -173,35 +205,44 @@ export function ExamRunner({
               ["dueDate", details.courtDueDate],
             ] as const
           ).map(([key, value]) => (
-            <div key={key}>
-              <dt className="text-muted-foreground">{t(`fields.${key}`)}</dt>
-              <dd className="font-medium">{value || "-"}</dd>
+            <div
+              key={key}
+              className="grid gap-0.5 rounded-[16px] bg-hero px-4 py-3"
+            >
+              <dt className="text-sm font-bold text-muted-foreground">
+                {t(`fields.${key}`)}
+              </dt>
+              <dd className="text-lg font-extrabold break-words">
+                {value || "-"}
+              </dd>
             </div>
           ))}
         </dl>
-        <Button asChild variant="outline">
+        <Button asChild variant="secondary" className="justify-self-start">
           <Link
             href={`/portal/details/${enrollmentId}?next=${encodeURIComponent(`/portal/exam/${enrollmentId}`)}`}
           >
+            <PencilIcon aria-hidden />
             {t("editDetails")}
           </Link>
         </Button>
-        <label className="flex items-start gap-3 text-sm">
+        <label className="lms-choice">
           <input
             type="checkbox"
             checked={confirmed}
             onChange={(e) => setConfirmed(e.target.checked)}
-            className="mt-1"
             data-testid="exam-confirm-check"
           />
-          <span>{t("confirmCheckbox")}</span>
+          <span className="font-semibold">{t("confirmCheckbox")}</span>
         </label>
         {error ? (
-          <p role="alert" className="text-sm text-destructive">
+          <Notice role="alert" tone="error">
             {t(`errors.${error}`)}
-          </p>
+          </Notice>
         ) : null}
         <Button
+          size="lg"
+          className="justify-self-start"
           onClick={begin}
           disabled={!confirmed || busy}
           data-testid="exam-start"
@@ -214,24 +255,35 @@ export function ExamRunner({
 
   const q = exam.questions[index];
   const missing = unansweredCount(exam.questions, answers);
+  const lowTime = remaining !== null && remaining < 5 * 60 * 1000;
 
   return (
-    <div className="space-y-6" data-testid="exam-runner">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm text-muted-foreground">
+    <div className="grid gap-6" data-testid="exam-runner">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-[22px] border border-line-blue bg-surface px-4 py-3">
+        <Badge tone="neutral" className="bg-card text-[14px]">
           {t("attempt", { n: exam.attemptNo })}
-        </p>
+        </Badge>
         {remaining !== null ? (
           <p
-            className="font-mono text-sm font-semibold"
+            className={cn(
+              "inline-flex min-h-10 items-center gap-2 rounded-full px-4 font-mono text-[17px] font-bold tabular-nums",
+              lowTime ? "bg-alert-bg text-alert" : "bg-card text-foreground",
+            )}
             aria-label={t("timeLeft")}
           >
+            <TimerIcon
+              aria-hidden
+              className={cn("size-[18px]", !lowTime && "text-blue-text")}
+            />
             {formatRemaining(remaining)}
           </p>
         ) : null}
       </div>
 
-      <nav aria-label={t("navigator")} className="flex flex-wrap gap-1.5">
+      <nav
+        aria-label={t("navigator")}
+        className="flex flex-wrap gap-2 rounded-[22px] border border-line-blue bg-card p-3"
+      >
         {exam.questions.map((item, i) => (
           <button
             key={item.id}
@@ -239,9 +291,12 @@ export function ExamRunner({
             onClick={() => setIndex(i)}
             aria-current={i === index ? "step" : undefined}
             className={cn(
-              "size-8 rounded-md border text-xs",
-              answers[item.id] && "bg-primary/10",
-              i === index && "border-primary font-bold",
+              "grid size-10 place-items-center rounded-full border-2 text-[14px] font-bold transition-colors",
+              answers[item.id]
+                ? "border-primary bg-blue-tint text-foreground"
+                : "border-line-blue bg-card text-muted-foreground hover:border-primary",
+              i === index &&
+                "border-foreground bg-foreground text-background hover:border-foreground",
             )}
           >
             {i + 1}
@@ -249,40 +304,36 @@ export function ExamRunner({
         ))}
       </nav>
 
-      <fieldset className="space-y-3 rounded-xl border bg-card p-4">
-        <legend className="px-1 font-semibold">
+      <fieldset className="rounded-[22px] border-t-[6px] border-b-[6px] border-t-brand-sky border-b-brand-green bg-card p-5 shadow-panel sm:p-7">
+        <legend className="float-left mb-5 w-full text-[22px] leading-snug font-extrabold tracking-tight text-balance">
           {index + 1}. {q.text}
         </legend>
-        {q.options.map((o) => (
-          <label
-            key={o.id}
-            className={cn(
-              "flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2 text-sm",
-              answers[q.id] === o.id && "border-primary",
-            )}
-          >
-            <input
-              type="radio"
-              name={q.id}
-              value={o.id}
-              checked={answers[q.id] === o.id}
-              onChange={() => choose(q.id, o.id)}
-              className="mt-1"
-            />
-            <span>{o.text}</span>
-          </label>
-        ))}
+        <div className="clear-left grid gap-2.5">
+          {q.options.map((o) => (
+            <label key={o.id} className="lms-choice">
+              <input
+                type="radio"
+                name={q.id}
+                value={o.id}
+                checked={answers[q.id] === o.id}
+                onChange={() => choose(q.id, o.id)}
+              />
+              <span>{o.text}</span>
+            </label>
+          ))}
+        </div>
       </fieldset>
 
       {error ? (
-        <p role="alert" className="text-sm text-destructive">
+        <Notice role="alert" tone="error">
           {t(`errors.${error}`)}
-        </p>
+        </Notice>
       ) : null}
 
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <Button
           type="button"
+          size="lg"
           variant="outline"
           disabled={index === 0}
           onClick={() => setIndex(index - 1)}
@@ -291,6 +342,7 @@ export function ExamRunner({
         </Button>
         <Button
           type="button"
+          size="lg"
           variant="outline"
           disabled={index === exam.questions.length - 1}
           onClick={() => setIndex(index + 1)}
@@ -299,6 +351,8 @@ export function ExamRunner({
         </Button>
         <Button
           type="button"
+          size="lg"
+          className="sm:ml-auto"
           onClick={() => setConfirmSubmit(true)}
           data-testid="exam-submit"
         >
@@ -310,17 +364,24 @@ export function ExamRunner({
         <div
           role="alertdialog"
           aria-label={t("submitTitle")}
-          className="space-y-3 rounded-xl border-2 border-primary bg-card p-4"
+          className="grid gap-3 rounded-[22px] border-2 border-primary bg-blue-tint p-5 sm:p-6"
         >
-          <p className="font-semibold">{t("submitTitle")}</p>
-          <p className="text-sm">
+          <p className="text-xl font-extrabold tracking-tight">
+            {t("submitTitle")}
+          </p>
+          <p className="text-[17px]">
             {missing > 0 ? t("unanswered", { count: missing }) : t("allDone")}
           </p>
-          <div className="flex gap-3">
-            <Button onClick={submit} disabled={busy}>
+          <div className="flex flex-wrap gap-3">
+            <Button size="lg" onClick={submit} disabled={busy}>
               {t("submitConfirm")}
             </Button>
-            <Button variant="outline" onClick={() => setConfirmSubmit(false)}>
+            <Button
+              size="lg"
+              variant="outline"
+              className="bg-card"
+              onClick={() => setConfirmSubmit(false)}
+            >
               {t("keepWorking")}
             </Button>
           </div>
