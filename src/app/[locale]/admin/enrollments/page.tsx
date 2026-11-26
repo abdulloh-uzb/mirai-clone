@@ -3,6 +3,8 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { DataTable } from "@/components/admin/data-table";
+import { AdminFilterLinks } from "@/components/admin/filter-links";
+import { AdminPageHeader } from "@/components/admin/page-header";
 import { StatusBadge } from "@/components/admin/status-badge";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -39,7 +41,12 @@ export default async function AdminEnrollmentsPage({
   const sp = await searchParams;
   const status = STATUSES.find((s) => s === sp.status);
   const page = Math.max(1, Number(sp.page) || 1);
-  const t = await getTranslations({ locale, namespace: "Admin.enrollments" });
+  const [t, tNav, tDesc, tStatus] = await Promise.all([
+    getTranslations({ locale, namespace: "Admin.enrollments" }),
+    getTranslations({ locale, namespace: "Admin.nav" }),
+    getTranslations({ locale, namespace: "Admin.descriptions" }),
+    getTranslations({ locale, namespace: "Admin.statuses" }),
+  ]);
 
   let query = createServiceClient()
     .from("enrollments")
@@ -52,25 +59,11 @@ export default async function AdminEnrollmentsPage({
   const emails = await emailsFor(rows.map((r) => r.user_id));
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-      <nav
-        aria-label={t("filter")}
-        className="mt-4 flex flex-wrap gap-2 text-sm"
-      >
-        <Link href="/admin/enrollments" className="underline">
-          {t("all")}
-        </Link>
-        {STATUSES.map((s) => (
-          <Link
-            key={s}
-            href={{ pathname: "/admin/enrollments", query: { status: s } }}
-            className="underline"
-          >
-            {s}
-          </Link>
-        ))}
-      </nav>
+    <div className="flex flex-col gap-6">
+      <AdminPageHeader
+        title={tNav("enrollments")}
+        description={tDesc("enrollments")}
+      />
       <DataTable
         locale={locale}
         rows={rows}
@@ -79,13 +72,32 @@ export default async function AdminEnrollmentsPage({
         page={page}
         pageSize={PAGE_SIZE}
         extraParams={status ? { status } : undefined}
+        toolbar={
+          <AdminFilterLinks
+            label={t("filter")}
+            items={[
+              {
+                key: "all",
+                href: "/admin/enrollments",
+                label: t("all"),
+                active: !status,
+              },
+              ...STATUSES.map((s) => ({
+                key: s,
+                href: { pathname: "/admin/enrollments", query: { status: s } },
+                label: tStatus(s),
+                active: status === s,
+              })),
+            ]}
+          />
+        }
         columns={[
           {
             header: t("detail"),
             cell: (r) => (
               <Link
                 href={`/admin/enrollments/${r.id}`}
-                className="font-mono underline"
+                className="font-mono text-xs font-medium hover:underline"
               >
                 {r.id.slice(0, 8)}
               </Link>
@@ -94,12 +106,19 @@ export default async function AdminEnrollmentsPage({
           {
             header: t("user"),
             cell: (r) => (
-              <Link href={`/admin/students/${r.user_id}`} className="underline">
+              <Link
+                href={`/admin/students/${r.user_id}`}
+                className="font-medium hover:underline"
+              >
                 {emails[r.user_id] || r.user_id.slice(0, 8)}
               </Link>
             ),
           },
-          { header: t("language"), cell: (r) => r.course_locale },
+          {
+            header: t("language"),
+            cell: (r) => r.course_locale,
+            className: "text-xs font-medium uppercase",
+          },
           {
             header: t("status"),
             cell: (r) => <StatusBadge status={r.status} />,
@@ -107,13 +126,15 @@ export default async function AdminEnrollmentsPage({
           {
             header: t("started"),
             cell: (r) => r.started_at?.slice(0, 10) ?? t("notStarted"),
+            className: "tabular-nums",
           },
           {
             header: t("expires"),
             cell: (r) => r.expires_at?.slice(0, 10) ?? "—",
+            className: "tabular-nums",
           },
         ]}
       />
-    </section>
+    </div>
   );
 }
