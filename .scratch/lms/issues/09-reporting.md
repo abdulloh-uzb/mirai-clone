@@ -6,5 +6,5 @@
 
 Spec §9 cron batches: /api/cron/report-batch (CRON_SECRET, LA times), StateReportingAdapter + MockCaliforniaAdapter, report_attempts logged, statuses + retry with backoff (max 5), status emails, /portal/status/[enrollmentId] timeline.
 
-- [ ] queued → sent → accepted in next batch (DB/unit test)
-- [ ] Timeline page
+- [x] queued → sent → accepted in next batch (DB/unit test)
+- [x] Timeline page

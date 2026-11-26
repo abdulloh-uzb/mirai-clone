@@ -31,6 +31,8 @@ export type ReportStatusInfo =
       reportStatus:
         "queued" | "sent" | "accepted" | "rejected" | "error" | null;
       updatedAt: string | null;
+      sentAt?: string | null;
+      acceptedAt?: string | null;
     };
 
 export type RefundInfo =
@@ -110,7 +112,7 @@ export function createAccountTools(client: Client): AccountTools {
       if (!cert) return { enrolled: true, certificateIssued: false };
       const { data: report, error: reportError } = await client
         .from("completion_reports")
-        .select("status, updated_at")
+        .select("status, updated_at, sent_at, accepted_at")
         .eq("certificate_id", cert.id)
         .order("created_at", { ascending: false })
         .limit(1)
@@ -121,6 +123,8 @@ export function createAccountTools(client: Client): AccountTools {
         certificateIssued: true,
         reportStatus: reportStatusSchema.safeParse(report?.status).data ?? null,
         updatedAt: report?.updated_at ?? null,
+        sentAt: report?.sent_at ?? null,
+        acceptedAt: report?.accepted_at ?? null,
       };
     },
 

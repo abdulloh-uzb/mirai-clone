@@ -366,6 +366,27 @@
       "calculator": "Calculadora de reembolso",
       "refundable": "Reembolsable ahora: {amount} ({pct}%)",
       "refunds": "Reembolsos de este pedido"
+    },
+    "reporting": {
+      "title": "Reportes",
+      "exportCsv": "Exportar CSV",
+      "runNow": "Ejecutar lote ahora",
+      "queueHeading": "Reportes rechazados y fallidos",
+      "queueEmpty": "Nada requiere atención.",
+      "attempts": "{count, plural, one {# intento} other {# intentos}}",
+      "saveCitation": "Guardar citación",
+      "citation": "Número de citación",
+      "resend": "Reenviar",
+      "reportsHeading": "Reportes",
+      "all": "Todos",
+      "cert": "Certificado",
+      "ref": "Referencia del DMV",
+      "sentAt": "Enviado",
+      "acceptedAt": "Aceptado",
+      "batchesHeading": "Historial de lotes",
+      "startedAt": "Inicio",
+      "trigger": "Origen",
+      "counts": "Conteos"
     }
   },
   "LanguageSuggestion": {
@@ -1206,5 +1227,28 @@
     "button": "Comprobar",
     "valid": "Certificado válido. Completado el {date}.",
     "invalid": "No encontramos un certificado válido con este número."
+  },
+  "ReportStatus": {
+    "title": "Estado del reporte",
+    "none": "Tu finalización aún no está en la cola.",
+    "pending": "Aún no",
+    "back": "Volver al panel",
+    "step": {
+      "passed": "Aprobaste el examen final",
+      "queued": "En cola para reportar",
+      "sent": "Enviado al DMV",
+      "accepted": "Confirmado por el DMV",
+      "rejected": "Requiere corrección",
+      "court": "Tribunal notificado"
+    },
+    "rejectedText": "Lo estamos corrigiendo: nuestro equipo lo reenviará. No necesitas hacer nada.",
+    "nextBatch": "Próximo envío: {time} (hora del Pacífico).",
+    "status": {
+      "queued": "En cola",
+      "sent": "Enviado al DMV",
+      "accepted": "Confirmado por el DMV",
+      "rejected": "En corrección",
+      "error": "Reintentando"
+    }
   }
 }

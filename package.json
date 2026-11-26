@@ -23,6 +23,7 @@
     "db:seed:course": "tsx scripts/generate-course-seed.ts",
     "db:make-admin": "tsx scripts/make-admin.ts",
     "ai:reindex": "tsx scripts/reindex-kb.ts",
+    "report:run": "tsx scripts/run-report-batch.ts",
     "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
