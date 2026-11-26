@@ -32,7 +32,7 @@ function ok(result: Result<unknown>): void {
   if (result.error) throw new Error(result.error.message);
 }
 
-async function ensureUser(
+async function ensureAuthUser(
   service: Client,
   email: string,
   firstName: string,
@@ -63,6 +63,31 @@ async function ensureUser(
   });
   if (error) throw error;
   return data.user.id;
+}
+
+/** Demo accounts are verified: the auth flag and the profile flag the app reads. */
+async function ensureUser(
+  service: Client,
+  email: string,
+  firstName: string,
+  lastName: string,
+  password: string,
+): Promise<string> {
+  const id = await ensureAuthUser(
+    service,
+    email,
+    firstName,
+    lastName,
+    password,
+  );
+  ok(
+    await service
+      .from("profiles")
+      .update({ email_verified_at: new Date().toISOString() })
+      .eq("user_id", id)
+      .is("email_verified_at", null),
+  );
+  return id;
 }
 
 async function signIn(
