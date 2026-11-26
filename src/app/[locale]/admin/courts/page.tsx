@@ -2,6 +2,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { CrudList } from "@/components/admin/crud-list";
+import { AdminPageHeader } from "@/components/admin/page-header";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
 import { createServiceClient } from "@/lib/supabase/service";
@@ -13,6 +14,7 @@ export default async function AdminCourtsPage({
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
   const t = await getTranslations({ locale, namespace: "Admin.courts" });
+  const tNav = await getTranslations({ locale, namespace: "Admin.nav" });
   const svc = createServiceClient();
   const [counties, courts] = await Promise.all([
     svc.from("counties").select("*").order("name"),
@@ -23,23 +25,23 @@ export default async function AdminCourtsPage({
     label: c.name,
   }));
   return (
-    <section>
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
-        {t("hint", { example: '{"en": "..."}' })}
-      </p>
-      <h2 className="mt-8 text-xl font-semibold">{t("counties")}</h2>
+    <div className="flex flex-col gap-6">
+      <AdminPageHeader
+        title={tNav("courts")}
+        description={t("hint", { example: '{"en": "..."}' })}
+      />
       <CrudList
+        title={t("counties")}
         table="counties"
         rows={counties.data ?? []}
         describe={(r) => String(r.name)}
       />
-      <h2 className="mt-8 text-xl font-semibold">{t("courthouses")}</h2>
       <CrudList
+        title={t("courthouses")}
         table="courts"
         rows={courts.data ?? []}
         selectOptions={{ county_id: countyOptions }}
       />
-    </section>
+    </div>
   );
 }
