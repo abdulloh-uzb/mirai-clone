@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { EyeIcon } from "lucide-react";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { z } from "zod";
+import { AdminAlert } from "@/components/admin/ui/alert";
 import { Dashboard } from "@/components/portal/dashboard";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
@@ -47,13 +49,10 @@ export default async function AdminViewAsStudentPage({
   const outline = await getCourseOutline(enrollment, svc);
 
   return (
-    <div>
-      <p
-        role="status"
-        className="rounded-lg border border-amber-500/50 bg-amber-500/10 px-4 py-3 font-medium"
-      >
+    <div className="flex flex-col gap-6">
+      <AdminAlert tone="warning" icon={EyeIcon} role="status">
         {t("readOnly")}
-      </p>
+      </AdminAlert>
       <Dashboard
         locale={locale}
         enrollment={enrollment}
