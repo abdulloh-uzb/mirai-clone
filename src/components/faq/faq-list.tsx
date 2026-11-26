@@ -13,20 +13,20 @@ import { faqSearchText } from "@/lib/faq/search";
 export async function FaqList({ entries }: { entries: FaqEntry[] }) {
   const t = await getTranslations("Faq");
   return (
-    <div className="mt-6 grid gap-10">
+    <div>
       {FAQ_CATEGORIES.map((category) => {
         const items = entries.filter((e) => e.category === category);
         if (items.length === 0) return null;
         return (
           <section
             key={category}
+            id={`faq-cat-${category}`}
+            role="tabpanel"
             className="fq-group"
-            data-faq-category
-            aria-labelledby={`faq-cat-${category}`}
+            data-faq-category={category}
+            aria-labelledby={`fqtopic-${category}`}
           >
-            <h2 id={`faq-cat-${category}`} className="fq-gh scroll-mt-28">
-              {t(`categories.${category}`)}
-            </h2>
+            <h2 className="fq-gh">{t(`categories.${category}`)}</h2>
             <div className="v2-acc faq mt-4">
               {items.map((entry) => (
                 <details

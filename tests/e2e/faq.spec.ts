@@ -93,3 +93,23 @@ test("FAQPage structured data lists every question", async ({ page }) => {
     .find((data) => data["@type"] === "FAQPage");
   expect(faq?.mainEntity).toHaveLength(36);
 });
+
+test("topic tabs show one group of questions at a time", async ({ page }) => {
+  await page.goto("/faq");
+  const tabs = page.getByRole("tablist", { name: "Question topics" });
+  await expect(tabs.getByRole("tab").first()).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await expect(page.locator("details[data-faq-item]:visible")).not.toHaveCount(
+    36,
+  );
+  await tabs.getByRole("tab").nth(1).click();
+  await expect(tabs.getByRole("tab").nth(1)).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await expect(
+    page.locator("section[role=tabpanel]:not([hidden])"),
+  ).toHaveCount(1);
+});

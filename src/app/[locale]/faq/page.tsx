@@ -2,9 +2,16 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { FaqHash } from "@/components/faq/faq-hash";
+import {
+  FaqExplorer,
+  FaqSearchForm,
+  FaqStatus,
+  FaqTopics,
+} from "@/components/faq/faq-explorer";
+import { OpenAssistantButton } from "@/components/ref/ref-client";
+import { siteConfig } from "@/config/site";
+import { Link } from "@/i18n/navigation";
 import { FaqList } from "@/components/faq/faq-list";
-import { FaqSearch } from "@/components/faq/faq-search";
 import { PageHero, V2Root } from "@/components/layout/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
 import { FAQ_CATEGORIES } from "@/lib/faq/categories";
@@ -49,60 +56,78 @@ export default async function FaqPage({ params }: PageProps<"/[locale]/faq">) {
   const entries = await listFaq(locale);
   const categoryCount = new Set(entries.map((e) => e.category)).size;
 
+  const tr = await getTranslations({ locale, namespace: "Ref.faq" });
+  const topics = FAQ_CATEGORIES.flatMap((category) => {
+    const count = entries.filter((e) => e.category === category).length;
+    if (count === 0) return [];
+    const art = TOPIC_ART[category];
+    return [
+      {
+        key: category,
+        label: t(`categories.${category}`),
+        count,
+        art: (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="pic-day"
+              src={`/reference/art/${art}.webp`}
+              alt=""
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="pic-night"
+              src={`/reference/art/${art}-night.webp`}
+              alt=""
+              loading="lazy"
+            />
+          </>
+        ),
+      },
+    ];
+  });
+
   return (
     <V2Root>
-      <PageHero
-        art="faq"
-        title={t("title")}
-        intro={t("count", {
-          count: entries.length,
-          categories: categoryCount,
-        })}
-      />
-      <section className="fq-work">
-        <div className="fq-work-in">
-          <nav aria-label={t("categoriesLabel")} className="topics">
-            {FAQ_CATEGORIES.map((category) => {
-              const count = entries.filter(
-                (e) => e.category === category,
-              ).length;
-              if (count === 0) return null;
-              const art = TOPIC_ART[category];
-              return (
-                <a
-                  key={category}
-                  href={`#faq-cat-${category}`}
-                  className="topic"
-                >
-                  <span className="topic-th" aria-hidden="true">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      className="pic-day"
-                      src={`/reference/art/${art}.webp`}
-                      alt=""
-                    />
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      className="pic-night"
-                      src={`/reference/art/${art}-night.webp`}
-                      alt=""
-                      loading="lazy"
-                    />
-                  </span>
-                  <span className="topic-l">{t(`categories.${category}`)}</span>
-                  <span className="topic-n">{count}</span>
-                </a>
-              );
-            })}
-          </nav>
-          <div className="fq-main">
-            <FaqSearch>
+      <FaqExplorer firstTopic={topics[0].key}>
+        <PageHero
+          art="faq"
+          title={t("title")}
+          intro={t("count", {
+            count: entries.length,
+            categories: categoryCount,
+          })}
+        >
+          <FaqSearchForm goLabel={tr("searchGo")} />
+        </PageHero>
+        <section className="fq-work">
+          <div className="fq-work-in">
+            <FaqTopics topics={topics} />
+            <div className="fq-main" tabIndex={-1}>
+              <FaqStatus />
               <FaqList entries={entries} />
-            </FaqSearch>
+              <div className="fq-help">
+                <strong>{tr("didntFind")}</strong>
+                <a
+                  className="btn btn-primary"
+                  href={siteConfig.contact.phoneHref}
+                >
+                  <span>{tr("call", { phone: siteConfig.contact.phone })}</span>
+                </a>
+                <Link className="btn btn-secondary" href="/contact">
+                  {tr("write")}
+                </Link>
+                <OpenAssistantButton
+                  className="btn btn-ghost"
+                  label={tr("askAi")}
+                >
+                  {tr("askAi")}
+                </OpenAssistantButton>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-      <FaqHash />
+        </section>
+      </FaqExplorer>
       <JsonLd
         data={faqPage(
           entries.map((e) => ({
