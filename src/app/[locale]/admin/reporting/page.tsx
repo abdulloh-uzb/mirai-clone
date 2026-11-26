@@ -1,11 +1,31 @@
 import type { Metadata } from "next";
+import { CircleCheckIcon, DownloadIcon, PlayIcon } from "lucide-react";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ConfirmForm } from "@/components/admin/confirm-form";
 import { DataTable } from "@/components/admin/data-table";
+import { AdminFilterLinks } from "@/components/admin/filter-links";
+import { AdminPageHeader } from "@/components/admin/page-header";
 import { StatusBadge } from "@/components/admin/status-badge";
-import { Link } from "@/i18n/navigation";
+import { AdminBadge } from "@/components/admin/ui/badge";
+import { AdminButton, adminButtonVariants } from "@/components/admin/ui/button";
+import {
+  AdminCard,
+  AdminCardHeader,
+  AdminCardTitle,
+} from "@/components/admin/ui/card";
+import { AdminEmpty } from "@/components/admin/ui/empty";
+import { AdminField } from "@/components/admin/ui/field";
+import { AdminInput } from "@/components/admin/ui/input";
+import {
+  AdminTable,
+  AdminTableBody,
+  AdminTableCell,
+  AdminTableHead,
+  AdminTableHeader,
+  AdminTableRow,
+} from "@/components/admin/ui/table";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
 import {
@@ -40,9 +60,12 @@ export default async function AdminReportingPage({
   const sp = await searchParams;
   const status = STATUSES.find((s) => s === sp.status);
   const page = Math.max(1, Number(sp.page) || 1);
-  const [t, tc] = await Promise.all([
+  const [t, tc, tNav, tDesc, tStatus] = await Promise.all([
     getTranslations({ locale, namespace: "Admin.reporting" }),
     getTranslations({ locale, namespace: "Admin.common" }),
+    getTranslations({ locale, namespace: "Admin.nav" }),
+    getTranslations({ locale, namespace: "Admin.descriptions" }),
+    getTranslations({ locale, namespace: "Admin.statuses" }),
   ]);
   const service = createServiceClient();
 
@@ -83,62 +106,81 @@ export default async function AdminReportingPage({
   const when = (iso: string | null) =>
     iso ? new Date(iso).toLocaleString(locale) : "-";
 
-  return (
-    <section>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-        <div className="flex gap-3">
-          <a
-            href="/api/admin/reports.csv"
-            className="rounded-md border px-3 py-1.5 text-sm"
-          >
-            {t("exportCsv")}
-          </a>
-          <form action={runBatchNow}>
-            <button
-              type="submit"
-              className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
-            >
-              {t("runNow")}
-            </button>
-          </form>
-        </div>
-      </div>
+  const queueRows = queue.data ?? [];
 
-      <h2 className="mt-8 text-xl font-semibold">{t("queueHeading")}</h2>
-      {(queue.data ?? []).length === 0 ? (
-        <p className="mt-2 text-muted-foreground">{t("queueEmpty")}</p>
-      ) : (
-        <ul className="mt-3 space-y-4">
-          {(queue.data ?? []).map((r) => {
-            const cert = certOf(r);
-            const enrollment = cert?.enrollments;
-            return (
-              <li key={r.id} className="rounded-md border p-4">
-                <p className="flex flex-wrap items-center gap-2 text-sm">
-                  <span className="font-mono">{cert?.cert_no}</span>
-                  <StatusBadge status={r.status} />
-                  <span className="text-muted-foreground">
-                    {r.error ?? ""} ({t("attempts", { count: r.attempts })})
-                  </span>
-                </p>
-                <div className="mt-3 flex flex-col gap-3">
+  return (
+    <div className="flex flex-col gap-6">
+      <AdminPageHeader
+        title={tNav("reporting")}
+        description={tDesc("reporting")}
+        actions={
+          <>
+            <a
+              href="/api/admin/reports.csv"
+              className={adminButtonVariants({
+                variant: "outline",
+                size: "sm",
+              })}
+            >
+              <DownloadIcon aria-hidden />
+              {t("exportCsv")}
+            </a>
+            <form action={runBatchNow}>
+              <AdminButton type="submit" size="sm">
+                <PlayIcon aria-hidden />
+                {t("runNow")}
+              </AdminButton>
+            </form>
+          </>
+        }
+      />
+
+      <AdminCard>
+        <AdminCardHeader>
+          <AdminCardTitle>{t("queueHeading")}</AdminCardTitle>
+          <AdminBadge tone={queueRows.length ? "danger" : "neutral"}>
+            {queueRows.length}
+          </AdminBadge>
+        </AdminCardHeader>
+        {queueRows.length === 0 ? (
+          <AdminEmpty icon={CircleCheckIcon} title={t("queueEmpty")} />
+        ) : (
+          <ul className="divide-y">
+            {queueRows.map((r) => {
+              const cert = certOf(r);
+              const enrollment = cert?.enrollments;
+              return (
+                <li key={r.id} className="flex flex-col gap-3 p-4">
+                  <div className="flex flex-wrap items-center gap-2 text-sm">
+                    <span className="font-mono text-xs font-medium">
+                      {cert?.cert_no}
+                    </span>
+                    <StatusBadge status={r.status} />
+                    <span className="text-xs text-muted-foreground">
+                      {t("attempts", { count: r.attempts })}
+                    </span>
+                  </div>
+                  {r.error ? (
+                    <p className="text-sm text-red-700 dark:text-red-400">
+                      {r.error}
+                    </p>
+                  ) : null}
                   {enrollment ? (
                     <ConfirmForm
                       action={updateCitation}
                       hidden={{ enrollmentId: enrollment.id }}
                       submitLabel={t("saveCitation")}
                       reasonLabel={tc("reason")}
+                      tone="primary"
                     >
-                      <label className="flex flex-col gap-1 text-sm">
-                        {t("citation")}
-                        <input
+                      <AdminField label={t("citation")}>
+                        <AdminInput
                           name="citationNo"
                           defaultValue={enrollment.citation_no ?? ""}
                           required
-                          className="rounded-md border bg-background px-2 py-1"
+                          className="sm:w-56"
                         />
-                      </label>
+                      </AdminField>
                     </ConfirmForm>
                   ) : null}
                   <ConfirmForm
@@ -146,31 +188,37 @@ export default async function AdminReportingPage({
                     hidden={{ reportId: r.id }}
                     submitLabel={t("resend")}
                     reasonLabel={tc("reason")}
+                    tone="secondary"
                   />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </AdminCard>
 
-      <h2 className="mt-10 text-xl font-semibold">{t("reportsHeading")}</h2>
-      <nav className="mt-3 flex flex-wrap gap-4 text-sm font-medium">
-        <Link href="/admin/reporting" className={status ? "" : "underline"}>
-          {t("all")}
-        </Link>
-        {STATUSES.map((s) => (
-          <Link
-            key={s}
-            href={{ pathname: "/admin/reporting", query: { status: s } }}
-            className={status === s ? "underline" : ""}
-          >
-            {s}
-          </Link>
-        ))}
-      </nav>
       <DataTable
         locale={locale}
+        title={t("reportsHeading")}
+        toolbar={
+          <AdminFilterLinks
+            label={t("reportsHeading")}
+            items={[
+              {
+                key: "all",
+                href: "/admin/reporting",
+                label: t("all"),
+                active: !status,
+              },
+              ...STATUSES.map((s) => ({
+                key: s,
+                href: { pathname: "/admin/reporting", query: { status: s } },
+                label: tStatus(s),
+                active: status === s,
+              })),
+            ]}
+          />
+        }
         rows={list.data ?? []}
         rowKey={(r) => r.id}
         basePath="/admin/reporting"
@@ -178,38 +226,64 @@ export default async function AdminReportingPage({
         pageSize={PAGE_SIZE}
         extraParams={status ? { status } : undefined}
         columns={[
-          { header: t("cert"), cell: (r) => certOf(r)?.cert_no ?? "-" },
+          {
+            header: t("cert"),
+            cell: (r) => certOf(r)?.cert_no ?? "-",
+            className: "font-mono text-xs",
+          },
           {
             header: tc("status"),
             cell: (r) => <StatusBadge status={r.status} />,
           },
-          { header: t("ref"), cell: (r) => r.regulator_ref ?? "-" },
-          { header: t("sentAt"), cell: (r) => when(r.sent_at) },
-          { header: t("acceptedAt"), cell: (r) => when(r.accepted_at) },
+          {
+            header: t("ref"),
+            cell: (r) => r.regulator_ref ?? "-",
+            className: "font-mono text-xs",
+          },
+          {
+            header: t("sentAt"),
+            cell: (r) => when(r.sent_at),
+            className: "tabular-nums",
+          },
+          {
+            header: t("acceptedAt"),
+            cell: (r) => when(r.accepted_at),
+            className: "tabular-nums",
+          },
         ]}
       />
 
-      <h2 className="mt-10 text-xl font-semibold">{t("batchesHeading")}</h2>
-      <table className="mt-3 w-full text-left text-sm">
-        <thead>
-          <tr className="border-b text-muted-foreground">
-            <th className="py-2 pr-4 font-medium">{t("startedAt")}</th>
-            <th className="py-2 pr-4 font-medium">{t("trigger")}</th>
-            <th className="py-2 pr-4 font-medium">{t("counts")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {(batches.data ?? []).map((b) => (
-            <tr key={b.id} className="border-b">
-              <td className="py-2 pr-4">{when(b.started_at)}</td>
-              <td className="py-2 pr-4">{b.trigger}</td>
-              <td className="py-2 pr-4 font-mono">
-                {JSON.stringify(b.counts)}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+      <AdminCard className="overflow-hidden">
+        <AdminCardHeader>
+          <AdminCardTitle>{t("batchesHeading")}</AdminCardTitle>
+        </AdminCardHeader>
+        {(batches.data ?? []).length ? (
+          <AdminTable>
+            <AdminTableHeader>
+              <AdminTableRow>
+                <AdminTableHead>{t("startedAt")}</AdminTableHead>
+                <AdminTableHead>{t("trigger")}</AdminTableHead>
+                <AdminTableHead>{t("counts")}</AdminTableHead>
+              </AdminTableRow>
+            </AdminTableHeader>
+            <AdminTableBody>
+              {(batches.data ?? []).map((b) => (
+                <AdminTableRow key={b.id}>
+                  <AdminTableCell className="tabular-nums">
+                    {when(b.started_at)}
+                  </AdminTableCell>
+                  <AdminTableCell>{b.trigger}</AdminTableCell>
+                  <AdminTableCell className="font-mono text-xs whitespace-normal">
+                    {JSON.stringify(b.counts)}
+                  </AdminTableCell>
+                </AdminTableRow>
+              ))}
+            </AdminTableBody>
+          </AdminTable>
+        ) : (
+          <AdminEmpty title={tc("nothingYet")} />
+        )}
+      </AdminCard>
+    </div>
   );
 }
