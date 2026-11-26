@@ -6,4 +6,4 @@
 
 Spec §11: Reporting (batch history, queue, edit + re-send, CSV), Content (sections, lessons, blocks, question bank per locale, translation status), Courts, Site content (FAQ, pages, announcements, What's new, blog, prices, coupons, reviews), Tickets, Settings (admins, state config, notify-me lists), AI logs page shell.
 
-- [ ] All writes via adminWrite
+- [x] All writes via adminWrite
