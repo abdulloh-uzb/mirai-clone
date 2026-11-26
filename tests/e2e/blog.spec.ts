@@ -22,7 +22,7 @@ test("/blog lists the 6 posts newest first and is accessible", async ({
 
   const titles = page
     .getByRole("list", { name: "Blog posts" })
-    .getByRole("heading", { level: 2 });
+    .getByRole("heading", { level: 3 });
   await expect(titles).toHaveCount(6);
   await expect(titles.first()).toHaveText(
     "What traffic school is and how it works",
@@ -42,7 +42,7 @@ test("the category filter narrows the list and marks the current category", asyn
   await expect(
     page
       .getByRole("list", { name: "Blog posts" })
-      .getByRole("heading", { level: 2 }),
+      .getByRole("heading", { level: 3 }),
   ).toHaveCount(2);
 
   await filter.getByRole("link", { name: "All" }).click();
@@ -50,8 +50,25 @@ test("the category filter narrows the list and marks the current category", asyn
   await expect(
     page
       .getByRole("list", { name: "Blog posts" })
-      .getByRole("heading", { level: 2 }),
+      .getByRole("heading", { level: 3 }),
   ).toHaveCount(6);
+});
+
+test("the search box narrows the posts and shows the featured post", async ({
+  page,
+}) => {
+  await page.goto("/blog");
+  await expect(
+    page
+      .getByRole("region", { name: "Featured post" })
+      .getByRole("heading", { level: 2 }),
+  ).toHaveText("What traffic school is and how it works");
+  await page.getByRole("searchbox", { name: "Search the guides" }).fill("rain");
+  await expect(page.locator("[data-post]:not([hidden])")).toHaveCount(1);
+  await page
+    .getByRole("searchbox", { name: "Search the guides" })
+    .fill("zzzzqq");
+  await expect(page.getByText("No guides match your search.")).toBeVisible();
 });
 
 test("an unknown category shows every post", async ({ page }) => {
@@ -59,7 +76,7 @@ test("an unknown category shows every post", async ({ page }) => {
   await expect(
     page
       .getByRole("list", { name: "Blog posts" })
-      .getByRole("heading", { level: 2 }),
+      .getByRole("heading", { level: 3 }),
   ).toHaveCount(6);
 });
 
