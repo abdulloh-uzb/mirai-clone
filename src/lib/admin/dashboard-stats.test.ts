@@ -3,6 +3,7 @@ import {
   avgCompletionDays,
   dashboardStatsSchema,
   passRatePct,
+  reportsWaiting,
 } from "./dashboard-stats";
 
 const base = {
@@ -36,5 +37,18 @@ describe("dashboard stats", () => {
       avg_completion_seconds: 129600,
     });
     expect(avgCompletionDays(s)).toBe(1.5);
+  });
+
+  it("counts completion reports waiting for the DMV", () => {
+    const s = dashboardStatsSchema.parse({
+      ...base,
+      reports_by_status: { queued: 2, sent: 3, accepted: 9 },
+    });
+    expect(reportsWaiting(s)).toEqual({ queued: 2, sent: 3, total: 5 });
+    expect(reportsWaiting(dashboardStatsSchema.parse(base))).toEqual({
+      queued: 0,
+      sent: 0,
+      total: 0,
+    });
   });
 });

@@ -30,3 +30,10 @@ export function avgCompletionDays(stats: DashboardStats): number | null {
   if (stats.avg_completion_seconds === null) return null;
   return Math.round((stats.avg_completion_seconds / 86400) * 10) / 10;
 }
+
+/** Completion reports still waiting on the DMV: queued to send, or sent and not yet accepted. */
+export function reportsWaiting(stats: DashboardStats) {
+  const queued = stats.reports_by_status.queued ?? 0;
+  const sent = stats.reports_by_status.sent ?? 0;
+  return { queued, sent, total: queued + sent };
+}

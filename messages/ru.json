@@ -266,12 +266,13 @@
       "students": "Студенты",
       "enrollments": "Записи",
       "orders": "Заказы и возвраты",
-      "reporting": "Отчёты",
-      "content": "Контент",
+      "reporting": "Отчёты в DMV",
       "courts": "Суды",
+      "content": "Контент курса",
+      "questions": "Банк вопросов",
       "siteContent": "Контент сайта",
-      "ai": "ИИ",
-      "tickets": "Обращения",
+      "tickets": "Запросы в поддержку",
+      "ai": "ИИ-ассистент",
       "settings": "Настройки"
     },
     "comingSoon": "Появится в этом выпуске.",
@@ -313,7 +314,47 @@
       "refunds": "Возвраты (30 дней)",
       "refundsValue": "{count} / {amount}",
       "aiChats": "Чаты с ИИ (7 дней)",
-      "noData": "Данных пока нет"
+      "noData": "Данных пока нет",
+      "subtitle": "Что нужно сделать сегодня и как идут дела у школы.",
+      "kpiHeading": "Ключевые показатели",
+      "sales30": "Продажи за 30 дней",
+      "enrollments30": "Новые записи за 30 дней",
+      "windowHint": "Сегодня: {today} · 7 дней: {d7}",
+      "passRateHint": "Сдано {passed} из {submitted} итоговых экзаменов",
+      "reportsWaiting": "Отчёты о завершении в ожидании",
+      "reportsWaitingHint": "В очереди: {queued} · отправлено, не принято: {sent}",
+      "stagesHeading": "Этапы студентов",
+      "attentionHeading": "Требует внимания",
+      "attentionDescription": "Сначала самое старое. Каждая строка ведёт на страницу, где это решается.",
+      "attentionEmpty": "Сейчас ничего не требует внимания.",
+      "viewAll": "Показать все ({count})",
+      "more": "Ещё {count}",
+      "attentionKinds": {
+        "report_failed": "Отчёты о завершении на исправление",
+        "refund_requested": "Запросы на возврат",
+        "enrollment_blocked": "Студенты, которые не могут продолжить",
+        "ticket_open": "Открытые запросы в поддержку",
+        "court_due_soon": "Срок суда в ближайшие 7 дней"
+      },
+      "attentionRows": {
+        "reportRejected": "DMV отклонил отчёт о завершении",
+        "reportError": "Не удалось отправить отчёт о завершении",
+        "refund": "Запрошен возврат {amount}",
+        "paused": "Приостановлен после неудачной проверки личности",
+        "locked": "Заблокирован после провала итогового экзамена",
+        "expired": "Истёк срок доступа",
+        "ticket": "Запрос в поддержку: {type}",
+        "courtDue": "Срок в суде: {date}",
+        "unknownUser": "Неизвестный студент"
+      },
+      "chartHeading": "Последние 30 дней",
+      "chartDescription": "Продажи (USD) и новые записи по дням",
+      "chartSummary": "За 30 дней: продажи {sales}, новых записей {enrollments}.",
+      "recentHeading": "Недавние студенты",
+      "recentViewAll": "Все студенты",
+      "recentEmpty": "Студентов пока нет.",
+      "stage": "Этап",
+      "signedUp": "Дата регистрации"
     },
     "students": {
       "title": "Студенты",
@@ -344,7 +385,9 @@
       "failed": "Не сдан",
       "correct": "Верно",
       "incorrect": "Неверно",
-      "noneYet": "Пока ничего"
+      "noneYet": "Пока ничего",
+      "stageFilterLabel": "Фильтр по этапу",
+      "stage": "Этап"
     },
     "enrollments": {
       "title": "Записи",
@@ -696,6 +739,46 @@
           "failed": "Не удалось перевести. Попробуйте ещё раз."
         }
       }
+    },
+    "navGroups": {
+      "overview": "Главное",
+      "people": "Люди",
+      "sales": "Продажи",
+      "compliance": "Соответствие",
+      "content": "Контент",
+      "support": "Поддержка",
+      "system": "Система"
+    },
+    "shell": {
+      "adminTag": "Админка",
+      "sidebarLabel": "Боковая панель",
+      "navLabel": "Разделы админки",
+      "menuTitle": "Навигация админки",
+      "openMenu": "Открыть навигацию",
+      "breadcrumbLabel": "Навигационная цепочка",
+      "details": "Подробности",
+      "searchLabel": "Поиск студентов",
+      "searchPlaceholder": "Имя, email, номер прав или штрафа",
+      "backToSite": "Вернуться на сайт",
+      "signOut": "Выйти",
+      "accountMenu": "Меню администратора",
+      "notFoundTitle": "Страница не найдена",
+      "notFoundBody": "Этой страницы админки нет или она удалена.",
+      "backToDashboard": "Вернуться к обзору"
+    },
+    "stages": {
+      "registered": "Зарегистрирован",
+      "studying": "Учится",
+      "needs_attention": "Требует внимания",
+      "completed": "Завершил",
+      "reported": "Передан в DMV"
+    },
+    "stageHints": {
+      "registered": "Курс ещё не оплачен",
+      "studying": "Оплатил и проходит курс",
+      "needs_attention": "Приостановлен, заблокирован или истёк доступ",
+      "completed": "Сдал; отчёт о завершении ещё не принят",
+      "reported": "DMV принял отчёт о завершении"
     }
   },
   "LanguageSuggestion": {

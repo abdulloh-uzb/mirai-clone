@@ -11,15 +11,9 @@ import {
 import { languages } from "@/i18n/languages";
 import { LanguageTrigger } from "./language-trigger";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { LOCALE_PREFERENCE_COOKIE } from "@/i18n/resolve-ui-locale";
-import { routing, type Locale } from "@/i18n/routing";
+import { rememberLocale } from "@/i18n/remember-locale";
+import { routing } from "@/i18n/routing";
 import { saveUiLocale } from "@/lib/preferences/save-ui-locale";
-
-const ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
-
-function rememberLocale(locale: Locale) {
-  document.cookie = `${LOCALE_PREFERENCE_COOKIE}=${locale}; path=/; max-age=${ONE_YEAR_SECONDS}; samesite=lax`;
-}
 
 export function LanguageSwitcherPopover({ label }: { label: string }) {
   const t = useTranslations("LanguageSwitcher");

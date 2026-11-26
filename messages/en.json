@@ -264,13 +264,14 @@
       "dashboard": "Dashboard",
       "students": "Students",
       "enrollments": "Enrollments",
-      "orders": "Orders and refunds",
-      "reporting": "Reporting",
-      "content": "Content",
+      "orders": "Orders & refunds",
+      "reporting": "DMV reporting",
       "courts": "Courts",
+      "content": "Course content",
+      "questions": "Question bank",
       "siteContent": "Site content",
-      "ai": "AI",
-      "tickets": "Tickets",
+      "tickets": "Support requests",
+      "ai": "AI assistant",
       "settings": "Settings"
     },
     "comingSoon": "Coming in this release.",
@@ -312,7 +313,47 @@
       "refunds": "Refunds (30 days)",
       "refundsValue": "{count} / {amount}",
       "aiChats": "AI chats (7 days)",
-      "noData": "No data yet"
+      "noData": "No data yet",
+      "subtitle": "What needs doing today, and how the school is doing.",
+      "kpiHeading": "Key numbers",
+      "sales30": "Sales, last 30 days",
+      "enrollments30": "New enrollments, last 30 days",
+      "windowHint": "Today: {today} · 7 days: {d7}",
+      "passRateHint": "{passed} of {submitted} final exams passed",
+      "reportsWaiting": "Completion reports waiting",
+      "reportsWaitingHint": "{queued} queued · {sent} sent, not yet accepted",
+      "stagesHeading": "Student stages",
+      "attentionHeading": "Needs attention",
+      "attentionDescription": "Oldest first. Each row links to the page that fixes it.",
+      "attentionEmpty": "Nothing needs attention right now.",
+      "viewAll": "View all ({count})",
+      "more": "{count} more",
+      "attentionKinds": {
+        "report_failed": "Completion reports to fix",
+        "refund_requested": "Refund requests",
+        "enrollment_blocked": "Students who cannot go on",
+        "ticket_open": "Open support requests",
+        "court_due_soon": "Court due date within 7 days"
+      },
+      "attentionRows": {
+        "reportRejected": "Completion report rejected by the DMV",
+        "reportError": "Completion report failed to send",
+        "refund": "Refund of {amount} requested",
+        "paused": "Paused after failed identity checks",
+        "locked": "Locked after failing the final exam",
+        "expired": "Out of access time",
+        "ticket": "Support request: {type}",
+        "courtDue": "Court due {date}",
+        "unknownUser": "Unknown student"
+      },
+      "chartHeading": "Last 30 days",
+      "chartDescription": "Sales (USD) and new enrollments per day",
+      "chartSummary": "{sales} in sales and {enrollments} new enrollments over 30 days.",
+      "recentHeading": "Recent students",
+      "recentViewAll": "All students",
+      "recentEmpty": "No students yet.",
+      "stage": "Stage",
+      "signedUp": "Signed up"
     },
     "students": {
       "title": "Students",
@@ -343,7 +384,9 @@
       "failed": "Failed",
       "correct": "Correct",
       "incorrect": "Incorrect",
-      "noneYet": "Nothing yet"
+      "noneYet": "Nothing yet",
+      "stageFilterLabel": "Filter by stage",
+      "stage": "Stage"
     },
     "enrollments": {
       "title": "Enrollments",
@@ -695,6 +738,46 @@
           "failed": "Translation failed. Try again."
         }
       }
+    },
+    "navGroups": {
+      "overview": "Overview",
+      "people": "People",
+      "sales": "Sales",
+      "compliance": "Compliance",
+      "content": "Content",
+      "support": "Support",
+      "system": "System"
+    },
+    "shell": {
+      "adminTag": "Admin",
+      "sidebarLabel": "Sidebar",
+      "navLabel": "Admin sections",
+      "menuTitle": "Admin navigation",
+      "openMenu": "Open navigation",
+      "breadcrumbLabel": "Breadcrumb",
+      "details": "Details",
+      "searchLabel": "Search students",
+      "searchPlaceholder": "Name, email, license or citation no.",
+      "backToSite": "Back to site",
+      "signOut": "Sign out",
+      "accountMenu": "Admin menu",
+      "notFoundTitle": "Page not found",
+      "notFoundBody": "This Admin page does not exist or was removed.",
+      "backToDashboard": "Back to Dashboard"
+    },
+    "stages": {
+      "registered": "Registered",
+      "studying": "Studying",
+      "needs_attention": "Needs attention",
+      "completed": "Completed",
+      "reported": "Reported"
+    },
+    "stageHints": {
+      "registered": "No paid course yet",
+      "studying": "Paid, working through the course",
+      "needs_attention": "Paused, locked or out of access time",
+      "completed": "Passed; completion report not yet accepted",
+      "reported": "DMV accepted the completion report"
     }
   },
   "LanguageSuggestion": {

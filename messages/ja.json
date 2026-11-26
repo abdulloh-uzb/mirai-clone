@@ -266,12 +266,13 @@
       "students": "受講者",
       "enrollments": "受講",
       "orders": "注文と返金",
-      "reporting": "報告",
-      "content": "コンテンツ",
+      "reporting": "DMV報告",
       "courts": "裁判所",
+      "content": "コース内容",
+      "questions": "問題バンク",
       "siteContent": "サイト内容",
-      "ai": "AI",
-      "tickets": "チケット",
+      "tickets": "サポート依頼",
+      "ai": "AIアシスタント",
       "settings": "設定"
     },
     "comingSoon": "今回のリリースで提供予定です。",
@@ -313,7 +314,47 @@
       "refunds": "返金（30日間）",
       "refundsValue": "{count} 件 / {amount}",
       "aiChats": "AIチャット（7日間）",
-      "noData": "データなし"
+      "noData": "データなし",
+      "subtitle": "今日の対応事項と学校の状況。",
+      "kpiHeading": "主要指標",
+      "sales30": "売上（過去30日）",
+      "enrollments30": "新規受講（過去30日）",
+      "windowHint": "今日: {today}・7日間: {d7}",
+      "passRateHint": "最終試験 {submitted} 件中 {passed} 件合格",
+      "reportsWaiting": "未受理の修了報告",
+      "reportsWaitingHint": "送信待ち {queued} 件・送信済み未受理 {sent} 件",
+      "stagesHeading": "受講者のステージ",
+      "attentionHeading": "要対応",
+      "attentionDescription": "古い順。各行から対応ページへ移動できます。",
+      "attentionEmpty": "現在、対応が必要な項目はありません。",
+      "viewAll": "すべて表示（{count}件）",
+      "more": "ほか {count} 件",
+      "attentionKinds": {
+        "report_failed": "修正が必要な修了報告",
+        "refund_requested": "返金リクエスト",
+        "enrollment_blocked": "先へ進めない受講者",
+        "ticket_open": "未対応のサポート依頼",
+        "court_due_soon": "裁判所の期限まで7日以内"
+      },
+      "attentionRows": {
+        "reportRejected": "DMVが修了報告を却下",
+        "reportError": "修了報告の送信に失敗",
+        "refund": "{amount} の返金リクエスト",
+        "paused": "本人確認の失敗により一時停止",
+        "locked": "最終試験不合格によりロック",
+        "expired": "受講期限切れ",
+        "ticket": "サポート依頼: {type}",
+        "courtDue": "裁判所の期限 {date}",
+        "unknownUser": "不明な受講者"
+      },
+      "chartHeading": "過去30日間",
+      "chartDescription": "日別の売上（USD）と新規受講",
+      "chartSummary": "30日間の売上 {sales}、新規受講 {enrollments} 件。",
+      "recentHeading": "最近の受講者",
+      "recentViewAll": "すべての受講者",
+      "recentEmpty": "まだ受講者がいません。",
+      "stage": "ステージ",
+      "signedUp": "登録日"
     },
     "students": {
       "title": "受講者",
@@ -344,7 +385,9 @@
       "failed": "不合格",
       "correct": "正解",
       "incorrect": "不正解",
-      "noneYet": "まだありません"
+      "noneYet": "まだありません",
+      "stageFilterLabel": "ステージで絞り込み",
+      "stage": "ステージ"
     },
     "enrollments": {
       "title": "受講",
@@ -696,6 +739,46 @@
           "failed": "翻訳に失敗しました。もう一度お試しください。"
         }
       }
+    },
+    "navGroups": {
+      "overview": "概要",
+      "people": "ユーザー",
+      "sales": "売上",
+      "compliance": "コンプライアンス",
+      "content": "コンテンツ",
+      "support": "サポート",
+      "system": "システム"
+    },
+    "shell": {
+      "adminTag": "管理",
+      "sidebarLabel": "サイドバー",
+      "navLabel": "管理セクション",
+      "menuTitle": "管理メニュー",
+      "openMenu": "ナビゲーションを開く",
+      "breadcrumbLabel": "パンくずリスト",
+      "details": "詳細",
+      "searchLabel": "受講者を検索",
+      "searchPlaceholder": "氏名・メール・免許番号・違反切符番号",
+      "backToSite": "サイトに戻る",
+      "signOut": "ログアウト",
+      "accountMenu": "管理者メニュー",
+      "notFoundTitle": "ページが見つかりません",
+      "notFoundBody": "この管理ページは存在しないか、削除されました。",
+      "backToDashboard": "ダッシュボードに戻る"
+    },
+    "stages": {
+      "registered": "登録のみ",
+      "studying": "受講中",
+      "needs_attention": "要対応",
+      "completed": "修了",
+      "reported": "報告済み"
+    },
+    "stageHints": {
+      "registered": "有料コース未購入",
+      "studying": "支払い済み・受講中",
+      "needs_attention": "一時停止・ロック・受講期限切れ",
+      "completed": "合格済み・修了報告は未受理",
+      "reported": "DMVが修了報告を受理"
     }
   },
   "LanguageSuggestion": {

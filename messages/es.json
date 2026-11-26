@@ -266,12 +266,13 @@
       "students": "Estudiantes",
       "enrollments": "Inscripciones",
       "orders": "Pedidos y reembolsos",
-      "reporting": "Informes",
-      "content": "Contenido",
+      "reporting": "Informes al DMV",
       "courts": "Juzgados",
+      "content": "Contenido del curso",
+      "questions": "Banco de preguntas",
       "siteContent": "Contenido del sitio",
-      "ai": "IA",
-      "tickets": "Tickets",
+      "tickets": "Solicitudes de soporte",
+      "ai": "Asistente de IA",
       "settings": "Ajustes"
     },
     "comingSoon": "Disponible en esta versión.",
@@ -313,7 +314,47 @@
       "refunds": "Reembolsos (30 días)",
       "refundsValue": "{count} / {amount}",
       "aiChats": "Chats de IA (7 días)",
-      "noData": "Aún no hay datos"
+      "noData": "Aún no hay datos",
+      "subtitle": "Lo que hay que hacer hoy y cómo va la escuela.",
+      "kpiHeading": "Cifras clave",
+      "sales30": "Ventas, últimos 30 días",
+      "enrollments30": "Nuevas inscripciones, últimos 30 días",
+      "windowHint": "Hoy: {today} · 7 días: {d7}",
+      "passRateHint": "{passed} de {submitted} exámenes finales aprobados",
+      "reportsWaiting": "Informes de finalización pendientes",
+      "reportsWaitingHint": "{queued} en cola · {sent} enviados sin aceptar",
+      "stagesHeading": "Etapas de los estudiantes",
+      "attentionHeading": "Requiere atención",
+      "attentionDescription": "Primero lo más antiguo. Cada fila lleva a la página donde se resuelve.",
+      "attentionEmpty": "Nada requiere atención ahora mismo.",
+      "viewAll": "Ver todo ({count})",
+      "more": "{count} más",
+      "attentionKinds": {
+        "report_failed": "Informes de finalización por corregir",
+        "refund_requested": "Solicitudes de reembolso",
+        "enrollment_blocked": "Estudiantes que no pueden continuar",
+        "ticket_open": "Solicitudes de soporte abiertas",
+        "court_due_soon": "Fecha límite del juzgado en 7 días"
+      },
+      "attentionRows": {
+        "reportRejected": "El DMV rechazó el informe de finalización",
+        "reportError": "No se pudo enviar el informe de finalización",
+        "refund": "Reembolso de {amount} solicitado",
+        "paused": "Pausado tras fallar la verificación de identidad",
+        "locked": "Bloqueado tras suspender el examen final",
+        "expired": "Sin tiempo de acceso",
+        "ticket": "Solicitud de soporte: {type}",
+        "courtDue": "Fecha del juzgado: {date}",
+        "unknownUser": "Estudiante desconocido"
+      },
+      "chartHeading": "Últimos 30 días",
+      "chartDescription": "Ventas (USD) y nuevas inscripciones por día",
+      "chartSummary": "{sales} en ventas y {enrollments} nuevas inscripciones en 30 días.",
+      "recentHeading": "Estudiantes recientes",
+      "recentViewAll": "Todos los estudiantes",
+      "recentEmpty": "Aún no hay estudiantes.",
+      "stage": "Etapa",
+      "signedUp": "Fecha de alta"
     },
     "students": {
       "title": "Estudiantes",
@@ -344,7 +385,9 @@
       "failed": "Suspendido",
       "correct": "Correcta",
       "incorrect": "Incorrecta",
-      "noneYet": "Nada todavía"
+      "noneYet": "Nada todavía",
+      "stageFilterLabel": "Filtrar por etapa",
+      "stage": "Etapa"
     },
     "enrollments": {
       "title": "Inscripciones",
@@ -696,6 +739,46 @@
           "failed": "La traducción falló. Inténtalo de nuevo."
         }
       }
+    },
+    "navGroups": {
+      "overview": "Resumen",
+      "people": "Personas",
+      "sales": "Ventas",
+      "compliance": "Cumplimiento",
+      "content": "Contenido",
+      "support": "Soporte",
+      "system": "Sistema"
+    },
+    "shell": {
+      "adminTag": "Admin",
+      "sidebarLabel": "Barra lateral",
+      "navLabel": "Secciones de administración",
+      "menuTitle": "Navegación de administración",
+      "openMenu": "Abrir navegación",
+      "breadcrumbLabel": "Ruta de navegación",
+      "details": "Detalles",
+      "searchLabel": "Buscar estudiantes",
+      "searchPlaceholder": "Nombre, correo, licencia o n.º de citación",
+      "backToSite": "Volver al sitio",
+      "signOut": "Cerrar sesión",
+      "accountMenu": "Menú de administrador",
+      "notFoundTitle": "Página no encontrada",
+      "notFoundBody": "Esta página de administración no existe o se eliminó.",
+      "backToDashboard": "Volver al panel"
+    },
+    "stages": {
+      "registered": "Registrado",
+      "studying": "Estudiando",
+      "needs_attention": "Requiere atención",
+      "completed": "Completado",
+      "reported": "Reportado"
+    },
+    "stageHints": {
+      "registered": "Aún sin curso pagado",
+      "studying": "Pagado, avanzando en el curso",
+      "needs_attention": "Pausado, bloqueado o sin tiempo de acceso",
+      "completed": "Aprobado; informe de finalización aún no aceptado",
+      "reported": "El DMV aceptó el informe de finalización"
     }
   },
   "LanguageSuggestion": {
