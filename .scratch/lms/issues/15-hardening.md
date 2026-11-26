@@ -1,10 +1,10 @@
 # 15 Hardening: checkout redirect, nonce CSP, Sentry, localized PDF
 
-**Status:** ready-for-agent
+**Status:** resolved
 **Blocked by:** 14
 **Plan:** `.scratch/lms/plans/15-hardening.md`
 
-- [ ] Mock checkout ends on /portal?paid=1 in the address bar
-- [ ] Nonce-based CSP (no 'unsafe-inline' for scripts)
-- [ ] Sentry SDK active when SENTRY_DSN is set
-- [ ] Certificate PDF labels in the course language (en/ja/es/ru)
+- [x] Mock checkout ends on /portal?paid=1 in the address bar
+- [x] Nonce-based CSP (no 'unsafe-inline' for scripts)
+- [x] Sentry SDK active when SENTRY_DSN is set
+- [x] Certificate PDF labels in the course language (en/ja/es/ru)

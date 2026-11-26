@@ -52,6 +52,7 @@ export async function issueCertificateFor(
     citationNo: enrollment.citation_no ?? "-",
     completedOn: (enrollment.completed_at ?? cert.issued_at).slice(0, 10),
     certNo: cert.cert_no,
+    locale: courseLocale,
     courseLanguage: languages[courseLocale].nativeName,
     verifyUrl: new URL(
       `/verify/${cert.cert_no}`,

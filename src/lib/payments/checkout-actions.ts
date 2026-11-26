@@ -64,8 +64,12 @@ export async function startCheckout(formData: FormData): Promise<void> {
   if (error) throw error;
 
   if (paymentsMode() === "mock") {
-    // Route handlers are not locale-prefixed.
-    redirectTo(`/api/stripe/mock-checkout?order=${order.id}`);
+    // A page does the full navigation, so the address bar ends on /portal?paid=1.
+    redirect({
+      href: { pathname: "/portal/checkout/mock", query: { order: order.id } },
+      locale: uiLocale,
+    });
+    return;
   }
 
   const t = await getTranslations({ locale: uiLocale, namespace: "Courses" });

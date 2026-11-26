@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { Inter, Noto_Sans_JP } from "next/font/google";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { AssistantPanel } from "@/components/ai/assistant-panel";
 import { CookieConsent } from "@/components/privacy/cookie-consent";
@@ -56,6 +57,8 @@ export default async function LocaleLayout({
 }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
+  // Set by the proxy; makes every page dynamic, which a nonce needs.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   return (
     <html
@@ -65,6 +68,7 @@ export default async function LocaleLayout({
     >
       <body className="flex min-h-full flex-col antialiased">
         <ThemeProvider
+          nonce={nonce}
           attribute="class"
           defaultTheme="system"
           enableSystem

@@ -1,5 +1,5 @@
 import createMiddleware from "next-intl/middleware";
-import { NextResponse, type NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   LOCALE_PREFERENCE_COOKIE,
   resolveUiLocale,
@@ -7,6 +7,7 @@ import {
 import { splitLocalePath } from "@/i18n/locale-path";
 import { routing } from "@/i18n/routing";
 import { signInPathFor } from "@/lib/auth/return-path";
+import { buildCsp, createNonce } from "@/lib/security/csp";
 import { refreshSession } from "@/lib/supabase/proxy";
 
 // One proxy composes Supabase session refresh with next-intl's locale
@@ -19,8 +20,33 @@ function isPortalPath(pathname: string): boolean {
   return path === "/portal" || path.startsWith("/portal/");
 }
 
-export async function proxy(request: NextRequest) {
-  const { supabase, userId, applyCookies } = await refreshSession(request);
+export async function proxy(original: NextRequest) {
+  // A fresh nonce per request. Next reads it from the request's CSP header and
+  // puts it on its own scripts; pages read it from `x-nonce`.
+  const nonce = createNonce();
+  const csp = buildCsp({
+    nonce,
+    isDev: process.env.NODE_ENV !== "production",
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
+    posthogHost:
+      process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+    sentryDsn: process.env.NEXT_PUBLIC_SENTRY_DSN || process.env.SENTRY_DSN,
+  });
+  const {
+    supabase,
+    userId,
+    applyCookies: applySession,
+  } = await refreshSession(original);
+  const applyCookies = <T extends NextResponse>(response: T): T => {
+    applySession(response);
+    response.headers.set("Content-Security-Policy", csp);
+    return response;
+  };
+  // Built after the session refresh so refreshed cookies are carried along.
+  const headers = new Headers(original.headers);
+  headers.set("x-nonce", nonce);
+  headers.set("Content-Security-Policy", csp);
+  const request = new NextRequest(original, { headers });
   const { pathname, search } = request.nextUrl;
 
   // Portal pages need a signed-in user; the Portal layout checks again.

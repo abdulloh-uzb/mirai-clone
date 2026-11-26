@@ -1,7 +1,8 @@
+import * as Sentry from "@sentry/nextjs";
+
 /**
- * One place for caught server errors (webhook, cron and AI routes).
- * TODO(spec): forward to Sentry when `SENTRY_DSN` is set; the SDK is skipped
- * for now to keep the bundle small.
+ * One place for caught server errors (webhook, cron and AI routes). Also sent
+ * to Sentry when `SENTRY_DSN` is set.
  */
 export function reportError(
   context: string,
@@ -13,4 +14,7 @@ export function reportError(
     error instanceof Error ? error.message : error,
     extra ?? "",
   );
+  if (process.env.SENTRY_DSN) {
+    Sentry.captureException(error, { tags: { context }, extra });
+  }
 }

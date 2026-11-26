@@ -31,8 +31,8 @@ test("a verified Student pays in Japanese and is enrolled once", async ({
     .getByRole("button", { name: /Pay \$24\.99 and start in 日本語/ })
     .click();
 
-  // The server action redirects through the mock route; the Student ends on
-  // the course dashboard (the address bar may still show the mock route).
+  // The mock page navigates to the mock route, which ends on /portal?paid=1.
+  await expect(page).toHaveURL(/\/portal\?paid=1/);
   await expect(page.getByRole("link", { name: "Continue" })).toBeVisible();
   await expect(
     page.getByText("You will be asked for your driver details"),
