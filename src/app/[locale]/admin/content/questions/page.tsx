@@ -1,13 +1,24 @@
+import { PlusIcon, Trash2Icon } from "lucide-react";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import { AdminPageHeader } from "@/components/admin/page-header";
+import { AdminButton } from "@/components/admin/ui/button";
+import { AdminCard } from "@/components/admin/ui/card";
+import {
+  AdminDisclosure,
+  AdminDisclosureList,
+} from "@/components/admin/ui/disclosure";
+import { AdminEmpty } from "@/components/admin/ui/empty";
+import { AdminField, adminCheckClass } from "@/components/admin/ui/field";
+import { AdminInput } from "@/components/admin/ui/input";
+import { AdminSelect } from "@/components/admin/ui/select";
+import { AdminTextarea } from "@/components/admin/ui/textarea";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
 import { deleteQuestion, saveQuestion } from "@/lib/admin/content-actions";
 import { createServiceClient } from "@/lib/supabase/service";
-
-const field = "rounded-md border bg-background px-2 py-1 text-sm";
 
 type Q = {
   id: string;
@@ -34,15 +45,13 @@ async function QuestionForm({
   const options = q?.answer_options ?? [];
   const correct = options.findIndex((o) => o.is_correct);
   return (
-    <form action={saveQuestion} className="mt-2 flex flex-col gap-3">
+    <form action={saveQuestion} className="flex flex-col gap-4">
       {q ? <input type="hidden" name="id" value={q.id} /> : null}
-      <div className="flex gap-3">
-        <label className="flex flex-col gap-1 text-sm">
-          {t("pool")}
-          <select
+      <div className="grid gap-4 sm:grid-cols-2">
+        <AdminField label={t("pool")}>
+          <AdminSelect
             name="sectionId"
             defaultValue={q ? (q.section_id ?? "") : defaults.section}
-            className={field}
           >
             <option value="">{t("examPool")}</option>
             {sections.map((s) => (
@@ -50,33 +59,24 @@ async function QuestionForm({
                 {s.label}
               </option>
             ))}
-          </select>
-        </label>
-        <label className="flex flex-col gap-1 text-sm">
-          {tc("language")}
-          <select
+          </AdminSelect>
+        </AdminField>
+        <AdminField label={tc("language")}>
+          <AdminSelect
             name="locale"
             defaultValue={q?.locale ?? defaults.locale}
-            className={field}
           >
             {["en", "ja", "es", "ru"].map((l) => (
               <option key={l}>{l}</option>
             ))}
-          </select>
-        </label>
+          </AdminSelect>
+        </AdminField>
       </div>
-      <label className="flex flex-col gap-1 text-sm">
-        {t("question")}
-        <textarea
-          name="text"
-          required
-          rows={2}
-          defaultValue={q?.text}
-          className={field}
-        />
-      </label>
+      <AdminField label={t("question")}>
+        <AdminTextarea name="text" required rows={2} defaultValue={q?.text} />
+      </AdminField>
       {[0, 1, 2, 3].map((i) => (
-        <div key={i} className="flex items-center gap-2 text-sm">
+        <div key={i} className="flex items-center gap-2">
           <input
             type="radio"
             name="correct"
@@ -84,32 +84,27 @@ async function QuestionForm({
             required
             defaultChecked={i === correct}
             aria-label={t("optionCorrect", { n: i + 1 })}
+            className={adminCheckClass}
           />
-          <input
+          <AdminInput
             name={`option${i}`}
             aria-label={t("optionText", { n: i + 1 })}
             required
             defaultValue={options[i]?.text}
             placeholder={t("option", { n: i + 1 })}
-            className={`${field} w-full`}
           />
         </div>
       ))}
-      <label className="flex flex-col gap-1 text-sm">
-        {t("explanation")}
-        <textarea
+      <AdminField label={t("explanation")}>
+        <AdminTextarea
           name="explanation"
           rows={2}
           defaultValue={q?.explanation}
-          className={field}
         />
-      </label>
-      <button
-        type="submit"
-        className="w-fit rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
-      >
+      </AdminField>
+      <AdminButton type="submit" size="sm" className="w-fit">
         {q ? t("save") : t("add")}
-      </button>
+      </AdminButton>
     </form>
   );
 }
@@ -125,6 +120,11 @@ export default async function AdminQuestionsPage({
   await requireAdmin();
   const t = await getTranslations({ locale, namespace: "Admin.questions" });
   const tc = await getTranslations({ locale, namespace: "Admin.common" });
+  const tNav = await getTranslations({ locale, namespace: "Admin.nav" });
+  const tDesc = await getTranslations({
+    locale,
+    namespace: "Admin.descriptions",
+  });
   const sp = await searchParams;
   const qLocale = ["en", "ja", "es", "ru"].includes(String(sp.locale))
     ? String(sp.locale)
@@ -156,72 +156,95 @@ export default async function AdminQuestionsPage({
   const { data } = await query;
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-      <form className="mt-4 flex gap-2">
-        <select
-          name="locale"
-          aria-label={tc("language")}
-          defaultValue={qLocale}
-          className={field}
-        >
-          {["en", "ja", "es", "ru"].map((l) => (
-            <option key={l}>{l}</option>
-          ))}
-        </select>
-        <select
-          name="section"
-          aria-label={t("pool")}
-          defaultValue={section}
-          className={field}
-        >
-          <option value="">{t("allPools")}</option>
-          <option value="exam">{t("examPool")}</option>
-          {sections.map((s) => (
-            <option key={s.id} value={s.id}>
-              {s.label}
-            </option>
-          ))}
-        </select>
-        <button type="submit" className={field}>
-          {tc("filter")}
-        </button>
-      </form>
-      <div className="mt-4 flex flex-col gap-2">
-        {(data ?? []).map((q) => (
-          <details key={q.id} className="rounded-md border p-3">
-            <summary className="cursor-pointer text-sm font-medium">
-              {q.text}
-            </summary>
+    <div className="flex flex-col gap-6">
+      <AdminPageHeader
+        title={tNav("questions")}
+        description={tDesc("questions")}
+      />
+      <AdminCard className="overflow-hidden">
+        <form className="flex flex-wrap items-center gap-2 border-b px-4 py-3">
+          <AdminSelect
+            name="locale"
+            aria-label={tc("language")}
+            defaultValue={qLocale}
+            wrapperClassName="w-auto"
+          >
+            {["en", "ja", "es", "ru"].map((l) => (
+              <option key={l}>{l}</option>
+            ))}
+          </AdminSelect>
+          <AdminSelect
+            name="section"
+            aria-label={t("pool")}
+            defaultValue={section}
+            wrapperClassName="w-auto sm:max-w-xs"
+          >
+            <option value="">{t("allPools")}</option>
+            <option value="exam">{t("examPool")}</option>
+            {sections.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.label}
+              </option>
+            ))}
+          </AdminSelect>
+          <AdminButton type="submit" variant="outline" size="sm">
+            {tc("filter")}
+          </AdminButton>
+        </form>
+        {(data ?? []).length === 0 ? (
+          <AdminEmpty title={tc("noResults")} />
+        ) : (
+          <AdminDisclosureList>
+            {(data ?? []).map((q) => (
+              <AdminDisclosure
+                key={q.id}
+                summary={<span className="min-w-0 font-medium">{q.text}</span>}
+              >
+                <QuestionForm
+                  q={q}
+                  sections={sections}
+                  defaults={{ section, locale: qLocale }}
+                  locale={locale}
+                />
+                <form
+                  action={deleteQuestion}
+                  className="mt-4 flex justify-end border-t pt-4"
+                >
+                  <input type="hidden" name="id" value={q.id} />
+                  <AdminButton
+                    type="submit"
+                    variant="destructive-ghost"
+                    size="sm"
+                  >
+                    <Trash2Icon aria-hidden />
+                    {tc("delete")}
+                  </AdminButton>
+                </form>
+              </AdminDisclosure>
+            ))}
+          </AdminDisclosureList>
+        )}
+        <div className="border-t">
+          <AdminDisclosure
+            summary={
+              <span className="inline-flex items-center gap-1.5 font-medium text-link">
+                <PlusIcon aria-hidden className="size-4" />
+                {t("new")}
+              </span>
+            }
+          >
             <QuestionForm
-              q={q}
-              sections={sections}
-              defaults={{ section, locale: qLocale }}
+              q={null}
               locale={locale}
+              sections={sections}
+              defaults={{
+                section: section === "exam" ? "" : section,
+                locale: qLocale,
+              }}
             />
-            <form action={deleteQuestion} className="mt-2">
-              <input type="hidden" name="id" value={q.id} />
-              <button type="submit" className="text-sm text-destructive">
-                {tc("delete")}
-              </button>
-            </form>
-          </details>
-        ))}
-        <details className="rounded-md border border-dashed p-3">
-          <summary className="cursor-pointer text-sm font-medium">
-            {t("new")}
-          </summary>
-          <QuestionForm
-            q={null}
-            locale={locale}
-            sections={sections}
-            defaults={{
-              section: section === "exam" ? "" : section,
-              locale: qLocale,
-            }}
-          />
-        </details>
-      </div>
-    </section>
+          </AdminDisclosure>
+        </div>
+      </AdminCard>
+    </div>
   );
 }
