@@ -142,7 +142,7 @@
     "contactHeading": "スクールへの連絡先",
     "license": "ライセンス: {number}",
     "copyright": "© {year} {name}",
-    "demoNotice": "デモプロジェクトです — 認可を受けたスクールではありません"
+    "demoNotice": "非公式のコンセプトデモです — Mirai Traffic School の公式サイトではありません"
   },
   "NotFound": {
     "metaTitle": "ページが見つかりません",

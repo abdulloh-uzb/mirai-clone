@@ -1,6 +1,6 @@
-import { ArrowLeftIcon, LogOutIcon, SignpostIcon } from "lucide-react";
+import { ArrowLeftIcon, LogOutIcon } from "lucide-react";
+import { BrandLogo } from "@/components/layout/brand-logo";
 import { getTranslations } from "next-intl/server";
-import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { signOut } from "@/lib/auth/actions";
@@ -34,13 +34,7 @@ export async function AdminSidebar({
         href="/admin"
         className="flex h-14 shrink-0 items-center gap-2 border-b px-4"
       >
-        <span
-          aria-hidden
-          className="grid size-7 place-items-center rounded-md bg-primary text-primary-foreground"
-        >
-          <SignpostIcon className="size-4" />
-        </span>
-        <span className="text-sm font-semibold">{siteConfig.shortName}</span>
+        <BrandLogo height={30} />
         <span className="rounded border px-1.5 py-px text-[11px] font-medium text-muted-foreground">
           {t("shell.adminTag")}
         </span>

@@ -1,9 +1,10 @@
-import { CheckIcon, MailIcon, PhoneIcon, SignpostIcon } from "lucide-react";
+import { CheckIcon, MailIcon, PhoneIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { PrivacyChoicesButton } from "@/components/privacy/cookie-consent";
 import { ReportProblem } from "@/components/support/report-problem";
 import { siteConfig } from "@/config/site";
 import { Link } from "@/i18n/navigation";
+import { BrandLogo } from "./brand-logo";
 import { footerNav } from "./nav-links";
 
 /** The reference footer (`.ftr.ftB`): logo and links on top, licence, address, phone, email and copyright below. */
@@ -21,10 +22,7 @@ export function SiteFooter() {
           <div className="ftB-in">
             <div className="ftB-r1">
               <span className="logo lg-l">
-                <span aria-hidden className="logo-mark">
-                  <SignpostIcon />
-                </span>
-                <span className="logo-word">{siteConfig.shortName}</span>
+                <BrandLogo height={40} />
               </span>
               <nav className="ftB-nav" aria-label={t("nav")}>
                 {links.map((link) => (

@@ -1,8 +1,7 @@
-import { SignpostIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { siteConfig } from "@/config/site";
 import { languages } from "@/i18n/languages";
 import { Link } from "@/i18n/navigation";
+import { BrandLogo } from "./brand-logo";
 import { NavLink } from "./nav-link";
 import { HeaderAccount } from "./header-account";
 import { LanguageSwitcher } from "./language-switcher";
@@ -23,12 +22,7 @@ export function SiteHeader() {
       <header className="hdr">
         <div className="cap">
           <Link className="logo" href="/">
-            <span aria-hidden className="logo-mark">
-              <SignpostIcon />
-            </span>
-            <span className="logo-word max-sm:sr-only">
-              {siteConfig.shortName}
-            </span>
+            <BrandLogo height={38} priority />
             <span className="sr-only">, {t("homeLink")}</span>
           </Link>
 

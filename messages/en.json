@@ -141,7 +141,7 @@
     "contactHeading": "Contact the school",
     "license": "License: {number}",
     "copyright": "© {year} {name}",
-    "demoNotice": "Demo project — not a licensed school"
+    "demoNotice": "Unofficial concept demo — not the official Mirai Traffic School site"
   },
   "NotFound": {
     "metaTitle": "Page not found",

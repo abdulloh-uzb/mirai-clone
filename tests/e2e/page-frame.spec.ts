@@ -51,7 +51,7 @@ test("the footer shows school details on separate lines and the demo notice", as
     footer.getByText("License: DEMO-0000"),
     footer.getByText("Sacramento, CA 95814"),
     footer.getByRole("link", { name: "(555) 010-0199" }),
-    footer.getByRole("link", { name: "support@roadready.example" }),
+    footer.getByRole("link", { name: "support@mirai-demo.example" }),
   ];
   const tops: number[] = [];
   for (const line of lines) {

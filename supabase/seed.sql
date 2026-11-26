@@ -3,10 +3,10 @@
 
 -- One published announcement per UI language (ticket 02).
 insert into public.announcements (locale, message, published) values
-  ('en', 'Welcome to the demo. Courses open soon in four languages.', true),
-  ('ja', 'デモへようこそ。4 か国語の講習はまもなく開講します。', true),
-  ('es', 'Bienvenido a la demo. Los cursos abren pronto en cuatro idiomas.', true),
-  ('ru', 'Добро пожаловать в демо. Курсы скоро откроются на четырёх языках.', true);
+  ('en', 'Unofficial concept demo for Mirai Traffic School. The course is live in four languages.', true),
+  ('ja', 'Mirai Traffic School の非公式コンセプトデモです。講習は 4 か国語で受講できます。', true),
+  ('es', 'Demo conceptual no oficial de Mirai Traffic School. El curso ya está disponible en cuatro idiomas.', true),
+  ('ru', 'Неофициальное концепт-демо Mirai Traffic School. Курс уже доступен на четырёх языках.', true);
 
 -- States (ticket 05). California is the only active state.
 -- TODO(spec): min_course_minutes is not given in the spec; 400 is a placeholder
