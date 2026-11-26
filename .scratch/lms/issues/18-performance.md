@@ -1,6 +1,6 @@
 # 18 Lighthouse mobile performance ≥ 90
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 **Blocked by:** 17
 
 Ticket 17 measured 72–78 on /, /courses, /courts/los-angeles-county (default mobile emulation). FCP/LCP ~0.8 s, CLS 0; total blocking time 1.0–1.7 s is the only problem (see `.scratch/lms/lighthouse.md`). Goal: performance ≥ 90 on all three pages (median of 3 runs), no regressions.
@@ -16,4 +16,5 @@ Ticket 17 measured 72–78 on /, /courses, /courts/los-angeles-county (default m
 3. Re-measure; iterate until ≥ 90 median on all three pages. Keep e2e green for touched features (run the relevant spec files + axe-sweep under the lock).
 
 - [ ] ≥ 90 performance on the three pages (median of 3), scores in lighthouse.md (medians now 88 / 88 / 87, up from 76 / 75 / 83; not reached, see lighthouse.md for what is left)
+- Iteration 2 medians 91 / 87 / 86 (single runs reach 91–94 on every page). Results are bimodal (LCP 2.5 s or 3.4 s) depending on whether framework hydration lands before the h1 paint. The app-level levers are used up; next steps are a larger refactor (partial prerendering, or dropping root NextIntlClientProvider messages). Left for a human decision.
 - [x] lint, typecheck, unit pass; touched e2e specs + axe-sweep pass
