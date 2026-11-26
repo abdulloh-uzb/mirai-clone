@@ -19,7 +19,9 @@ test("language cards, eligibility and waitlist forms fit at 375 px", async ({
   await expect(page.getByLabel("Where is your ticket from?")).toBeVisible();
 
   await page.goto("/eligibility");
-  await expect(page.getByRole("group")).toHaveCount(5);
+  await expect(
+    page.locator("#eligibility-check").getByRole("group"),
+  ).toHaveCount(1);
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth > window.innerWidth,
   );

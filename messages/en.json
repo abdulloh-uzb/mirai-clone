@@ -1869,6 +1869,32 @@
       "ctaHeading": "Ready to start the course?",
       "ctaText": "This is a demo school, not a licensed one. Enroll online and complete the course at your own pace.",
       "ctaButton": "Enroll now"
+    },
+    "eligibility": {
+      "start": "Start the check",
+      "note": "Five questions, about a minute. Nothing is saved or sent anywhere.",
+      "questionOf": "Question {n} of {total}",
+      "why": "Why we ask",
+      "back": "Back",
+      "startOver": "Start over",
+      "thumbsLabel": "The five requirements",
+      "current": "current step",
+      "todo": "to do",
+      "done": "answered",
+      "thumbs": {
+        "validLicense": "Valid driver's license",
+        "courtAllowed": "Court says yes",
+        "noRecentSchool": "No traffic school in 18 months",
+        "nonCommercial": "Non-commercial vehicle",
+        "eligibleViolation": "Moving violation"
+      },
+      "rulesIntro": "The questions in the check above, and why each one matters.",
+      "newTab": "(opens in a new tab)",
+      "sources": {
+        "selfHelp": "California Courts self-help: traffic school",
+        "vc1808": "Vehicle Code section 1808.7",
+        "vc42005": "Vehicle Code section 42005"
+      }
     }
   }
 }
