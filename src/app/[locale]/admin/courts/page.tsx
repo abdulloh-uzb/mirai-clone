@@ -1,4 +1,5 @@
 import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { CrudList } from "@/components/admin/crud-list";
 import { routing } from "@/i18n/routing";
@@ -11,6 +12,7 @@ export default async function AdminCourtsPage({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
+  const t = await getTranslations({ locale, namespace: "Admin.courts" });
   const svc = createServiceClient();
   const [counties, courts] = await Promise.all([
     svc.from("counties").select("*").order("name"),
@@ -22,18 +24,17 @@ export default async function AdminCourtsPage({
   }));
   return (
     <section>
-      <h1 className="text-3xl font-bold tracking-tight">Courts</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        Instructions are JSON keyed by language, e.g.{" "}
-        <code>{`{"en": "..."}`}</code>.
+        {t("hint", { example: '{"en": "..."}' })}
       </p>
-      <h2 className="mt-8 text-xl font-semibold">Counties</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("counties")}</h2>
       <CrudList
         table="counties"
         rows={counties.data ?? []}
         describe={(r) => String(r.name)}
       />
-      <h2 className="mt-8 text-xl font-semibold">Courthouses</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("courthouses")}</h2>
       <CrudList
         table="courts"
         rows={courts.data ?? []}

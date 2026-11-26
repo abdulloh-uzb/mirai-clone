@@ -1,4 +1,5 @@
 import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { CrudList } from "@/components/admin/crud-list";
 import { routing } from "@/i18n/routing";
@@ -9,13 +10,13 @@ import { createServiceClient } from "@/lib/supabase/service";
 const EMAIL_TEMPLATES = [
   "receipt",
   "welcome",
-  "refund requested",
-  "refund processed",
-  "contact confirmation",
-  "contact notification",
-  "ADA confirmation",
-  "ADA notification",
-];
+  "refundRequested",
+  "refundProcessed",
+  "contactConfirmation",
+  "contactNotification",
+  "adaConfirmation",
+  "adaNotification",
+] as const;
 
 export default async function AdminSettingsPage({
   params,
@@ -23,6 +24,8 @@ export default async function AdminSettingsPage({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   const me = await requireAdmin();
+  const t = await getTranslations({ locale, namespace: "Admin.settings" });
+  const tc = await getTranslations({ locale, namespace: "Admin.common" });
   const svc = createServiceClient();
   const [admins, states, stateList, classroom] = await Promise.all([
     svc
@@ -45,20 +48,20 @@ export default async function AdminSettingsPage({
 
   return (
     <section>
-      <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
 
-      <h2 className="mt-8 text-xl font-semibold">Admin accounts</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("admins")}</h2>
       <ul className="mt-4 text-sm">
         {(admins.data ?? []).map((a) => (
           <li key={a.user_id} className="flex items-center gap-3 py-1">
             {a.first_name} {a.last_name} · {emails.get(a.user_id)}
             {a.user_id === me.userId ? (
-              <span className="text-muted-foreground">(you)</span>
+              <span className="text-muted-foreground">{tc("you")}</span>
             ) : (
               <form action={demoteAdmin}>
                 <input type="hidden" name="userId" value={a.user_id} />
                 <button type="submit" className="text-destructive">
-                  Demote
+                  {t("demote")}
                 </button>
               </form>
             )}
@@ -69,23 +72,21 @@ export default async function AdminSettingsPage({
         <input
           name="email"
           type="email"
-          aria-label="Account email"
+          aria-label={t("accountEmail")}
           required
-          placeholder="Account email"
+          placeholder={t("accountEmail")}
           className="rounded-md border bg-background px-2 py-1 text-sm"
         />
         <button
           type="submit"
           className="rounded-md bg-primary px-3 py-1 text-sm text-primary-foreground"
         >
-          Make admin
+          {t("makeAdmin")}
         </button>
       </form>
 
-      <h2 className="mt-8 text-xl font-semibold">State config</h2>
-      <p className="mt-2 text-sm text-muted-foreground">
-        Report times are comma-separated, e.g. 09:00, 13:00, 17:00.
-      </p>
+      <h2 className="mt-8 text-xl font-semibold">{t("stateConfig")}</h2>
+      <p className="mt-2 text-sm text-muted-foreground">{t("stateHint")}</p>
       <CrudList
         table="states"
         rows={states.data ?? []}
@@ -94,26 +95,30 @@ export default async function AdminSettingsPage({
         describe={(r) => `${r.code} · ${r.name}`}
       />
 
-      <h2 className="mt-8 text-xl font-semibold">Notify-me lists</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("notify")}</h2>
       <ul className="mt-4 list-disc pl-6 text-sm">
         {[...perState.entries()].map(([code, n]) => (
           <li key={code}>
             {code}: {n}
           </li>
         ))}
-        <li>Classroom waitlist: {(classroom.data ?? []).length}</li>
+        <li>
+          {t("classroomWaitlist", { count: (classroom.data ?? []).length })}
+        </li>
       </ul>
       <p className="mt-2 text-sm">
         <a href="/api/admin/waitlists.csv" className="underline">
-          Download CSV
+          {t("downloadCsv")}
         </a>
       </p>
 
-      <h2 className="mt-8 text-xl font-semibold">Email templates</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("emailTemplates")}</h2>
       {/* TODO(spec): editing and per-language preview of email templates. */}
       <ul className="mt-4 list-disc pl-6 text-sm">
-        {EMAIL_TEMPLATES.map((t) => (
-          <li key={t}>{t} (defined in code, en/ja/es/ru)</li>
+        {EMAIL_TEMPLATES.map((name) => (
+          <li key={name}>
+            {t("templateNote", { name: t(`templates.${name}`) })}
+          </li>
         ))}
       </ul>
     </section>

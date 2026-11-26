@@ -1,4 +1,6 @@
 import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { CrudList } from "@/components/admin/crud-list";
 import { Link } from "@/i18n/navigation";
@@ -8,15 +10,25 @@ import { CRUD, type CrudTable } from "@/lib/admin/crud";
 import { createServiceClient } from "@/lib/supabase/service";
 import { getStripe, paymentsMode } from "@/lib/stripe/server";
 
-const TABS: { key: string; label: string; table?: CrudTable }[] = [
-  { key: "faq", label: "FAQ", table: "faq_items" },
-  { key: "pages", label: "Pages", table: "pages" },
-  { key: "announcements", label: "Announcements", table: "announcements" },
-  { key: "changelog", label: "What's new", table: "changelog" },
-  { key: "posts", label: "Blog", table: "posts" },
-  { key: "reviews", label: "Reviews", table: "reviews" },
-  { key: "prices", label: "Prices", table: "courses" },
-  { key: "coupons", label: "Coupons" },
+type TabKey =
+  | "faq"
+  | "pages"
+  | "announcements"
+  | "changelog"
+  | "posts"
+  | "reviews"
+  | "prices"
+  | "coupons";
+
+const TABS: { key: TabKey; table?: CrudTable }[] = [
+  { key: "faq", table: "faq_items" },
+  { key: "pages", table: "pages" },
+  { key: "announcements", table: "announcements" },
+  { key: "changelog", table: "changelog" },
+  { key: "posts", table: "posts" },
+  { key: "reviews", table: "reviews" },
+  { key: "prices", table: "courses" },
+  { key: "coupons" },
 ];
 
 /** Slugs that exist in some UI languages but not all of them. */
@@ -34,11 +46,13 @@ function untranslated(rows: { locale?: unknown; slug?: unknown }[]) {
     .filter((x) => x.missing.length > 0);
 }
 
-async function Coupons() {
+async function Coupons({ locale }: { locale: Locale }) {
+  const t = await getTranslations({ locale, namespace: "Admin.siteContent" });
+
   if (paymentsMode() === "mock") {
     // TODO(spec): coupons are Stripe promotion codes; nothing to manage in mock mode.
     return (
-      <p className="mt-4 text-muted-foreground">Coupons need Stripe keys.</p>
+      <p className="mt-4 text-muted-foreground">{t("couponsNeedStripe")}</p>
     );
   }
   const codes = await getStripe().promotionCodes.list({ limit: 50 });
@@ -46,10 +60,10 @@ async function Coupons() {
     <ul className="mt-4 list-disc pl-6 text-sm">
       {codes.data.map((c) => (
         <li key={c.id}>
-          {c.code} {c.active ? "" : "(inactive)"}
+          {c.code} {c.active ? "" : t("inactive")}
         </li>
       ))}
-      {codes.data.length === 0 ? <li>No promotion codes.</li> : null}
+      {codes.data.length === 0 ? <li>{t("noCodes")}</li> : null}
     </ul>
   );
 }
@@ -61,6 +75,7 @@ export default async function AdminSiteContentPage({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
+  const t = await getTranslations({ locale, namespace: "Admin.siteContent" });
   const sp = await searchParams;
   const tab = TABS.find((t) => t.key === sp.tab) ?? TABS[0];
   let rows: Record<string, unknown>[] = [];
@@ -79,34 +94,33 @@ export default async function AdminSiteContentPage({
 
   return (
     <section>
-      <h1 className="text-3xl font-bold tracking-tight">Site content</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
       <nav className="mt-4 flex flex-wrap gap-2 text-sm">
-        {TABS.map((t) => (
+        {TABS.map((tab_) => (
           <Link
-            key={t.key}
-            href={`/admin/site-content?tab=${t.key}`}
-            className={`rounded-md border px-3 py-1 ${t.key === tab.key ? "bg-muted font-semibold" : ""}`}
+            key={tab_.key}
+            href={`/admin/site-content?tab=${tab_.key}`}
+            className={`rounded-md border px-3 py-1 ${tab_.key === tab.key ? "bg-muted font-semibold" : ""}`}
           >
-            {t.label}
+            {t(`tabs.${tab_.key}`)}
           </Link>
         ))}
       </nav>
       {tab.key === "coupons" ? (
-        <Coupons />
+        <Coupons locale={locale} />
       ) : tab.table ? (
         <>
           {tab.key === "reviews" ? (
             // TODO(spec): reviews have no "sample" column; all seeded reviews are samples.
-            <p className="mt-4 text-sm text-muted-foreground">
-              Seeded reviews are samples, not real customer reviews.
-            </p>
+            <p className="mt-4 text-sm text-muted-foreground">{t("samples")}</p>
           ) : null}
           {gaps.length ? (
             <p className="mt-4 text-sm text-amber-700">
-              Missing translations:{" "}
-              {gaps
-                .map((g) => `${g.slug} (${g.missing.join(", ")})`)
-                .join("; ")}
+              {t("missing", {
+                list: gaps
+                  .map((g) => `${g.slug} (${g.missing.join(", ")})`)
+                  .join("; "),
+              })}
             </p>
           ) : null}
           <CrudList

@@ -1,4 +1,5 @@
 import { deleteRow, saveRow } from "@/lib/admin/content-actions";
+import { useTranslations } from "next-intl";
 import { CRUD, type CrudTable, type Field } from "@/lib/admin/crud";
 
 type Row = Record<string, unknown>;
@@ -22,8 +23,11 @@ function FieldInput({
   value: unknown;
   options?: { value: string; label: string }[];
 }) {
+  const t = useTranslations("Admin.fields");
   if (field.fixed !== undefined) return null;
-  const label = field.name.replaceAll("_", " ");
+  const label = t.has(field.name as never)
+    ? t(field.name as never)
+    : field.name.replaceAll("_", " ");
   let control: React.ReactNode;
   if (field.choices) {
     control = (
@@ -170,6 +174,7 @@ export function CrudList({
   describe?: (row: Row) => string;
 }) {
   const config = CRUD[table];
+  const t = useTranslations("Admin");
   return (
     <div className="mt-4 flex flex-col gap-2">
       {rows.map((row) => (
@@ -181,39 +186,43 @@ export function CrudList({
                   .filter(Boolean)
                   .join(" · ")}
             {"published" in row && !row.published ? (
-              <span className="ml-2 text-muted-foreground">(draft)</span>
+              <span className="ml-2 text-muted-foreground">
+                ({t("common.draft")})
+              </span>
             ) : null}
           </summary>
           <RowForm
             table={table}
             row={row}
             selectOptions={selectOptions}
-            submit="Save"
+            submit={t("common.save")}
           />
           {allowDelete ? (
             <form action={deleteRow} className="mt-2">
               <input type="hidden" name="_table" value={table} />
               <input type="hidden" name="_id" value={str(row.id)} />
               <button type="submit" className="text-sm text-destructive">
-                Delete
+                {t("common.delete")}
               </button>
             </form>
           ) : null}
         </details>
       ))}
       {rows.length === 0 ? (
-        <p className="text-sm text-muted-foreground">Nothing yet.</p>
+        <p className="text-sm text-muted-foreground">
+          {t("common.nothingYet")}
+        </p>
       ) : null}
       {allowCreate ? (
         <details className="rounded-md border border-dashed p-3">
           <summary className="cursor-pointer text-sm font-medium">
-            New {config.label.toLowerCase()}
+            {t("common.newItem", { label: t(`tables.${table}`) })}
           </summary>
           <RowForm
             table={table}
             row={null}
             selectOptions={selectOptions}
-            submit="Create"
+            submit={t("common.create")}
           />
         </details>
       ) : null}

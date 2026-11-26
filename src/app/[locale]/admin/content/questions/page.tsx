@@ -1,4 +1,6 @@
 import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
@@ -16,15 +18,19 @@ type Q = {
   answer_options: { id: string; text: string; is_correct: boolean }[];
 } | null;
 
-function QuestionForm({
+async function QuestionForm({
   q,
   sections,
   defaults,
+  locale,
 }: {
+  locale: Locale;
   q: Q;
   sections: { id: string; label: string }[];
   defaults: { section: string; locale: string };
 }) {
+  const t = await getTranslations({ locale, namespace: "Admin.questions" });
+  const tc = await getTranslations({ locale, namespace: "Admin.common" });
   const options = q?.answer_options ?? [];
   const correct = options.findIndex((o) => o.is_correct);
   return (
@@ -32,13 +38,13 @@ function QuestionForm({
       {q ? <input type="hidden" name="id" value={q.id} /> : null}
       <div className="flex gap-3">
         <label className="flex flex-col gap-1 text-sm">
-          pool
+          {t("pool")}
           <select
             name="sectionId"
             defaultValue={q ? (q.section_id ?? "") : defaults.section}
             className={field}
           >
-            <option value="">Final exam pool</option>
+            <option value="">{t("examPool")}</option>
             {sections.map((s) => (
               <option key={s.id} value={s.id}>
                 {s.label}
@@ -47,7 +53,7 @@ function QuestionForm({
           </select>
         </label>
         <label className="flex flex-col gap-1 text-sm">
-          locale
+          {tc("language")}
           <select
             name="locale"
             defaultValue={q?.locale ?? defaults.locale}
@@ -60,7 +66,7 @@ function QuestionForm({
         </label>
       </div>
       <label className="flex flex-col gap-1 text-sm">
-        question
+        {t("question")}
         <textarea
           name="text"
           required
@@ -77,20 +83,20 @@ function QuestionForm({
             value={i}
             required
             defaultChecked={i === correct}
-            aria-label={`Option ${i + 1} is correct`}
+            aria-label={t("optionCorrect", { n: i + 1 })}
           />
           <input
             name={`option${i}`}
-            aria-label={`Option ${i + 1} text`}
+            aria-label={t("optionText", { n: i + 1 })}
             required
             defaultValue={options[i]?.text}
-            placeholder={`Option ${i + 1}`}
+            placeholder={t("option", { n: i + 1 })}
             className={`${field} w-full`}
           />
         </div>
       ))}
       <label className="flex flex-col gap-1 text-sm">
-        explanation
+        {t("explanation")}
         <textarea
           name="explanation"
           rows={2}
@@ -102,7 +108,7 @@ function QuestionForm({
         type="submit"
         className="w-fit rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
       >
-        {q ? "Save question" : "Add question"}
+        {q ? t("save") : t("add")}
       </button>
     </form>
   );
@@ -117,6 +123,8 @@ export default async function AdminQuestionsPage({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
+  const t = await getTranslations({ locale, namespace: "Admin.questions" });
+  const tc = await getTranslations({ locale, namespace: "Admin.common" });
   const sp = await searchParams;
   const qLocale = ["en", "ja", "es", "ru"].includes(String(sp.locale))
     ? String(sp.locale)
@@ -149,11 +157,11 @@ export default async function AdminQuestionsPage({
 
   return (
     <section>
-      <h1 className="text-3xl font-bold tracking-tight">Question bank</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
       <form className="mt-4 flex gap-2">
         <select
           name="locale"
-          aria-label="Language"
+          aria-label={tc("language")}
           defaultValue={qLocale}
           className={field}
         >
@@ -163,12 +171,12 @@ export default async function AdminQuestionsPage({
         </select>
         <select
           name="section"
-          aria-label="Question pool"
+          aria-label={t("pool")}
           defaultValue={section}
           className={field}
         >
-          <option value="">All pools</option>
-          <option value="exam">Final exam pool</option>
+          <option value="">{t("allPools")}</option>
+          <option value="exam">{t("examPool")}</option>
           {sections.map((s) => (
             <option key={s.id} value={s.id}>
               {s.label}
@@ -176,7 +184,7 @@ export default async function AdminQuestionsPage({
           ))}
         </select>
         <button type="submit" className={field}>
-          Filter
+          {tc("filter")}
         </button>
       </form>
       <div className="mt-4 flex flex-col gap-2">
@@ -189,21 +197,23 @@ export default async function AdminQuestionsPage({
               q={q}
               sections={sections}
               defaults={{ section, locale: qLocale }}
+              locale={locale}
             />
             <form action={deleteQuestion} className="mt-2">
               <input type="hidden" name="id" value={q.id} />
               <button type="submit" className="text-sm text-destructive">
-                Delete
+                {tc("delete")}
               </button>
             </form>
           </details>
         ))}
         <details className="rounded-md border border-dashed p-3">
           <summary className="cursor-pointer text-sm font-medium">
-            New question
+            {t("new")}
           </summary>
           <QuestionForm
             q={null}
+            locale={locale}
             sections={sections}
             defaults={{
               section: section === "exam" ? "" : section,
