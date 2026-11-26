@@ -21,7 +21,7 @@ _Avoid_: Guest, anonymous user
 Every Student is in exactly one stage, set by their most recent enrollment. Admins see the counts and lists by stage.
 
 **Registered**:
-Has an account but no paid course: never bought it, or got a full refund.
+Has an account but no paid course: never bought it, or got a refund (any refund closes the course).
 _Avoid_: Lead, unpaid user
 
 **Studying**:
