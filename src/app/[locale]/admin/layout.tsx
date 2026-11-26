@@ -16,11 +16,16 @@ export const metadata: Metadata = {
  */
 export default async function AdminLayout({
   children,
+  breadcrumb,
   params,
 }: LayoutProps<"/[locale]/admin">) {
   const account = await getCurrentAccount();
   if (account?.role !== "admin") notFound();
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
-  return <AdminShell locale={locale}>{children}</AdminShell>;
+  return (
+    <AdminShell locale={locale} account={account} breadcrumb={breadcrumb}>
+      {children}
+    </AdminShell>
+  );
 }
