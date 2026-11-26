@@ -81,6 +81,7 @@ function QuestionForm({
           />
           <input
             name={`option${i}`}
+            aria-label={`Option ${i + 1} text`}
             required
             defaultValue={options[i]?.text}
             placeholder={`Option ${i + 1}`}
@@ -150,12 +151,22 @@ export default async function AdminQuestionsPage({
     <section>
       <h1 className="text-3xl font-bold tracking-tight">Question bank</h1>
       <form className="mt-4 flex gap-2">
-        <select name="locale" defaultValue={qLocale} className={field}>
+        <select
+          name="locale"
+          aria-label="Language"
+          defaultValue={qLocale}
+          className={field}
+        >
           {["en", "ja", "es", "ru"].map((l) => (
             <option key={l}>{l}</option>
           ))}
         </select>
-        <select name="section" defaultValue={section} className={field}>
+        <select
+          name="section"
+          aria-label="Question pool"
+          defaultValue={section}
+          className={field}
+        >
           <option value="">All pools</option>
           <option value="exam">Final exam pool</option>
           {sections.map((s) => (

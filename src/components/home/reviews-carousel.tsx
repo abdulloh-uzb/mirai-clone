@@ -62,6 +62,7 @@ export function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
           >
             <p
               className="flex gap-0.5 text-amber-500"
+              role="img"
               aria-label={t("stars", { rating: review.rating })}
             >
               {Array.from({ length: 5 }, (_, star) => (

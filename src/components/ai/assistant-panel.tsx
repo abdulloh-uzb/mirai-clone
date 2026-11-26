@@ -301,7 +301,7 @@ export function AssistantPanel() {
               maxLength={2000}
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              className="h-10 min-w-0 flex-1 rounded-full border-2 border-soft-border bg-background px-4 text-sm outline-none"
+              className="h-10 min-w-0 flex-1 rounded-full border-2 border-soft-border bg-background px-4 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
             />
             <Button
               type="submit"

@@ -12,7 +12,7 @@ test.afterAll(deleteTestUsers);
 test("a verified Student pays in Japanese and is enrolled once", async ({
   page,
 }) => {
-  const student = await createStudentAccount();
+  const student = await createStudentAccount({ verified: true });
   await page.goto("/login");
   const form = page.getByRole("main");
   await form.getByLabel("Email").fill(student.email);
@@ -31,9 +31,11 @@ test("a verified Student pays in Japanese and is enrolled once", async ({
     .getByRole("button", { name: /Pay \$24\.99 and start in 日本語/ })
     .click();
 
-  await expect(page).toHaveURL(/\/portal(\?paid=1)?$/);
+  // The server action redirects through the mock route; the Student ends on
+  // the course dashboard (the address bar may still show the mock route).
+  await expect(page.getByRole("link", { name: "Continue" })).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "Enter your driver details" }),
+    page.getByText("You will be asked for your driver details"),
   ).toBeVisible();
 
   const count = async () => {

@@ -97,7 +97,7 @@ export default async function ReportStatusPage({
       )}
       <Link
         href="/portal"
-        className="mt-8 inline-block font-medium text-primary hover:underline"
+        className="mt-8 inline-block font-medium text-link hover:underline"
       >
         {t("back")}
       </Link>

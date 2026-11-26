@@ -102,7 +102,7 @@ test("an Admin reaches the Admin area", async ({ page }) => {
   await page.goto("/admin");
 
   await expect(
-    page.getByRole("heading", { level: 1, name: "Admin" }),
+    page.getByRole("heading", { level: 1, name: "Dashboard" }),
   ).toBeVisible();
   await notIndexable(page);
 });

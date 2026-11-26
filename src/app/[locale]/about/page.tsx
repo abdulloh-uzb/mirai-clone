@@ -46,12 +46,12 @@ export default async function AboutPage({
           {contact.addressLines.map((line) => (
             <span key={line}>{line}</span>
           ))}
-          <a href={contact.phoneHref} className="text-primary hover:underline">
+          <a href={contact.phoneHref} className="text-link hover:underline">
             {contact.phone}
           </a>
           <a
             href={`mailto:${contact.email}`}
-            className="text-primary hover:underline"
+            className="text-link hover:underline"
           >
             {contact.email}
           </a>
@@ -61,7 +61,7 @@ export default async function AboutPage({
         </p>
         <Link
           href="/contact"
-          className="mt-4 inline-block font-medium text-primary hover:underline"
+          className="mt-4 inline-block font-medium text-link hover:underline"
         >
           {t("contactLink")}
         </Link>

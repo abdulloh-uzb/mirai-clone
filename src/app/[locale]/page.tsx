@@ -355,13 +355,13 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
             <Link
               href="/courts"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-link hover:underline"
             >
               {t("courts.all", { count: counties.length })}
             </Link>
             <Link
               href="/eligibility"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-link hover:underline"
             >
               {t("courts.eligibility")}
             </Link>
@@ -453,7 +453,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               </table>
               <Link
                 href="/refund-policy"
-                className="mt-4 inline-block font-medium text-primary hover:underline"
+                className="mt-4 inline-block font-medium text-link hover:underline"
               >
                 {t("pricing.refundLink")}
               </Link>
@@ -550,7 +550,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
           <div>
             <h2
               id="ai-heading"
-              className="relative flex items-center gap-2 text-3xl font-extrabold tracking-tight"
+              className="relative flex items-center gap-2 text-3xl font-extrabold tracking-tight text-white dark:text-foreground"
             >
               <SparklesIcon aria-hidden className="size-6" />
               {t("ai.heading")}
@@ -594,7 +594,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
               </Markdown>
               <Link
                 href={{ pathname: "/faq", hash: entry.slug }}
-                className="mt-3 inline-block text-sm font-medium text-primary hover:underline"
+                className="mt-3 inline-block text-sm font-medium text-link hover:underline"
               >
                 {t("faq.permalink")}
               </Link>
@@ -603,7 +603,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
         </div>
         <Link
           href="/faq"
-          className="mt-6 inline-block font-medium text-primary hover:underline"
+          className="mt-6 inline-block font-medium text-link hover:underline"
         >
           {t("faq.all")}
         </Link>

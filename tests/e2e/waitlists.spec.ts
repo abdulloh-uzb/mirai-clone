@@ -27,9 +27,15 @@ test("choosing Texas offers notify me and keeps the choice", async ({
   await page.getByRole("button", { name: /Ticket from: California/ }).click();
   await page.getByLabel("Where is your ticket from?").selectOption("TX");
   await expect(page.getByText("Coming soon — notify me")).toBeVisible();
-  await page.getByLabel("Email").fill(email);
-  await page.getByRole("button", { name: "Notify me" }).click();
-  await expect(page.getByRole("status")).toContainText("when Texas opens");
+  await page.locator("#state-waitlist-email").fill(email);
+  await page
+    .locator("form")
+    .filter({ has: page.locator("#state-waitlist-email") })
+    .getByRole("button", { name: "Notify me" })
+    .click();
+  await expect(
+    page.getByRole("status").filter({ hasText: "when Texas opens" }),
+  ).toBeVisible();
 
   const { data } = await serviceClient()
     .from("state_waitlist")

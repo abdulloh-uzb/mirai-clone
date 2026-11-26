@@ -1,15 +1,10 @@
 import { expect, test } from "@playwright/test";
 
-test("an unbuilt nav link lands on the 404 page inside the page frame", async ({
+test("an unknown page lands on the 404 page inside the page frame", async ({
   page,
 }) => {
-  await page.goto("/");
-  await page
-    .getByRole("navigation", { name: "Main" })
-    .getByRole("link", { name: "Courses" })
-    .click();
-
-  await expect(page).toHaveURL(/\/courses$/);
+  await page.goto("/no-such-page");
+  await expect(page).toHaveURL(/\/no-such-page$/);
   await expect(
     page.getByRole("heading", {
       level: 1,

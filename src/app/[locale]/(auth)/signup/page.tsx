@@ -36,7 +36,7 @@ export default async function SignUpPage({
           {t("haveAccount")}{" "}
           <Link
             href={{ pathname: "/login", query: next ? { next } : {} }}
-            className="font-medium text-primary underline"
+            className="font-medium text-link underline"
           >
             {t("signInLink")}
           </Link>

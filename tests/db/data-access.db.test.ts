@@ -128,7 +128,7 @@ beforeAll(async () => {
     }),
     serviceClient.from("security_questions").insert({
       user_id: student.id,
-      question: "First pet?",
+      question: "first_car",
       answer_hash: "not-a-real-hash",
     }),
     serviceClient

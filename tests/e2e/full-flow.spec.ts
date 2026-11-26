@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { expectNoSeriousA11yIssues } from "../support/axe";
 import { loadCourse } from "../support/course";
 import { firstLink, waitForEmail } from "../support/mailpit";
 import {
@@ -43,6 +44,7 @@ test("signup, pay, study, pass the exam and get a verifiable certificate", async
     .getByRole("button", { name: /Pay \$24\.99 and start in English/ })
     .click();
   await expect(page.getByRole("link", { name: "Continue" })).toBeVisible();
+  await expectNoSeriousA11yIssues(page);
   const { data: enrollment } = await serviceClient
     .from("enrollments")
     .select("id")
@@ -73,6 +75,11 @@ test("signup, pay, study, pass the exam and get a verifiable certificate", async
   });
   expect(saved.error).toBeNull();
 
+  // A lesson page has no serious accessibility issues.
+  await page.goto(`/portal/course/${enrollmentId}/1`);
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expectNoSeriousA11yIssues(page);
+
   // Study: lessons, minimum time and quizzes.
   const now = new Date().toISOString();
   await serviceClient.from("lesson_progress").insert(
@@ -100,6 +107,7 @@ test("signup, pay, study, pass the exam and get a verifiable certificate", async
   await expect(page.locator("fieldset legend")).toBeVisible({
     timeout: 20_000,
   });
+  await expectNoSeriousA11yIssues(page);
   for (let i = 0; i < 25; i++) {
     const legend = await page.locator("fieldset legend").innerText();
     const text = legend.replace(/^\d+\.\s*/, "");

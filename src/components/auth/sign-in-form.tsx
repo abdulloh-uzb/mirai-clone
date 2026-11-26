@@ -48,7 +48,7 @@ export function SignInForm({ next }: { next?: string }) {
       />
       <Link
         href="/reset-password"
-        className="justify-self-start text-sm font-medium text-primary underline"
+        className="justify-self-start text-sm font-medium text-link underline"
       >
         {t("forgotPassword")}
       </Link>
@@ -60,7 +60,7 @@ export function SignInForm({ next }: { next?: string }) {
           pathname: "/login/magic-link",
           query: next ? { next } : {},
         }}
-        className="justify-self-center text-sm font-medium text-primary underline"
+        className="justify-self-center text-sm font-medium text-link underline"
       >
         {t("magicLink")}
       </Link>

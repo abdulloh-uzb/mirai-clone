@@ -101,7 +101,11 @@ test("/about shows the contact details from the site config", async ({
   page,
 }) => {
   await page.goto("/about");
-  await expect(page.getByText(siteConfig.contact.email)).toBeVisible();
+  await expect(
+    page
+      .getByRole("main")
+      .getByRole("link", { name: siteConfig.contact.email }),
+  ).toBeVisible();
   await expect(page.getByText("not a licensed school").first()).toBeVisible();
   await expectNoSeriousA11yIssues(page);
 });

@@ -22,7 +22,7 @@ export async function CountyCard({ county }: { county: CountySummary }) {
       <div className="p-4">
         <p className="text-lg font-extrabold">{county.name}</p>
         <p className="text-sm text-muted-foreground">{county.seatCity}</p>
-        <p className="mt-2 text-sm font-medium text-primary group-hover:underline">
+        <p className="mt-2 text-sm font-medium text-link group-hover:underline">
           {t("popularCardCta")}
         </p>
       </div>

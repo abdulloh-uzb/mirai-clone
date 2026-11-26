@@ -82,7 +82,7 @@ export default async function PortalPage({
         <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
         <Link
           href="/portal/orders"
-          className="font-medium text-primary hover:underline"
+          className="font-medium text-link hover:underline"
         >
           {t("ordersLink")}
         </Link>

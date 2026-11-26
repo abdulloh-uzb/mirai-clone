@@ -108,7 +108,7 @@ export default async function CoursesPage({
                   key={section.position}
                   className="flex gap-3 rounded-lg border bg-card px-4 py-3"
                 >
-                  <span className="font-bold text-primary">
+                  <span className="font-bold text-link">
                     {section.position}
                   </span>
                   {section.title[locale] ?? section.title.en}
@@ -139,7 +139,7 @@ export default async function CoursesPage({
               </ul>
               <Link
                 href="/school-rules"
-                className="mt-3 inline-block font-medium text-primary hover:underline"
+                className="mt-3 inline-block font-medium text-link hover:underline"
               >
                 {t("rulesLink")}
               </Link>
@@ -174,7 +174,7 @@ export default async function CoursesPage({
               </ul>
               <Link
                 href="/refund-policy"
-                className="mt-3 inline-block font-medium text-primary hover:underline"
+                className="mt-3 inline-block font-medium text-link hover:underline"
               >
                 {t("refundLink")}
               </Link>

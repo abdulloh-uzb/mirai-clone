@@ -26,7 +26,7 @@ export default async function NewPasswordPage() {
           <p>{t("needsLink")}</p>
           <Link
             href="/reset-password"
-            className="font-medium text-primary underline"
+            className="font-medium text-link underline"
           >
             {t("requestLink")}
           </Link>

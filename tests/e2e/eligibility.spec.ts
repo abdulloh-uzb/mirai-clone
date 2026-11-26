@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { expectNoSeriousA11yIssues } from "../support/axe";
 
-async function answer(page: Page, answers: ("Yes" | "No")[]) {
+async function answer(page: Page, answers: string[]) {
   const groups = page.getByRole("group");
   for (const [index, value] of answers.entries()) {
     await groups.nth(index).getByLabel(value, { exact: true }).check();
@@ -35,7 +35,7 @@ test("a no names the blocking answer and the next step", async ({ page }) => {
 
 test("works in Spanish", async ({ page }) => {
   await page.goto("/es/eligibility");
-  await answer(page, ["No", "Yes", "Yes", "Yes", "Yes"]);
+  await answer(page, ["No", "Sí", "Sí", "Sí", "Sí"]);
   await page.getByRole("button", { name: "Ver mi resultado" }).click();
   await expect(page.getByRole("status")).toContainText(
     "Probablemente la escuela de tránsito no es una opción",

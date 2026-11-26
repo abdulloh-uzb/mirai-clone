@@ -77,7 +77,9 @@ test("a post in English shows category, date, body, related posts and JSON-LD", 
     "November 12, 2026",
   );
   await expect(
-    page.locator("article").getByRole("link", { name: "Traffic school" }),
+    page
+      .locator("article")
+      .getByRole("link", { name: "Traffic school", exact: true }),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Who can take it" }),
@@ -122,7 +124,7 @@ test("an English-only post under /ru shows the notice, English canonical and no 
     }),
   ).toBeVisible();
   await expect(
-    page.getByRole("note").filter({ hasText: "isn't translated" }),
+    page.getByRole("note").filter({ hasText: "ещё не переведена" }),
   ).toBeVisible();
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
     "href",

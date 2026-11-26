@@ -81,7 +81,7 @@ export default async function DmvServicesPage({
                         href={tile.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                        className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-link hover:underline"
                       >
                         {t("openLink")}
                         <span className="sr-only"> {t("newTab")}</span>

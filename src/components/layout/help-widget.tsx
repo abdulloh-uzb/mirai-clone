@@ -111,7 +111,7 @@ export function HelpWidget() {
           aria-label={t("placeholder")}
           placeholder={t("placeholder")}
           onFocus={openAssistant}
-          className="h-11 w-full rounded-full border-2 border-soft-border bg-background pr-11 pl-4 text-sm outline-none placeholder:text-muted-foreground"
+          className="h-11 w-full rounded-full border-2 border-soft-border bg-background pr-11 pl-4 text-sm outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
         />
         <button
           type="submit"

@@ -45,6 +45,8 @@ type UserOptions = {
   lastName?: string;
   preferredLocale?: string;
   email?: string;
+  /** Sets profiles.email_verified_at, as the auth callback does. */
+  verified?: boolean;
 };
 
 const createdUserIds: string[] = [];
@@ -68,6 +70,13 @@ export async function createStudentAccount(
   });
   if (error) throw error;
   createdUserIds.push(data.user.id);
+  if (options.verified) {
+    const { error: verifyError } = await serviceClient
+      .from("profiles")
+      .update({ email_verified_at: new Date().toISOString() })
+      .eq("user_id", data.user.id);
+    if (verifyError) throw verifyError;
+  }
   return {
     id: data.user.id,
     email,

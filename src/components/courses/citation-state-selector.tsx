@@ -55,7 +55,7 @@ export function CitationStateSelector({
           className,
         )}
       >
-        <MapPinIcon aria-hidden className="size-4 text-primary" />
+        <MapPinIcon aria-hidden className="size-4 text-link" />
         {t("chip", { state: selected?.name ?? code })}
         <ChevronDownIcon aria-hidden className="size-4 opacity-60" />
       </PopoverTrigger>

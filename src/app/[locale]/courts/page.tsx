@@ -45,7 +45,7 @@ export default async function CourtsPage({
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-2xl border-2 border-b-4 border-b-brand-green bg-card px-4 py-3">
           <Link
             href={`/courts/${county.slug}`}
-            className="min-w-40 font-semibold text-primary hover:underline"
+            className="min-w-40 font-semibold text-link hover:underline"
           >
             {county.name}
           </Link>

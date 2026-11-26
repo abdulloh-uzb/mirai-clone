@@ -20,7 +20,7 @@ export default async function MagicLinkPage({
       title={t("title")}
       intro={t("intro")}
       footer={
-        <Link href="/login" className="font-medium text-primary underline">
+        <Link href="/login" className="font-medium text-link underline">
           {t("backToSignIn")}
         </Link>
       }

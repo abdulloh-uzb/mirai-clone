@@ -215,7 +215,7 @@ export async function Dashboard({
               {report ? (
                 <Link
                   href={`/portal/status/${enrollment.id}`}
-                  className="text-primary hover:underline"
+                  className="text-link hover:underline"
                 >
                   {tr(`status.${report.status}`)}
                 </Link>

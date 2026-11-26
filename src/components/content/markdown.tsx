@@ -1,4 +1,5 @@
 import ReactMarkdown, { type Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
 
 function isExternal(href: string | undefined): boolean {
@@ -47,7 +48,7 @@ const components: Components = {
   a: ({ href, ...props }) => (
     <a
       href={href}
-      className="font-medium text-primary underline underline-offset-4 hover:no-underline"
+      className="font-medium text-link underline underline-offset-4 hover:no-underline"
       {...(isExternal(href)
         ? { target: "_blank", rel: "noopener noreferrer" }
         : {})}
@@ -59,6 +60,23 @@ const components: Components = {
       className="rounded bg-muted px-1 py-0.5 text-sm"
       {...withoutNode(props)}
     />
+  ),
+  table: (props) => (
+    <div className="mt-4 overflow-x-auto">
+      <table
+        className="w-full border-collapse text-left text-sm"
+        {...withoutNode(props)}
+      />
+    </div>
+  ),
+  th: (props) => (
+    <th
+      className="border-b-2 border-border px-3 py-2 font-semibold"
+      {...withoutNode(props)}
+    />
+  ),
+  td: (props) => (
+    <td className="border-b border-border px-3 py-2" {...withoutNode(props)} />
   ),
   hr: () => <hr className="my-8 border-border" />,
   // Images in admin text must carry alt text; an empty alt marks them decorative.
@@ -81,7 +99,11 @@ export function Markdown({
 }) {
   return (
     <div className={cn("text-base text-foreground", className)}>
-      <ReactMarkdown skipHtml components={components}>
+      <ReactMarkdown
+        skipHtml
+        remarkPlugins={[remarkGfm]}
+        components={components}
+      >
         {children}
       </ReactMarkdown>
     </div>

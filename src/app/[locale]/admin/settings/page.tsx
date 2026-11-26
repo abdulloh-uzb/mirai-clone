@@ -69,6 +69,7 @@ export default async function AdminSettingsPage({
         <input
           name="email"
           type="email"
+          aria-label="Account email"
           required
           placeholder="Account email"
           className="rounded-md border bg-background px-2 py-1 text-sm"

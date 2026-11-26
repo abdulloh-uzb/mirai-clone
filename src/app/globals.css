@@ -46,6 +46,7 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-link: var(--link);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -68,6 +69,7 @@
   --popover: #ffffff;
   --popover-foreground: #1d283a;
   /* Sky-blue action color with dark text; green marks success and selection. */
+  --link: #0a5a9c;
   --primary: #38b6ff;
   --primary-foreground: #0f1217;
   --secondary: #eaf3fb;
@@ -111,6 +113,7 @@
   --card-foreground: #e9f1f6;
   --popover: #10222d;
   --popover-foreground: #e9f1f6;
+  --link: #38b6ff;
   --primary: #38b6ff;
   --primary-foreground: #0f1217;
   --secondary: #16303f;

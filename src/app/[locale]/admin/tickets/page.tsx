@@ -65,6 +65,7 @@ export default async function AdminTicketsPage({
               <input type="hidden" name="id" value={t.id} />
               <select
                 name="status"
+                aria-label="Ticket status"
                 defaultValue={t.status}
                 className="rounded-md border bg-background px-2 py-1 text-sm"
               >

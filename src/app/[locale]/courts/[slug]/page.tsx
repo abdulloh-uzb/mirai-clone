@@ -141,7 +141,7 @@ export default async function CountyPage({
               href={county.caseLookupUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-medium text-primary underline underline-offset-4"
+              className="inline-flex items-center gap-1 font-medium text-link underline underline-offset-4"
             >
               {t("caseLookup")}
               <span className="sr-only"> {t("opensInNewTab")}</span>
