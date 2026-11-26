@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import { Notice } from "@/components/ui/notice";
 import { Link } from "@/i18n/navigation";
 import {
   allAnswered,
@@ -62,22 +63,14 @@ export function QuizRunner({
   const byQuestion = new Map(result?.results.map((r) => [r.questionId, r]));
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6" data-testid="quiz-form">
+    <form onSubmit={onSubmit} className="grid gap-6" data-testid="quiz-form">
       {result ? (
-        <div
-          role="status"
-          className={cn(
-            "rounded-xl border p-4",
-            result.passed
-              ? "border-brand-green/50 bg-brand-green/10"
-              : "border-destructive/50 bg-destructive/10",
-          )}
-        >
-          <p className="font-semibold">
+        <Notice role="status" tone={result.passed ? "success" : "error"}>
+          <p className="text-xl font-extrabold tracking-tight">
             {t("score", { score: result.score, total: result.total })}
           </p>
-          <p className="text-sm">{result.passed ? t("passed") : t("failed")}</p>
-        </div>
+          <p className="mt-1">{result.passed ? t("passed") : t("failed")}</p>
+        </Notice>
       ) : null}
 
       {quiz.questions.map((q, index) => {
@@ -85,48 +78,61 @@ export function QuizRunner({
         return (
           <fieldset
             key={q.id}
-            className="space-y-3 rounded-xl border bg-card p-4"
+            className="rounded-[22px] border border-line-blue bg-card p-5 sm:p-6"
             disabled={!!result}
           >
-            <legend className="px-1 font-semibold">
+            <legend className="float-left mb-4 w-full text-xl leading-snug font-extrabold tracking-tight text-balance">
               {index + 1}. {q.text}
             </legend>
-            {q.options.map((o) => {
-              const chosen = answers[q.id] === o.id;
-              const isRight = graded?.correctOptionId === o.id;
-              return (
-                <label
-                  key={o.id}
+            <div className="clear-left grid gap-2.5">
+              {q.options.map((o) => {
+                const chosen = answers[q.id] === o.id;
+                const isRight = graded?.correctOptionId === o.id;
+                return (
+                  <label
+                    key={o.id}
+                    className="lms-choice"
+                    data-tone={
+                      graded && isRight
+                        ? "right"
+                        : graded && chosen
+                          ? "wrong"
+                          : undefined
+                    }
+                  >
+                    <input
+                      type="radio"
+                      name={q.id}
+                      value={o.id}
+                      checked={chosen}
+                      onChange={() =>
+                        setAnswers((prev) => ({ ...prev, [q.id]: o.id }))
+                      }
+                    />
+                    <span>{o.text}</span>
+                  </label>
+                );
+              })}
+            </div>
+            {graded ? (
+              <div
+                className={cn(
+                  "mt-4 rounded-[16px] px-4 py-3 text-[16px]",
+                  graded.correct ? "bg-green-tint" : "bg-alert-bg",
+                )}
+                role="note"
+              >
+                <p
                   className={cn(
-                    "flex cursor-pointer items-start gap-3 rounded-lg border px-3 py-2 text-sm",
-                    chosen && !graded && "border-primary",
-                    graded && isRight && "border-brand-green bg-brand-green/10",
-                    graded &&
-                      chosen &&
-                      !isRight &&
-                      "border-destructive bg-destructive/10",
+                    "font-extrabold",
+                    graded.correct ? "text-green-ink" : "text-alert",
                   )}
                 >
-                  <input
-                    type="radio"
-                    name={q.id}
-                    value={o.id}
-                    checked={chosen}
-                    onChange={() =>
-                      setAnswers((prev) => ({ ...prev, [q.id]: o.id }))
-                    }
-                    className="mt-1"
-                  />
-                  <span>{o.text}</span>
-                </label>
-              );
-            })}
-            {graded ? (
-              <div className="text-sm" role="note">
-                <p className="font-semibold">
                   {graded.correct ? t("correct") : t("incorrect")}
                 </p>
-                {graded.explanation ? <p>{graded.explanation}</p> : null}
+                {graded.explanation ? (
+                  <p className="mt-1">{graded.explanation}</p>
+                ) : null}
               </div>
             ) : null}
           </fieldset>
@@ -134,15 +140,16 @@ export function QuizRunner({
       })}
 
       {error ? (
-        <p role="alert" className="text-sm text-destructive">
+        <Notice role="alert" tone="error">
           {t(`errors.${error}`)}
-        </p>
+        </Notice>
       ) : null}
 
       <div className="flex flex-wrap gap-3">
         {!result ? (
           <Button
             type="submit"
+            size="lg"
             disabled={busy || !allAnswered(quiz.questions, answers)}
             data-testid="quiz-submit"
           >
@@ -150,22 +157,22 @@ export function QuizRunner({
           </Button>
         ) : result.passed ? (
           isLastSection ? (
-            <Button asChild>
+            <Button asChild size="lg">
               <Link href={`/portal/exam/${enrollmentId}`}>{t("toExam")}</Link>
             </Button>
           ) : (
-            <Button asChild>
+            <Button asChild size="lg">
               <Link href={`/portal/course/${enrollmentId}/${section + 1}`}>
                 {t("continue", { section: section + 1 })}
               </Link>
             </Button>
           )
         ) : (
-          <Button type="button" onClick={onRetry} disabled={busy}>
+          <Button type="button" size="lg" onClick={onRetry} disabled={busy}>
             {t("retry")}
           </Button>
         )}
-        <Button asChild variant="outline">
+        <Button asChild size="lg" variant="outline">
           <Link href={`/portal/course/${enrollmentId}/${section}`}>
             {t("backToSection")}
           </Link>

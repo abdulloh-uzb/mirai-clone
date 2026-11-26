@@ -10,7 +10,7 @@ export function ImageBlock({
   caption?: string;
 }) {
   return (
-    <figure className="overflow-hidden rounded-xl border">
+    <figure className="overflow-hidden rounded-[22px] border border-line-blue bg-hero">
       <Image
         src={src}
         alt={alt}
@@ -20,7 +20,7 @@ export function ImageBlock({
         unoptimized={src.endsWith(".svg")}
       />
       {caption ? (
-        <figcaption className="px-4 py-2 text-sm text-muted-foreground">
+        <figcaption className="bg-card px-5 py-3 text-[15px] text-muted-foreground">
           {caption}
         </figcaption>
       ) : null}

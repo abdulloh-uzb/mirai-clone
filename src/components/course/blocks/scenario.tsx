@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
+import { Notice } from "@/components/ui/notice";
 
 type Choice = { text: string; feedback: string; best: boolean };
 
@@ -19,36 +19,35 @@ export function ScenarioBlock({
   const [picked, setPicked] = useState<number | null>(null);
   const choice = picked === null ? null : choices[picked];
   return (
-    <fieldset className="rounded-xl border bg-card p-4">
-      <legend className="px-1 text-sm font-semibold text-muted-foreground">
+    <fieldset className="rounded-[22px] border border-line-blue bg-surface p-5 sm:p-6">
+      <legend className="float-left mb-3 inline-flex rounded-full bg-card px-3 py-1 text-[13px] font-extrabold tracking-[0.06em] text-blue-text uppercase">
         {t("scenario")}
       </legend>
-      <p className="font-medium">{prompt}</p>
-      <div className="mt-3 space-y-2">
+      <p className="clear-left text-xl leading-snug font-extrabold tracking-tight text-balance">
+        {prompt}
+      </p>
+      <div className="mt-4 grid gap-2.5">
         {choices.map((c, i) => (
-          <label
-            key={c.text}
-            className={cn(
-              "flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border p-3 text-sm",
-              picked === i && "border-primary bg-primary/10",
-            )}
-          >
+          <label key={c.text} className="lms-choice">
             <input
               type="radio"
               name={name}
               checked={picked === i}
               onChange={() => setPicked(i)}
-              className="mt-1"
             />
             <span>{c.text}</span>
           </label>
         ))}
       </div>
       {choice ? (
-        <p role="status" className="mt-3 rounded-lg bg-muted p-3 text-sm">
+        <Notice
+          role="status"
+          tone={choice.best ? "success" : "warning"}
+          className="mt-4"
+        >
           <strong>{choice.best ? t("bestChoice") : t("notBest")}</strong>{" "}
           {choice.feedback}
-        </p>
+        </Notice>
       ) : null}
     </fieldset>
   );

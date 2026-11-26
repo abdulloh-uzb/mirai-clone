@@ -2,7 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
+import { ShieldCheckIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Notice } from "@/components/ui/notice";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -70,37 +72,48 @@ export function IdentityCheckDialog({
         : tDetails(`questions.${check.prompt}` as "questions.first_car");
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
+    <div className="fixed inset-0 z-50 grid place-items-center bg-[#0a1d28]/60 p-4">
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="identity-title"
-        className="w-full max-w-md space-y-4 rounded-lg border bg-background p-6 shadow-lg"
+        className="w-full max-w-md space-y-4 rounded-[24px] border-t-[6px] border-b-[6px] border-t-brand-sky border-b-brand-green bg-card p-6 text-card-foreground shadow-pop sm:p-7"
       >
-        <h2 id="identity-title" className="text-lg font-semibold">
-          {paused ? t("pausedTitle") : t("title")}
-        </h2>
+        <div className="flex items-center gap-3">
+          <span
+            aria-hidden
+            className="grid size-11 shrink-0 place-items-center rounded-full bg-hero text-blue-text"
+          >
+            <ShieldCheckIcon className="size-5" />
+          </span>
+          <h2
+            id="identity-title"
+            className="text-[22px] leading-tight font-extrabold tracking-tight"
+          >
+            {paused ? t("pausedTitle") : t("title")}
+          </h2>
+        </div>
         {paused ? (
           <>
-            <p className="text-sm">{t("paused")}</p>
-            <Button asChild>
+            <Notice tone="warning">{t("paused")}</Notice>
+            <Button asChild size="lg">
               <Link href="/contact">{t("contact")}</Link>
             </Button>
           </>
         ) : (
           <form onSubmit={onSubmit} className="space-y-4">
-            <p className="text-sm text-muted-foreground">{t("intro")}</p>
+            <p className="text-[17px] text-muted-foreground">{t("intro")}</p>
             {wrong ? (
-              <p role="alert" className="text-sm text-destructive">
+              <Notice role="alert" tone="error">
                 {t("wrong")}
-              </p>
+              </Notice>
             ) : null}
             {failed ? (
-              <p role="alert" className="text-sm text-destructive">
+              <Notice role="alert" tone="error">
                 {t("error")}
-              </p>
+              </Notice>
             ) : null}
-            <div className="space-y-2">
+            <div className="grid gap-1.5">
               <Label htmlFor="identity-answer">{label}</Label>
               <Input
                 id="identity-answer"
@@ -113,7 +126,12 @@ export function IdentityCheckDialog({
                 onChange={(e) => setValue(e.target.value)}
               />
             </div>
-            <Button type="submit" disabled={busy || !value.trim()}>
+            <Button
+              type="submit"
+              size="lg"
+              className="w-full"
+              disabled={busy || !value.trim()}
+            >
               {t("submit")}
             </Button>
           </form>
