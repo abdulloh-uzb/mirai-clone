@@ -34,11 +34,20 @@ export async function LanguageCards({
                     "border-brand-green bg-surface-mint ring-2 ring-brand-green/30",
                 )}
               >
-                <span aria-hidden className="text-3xl">
-                  {languages[lang].flag}
+                {/* A code badge, not an emoji flag: emoji fonts are slow to load and lay out. */}
+                <span
+                  aria-hidden
+                  className="grid size-10 place-items-center rounded-full bg-muted text-sm font-extrabold"
+                >
+                  {languages[lang].shortCode}
                 </span>
                 <span className="grid flex-1">
-                  <span lang={lang} className="font-semibold">
+                  {/* The device's own CJK font draws 日本語, so the Noto Sans JP webfont is not downloaded just for this label. */}
+                  <span
+                    lang={lang}
+                    className="font-semibold"
+                    style={{ fontFamily: "var(--font-inter), sans-serif" }}
+                  >
                     {languages[lang].nativeName}
                   </span>
                   {lang === routing.defaultLocale ? (

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { ClassroomWaitlistForm } from "@/components/courses/classroom-waitlist-form";
+import { LazyClassroomWaitlistForm } from "@/components/courses/lazy-classroom-waitlist-form";
 import { CitationStateSelector } from "@/components/courses/citation-state-selector";
 import { CoursePanel } from "@/components/courses/course-panel";
 import { LanguageCards } from "@/components/courses/language-cards";
@@ -94,7 +94,7 @@ export default async function CoursesPage({
           />
         </div>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-2">
+        <div className="deferred-section mt-16 grid gap-12 lg:grid-cols-2">
           <section aria-labelledby="syllabus-heading">
             <h2
               id="syllabus-heading"
@@ -185,7 +185,7 @@ export default async function CoursesPage({
         <section
           id="classroom"
           aria-labelledby="classroom-heading"
-          className="mt-16 grid gap-6 rounded-2xl border bg-muted/40 p-6 md:grid-cols-2"
+          className="deferred-section mt-16 grid gap-6 rounded-2xl border bg-muted/40 p-6 md:grid-cols-2"
         >
           <div>
             <h2
@@ -199,7 +199,7 @@ export default async function CoursesPage({
             </p>
             <p className="mt-2 text-muted-foreground">{t("classroom.text")}</p>
           </div>
-          <ClassroomWaitlistForm
+          <LazyClassroomWaitlistForm
             counties={counties.map(({ slug, name }) => ({ slug, name }))}
           />
         </section>

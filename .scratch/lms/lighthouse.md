@@ -31,3 +31,42 @@ thing holding performance below 90).
   - the browser Sentry SDK loads lazily, and only after analytics consent.
 - Not done: further cuts need a smaller hydration tree (for example turning more
   of the header, footer and home sections into plain server HTML), which is a larger refactor.
+
+## Ticket 18 (performance pass)
+
+Re-measured with Lighthouse 12, mobile emulation, production build, median of 3
+(this machine, other apps running; runs vary by +-4 points):
+
+| Page                       | Before (median) | After (median) | After TBT | After LCP |
+| -------------------------- | --------------- | -------------- | --------- | --------- |
+| /                          | 76              | 88             | 300 ms    | 3.0 s     |
+| /courses                   | 75              | 88             | 200 ms    | 3.5 s     |
+| /courts/los-angeles-county | 83              | 87             | 200 ms    | 3.4 s     |
+
+Target of 90 not reached on every page. What is left:
+
+- Lighthouse's simulated LCP (about 3.4 s against a 1.2 s FCP) counts every main-thread
+  task that starts before the observed paint. The ~100 ms React/Next framework
+  evaluate-and-hydrate task usually starts just before the paint is presented,
+  so it is counted (x4 CPU). When it starts a few ms later, LCP is 2.5 s and the
+  page scores 92-94 (seen on `/` and `/courts/...`). That is run-to-run luck, not something the app controls.
+- A bare text page (`/terms`) scores 84-88 on the same machine, so the floor is the framework.
+
+Changes:
+
+- Radix popper/dialog/menu code no longer loads with the page: language switcher, mobile menu,
+  user menu, state selector and "Got a problem?" dialog render a plain trigger and load the
+  Radix part on the first click (`React.lazy`, trigger stays visible while loading).
+- Header strings are formatted on the server (language label, menu label, help widget label), so
+  the browser does no ICU/message formatting during first load (was about 20 ms of `Intl` start-up).
+  The help widget's expanded card is a lazy chunk.
+- Suspense boundaries around the footer, floating widgets and each home section, so React
+  hydrates them in separate, later tasks instead of one long one.
+- `content-visibility: auto` (`.deferred-section`) on below-the-fold sections of `/`,
+  `/courses` and the court page: layout 130 ms to 85 ms, PrePaint 46 ms to 2 ms on `/`.
+- The classroom waitlist form (react-hook-form and zod) loads when it nears the viewport.
+- No emoji flags in the header button and language cards (emoji font fallback cost ~25 ms of layout);
+  the language cards show a code badge and do not pull the Noto Sans JP webfont for "日本語".
+
+Tried and dropped: `experimental.inlineCss` (HTML doubled, TBT worse); `preload: false` for Inter
+(font swap caused CLS 0.13).

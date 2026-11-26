@@ -1,6 +1,7 @@
 import { SignpostIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
+import { languages } from "@/i18n/languages";
 import { Link } from "@/i18n/navigation";
 import { NavLink } from "./nav-link";
 import { HeaderAccount } from "./header-account";
@@ -11,6 +12,10 @@ import { ThemeToggle } from "./theme-toggle";
 
 export function SiteHeader() {
   const t = useTranslations("Header");
+  const tLanguage = useTranslations("LanguageSwitcher");
+  const languageLabel = tLanguage("label", {
+    language: languages[useLocale()].nativeName,
+  });
 
   return (
     <header className="sticky top-3 z-40 px-3 pt-3">
@@ -43,10 +48,10 @@ export function SiteHeader() {
         <div className="ml-auto flex items-center gap-1.5 md:ml-0">
           <div className="flex items-center gap-2 rounded-[18px] bg-secondary p-1 pl-2">
             <ThemeToggle label={t("darkTheme")} />
-            <LanguageSwitcher />
+            <LanguageSwitcher label={languageLabel} />
           </div>
           <HeaderAccount />
-          <MobileMenu />
+          <MobileMenu label={t("openMenu")} />
         </div>
       </div>
     </header>

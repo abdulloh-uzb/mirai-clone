@@ -15,5 +15,5 @@ Ticket 17 measured 72–78 on /, /courses, /courts/los-angeles-county (default m
    - Sentry client and PostHog only after consent (already) — verify not in initial bundle.
 3. Re-measure; iterate until ≥ 90 median on all three pages. Keep e2e green for touched features (run the relevant spec files + axe-sweep under the lock).
 
-- [ ] ≥ 90 performance on the three pages (median of 3), scores in lighthouse.md
-- [ ] lint, typecheck, unit pass; touched e2e specs + axe-sweep pass
+- [ ] ≥ 90 performance on the three pages (median of 3), scores in lighthouse.md (medians now 88 / 88 / 87, up from 76 / 75 / 83; not reached, see lighthouse.md for what is left)
+- [x] lint, typecheck, unit pass; touched e2e specs + axe-sweep pass

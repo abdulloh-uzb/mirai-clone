@@ -53,6 +53,8 @@ test("the classroom waitlist stores email and County", async ({ page }) => {
   const email = newEmail("classroom-wait");
   await page.goto("/courses");
   const card = page.locator("#classroom");
+  // The form loads when it nears the viewport.
+  await card.scrollIntoViewIfNeeded();
   await card.getByLabel("Email").fill(email);
   await card.getByLabel("County").selectOption("fresno-county");
   await card.getByRole("button", { name: "Join the waitlist" }).click();
@@ -69,6 +71,8 @@ test("validation errors are translated", async ({ page }) => {
   await page.goto("/ja/courses");
   await page.waitForLoadState("networkidle");
   const card = page.locator("#classroom");
+  // The form loads when it nears the viewport.
+  await card.scrollIntoViewIfNeeded();
   await card.getByRole("button", { name: "ウェイトリストに登録" }).click();
   await expect(card).toContainText("有効なメールアドレスを入力してください。");
   await expect(card).toContainText("郡を選択してください。");
@@ -80,6 +84,8 @@ test("a filled honeypot gets a fake success and stores nothing", async ({
   const email = newEmail("classroom-bot");
   await page.goto("/courses");
   const card = page.locator("#classroom");
+  // The form loads when it nears the viewport.
+  await card.scrollIntoViewIfNeeded();
   await card.getByLabel("Email").fill(email);
   await card.getByLabel("County").selectOption("kern-county");
   await card

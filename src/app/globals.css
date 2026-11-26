@@ -223,3 +223,9 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Below-the-fold sections skip style, layout and paint until they near the viewport. */
+.deferred-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}

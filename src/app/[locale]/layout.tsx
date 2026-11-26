@@ -4,6 +4,7 @@ import { getMessages, getTranslations } from "next-intl/server";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { LazyAssistantPanel } from "@/components/ai/lazy-assistant-panel";
 import { CookieConsent } from "@/components/privacy/cookie-consent";
 import { HelpWidget } from "@/components/layout/help-widget";
@@ -62,6 +63,8 @@ export default async function LocaleLayout({
   // Set by the proxy; makes every page dynamic, which a nonce needs.
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
+  const helpT = await getTranslations({ locale, namespace: "HelpWidget" });
+
   // Only what client components read goes to the browser.
   const clientMessages = pickNamespaces(
     (await getMessages()) as Messages,
@@ -95,13 +98,23 @@ export default async function LocaleLayout({
             >
               {children}
             </main>
-            <SiteFooter />
-            <HelpWidget />
-            <LazyAssistantPanel />
-            <CookieConsent
-              posthogKey={publicEnv.NEXT_PUBLIC_POSTHOG_KEY}
-              posthogHost={publicEnv.NEXT_PUBLIC_POSTHOG_HOST}
-            />
+            {/* Suspense boundaries let React hydrate the footer and floating
+                widgets in separate, later tasks instead of one long one. */}
+            <Suspense>
+              <SiteFooter />
+            </Suspense>
+            <Suspense>
+              <HelpWidget collapsedLabel={helpT("collapsedLabel")} />
+            </Suspense>
+            <Suspense>
+              <LazyAssistantPanel />
+            </Suspense>
+            <Suspense>
+              <CookieConsent
+                posthogKey={publicEnv.NEXT_PUBLIC_POSTHOG_KEY}
+                posthogHost={publicEnv.NEXT_PUBLIC_POSTHOG_HOST}
+              />
+            </Suspense>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

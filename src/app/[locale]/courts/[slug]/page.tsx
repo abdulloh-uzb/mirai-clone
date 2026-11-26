@@ -119,7 +119,10 @@ export default async function CountyPage({
         </ul>
       </section>
 
-      <section aria-labelledby="instructions-heading" className="mt-10">
+      <section
+        aria-labelledby="instructions-heading"
+        className="deferred-section mt-10"
+      >
         <h2
           id="instructions-heading"
           className="text-2xl font-bold tracking-tight"
@@ -151,7 +154,7 @@ export default async function CountyPage({
         ) : null}
       </section>
 
-      <section className="mt-12 rounded-xl bg-muted p-6">
+      <section className="deferred-section mt-12 rounded-xl bg-muted p-6">
         <h2 className="text-2xl font-bold tracking-tight">{t("ctaHeading")}</h2>
         <p className="mt-2">{t("ctaBody")}</p>
         <Link
