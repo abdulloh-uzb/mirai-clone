@@ -1,4 +1,6 @@
 import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import type { Locale } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/course/blocks/block-renderer";
 import { routing } from "@/i18n/routing";
@@ -13,10 +15,12 @@ import { createServiceClient } from "@/lib/supabase/service";
 
 const field = "rounded-md border bg-background px-2 py-1 text-sm";
 
-function BlockForm({
+async function BlockForm({
   lessonId,
   block,
+  locale,
 }: {
+  locale: Locale;
   lessonId: string;
   block: {
     id: string;
@@ -25,6 +29,7 @@ function BlockForm({
     content: unknown;
   } | null;
 }) {
+  const t = await getTranslations({ locale, namespace: "Admin.lesson" });
   const content = (block?.content ?? {}) as Record<string, unknown>;
   return (
     <form action={saveBlock} className="mt-2 flex flex-col gap-3">
@@ -32,7 +37,7 @@ function BlockForm({
       {block ? <input type="hidden" name="id" value={block.id} /> : null}
       <div className="flex gap-3">
         <label className="flex flex-col gap-1 text-sm">
-          position
+          {t("position")}
           <input
             name="position"
             type="number"
@@ -43,7 +48,7 @@ function BlockForm({
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
-          type
+          {t("type")}
           <select name="type" defaultValue={block?.type} className={field}>
             {BLOCK_TYPES.map((t) => (
               <option key={t}>{t}</option>
@@ -53,7 +58,9 @@ function BlockForm({
       </div>
       {COURSE_LOCALES.map((l) => (
         <label key={l} className="flex flex-col gap-1 text-sm">
-          content ({l}, JSON{l === "en" ? "" : ", blank = not translated"})
+          {l === "en"
+            ? t("contentLabel", { locale: l })
+            : t("contentLabelBlank", { locale: l })}
           <textarea
             name={`content_${l}`}
             rows={5}
@@ -66,7 +73,7 @@ function BlockForm({
         type="submit"
         className="w-fit rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
       >
-        {block ? "Save block" : "Add block"}
+        {block ? t("saveBlock") : t("addBlock")}
       </button>
     </form>
   );
@@ -78,6 +85,8 @@ export default async function AdminLessonPage({
   const { locale, id } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
+  const t = await getTranslations({ locale, namespace: "Admin.lesson" });
+  const tc = await getTranslations({ locale, namespace: "Admin.common" });
   const svc = createServiceClient();
   const { data: lesson } = await svc
     .from("lessons")
@@ -90,7 +99,8 @@ export default async function AdminLessonPage({
     .select("id, position, type, content")
     .eq("lesson_id", id)
     .order("position");
-  const title = (lesson.title as Record<string, string>).en ?? "Lesson";
+  const title =
+    (lesson.title as Record<string, string>).en ?? t("fallbackTitle");
 
   return (
     <section>
@@ -98,7 +108,7 @@ export default async function AdminLessonPage({
       <div className="mt-4 flex flex-col gap-2">
         {(blocks ?? []).map((b) => {
           let preview: React.ReactNode = (
-            <p className="text-sm text-destructive">Invalid content</p>
+            <p className="text-sm text-destructive">{t("invalid")}</p>
           );
           try {
             const type = b.type as (typeof BLOCK_TYPES)[number];
@@ -120,25 +130,23 @@ export default async function AdminLessonPage({
               <summary className="cursor-pointer text-sm font-medium">
                 {b.position}. {b.type}
               </summary>
-              <BlockForm lessonId={id} block={b} />
+              <BlockForm lessonId={id} block={b} locale={locale} />
               <form action={deleteBlock} className="mt-2">
                 <input type="hidden" name="id" value={b.id} />
                 <button type="submit" className="text-sm text-destructive">
-                  Delete
+                  {tc("delete")}
                 </button>
               </form>
-              <h3 className="mt-4 text-sm font-semibold">
-                Preview as student (en)
-              </h3>
+              <h3 className="mt-4 text-sm font-semibold">{t("preview")}</h3>
               <div className="mt-2 rounded-md border p-3">{preview}</div>
             </details>
           );
         })}
         <details className="rounded-md border border-dashed p-3">
           <summary className="cursor-pointer text-sm font-medium">
-            New block
+            {t("newBlock")}
           </summary>
-          <BlockForm lessonId={id} block={null} />
+          <BlockForm lessonId={id} block={null} locale={locale} />
         </details>
       </div>
     </section>

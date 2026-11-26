@@ -1,4 +1,5 @@
 import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
@@ -15,6 +16,7 @@ export default async function AdminAiPage({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
+  const t = await getTranslations({ locale, namespace: "Admin.ai" });
   const sp = await searchParams;
   const open = typeof sp.c === "string" ? sp.c : null;
   const svc = createServiceClient();
@@ -36,24 +38,24 @@ export default async function AdminAiPage({
 
   return (
     <section>
-      <h1 className="text-3xl font-bold tracking-tight">AI</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
       <form action={reindexKnowledgeBaseAction} className="mt-4">
         <button
           type="submit"
           className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
         >
-          Re-index knowledge base
+          {t("reindex")}
         </button>
       </form>
 
-      <h2 className="mt-8 text-xl font-semibold">Daily cost</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("dailyCost")}</h2>
       <table className="mt-4 text-left text-sm">
         <thead>
           <tr className="text-muted-foreground">
-            <th className="pr-4">Day</th>
-            <th className="pr-4">Answers</th>
-            <th className="pr-4">Tokens in/out</th>
-            <th className="pr-4">Cost (USD)</th>
+            <th className="pr-4">{t("day")}</th>
+            <th className="pr-4">{t("answers")}</th>
+            <th className="pr-4">{t("tokens")}</th>
+            <th className="pr-4">{t("cost")}</th>
           </tr>
         </thead>
         <tbody>
@@ -70,7 +72,7 @@ export default async function AdminAiPage({
         </tbody>
       </table>
 
-      <h2 className="mt-8 text-xl font-semibold">Conversations</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("conversations")}</h2>
       <ul className="mt-4 flex flex-col gap-1 text-sm">
         {(convs.data ?? []).map((c) => (
           <li key={c.id}>
@@ -78,20 +80,20 @@ export default async function AdminAiPage({
               {c.created_at.slice(0, 16).replace("T", " ")} · {c.locale}
               {c.page ? ` · ${c.page}` : ""}
             </a>
-            {c.flagged ? " · flagged" : ""}
-            {c.handed_off_at ? " · handed off" : ""}
+            {c.flagged ? ` · ${t("flagged")}` : ""}
+            {c.handed_off_at ? ` · ${t("handedOff")}` : ""}
           </li>
         ))}
       </ul>
 
       {open ? (
         <div className="mt-6 flex flex-col gap-2">
-          <h3 className="font-semibold">Transcript</h3>
+          <h3 className="font-semibold">{t("transcript")}</h3>
           {(messages.data ?? []).map((m) => (
             <div key={m.id} className="rounded-md border p-3 text-sm">
               <p className="text-muted-foreground">
                 {m.role}
-                {m.flagged ? " · flagged" : ""}
+                {m.flagged ? ` · ${t("flagged")}` : ""}
               </p>
               <p className="whitespace-pre-wrap">{m.content}</p>
               <form action={toggleMessageFlag} className="mt-2">
@@ -102,7 +104,7 @@ export default async function AdminAiPage({
                   value={m.flagged ? "false" : "true"}
                 />
                 <button type="submit" className="underline">
-                  {m.flagged ? "Unflag" : "Flag"}
+                  {m.flagged ? t("unflag") : t("flag")}
                 </button>
               </form>
             </div>

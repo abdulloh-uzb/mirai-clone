@@ -1,4 +1,5 @@
 import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { CrudList } from "@/components/admin/crud-list";
 import { Link } from "@/i18n/navigation";
@@ -7,9 +8,9 @@ import { requireAdmin } from "@/lib/admin/admin-write";
 import { COURSE_LOCALES } from "@/lib/course/blocks";
 import { createServiceClient } from "@/lib/supabase/service";
 
-function titleOf(title: unknown): string {
+function titleOf(title: unknown, untitled: string): string {
   const t = (title ?? {}) as Record<string, string>;
-  return t.en ?? Object.values(t)[0] ?? "(untitled)";
+  return t.en ?? Object.values(t)[0] ?? untitled;
 }
 
 function missing(content: unknown): string[] {
@@ -23,6 +24,7 @@ export default async function AdminContentPage({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   await requireAdmin();
+  const t = await getTranslations({ locale, namespace: "Admin.content" });
   const svc = createServiceClient();
   const [courses, sections, lessons, blocks] = await Promise.all([
     svc.from("courses").select("id, slug"),
@@ -32,7 +34,7 @@ export default async function AdminContentPage({
   ]);
   const sectionOptions = (sections.data ?? []).map((s) => ({
     value: s.id,
-    label: `${s.position}. ${titleOf(s.title)}`,
+    label: `${s.position}. ${titleOf(s.title, t("untitled"))}`,
   }));
   const courseOptions = (courses.data ?? []).map((c) => ({
     value: c.id,
@@ -50,37 +52,37 @@ export default async function AdminContentPage({
 
   return (
     <section>
-      <h1 className="text-3xl font-bold tracking-tight">Content</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
       <p className="mt-2 text-sm">
         <Link href="/admin/content/questions" className="underline">
-          Question bank
+          {t("questionBank")}
         </Link>
       </p>
 
-      <h2 className="mt-8 text-xl font-semibold">Sections</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("sections")}</h2>
       <CrudList
         table="sections"
         rows={sections.data ?? []}
         selectOptions={{ course_id: courseOptions }}
-        describe={(r) => `${r.position}. ${titleOf(r.title)}`}
+        describe={(r) => `${r.position}. ${titleOf(r.title, t("untitled"))}`}
       />
 
-      <h2 className="mt-8 text-xl font-semibold">Lessons</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("lessons")}</h2>
       <CrudList
         table="lessons"
         rows={lessons.data ?? []}
         selectOptions={{ section_id: sectionOptions }}
-        describe={(r) => `${r.position}. ${titleOf(r.title)}`}
+        describe={(r) => `${r.position}. ${titleOf(r.title, t("untitled"))}`}
       />
 
-      <h2 className="mt-8 text-xl font-semibold">Translation status</h2>
+      <h2 className="mt-8 text-xl font-semibold">{t("translationStatus")}</h2>
       <table className="mt-4 w-full text-left text-sm">
         <thead>
           <tr className="border-b text-muted-foreground">
-            <th className="py-2 pr-4">Lesson</th>
-            <th className="py-2 pr-4">Blocks</th>
-            <th className="py-2 pr-4">Missing titles</th>
-            <th className="py-2 pr-4">Missing block content</th>
+            <th className="py-2 pr-4">{t("lesson")}</th>
+            <th className="py-2 pr-4">{t("blocks")}</th>
+            <th className="py-2 pr-4">{t("missingTitles")}</th>
+            <th className="py-2 pr-4">{t("missingBlocks")}</th>
           </tr>
         </thead>
         <tbody>
@@ -95,12 +97,16 @@ export default async function AdminContentPage({
                     href={`/admin/content/lessons/${l.id}`}
                     className="underline"
                   >
-                    {titleOf(l.title)}
+                    {titleOf(l.title, t("untitled"))}
                   </Link>
                 </td>
                 <td className="py-2 pr-4">{bs.length}</td>
-                <td className="py-2 pr-4">{titleGaps.join(", ") || "none"}</td>
-                <td className="py-2 pr-4">{[...gaps].join(", ") || "none"}</td>
+                <td className="py-2 pr-4">
+                  {titleGaps.join(", ") || t("none")}
+                </td>
+                <td className="py-2 pr-4">
+                  {[...gaps].join(", ") || t("none")}
+                </td>
               </tr>
             );
           })}

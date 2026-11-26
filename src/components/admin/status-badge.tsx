@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 const TONES: Record<string, string> = {
   active: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300",
@@ -15,6 +16,7 @@ const TONES: Record<string, string> = {
 };
 
 export function StatusBadge({ status }: { status: string }) {
+  const t = useTranslations("Admin.statuses");
   return (
     <span
       className={cn(
@@ -22,7 +24,9 @@ export function StatusBadge({ status }: { status: string }) {
         TONES[status] ?? "bg-muted text-muted-foreground",
       )}
     >
-      {status.replaceAll("_", " ")}
+      {t.has(status as never)
+        ? t(status as never)
+        : status.replaceAll("_", " ")}
     </span>
   );
 }
