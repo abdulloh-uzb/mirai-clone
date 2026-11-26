@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { FaqHash } from "@/components/faq/faq-hash";
 import { FaqList } from "@/components/faq/faq-list";
 import { FaqSearch } from "@/components/faq/faq-search";
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
 import { FAQ_CATEGORIES } from "@/lib/faq/categories";
 import { routing } from "@/i18n/routing";
@@ -28,6 +28,20 @@ export async function generateMetadata({
   });
 }
 
+/** Picture beside each topic in the side list (files in public/reference/art). */
+const TOPIC_ART: Record<(typeof FAQ_CATEGORIES)[number], string> = {
+  about: "certificate",
+  course: "lesson",
+  exam: "exam",
+  certificates: "filed",
+  payments: "ticket",
+  eligibility: "elig-moving",
+  language: "signs",
+  ai: "assistant",
+  classroom: "finish",
+  contact: "reviews",
+};
+
 export default async function FaqPage({ params }: PageProps<"/[locale]/faq">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
@@ -36,47 +50,58 @@ export default async function FaqPage({ params }: PageProps<"/[locale]/faq">) {
   const categoryCount = new Set(entries.map((e) => e.category)).size;
 
   return (
-    <>
+    <V2Root>
       <PageHero
+        art="faq"
         title={t("title")}
         intro={t("count", {
           count: entries.length,
           categories: categoryCount,
         })}
       />
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 lg:grid-cols-[16rem_1fr]">
-        <nav
-          aria-label={t("categoriesLabel")}
-          className="lg:sticky lg:top-28 lg:self-start"
-        >
-          <ul className="flex flex-wrap gap-2 lg:grid">
+      <section className="fq-work">
+        <div className="fq-work-in">
+          <nav aria-label={t("categoriesLabel")} className="topics">
             {FAQ_CATEGORIES.map((category) => {
               const count = entries.filter(
                 (e) => e.category === category,
               ).length;
               if (count === 0) return null;
+              const art = TOPIC_ART[category];
               return (
-                <li key={category}>
-                  <a
-                    href={`#faq-cat-${category}`}
-                    className="flex min-h-11 items-center justify-between gap-3 rounded-full border-2 bg-card px-4 text-sm font-semibold hover:border-brand-green focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
-                  >
-                    {t(`categories.${category}`)}
-                    <span className="rounded-full bg-surface-mint px-2 py-0.5 text-xs">
-                      {count}
-                    </span>
-                  </a>
-                </li>
+                <a
+                  key={category}
+                  href={`#faq-cat-${category}`}
+                  className="topic"
+                >
+                  <span className="topic-th" aria-hidden="true">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      className="pic-day"
+                      src={`/reference/art/${art}.webp`}
+                      alt=""
+                    />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      className="pic-night"
+                      src={`/reference/art/${art}-night.webp`}
+                      alt=""
+                      loading="lazy"
+                    />
+                  </span>
+                  <span className="topic-l">{t(`categories.${category}`)}</span>
+                  <span className="topic-n">{count}</span>
+                </a>
               );
             })}
-          </ul>
-        </nav>
-        <div>
-          <FaqSearch>
-            <FaqList entries={entries} />
-          </FaqSearch>
+          </nav>
+          <div className="fq-main">
+            <FaqSearch>
+              <FaqList entries={entries} />
+            </FaqSearch>
+          </div>
         </div>
-      </div>
+      </section>
       <FaqHash />
       <JsonLd
         data={faqPage(
@@ -86,6 +111,6 @@ export default async function FaqPage({ params }: PageProps<"/[locale]/faq">) {
           })),
         )}
       />
-    </>
+    </V2Root>
   );
 }

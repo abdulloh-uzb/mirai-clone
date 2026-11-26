@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import { ContactForm } from "@/components/support/contact-form";
 import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
@@ -28,37 +28,44 @@ export default async function ContactPage() {
     getCurrentAccount(),
   ]);
 
+  const { contact } = siteConfig;
   return (
-    <>
-      <PageHero title={t("title")} intro={t("intro")} />
-      <section className="mx-auto grid w-full max-w-4xl gap-10 px-4 py-12 md:grid-cols-[3fr_2fr]">
-        <div>
-          <ContactForm accountEmail={account?.email} />
+    <V2Root className="ct-page">
+      <PageHero title={t("title")} intro={t("intro")} art="contact">
+        <div className="ct-acts">
+          <a className="btn btn-primary btn-lg" href={contact.phoneHref}>
+            <span>{contact.phone}</span>
+          </a>
+          <a
+            className="btn btn-secondary btn-lg"
+            href={`mailto:${contact.email}`}
+          >
+            <span>{contact.email}</span>
+          </a>
         </div>
-        <aside aria-labelledby="contact-details">
-          <h2 id="contact-details" className="text-lg font-semibold">
-            {t("detailsHeading")}
-          </h2>
-          <address className="mt-3 flex flex-col gap-1 text-sm text-muted-foreground not-italic">
-            <span>{siteConfig.name}</span>
-            {siteConfig.contact.addressLines.map((line) => (
-              <span key={line}>{line}</span>
-            ))}
-            <a
-              href={siteConfig.contact.phoneHref}
-              className="underline hover:text-foreground"
-            >
-              {siteConfig.contact.phone}
-            </a>
-            <a
-              href={`mailto:${siteConfig.contact.email}`}
-              className="underline hover:text-foreground"
-            >
-              {siteConfig.contact.email}
-            </a>
-          </address>
-        </aside>
+      </PageHero>
+      <section className="ct-work">
+        <div className="ct-work-in">
+          <aside aria-labelledby="contact-details">
+            <h2 id="contact-details" className="ct-h">
+              {t("detailsHeading")}
+            </h2>
+            <address className="ct-fix not-italic">
+              <span className="ct-fix-t">
+                <span>{siteConfig.name}</span>
+                {contact.addressLines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+                <a href={contact.phoneHref}>{contact.phone}</a>
+                <a href={`mailto:${contact.email}`}>{contact.email}</a>
+              </span>
+            </address>
+          </aside>
+          <div className="ct-main">
+            <ContactForm accountEmail={account?.email} />
+          </div>
+        </div>
       </section>
-    </>
+    </V2Root>
   );
 }

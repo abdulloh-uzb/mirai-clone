@@ -1,4 +1,4 @@
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -63,7 +63,7 @@ export default async function CoursesPage({
     ]);
 
   return (
-    <>
+    <V2Root>
       <JsonLd
         data={course({
           siteUrl: publicEnv.NEXT_PUBLIC_SITE_URL,
@@ -76,7 +76,7 @@ export default async function CoursesPage({
           languages: routing.locales,
         })}
       />
-      <PageHero title={t("title")} intro={t("intro")}>
+      <PageHero art="courses" title={t("title")} intro={t("intro")}>
         <div className="mt-6">
           <CitationStateSelector states={states} current={ticketState} />
         </div>
@@ -204,6 +204,6 @@ export default async function CoursesPage({
           />
         </section>
       </div>
-    </>
+    </V2Root>
   );
 }

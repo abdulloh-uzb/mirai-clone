@@ -1,65 +1,74 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
+/** Pages that have a day and night hero picture in `public/reference/art/pages`. */
+export type HeroArt =
+  | "about"
+  | "blog"
+  | "contact"
+  | "courses"
+  | "courts"
+  | "dmv"
+  | "eligibility"
+  | "faq"
+  | "place"
+  | "rules";
+
+/** Wraps a public page in the reference design scope (`.v2`). */
+export function V2Root({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={cn("v2 v2-root", className)}>{children}</div>;
+}
+
 /**
- * Shared inner-page hero: gradient band, title and intro on the left, a masked
- * decorative road-and-hills scene on the right. `children` sits under the
- * intro (search, chips, notes).
+ * The reference page hero (`.tool-top`): title, intro and actions on the left,
+ * a day and night picture on the right. `children` sits under the intro
+ * (search, buttons, notes). Render it inside <V2Root>.
  */
 export function PageHero({
   title,
   intro,
   children,
   className,
+  art = "courts",
+  titleId,
 }: {
   title: ReactNode;
   intro?: ReactNode;
   children?: ReactNode;
   className?: string;
+  art?: HeroArt;
+  titleId?: string;
 }) {
   return (
-    <section
-      className={cn(
-        "relative overflow-hidden bg-gradient-to-br from-surface-sky via-surface-sky to-surface-mint",
-        className,
-      )}
-    >
-      <svg
-        aria-hidden
-        viewBox="0 0 600 300"
-        preserveAspectRatio="xMaxYMax slice"
-        className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[55%] [mask-image:linear-gradient(to_right,transparent,black_45%)] md:block"
-      >
-        <circle cx="470" cy="70" r="34" fill="#ffd966" opacity="0.85" />
-        <path
-          d="M0 230 Q120 130 250 200 T520 170 T600 190 V300 H0Z"
-          fill="#9be07a"
-          opacity="0.55"
-        />
-        <path
-          d="M0 260 Q150 190 300 245 T600 230 V300 H0Z"
-          fill="#58b947"
-          opacity="0.6"
-        />
-        <path d="M0 285 H600 V300 H0Z" fill="#3a3f47" opacity="0.75" />
-        <path
-          d="M0 293 H600"
-          stroke="#fff"
-          strokeWidth="3"
-          strokeDasharray="22 16"
-        />
-      </svg>
-      <div className="relative mx-auto max-w-[1200px] px-6 py-12 md:min-h-[320px] md:py-20 lg:px-8">
-        <div className="max-w-2xl">
-          <h1 className="text-4xl leading-tight font-extrabold tracking-tight text-balance md:text-5xl">
-            {title}
-          </h1>
-          {intro ? (
-            <p className="mt-4 text-lg text-pretty text-muted-foreground">
-              {intro}
-            </p>
-          ) : null}
+    <section className={cn("tool-top", className)}>
+      <div className="tool-top-in">
+        <div className="tool-lead">
+          <h1 id={titleId}>{title}</h1>
+          {intro ? <p className="tool-sub">{intro}</p> : null}
           {children}
+        </div>
+        <div className="tool-art" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="pic-day"
+            src={`/reference/art/pages/${art}.webp`}
+            alt=""
+            fetchPriority="high"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="pic-night"
+            src={`/reference/art/pages/${art}-night.webp`}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>

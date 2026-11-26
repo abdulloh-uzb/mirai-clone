@@ -13,43 +13,43 @@ import { faqSearchText } from "@/lib/faq/search";
 export async function FaqList({ entries }: { entries: FaqEntry[] }) {
   const t = await getTranslations("Faq");
   return (
-    <div className="mt-6 space-y-10">
+    <div className="mt-6 grid gap-10">
       {FAQ_CATEGORIES.map((category) => {
         const items = entries.filter((e) => e.category === category);
         if (items.length === 0) return null;
         return (
           <section
             key={category}
+            className="fq-group"
             data-faq-category
             aria-labelledby={`faq-cat-${category}`}
           >
-            <h2
-              id={`faq-cat-${category}`}
-              className="scroll-mt-28 text-2xl font-extrabold tracking-tight"
-            >
+            <h2 id={`faq-cat-${category}`} className="fq-gh scroll-mt-28">
               {t(`categories.${category}`)}
             </h2>
-            <div className="mt-4 grid gap-3">
+            <div className="v2-acc faq mt-4">
               {items.map((entry) => (
                 <details
                   key={entry.slug}
                   id={entry.slug}
                   data-faq-item
                   data-search={faqSearchText(entry)}
-                  className="group scroll-mt-28 rounded-2xl border-2 bg-card shadow-sm open:border-brand-green"
+                  className="v2-acc-i group scroll-mt-28"
                 >
-                  <summary className="flex min-h-12 cursor-pointer items-center justify-between gap-4 px-4 py-3 font-semibold marker:content-none [&::-webkit-details-marker]:hidden">
+                  <summary className="v2-acc-q marker:content-none [&::-webkit-details-marker]:hidden">
                     {entry.title}
                     <ChevronDownIcon
                       aria-hidden
                       className="size-5 shrink-0 transition-transform group-open:rotate-180"
                     />
                   </summary>
-                  <div className="px-4 pb-4">
-                    {entry.isFallback ? <NotTranslatedNotice /> : null}
-                    <Markdown className="[&>*:first-child]:mt-0">
-                      {entry.body}
-                    </Markdown>
+                  <div className="v2-acc-a">
+                    <div>
+                      {entry.isFallback ? <NotTranslatedNotice /> : null}
+                      <Markdown className="[&>*:first-child]:mt-0">
+                        {entry.body}
+                      </Markdown>
+                    </div>
                   </div>
                 </details>
               ))}

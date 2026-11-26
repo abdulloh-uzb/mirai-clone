@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
-import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import {
-  ContentPage,
-  contentPageMetadata,
-} from "@/components/content/content-page";
-import { siteConfig } from "@/config/site";
-import { Link } from "@/i18n/navigation";
+import { contentPageMetadata } from "@/components/content/content-page";
+import { Markdown } from "@/components/content/markdown";
+import { NotTranslatedNotice } from "@/components/content/not-translated-notice";
+import { V2Root } from "@/components/layout/page-hero";
+import { AboutBody } from "@/components/ref/about-body";
 import { routing } from "@/i18n/routing";
+import { formatUsd, getOnlineCourse } from "@/lib/courses/courses";
 import { getPage } from "@/lib/content/pages";
 
 export async function generateMetadata({
@@ -24,48 +23,19 @@ export default async function AboutPage({
 }: PageProps<"/[locale]/about">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
-  const [result, t] = await Promise.all([
+  const [result, online] = await Promise.all([
     getPage("about", locale),
-    getTranslations({ locale, namespace: "About" }),
+    getOnlineCourse(),
   ]);
   if (!result) notFound();
-  const { contact } = siteConfig;
 
-  // Contact details come from siteConfig, never from the database text.
   return (
-    <ContentPage result={result} hero>
-      <section
-        aria-labelledby="about-contact"
-        className="mt-10 rounded-xl border bg-card p-6"
-      >
-        <h2 id="about-contact" className="text-2xl font-bold tracking-tight">
-          {t("contactHeading")}
-        </h2>
-        <address className="mt-4 grid gap-1 not-italic">
-          <span className="font-semibold">{siteConfig.name}</span>
-          {contact.addressLines.map((line) => (
-            <span key={line}>{line}</span>
-          ))}
-          <a href={contact.phoneHref} className="text-link hover:underline">
-            {contact.phone}
-          </a>
-          <a
-            href={`mailto:${contact.email}`}
-            className="text-link hover:underline"
-          >
-            {contact.email}
-          </a>
-        </address>
-        <p className="mt-4 text-sm text-muted-foreground">
-          {t("license", { number: siteConfig.licenseNumber })}
-        </p>
-        <Link
-          href="/contact"
-          className="mt-4 inline-block font-medium text-link hover:underline"
-        >
-          {t("contactLink")}
-        </Link>
+    <V2Root className="ab-page">
+      <AboutBody values={{ price: formatUsd(online.priceCents, locale) }} />
+      <section className="ab-sec">
+        {result.isFallback ? <NotTranslatedNotice /> : null}
+        <Markdown>{result.item.body}</Markdown>
       </section>
-    </ContentPage>
+    </V2Root>
   );
 }

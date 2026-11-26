@@ -3,7 +3,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { EligibilityCheck } from "@/components/eligibility/eligibility-check";
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -49,8 +49,8 @@ export default async function EligibilityPage({
   const h2 = "text-2xl font-bold tracking-tight md:text-3xl";
 
   return (
-    <>
-      <PageHero title={t("title")} intro={t("intro")} />
+    <V2Root>
+      <PageHero art="eligibility" title={t("title")} intro={t("intro")} />
       <div className="mx-auto max-w-3xl px-4 py-12">
         <p className="text-sm text-muted-foreground">{t("disclaimer")}</p>
         <div className="mt-6 rounded-2xl border bg-card p-6 shadow-md">
@@ -138,6 +138,6 @@ export default async function EligibilityPage({
           </Link>
         </section>
       </div>
-    </>
+    </V2Root>
   );
 }

@@ -1,4 +1,4 @@
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -49,8 +49,8 @@ export default async function BlogPage({
   ];
 
   return (
-    <>
-      <PageHero title={t("title")} intro={t("intro")} />
+    <V2Root>
+      <PageHero art="blog" title={t("title")} intro={t("intro")} />
       <div className="mx-auto max-w-5xl px-4 py-10">
         <nav aria-label={t("filterLabel")}>
           <ul className="flex flex-wrap gap-2">
@@ -90,6 +90,6 @@ export default async function BlogPage({
           </ul>
         )}
       </div>
-    </>
+    </V2Root>
   );
 }

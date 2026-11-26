@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import { Markdown } from "@/components/content/markdown";
 import { NotTranslatedNotice } from "@/components/content/not-translated-notice";
 import { routing } from "@/i18n/routing";
@@ -35,8 +35,8 @@ export default async function WhatsNewPage({
   ]);
 
   return (
-    <>
-      <PageHero title={t("title")} intro={t("intro")} />
+    <V2Root>
+      <PageHero art="blog" title={t("title")} intro={t("intro")} />
       <div className="mx-auto max-w-3xl px-4 py-12">
         <ol className="grid gap-10">
           {entries.map(({ slug, item, isFallback }) => (
@@ -70,6 +70,6 @@ export default async function WhatsNewPage({
           ))}
         </ol>
       </div>
-    </>
+    </V2Root>
   );
 }

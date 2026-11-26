@@ -1,4 +1,4 @@
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -66,8 +66,8 @@ export default async function CourtsPage({
   });
 
   return (
-    <>
-      <PageHero title={t("title")} intro={t("intro")} />
+    <V2Root>
+      <PageHero art="courts" title={t("title")} intro={t("intro")} />
       <div className="mx-auto max-w-5xl px-4 py-10">
         <section aria-labelledby="popular-heading">
           <h2
@@ -93,6 +93,6 @@ export default async function CourtsPage({
           <CountySearch items={items} />
         </section>
       </div>
-    </>
+    </V2Root>
   );
 }

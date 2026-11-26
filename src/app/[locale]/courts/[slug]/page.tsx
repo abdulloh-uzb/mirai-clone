@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import { Markdown } from "@/components/content/markdown";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buttonVariants } from "@/components/ui/button";
@@ -50,8 +50,9 @@ export default async function CountyPage({
   ];
 
   return (
-    <>
+    <V2Root>
       <PageHero
+        art="place"
         title={t("title", values)}
         intro={t("seat", { city: county.seatCity })}
       />
@@ -169,6 +170,6 @@ export default async function CountyPage({
           </Link>
         </section>
       </div>
-    </>
+    </V2Root>
   );
 }

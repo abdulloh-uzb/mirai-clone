@@ -1,4 +1,4 @@
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import { ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
@@ -40,8 +40,8 @@ export default async function DmvServicesPage({
   }));
 
   return (
-    <>
-      <PageHero title={t("title")} intro={t("intro")}>
+    <V2Root>
+      <PageHero art="dmv" title={t("title")} intro={t("intro")}>
         <p
           role="note"
           className="mt-4 rounded-lg border bg-card/80 px-4 py-3 text-sm"
@@ -95,6 +95,6 @@ export default async function DmvServicesPage({
           </TileSearch>
         </div>
       </div>
-    </>
+    </V2Root>
   );
 }

@@ -8,7 +8,7 @@ import { describeMarkdown } from "@/lib/content/description";
 import { getPage, type PageRow } from "@/lib/content/pages";
 import type { TranslationResult } from "@/lib/content/translation";
 import { pageMetadata } from "@/lib/seo/page-metadata";
-import { PageHero } from "@/components/layout/page-hero";
+import { PageHero, V2Root } from "@/components/layout/page-hero";
 import { Markdown } from "./markdown";
 import { NotTranslatedNotice } from "./not-translated-notice";
 
@@ -27,19 +27,8 @@ export function ContentPage({
   hero?: boolean;
 }) {
   const { item, isFallback } = result;
-  const article = (
-    <article
-      className={
-        hero
-          ? "mx-auto w-full max-w-3xl px-4 py-10"
-          : "mx-auto w-full max-w-3xl px-4 py-12"
-      }
-    >
-      {hero ? null : (
-        <h1 className="text-4xl font-bold tracking-tight text-balance">
-          {item.title}
-        </h1>
-      )}
+  const body = (
+    <>
       {isFallback ? (
         <div className="mt-6">
           <NotTranslatedNotice />
@@ -47,14 +36,27 @@ export function ContentPage({
       ) : null}
       <Markdown className="mt-2">{item.body}</Markdown>
       {children}
-    </article>
-  );
-  if (!hero) return article;
-  return (
-    <>
-      <PageHero title={item.title} />
-      {article}
     </>
+  );
+  if (!hero) {
+    return (
+      <article className="mx-auto w-full max-w-3xl px-4 py-12">
+        <h1 className="text-4xl font-bold tracking-tight text-balance">
+          {item.title}
+        </h1>
+        {body}
+      </article>
+    );
+  }
+  return (
+    <V2Root className="lg-page">
+      <PageHero title={item.title} art="courts" />
+      <section className="rd">
+        <div className="rd-in doc">
+          <article className="rd-article">{body}</article>
+        </div>
+      </section>
+    </V2Root>
   );
 }
 

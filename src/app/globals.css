@@ -287,3 +287,12 @@
 .v2 .ftB-nav button:hover {
   background: var(--blue-tint);
 }
+
+/* Native <details> used as the reference accordion (`.v2-acc-i`). */
+.v2 details.v2-acc-i[open] {
+  border-color: var(--logo-green);
+  box-shadow: inset 4px 0 0 var(--logo-green);
+}
+.v2 details.v2-acc-i > summary {
+  list-style: none;
+}
