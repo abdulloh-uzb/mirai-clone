@@ -1,4 +1,15 @@
+import { CircleCheckIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { AdminButton } from "@/components/admin/ui/button";
+import { AdminEmpty } from "@/components/admin/ui/empty";
+import {
+  AdminTable,
+  AdminTableBody,
+  AdminTableCell,
+  AdminTableHead,
+  AdminTableHeader,
+  AdminTableRow,
+} from "@/components/admin/ui/table";
 import { formatUsd } from "@/lib/courses/courses";
 import type { Locale } from "@/i18n/routing";
 import { decideRefund } from "@/lib/payments/refund-actions";
@@ -32,60 +43,69 @@ export async function RefundQueue({
   );
 
   if (!rows.length) {
-    return <p className="mt-6 text-muted-foreground">{t("admin.empty")}</p>;
+    return <AdminEmpty icon={CircleCheckIcon} title={t("admin.empty")} />;
   }
   return (
-    <table className="mt-6 w-full text-left">
-      <thead>
-        <tr className="border-b text-sm text-muted-foreground">
-          <th className="py-2 pr-4 font-medium">{t("admin.order")}</th>
-          <th className="py-2 pr-4 font-medium">{t("admin.reason")}</th>
-          <th className="py-2 pr-4 font-medium">{t("admin.amount")}</th>
-          <th className="py-2" />
-        </tr>
-      </thead>
-      <tbody>
+    <AdminTable>
+      <AdminTableHeader>
+        <AdminTableRow>
+          <AdminTableHead>{t("admin.order")}</AdminTableHead>
+          <AdminTableHead>{t("admin.reason")}</AdminTableHead>
+          <AdminTableHead className="text-right">
+            {t("admin.amount")}
+          </AdminTableHead>
+          <AdminTableHead className="text-right">
+            <span className="sr-only">
+              {t("admin.approve")} / {t("admin.deny")}
+            </span>
+          </AdminTableHead>
+        </AdminTableRow>
+      </AdminTableHeader>
+      <AdminTableBody>
         {rows.map(({ refund, current }) => (
-          <tr key={refund.id} className="border-b align-top">
-            <td className="py-3 pr-4 font-mono text-sm">
+          <AdminTableRow key={refund.id}>
+            <AdminTableCell className="font-mono text-xs">
               {refund.order_id.slice(0, 8).toUpperCase()}
-            </td>
-            <td className="py-3 pr-4">{refund.reason || t("admin.none")}</td>
-            <td className="py-3 pr-4">
+            </AdminTableCell>
+            <AdminTableCell className="min-w-48 whitespace-normal">
+              {refund.reason || t("admin.none")}
+            </AdminTableCell>
+            <AdminTableCell className="text-right tabular-nums">
               {formatUsd(refund.amount_cents, locale)}
               {current ? (
-                <span className="block text-sm text-muted-foreground">
+                <span className="block text-xs text-muted-foreground">
                   {t("preview", {
                     amount: formatUsd(current.amountCents, locale),
                     pct: current.pct,
                   })}
                 </span>
               ) : null}
-            </td>
-            <td className="py-3">
-              <form action={decideRefund} className="flex gap-2">
+            </AdminTableCell>
+            <AdminTableCell className="text-right">
+              <form action={decideRefund} className="inline-flex gap-2">
                 <input type="hidden" name="refundId" value={refund.id} />
-                <button
+                <AdminButton
                   type="submit"
                   name="decision"
                   value="approve"
-                  className="rounded-md bg-primary px-3 py-1 text-sm text-primary-foreground"
+                  size="sm"
                 >
                   {t("admin.approve")}
-                </button>
-                <button
+                </AdminButton>
+                <AdminButton
                   type="submit"
                   name="decision"
                   value="deny"
-                  className="rounded-md border px-3 py-1 text-sm"
+                  size="sm"
+                  variant="destructive-outline"
                 >
                   {t("admin.deny")}
-                </button>
+                </AdminButton>
               </form>
-            </td>
-          </tr>
+            </AdminTableCell>
+          </AdminTableRow>
         ))}
-      </tbody>
-    </table>
+      </AdminTableBody>
+    </AdminTable>
   );
 }

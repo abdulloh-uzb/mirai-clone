@@ -3,8 +3,25 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { z } from "zod";
+import { AdminPageHeader } from "@/components/admin/page-header";
 import { RefundQueue } from "@/components/admin/refund-queue";
 import { StatusBadge } from "@/components/admin/status-badge";
+import {
+  AdminCard,
+  AdminCardContent,
+  AdminCardHeader,
+  AdminCardTitle,
+} from "@/components/admin/ui/card";
+import { AdminDetailList } from "@/components/admin/ui/detail-list";
+import { AdminEmpty } from "@/components/admin/ui/empty";
+import {
+  AdminTable,
+  AdminTableBody,
+  AdminTableCell,
+  AdminTableHead,
+  AdminTableHeader,
+  AdminTableRow,
+} from "@/components/admin/ui/table";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { requireAdmin } from "@/lib/admin/admin-write";
@@ -30,9 +47,10 @@ export default async function AdminOrderPage({
   if (!hasLocale(routing.locales, locale)) notFound();
   if (!z.uuid().safeParse(id).success) notFound();
   await requireAdmin();
-  const [t, tr] = await Promise.all([
+  const [t, tr, tc] = await Promise.all([
     getTranslations({ locale, namespace: "Admin.orders" }),
     getTranslations({ locale, namespace: "Refunds" }),
+    getTranslations({ locale, namespace: "Admin.common" }),
   ]);
   const svc = createServiceClient();
   const { data: order } = await svc
@@ -53,63 +71,126 @@ export default async function AdminOrderPage({
   ]);
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold tracking-tight">
-        {order.id.slice(0, 8).toUpperCase()}
-      </h1>
-      <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
-        <div>
-          <dt className="text-muted-foreground">{t("user")}</dt>
-          <dd>
-            <Link
-              href={`/admin/students/${order.user_id}`}
-              className="underline"
-            >
-              {emails[order.user_id]}
-            </Link>
-          </dd>
-        </div>
-        <div>
-          <dt className="text-muted-foreground">{t("product")}</dt>
-          <dd>{order.product}</dd>
-        </div>
-        <div>
-          <dt className="text-muted-foreground">{t("amount")}</dt>
-          <dd>{formatUsd(order.amount_cents, locale)}</dd>
-        </div>
-        <div>
-          <dt className="text-muted-foreground">{t("status")}</dt>
-          <dd>
-            <StatusBadge status={order.status} />
-          </dd>
-        </div>
-      </dl>
-
-      <h2 className="mt-8 text-xl font-semibold">{t("calculator")}</h2>
-      {preview ? (
-        <p className="mt-2 text-sm">
-          {t("refundable", {
-            amount: formatUsd(preview.amountCents, locale),
-            pct: preview.pct,
-          })}{" "}
-          <span className="text-muted-foreground">
-            {tr(`reasons.${preview.reason}`)}
+    <div className="flex flex-col gap-6">
+      <AdminPageHeader
+        title={
+          <span className="font-mono">
+            {order.id.slice(0, 8).toUpperCase()}
           </span>
-        </p>
-      ) : null}
+        }
+        meta={<StatusBadge status={order.status} />}
+      />
+      <div className="grid items-start gap-6 lg:grid-cols-3">
+        <div className="flex min-w-0 flex-col gap-6 lg:col-span-2">
+          <AdminCard>
+            <AdminCardHeader>
+              <AdminCardTitle>{t("calculator")}</AdminCardTitle>
+            </AdminCardHeader>
+            <AdminCardContent>
+              {preview ? (
+                <>
+                  <p className="text-sm font-medium">
+                    {t("refundable", {
+                      amount: formatUsd(preview.amountCents, locale),
+                      pct: preview.pct,
+                    })}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {tr(`reasons.${preview.reason}`)}
+                  </p>
+                </>
+              ) : null}
+            </AdminCardContent>
+          </AdminCard>
 
-      <h2 className="mt-8 text-xl font-semibold">{t("refunds")}</h2>
-      <ul className="mt-2 text-sm">
-        {(refunds ?? []).map((r) => (
-          <li key={r.id} className="flex gap-3">
-            <span>{formatUsd(r.amount_cents, locale)}</span>
-            <span>{r.pct}%</span>
-            <StatusBadge status={r.status} />
-            <span>{r.reason}</span>
-          </li>
-        ))}
-      </ul>
-      <RefundQueue locale={locale} orderId={id} />
-    </section>
+          <AdminCard className="overflow-hidden">
+            <AdminCardHeader>
+              <AdminCardTitle>{t("refunds")}</AdminCardTitle>
+            </AdminCardHeader>
+            {refunds?.length ? (
+              <AdminTable>
+                <AdminTableHeader>
+                  <AdminTableRow>
+                    <AdminTableHead className="text-right">
+                      {t("amount")}
+                    </AdminTableHead>
+                    <AdminTableHead className="text-right">%</AdminTableHead>
+                    <AdminTableHead>{t("status")}</AdminTableHead>
+                    <AdminTableHead className="min-w-48 whitespace-normal">
+                      {tc("reason")}
+                    </AdminTableHead>
+                  </AdminTableRow>
+                </AdminTableHeader>
+                <AdminTableBody>
+                  {refunds.map((r) => (
+                    <AdminTableRow key={r.id}>
+                      <AdminTableCell className="text-right tabular-nums">
+                        {formatUsd(r.amount_cents, locale)}
+                      </AdminTableCell>
+                      <AdminTableCell className="text-right tabular-nums">
+                        {r.pct}%
+                      </AdminTableCell>
+                      <AdminTableCell>
+                        <StatusBadge status={r.status} />
+                      </AdminTableCell>
+                      <AdminTableCell className="min-w-48 whitespace-normal">
+                        {r.reason}
+                      </AdminTableCell>
+                    </AdminTableRow>
+                  ))}
+                </AdminTableBody>
+              </AdminTable>
+            ) : (
+              <AdminEmpty title={tc("nothingYet")} />
+            )}
+          </AdminCard>
+
+          <AdminCard className="overflow-hidden">
+            <AdminCardHeader>
+              <AdminCardTitle>{t("tabRefunds")}</AdminCardTitle>
+            </AdminCardHeader>
+            <RefundQueue locale={locale} orderId={id} />
+          </AdminCard>
+        </div>
+
+        <div className="flex min-w-0 flex-col gap-6">
+          <AdminCard>
+            <AdminCardHeader>
+              <AdminCardTitle>{tc("summary")}</AdminCardTitle>
+            </AdminCardHeader>
+            <AdminDetailList
+              items={[
+                {
+                  label: t("user"),
+                  value: (
+                    <Link
+                      href={`/admin/students/${order.user_id}`}
+                      className="font-medium hover:underline"
+                    >
+                      {emails[order.user_id]}
+                    </Link>
+                  ),
+                },
+                {
+                  label: t("product"),
+                  value: (
+                    <span className="font-mono text-xs">{order.product}</span>
+                  ),
+                },
+                {
+                  label: t("amount"),
+                  value: formatUsd(order.amount_cents, locale),
+                },
+                {
+                  label: t("status"),
+                  value: <StatusBadge status={order.status} />,
+                },
+                { label: tc("date"), value: order.created_at.slice(0, 10) },
+              ]}
+            />
+          </AdminCard>
+        </div>
+      </div>
+    </div>
   );
 }
