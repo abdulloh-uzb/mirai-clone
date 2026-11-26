@@ -29,6 +29,7 @@ const eslintConfig = defineConfig([
       "src/lib/email/env.ts",
       "src/lib/stripe/server.ts",
       "src/lib/ai/env.ts",
+      "src/lib/reporting/env.ts",
       "src/app/api/stripe/webhook/route.ts",
       "scripts/**",
       "tests/**",

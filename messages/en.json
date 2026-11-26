@@ -365,6 +365,27 @@
       "calculator": "Refund calculator",
       "refundable": "Refundable now: {amount} ({pct}%)",
       "refunds": "Refunds on this order"
+    },
+    "reporting": {
+      "title": "Reporting",
+      "exportCsv": "Export CSV",
+      "runNow": "Run batch now",
+      "queueHeading": "Rejected and failed reports",
+      "queueEmpty": "Nothing needs attention.",
+      "attempts": "{count, plural, one {# attempt} other {# attempts}}",
+      "saveCitation": "Save citation",
+      "citation": "Citation number",
+      "resend": "Re-send",
+      "reportsHeading": "Reports",
+      "all": "All",
+      "cert": "Certificate",
+      "ref": "DMV reference",
+      "sentAt": "Sent",
+      "acceptedAt": "Accepted",
+      "batchesHeading": "Batch history",
+      "startedAt": "Started",
+      "trigger": "Trigger",
+      "counts": "Counts"
     }
   },
   "LanguageSuggestion": {
@@ -1224,5 +1245,28 @@
     "deletePending": "Your deletion request was received and is waiting for review.",
     "cookiesHeading": "Cookies and analytics",
     "cookiesBody": "Analytics are off unless you accept them. You can change your choice at any time."
+  },
+  "ReportStatus": {
+    "title": "Reporting status",
+    "none": "Your completion has not been queued yet.",
+    "pending": "Not yet",
+    "back": "Back to my dashboard",
+    "step": {
+      "passed": "Passed the final exam",
+      "queued": "Queued for reporting",
+      "sent": "Sent to the DMV",
+      "accepted": "DMV confirmed",
+      "rejected": "Needs a fix",
+      "court": "Court notified"
+    },
+    "rejectedText": "We're fixing this - our team will resend it. You do not need to do anything.",
+    "nextBatch": "Next batch: {time} (Pacific time).",
+    "status": {
+      "queued": "Queued",
+      "sent": "Sent to the DMV",
+      "accepted": "DMV confirmed",
+      "rejected": "Being fixed",
+      "error": "Retrying"
+    }
   }
 }

@@ -14,6 +14,7 @@ import {
   type OutlineSection,
 } from "@/lib/course/outline";
 import type { CurrentEnrollment } from "@/lib/portal/enrollment";
+import { getReportSummary } from "@/lib/reporting/status";
 import type { Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
@@ -79,6 +80,8 @@ export async function Dashboard({
   readOnly?: boolean;
 }) {
   const t = await getTranslations({ locale, namespace: "Dashboard" });
+  const tr = await getTranslations({ locale, namespace: "ReportStatus" });
+  const report = readOnly ? null : await getReportSummary(enrollment.id);
   const pct = progressPct(outline);
   const next = nextLesson(outline);
   const days = daysLeft(enrollment.expiresAt, now);
@@ -208,9 +211,17 @@ export async function Dashboard({
           </div>
           <div>
             <dt className="text-sm text-muted-foreground">{t("reporting")}</dt>
-            {/* TODO(spec): ticket 09 shows the real reporting status here. */}
             <dd className="text-lg font-semibold">
-              {t("reportingPlaceholder")}
+              {report ? (
+                <Link
+                  href={`/portal/status/${enrollment.id}`}
+                  className="text-primary hover:underline"
+                >
+                  {tr(`status.${report.status}`)}
+                </Link>
+              ) : (
+                t("reportingPlaceholder")
+              )}
             </dd>
           </div>
         </dl>

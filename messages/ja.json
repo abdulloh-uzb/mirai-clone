@@ -366,6 +366,27 @@
       "calculator": "返金計算",
       "refundable": "現在の返金額: {amount}（{pct}%）",
       "refunds": "この注文の返金"
+    },
+    "reporting": {
+      "title": "報告",
+      "exportCsv": "CSVを出力",
+      "runNow": "今すぐバッチを実行",
+      "queueHeading": "却下・失敗した報告",
+      "queueEmpty": "対応が必要なものはありません。",
+      "attempts": "{count}回試行",
+      "saveCitation": "違反切符番号を保存",
+      "citation": "違反切符番号",
+      "resend": "再送",
+      "reportsHeading": "報告一覧",
+      "all": "すべて",
+      "cert": "修了証",
+      "ref": "DMV参照番号",
+      "sentAt": "送信",
+      "acceptedAt": "承認",
+      "batchesHeading": "バッチ履歴",
+      "startedAt": "開始",
+      "trigger": "起動",
+      "counts": "件数"
     }
   },
   "LanguageSuggestion": {
@@ -1225,5 +1246,28 @@
     "deletePending": "削除の依頼を受け付けました。確認をお待ちください。",
     "cookiesHeading": "Cookie と分析",
     "cookiesBody": "同意しない限り分析はオフです。選択はいつでも変更できます。"
+  },
+  "ReportStatus": {
+    "title": "報告状況",
+    "none": "修了報告はまだキューに入っていません。",
+    "pending": "未完了",
+    "back": "ダッシュボードに戻る",
+    "step": {
+      "passed": "最終試験に合格",
+      "queued": "報告待ち",
+      "sent": "DMVに送信",
+      "accepted": "DMVが確認",
+      "rejected": "修正が必要",
+      "court": "裁判所に通知"
+    },
+    "rejectedText": "当校で修正して再送します。お客様の操作は不要です。",
+    "nextBatch": "次回の送信: {time}(太平洋時間)。",
+    "status": {
+      "queued": "報告待ち",
+      "sent": "DMVに送信済み",
+      "accepted": "DMV確認済み",
+      "rejected": "修正中",
+      "error": "再試行中"
+    }
   }
 }

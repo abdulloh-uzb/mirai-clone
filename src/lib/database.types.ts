@@ -161,17 +161,23 @@ isOneToOne: false
                   ]
                 },"completion_reports": {
                   Row: {
-                    "batch_id": string | null,"certificate_id": string,"created_at": string,"error": string | null,"id": string,"regulator_ref": string | null,"status": string,"updated_at": string
+                    "accepted_at": string | null,"attempts": number,"batch_id": string | null,"certificate_id": string,"court_notified_at": string | null,"created_at": string,"error": string | null,"id": string,"next_attempt_at": string | null,"regulator_ref": string | null,"rejected_at": string | null,"sent_at": string | null,"status": string,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "batch_id"?: string | null,"certificate_id": string,"created_at"?: string,"error"?: string | null,"id"?: string,"regulator_ref"?: string | null,"status"?: string,"updated_at"?: string
+                    "accepted_at"?: string | null,"attempts"?: number,"batch_id"?: string | null,"certificate_id": string,"court_notified_at"?: string | null,"created_at"?: string,"error"?: string | null,"id"?: string,"next_attempt_at"?: string | null,"regulator_ref"?: string | null,"rejected_at"?: string | null,"sent_at"?: string | null,"status"?: string,"updated_at"?: string
                   }
                   Update: {
-                    "batch_id"?: string | null,"certificate_id"?: string,"created_at"?: string,"error"?: string | null,"id"?: string,"regulator_ref"?: string | null,"status"?: string,"updated_at"?: string
+                    "accepted_at"?: string | null,"attempts"?: number,"batch_id"?: string | null,"certificate_id"?: string,"court_notified_at"?: string | null,"created_at"?: string,"error"?: string | null,"id"?: string,"next_attempt_at"?: string | null,"regulator_ref"?: string | null,"rejected_at"?: string | null,"sent_at"?: string | null,"status"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     {
+      foreignKeyName: "completion_reports_batch_id_fkey"
+      columns: ["batch_id"]
+isOneToOne: false
+      referencedRelation: "report_batches"
+      referencedColumns: ["id"]
+    },{
       foreignKeyName: "completion_reports_certificate_id_fkey"
       columns: ["certificate_id"]
 isOneToOne: false
@@ -566,6 +572,20 @@ isOneToOne: false
       referencedRelation: "completion_reports"
       referencedColumns: ["id"]
     }
+                  ]
+                },"report_batches": {
+                  Row: {
+                    "counts": NonNullable<Json>,"created_at": string,"finished_at": string | null,"id": string,"started_at": string,"trigger": string,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "counts"?: NonNullable<Json>,"created_at"?: string,"finished_at"?: string | null,"id"?: string,"started_at"?: string,"trigger"?: string,"updated_at"?: string
+                  }
+                  Update: {
+                    "counts"?: NonNullable<Json>,"created_at"?: string,"finished_at"?: string | null,"id"?: string,"started_at"?: string,"trigger"?: string,"updated_at"?: string
+                  }
+                  Relationships: [
+                    
                   ]
                 },"reviews": {
                   Row: {

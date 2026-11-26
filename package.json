@@ -24,6 +24,7 @@
     "db:make-admin": "tsx scripts/make-admin.ts",
     "db:seed:demo": "tsx scripts/seed-demo.ts",
     "ai:reindex": "tsx scripts/reindex-kb.ts",
+    "report:run": "tsx scripts/run-report-batch.ts",
     "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
