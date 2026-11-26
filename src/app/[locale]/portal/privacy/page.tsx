@@ -1,9 +1,10 @@
+import { LmsBody, LmsHero } from "@/components/layout/lms-page";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { PrivacyChoicesButton } from "@/components/privacy/cookie-consent";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { routing } from "@/i18n/routing";
 import { getCurrentAccount } from "@/lib/auth/current-account";
 import { requestAccountDeletion } from "@/lib/privacy/actions";
@@ -36,40 +37,52 @@ export default async function PrivacyPage({
     .limit(1);
 
   return (
-    <section className="mx-auto grid max-w-3xl gap-8 px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
+    <>
+      <LmsHero title={t("title")} />
+      <LmsBody className="grid max-w-4xl gap-6">
+        <div className="grid gap-3 rounded-[22px] border border-line-blue bg-card p-6 sm:p-8">
+          <h2 className="text-[22px] font-extrabold tracking-tight">
+            {t("exportHeading")}
+          </h2>
+          <p className="text-muted-foreground">{t("exportBody")}</p>
+          <Button asChild className="justify-self-start">
+            <a href="/api/portal/export" download="my-data.json">
+              {t("exportButton")}
+            </a>
+          </Button>
+        </div>
 
-      <div className="grid gap-3 rounded-lg border p-6">
-        <h2 className="text-xl font-semibold">{t("exportHeading")}</h2>
-        <p className="text-muted-foreground">{t("exportBody")}</p>
-        <Button asChild className="justify-self-start">
-          <a href="/api/portal/export" download="my-data.json">
-            {t("exportButton")}
-          </a>
-        </Button>
-      </div>
+        <div className="grid gap-3 rounded-[22px] border border-line-blue bg-card p-6 sm:p-8">
+          <h2 className="text-[22px] font-extrabold tracking-tight">
+            {t("deleteHeading")}
+          </h2>
+          <p className="text-muted-foreground">{t("deleteBody")}</p>
+          {pending?.length ? (
+            <p role="status" className="font-medium">
+              {t("deletePending")}
+            </p>
+          ) : (
+            <form action={requestAccountDeletion}>
+              <Button type="submit" variant="outline">
+                {t("deleteButton")}
+              </Button>
+            </form>
+          )}
+        </div>
 
-      <div className="grid gap-3 rounded-lg border p-6">
-        <h2 className="text-xl font-semibold">{t("deleteHeading")}</h2>
-        <p className="text-muted-foreground">{t("deleteBody")}</p>
-        {pending?.length ? (
-          <p role="status" className="font-medium">
-            {t("deletePending")}
-          </p>
-        ) : (
-          <form action={requestAccountDeletion}>
-            <Button type="submit" variant="outline">
-              {t("deleteButton")}
-            </Button>
-          </form>
-        )}
-      </div>
-
-      <div className="grid gap-3 rounded-lg border p-6">
-        <h2 className="text-xl font-semibold">{t("cookiesHeading")}</h2>
-        <p className="text-muted-foreground">{t("cookiesBody")}</p>
-        <PrivacyChoicesButton className="justify-self-start rounded-md border px-3 py-2 text-sm font-medium hover:bg-accent" />
-      </div>
-    </section>
+        <div className="grid gap-3 rounded-[22px] border border-line-blue bg-card p-6 sm:p-8">
+          <h2 className="text-[22px] font-extrabold tracking-tight">
+            {t("cookiesHeading")}
+          </h2>
+          <p className="text-muted-foreground">{t("cookiesBody")}</p>
+          <PrivacyChoicesButton
+            className={buttonVariants({
+              variant: "secondary",
+              className: "justify-self-start",
+            })}
+          />
+        </div>
+      </LmsBody>
+    </>
   );
 }

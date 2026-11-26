@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { ReceiptTextIcon } from "lucide-react";
+import { LmsBody, LmsHero } from "@/components/layout/lms-page";
 import { Dashboard } from "@/components/portal/dashboard";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { PaymentPending } from "@/components/portal/payment-pending";
 import { PurchasePanel } from "@/components/portal/purchase-panel";
 import { buttonVariants } from "@/components/ui/button";
@@ -77,28 +80,31 @@ export default async function PortalPage({
   const enrollmentId = await currentEnrollmentId(account.userId);
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-12">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
+    <>
+      <LmsHero title={t("title")} art="ticket">
         <Link
           href="/portal/orders"
-          className="font-medium text-link hover:underline"
+          className={buttonVariants({ variant: "secondary", size: "sm" })}
         >
+          <ReceiptTextIcon aria-hidden />
           {t("ordersLink")}
         </Link>
-      </div>
-      <div className="mt-8">
+      </LmsHero>
+      <LmsBody>
         {enrollmentId ? (
-          <div className="rounded-2xl border bg-card p-6 shadow-sm">
-            <h2 className="text-xl font-bold">{tc("enrolledTitle")}</h2>
-            <p className="mt-2 text-muted-foreground">{tc("enrolledText")}</p>
+          <Card variant="panel" padding="lg" className="max-w-2xl">
+            <CardTitle>{tc("enrolledTitle")}</CardTitle>
+            <CardDescription>{tc("enrolledText")}</CardDescription>
             <Link
               href={`/portal/details/${enrollmentId}`}
-              className={buttonVariants({ className: "mt-4" })}
+              className={buttonVariants({
+                size: "lg",
+                className: "mt-2 self-start",
+              })}
             >
               {tc("enterDetails")}
             </Link>
-          </div>
+          </Card>
         ) : query.paid === "1" ? (
           <PaymentPending />
         ) : (
@@ -108,7 +114,7 @@ export default async function PortalPage({
             verifyEmailError={query.error === "verifyEmail"}
           />
         )}
-      </div>
-    </section>
+      </LmsBody>
+    </>
   );
 }

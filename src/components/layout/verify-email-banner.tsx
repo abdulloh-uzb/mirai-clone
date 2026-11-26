@@ -14,16 +14,16 @@ export async function VerifyEmailBanner() {
       aria-labelledby="verify-email-title"
       className="mx-auto mt-3 w-full max-w-6xl px-3"
     >
-      <div className="flex flex-col gap-3 rounded-2xl border border-amber-500/40 bg-amber-50 px-4 py-3 text-amber-950 sm:flex-row sm:items-center dark:bg-amber-950/40 dark:text-amber-50">
+      <div className="flex flex-col gap-3 rounded-[18px] border-[1.5px] border-dashed border-primary bg-blue-tint px-4 py-3.5 text-foreground sm:flex-row sm:items-center sm:px-5">
         <MailWarningIcon
           aria-hidden
-          className="hidden size-5 shrink-0 sm:block"
+          className="hidden size-[22px] shrink-0 text-blue-text sm:block"
         />
         <div className="flex-1">
-          <h2 id="verify-email-title" className="font-semibold">
+          <h2 id="verify-email-title" className="font-extrabold">
             {t("title")}
           </h2>
-          <p className="text-sm">{t("body", { email: account.email })}</p>
+          <p className="text-[15px]">{t("body", { email: account.email })}</p>
         </div>
         <ResendVerificationButton />
       </div>

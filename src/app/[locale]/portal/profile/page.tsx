@@ -1,3 +1,4 @@
+import { LmsBody, LmsHero } from "@/components/layout/lms-page";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -70,72 +71,79 @@ export default async function ProfilePage({
   ];
 
   return (
-    <section className="mx-auto grid max-w-3xl gap-8 px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-      <div className="grid gap-4 rounded-lg border p-6">
-        <div className="flex items-center gap-4">
-          <span
-            aria-hidden
-            className="grid size-14 place-items-center rounded-full bg-primary text-lg font-semibold text-primary-foreground"
-          >
-            {initialsOf(account)}
-          </span>
-          <div>
-            <p className="font-semibold">
-              {`${account.firstName} ${account.lastName}`.trim() ||
-                account.email}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {account.email} · {t("emailNote")}
-            </p>
-          </div>
-        </div>
-        <dl className="grid gap-3 sm:grid-cols-2">
-          {rows.map(([label, value]) => (
-            <div key={label}>
-              <dt className="text-sm text-muted-foreground">{label}</dt>
-              <dd>{value}</dd>
+    <>
+      <LmsHero title={t("title")} />
+      <LmsBody className="grid max-w-4xl gap-6">
+        <div className="grid gap-4 rounded-[22px] border border-line-blue bg-card p-6 sm:p-8">
+          <div className="flex items-center gap-4">
+            <span
+              aria-hidden
+              className="grid size-14 place-items-center rounded-full bg-primary text-lg font-semibold text-primary-foreground"
+            >
+              {initialsOf(account)}
+            </span>
+            <div>
+              <p className="font-semibold">
+                {`${account.firstName} ${account.lastName}`.trim() ||
+                  account.email}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {account.email} · {t("emailNote")}
+              </p>
             </div>
-          ))}
-        </dl>
-        <p className="text-sm text-muted-foreground">{t("notice")}</p>
-        {latest ? (
-          <Button asChild className="justify-self-start">
-            <Link href={`/portal/details/${latest.id}`}>{t("edit")}</Link>
-          </Button>
-        ) : null}
-      </div>
+          </div>
+          <dl className="grid gap-3 sm:grid-cols-2">
+            {rows.map(([label, value]) => (
+              <div key={label}>
+                <dt className="text-sm text-muted-foreground">{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="text-sm text-muted-foreground">{t("notice")}</p>
+          {latest ? (
+            <Button asChild className="justify-self-start">
+              <Link href={`/portal/details/${latest.id}`}>{t("edit")}</Link>
+            </Button>
+          ) : null}
+        </div>
 
-      <div className="grid gap-4 rounded-lg border p-6">
-        <h2 className="text-xl font-semibold">{t("history")}</h2>
-        {enrollments?.length ? (
-          <ul className="grid gap-3">
-            {enrollments.map((enrollment) => {
-              const status = STATUSES.find((s) => s === enrollment.status);
-              const language =
-                languages[enrollment.course_locale as keyof typeof languages];
-              return (
-                <li key={enrollment.id} className="rounded-md border p-3">
-                  <p className="font-medium">
-                    {language?.nativeName ?? enrollment.course_locale} ·{" "}
-                    {status ? t(`statuses.${status}`) : enrollment.status}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {t("started")}: {formatDate(enrollment.started_at)} ·{" "}
-                    {t("expires")}: {formatDate(enrollment.expires_at)}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <p className="text-muted-foreground">{t("historyEmpty")}</p>
-        )}
-      </div>
+        <div className="grid gap-4 rounded-[22px] border border-line-blue bg-card p-6 sm:p-8">
+          <h2 className="text-[22px] font-extrabold tracking-tight">
+            {t("history")}
+          </h2>
+          {enrollments?.length ? (
+            <ul className="grid gap-3">
+              {enrollments.map((enrollment) => {
+                const status = STATUSES.find((s) => s === enrollment.status);
+                const language =
+                  languages[enrollment.course_locale as keyof typeof languages];
+                return (
+                  <li
+                    key={enrollment.id}
+                    className="rounded-[16px] bg-hero px-4 py-3"
+                  >
+                    <p className="font-medium">
+                      {language?.nativeName ?? enrollment.course_locale} ·{" "}
+                      {status ? t(`statuses.${status}`) : enrollment.status}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {t("started")}: {formatDate(enrollment.started_at)} ·{" "}
+                      {t("expires")}: {formatDate(enrollment.expires_at)}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="text-muted-foreground">{t("historyEmpty")}</p>
+          )}
+        </div>
 
-      <Link href="/portal/privacy" className="text-sm underline">
-        {t("privacy")}
-      </Link>
-    </section>
+        <Link href="/portal/privacy" className="text-sm underline">
+          {t("privacy")}
+        </Link>
+      </LmsBody>
+    </>
   );
 }

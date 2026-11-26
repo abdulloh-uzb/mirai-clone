@@ -41,7 +41,7 @@ export function NewPasswordForm() {
         error={errors.confirmPassword?.message}
         {...form.register("confirmPassword")}
       />
-      <Button type="submit" disabled={pending}>
+      <Button type="submit" size="lg" className="w-full" disabled={pending}>
         {t("submit")}
       </Button>
     </form>

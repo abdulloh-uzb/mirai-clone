@@ -54,7 +54,7 @@ export function EmailLinkForm({
         error={form.formState.errors.email?.message}
         {...form.register("email")}
       />
-      <Button type="submit" disabled={pending}>
+      <Button type="submit" size="lg" className="w-full" disabled={pending}>
         {t("submit")}
       </Button>
     </form>

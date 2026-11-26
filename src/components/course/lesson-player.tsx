@@ -1,8 +1,10 @@
 "use client";
 
+import { CircleCheckIcon, TimerIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { useRouter } from "@/i18n/navigation";
 import type { ProgressErrorKey } from "@/lib/validation/progress";
 import { isActive } from "@/lib/course/active-time";
@@ -170,7 +172,7 @@ export function LessonPlayer({
 
   return (
     <div>
-      <div ref={containerRef} className="space-y-6">
+      <div ref={containerRef} className="space-y-7">
         {blocks.map((block) => (
           <div key={block.id} data-position={block.position}>
             <BlockRenderer block={block} />
@@ -179,22 +181,43 @@ export function LessonPlayer({
       </div>
 
       {completed ? null : (
-        <div className="mt-10 flex flex-wrap items-center gap-4 rounded-xl border bg-card p-4">
+        <div className="sticky bottom-3 z-10 mt-10 flex flex-wrap items-center gap-x-4 gap-y-3 rounded-[22px] border border-line-blue bg-card/95 p-3 shadow-pop backdrop-blur-sm sm:p-4">
           <Button
             type="button"
+            size="lg"
             disabled={!unlocked || busy}
             onClick={onNext}
             data-testid="lesson-next"
           >
             {nextHref ? t("next") : t("finishLesson")}
           </Button>
-          <p role="status" aria-live="polite" className="text-sm">
+          <p
+            role="status"
+            aria-live="polite"
+            className={cn(
+              "inline-flex min-h-10 items-center gap-2 rounded-full px-4 text-[15px] font-bold",
+              unlocked
+                ? "bg-green-tint text-green-ink"
+                : "bg-hero text-foreground tabular-nums",
+            )}
+          >
+            {unlocked ? (
+              <CircleCheckIcon aria-hidden className="size-[18px] shrink-0" />
+            ) : (
+              <TimerIcon
+                aria-hidden
+                className="size-[18px] shrink-0 text-blue-text"
+              />
+            )}
             {unlocked
               ? t("readyToContinue")
               : t("unlocksIn", { time: formatClock(remaining) })}
           </p>
           {error ? (
-            <p role="alert" className="text-sm text-destructive">
+            <p
+              role="alert"
+              className="basis-full text-[15px] font-semibold text-alert"
+            >
               {t(`errors.${error}`)}
             </p>
           ) : null}

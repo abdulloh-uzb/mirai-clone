@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { shuffleSeeded } from "@/lib/course/shuffle";
+import { cn } from "@/lib/utils";
 
 export function DragToOrderBlock({
   blockId,
@@ -34,10 +35,14 @@ export function DragToOrderBlock({
   }
 
   return (
-    <div className="rounded-xl border bg-card p-4">
-      <p className="font-medium">{prompt}</p>
-      <p className="mt-1 text-sm text-muted-foreground">{t("orderHint")}</p>
-      <ol className="mt-3 space-y-2">
+    <div className="rounded-[22px] border border-line-blue bg-surface p-5 sm:p-6">
+      <p className="text-xl leading-snug font-extrabold tracking-tight text-balance">
+        {prompt}
+      </p>
+      <p className="mt-1.5 text-[15px] text-muted-foreground">
+        {t("orderHint")}
+      </p>
+      <ol className="mt-4 grid gap-2">
         {order.map((item, i) => (
           <li
             key={item}
@@ -48,18 +53,26 @@ export function DragToOrderBlock({
               if (dragFrom !== null) move(dragFrom, i);
               setDragFrom(null);
             }}
-            className="flex items-center gap-2 rounded-lg border bg-background p-2 text-sm"
+            className={cn(
+              "flex cursor-grab items-center gap-2.5 rounded-[16px] border-2 border-line-blue bg-card py-2 pr-2 pl-3 text-[16px] leading-snug active:cursor-grabbing",
+              dragFrom === i && "border-primary bg-blue-tint",
+            )}
           >
+            <span
+              aria-hidden
+              className="grid size-7 shrink-0 place-items-center rounded-full bg-hero text-[13px] font-extrabold text-blue-text"
+            >
+              {i + 1}
+            </span>
             <GripVerticalIcon
               className="size-4 shrink-0 text-muted-foreground"
               aria-hidden
             />
-            <span className="flex-1">{item}</span>
+            <span className="flex-1 font-semibold">{item}</span>
             <Button
               type="button"
-              variant="outline"
-              size="icon"
-              className="size-9"
+              variant="secondary"
+              size="icon-sm"
               disabled={i === 0}
               aria-label={t("moveUp", { item })}
               onClick={() => move(i, i - 1)}
@@ -68,9 +81,8 @@ export function DragToOrderBlock({
             </Button>
             <Button
               type="button"
-              variant="outline"
-              size="icon"
-              className="size-9"
+              variant="secondary"
+              size="icon-sm"
               disabled={i === order.length - 1}
               aria-label={t("moveDown", { item })}
               onClick={() => move(i, i + 1)}
@@ -80,9 +92,10 @@ export function DragToOrderBlock({
           </li>
         ))}
       </ol>
-      <div className="mt-3 flex items-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center gap-3">
         <Button
           type="button"
+          variant="outline"
           onClick={() =>
             setResult(
               order.every((v, i) => v === items[i]) ? "correct" : "wrong",
@@ -92,7 +105,15 @@ export function DragToOrderBlock({
           {t("checkOrder")}
         </Button>
         {result ? (
-          <p role="status" className="text-sm font-medium">
+          <p
+            role="status"
+            className={cn(
+              "inline-flex min-h-10 items-center rounded-full px-4 text-[15px] font-bold",
+              result === "correct"
+                ? "bg-green-tint text-green-ink"
+                : "bg-alert-bg text-alert",
+            )}
+          >
             {result === "correct" ? t("orderCorrect") : t("orderWrong")}
           </p>
         ) : null}

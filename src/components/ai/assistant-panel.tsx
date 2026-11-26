@@ -133,7 +133,7 @@ export function AssistantPanel({
                 onChange={(event) =>
                   setChatLocale(event.target.value as Locale)
                 }
-                className="h-8 rounded-md border bg-background px-2 text-xs"
+                className="lms-select h-9 rounded-full border-[1.5px] border-line-blue bg-card [background-size:14px] [background-position:right_8px_center] pr-8 pl-3 text-[13px] font-bold"
               >
                 {routing.locales.map((l) => (
                   <option key={l} value={l}>
@@ -203,7 +203,7 @@ export function AssistantPanel({
                       <button
                         type="button"
                         onClick={() => ask(text)}
-                        className="w-full rounded-lg border px-3 py-2 text-left text-sm hover:bg-accent"
+                        className="min-h-10 w-full rounded-[18px] border-[1.5px] border-line-blue bg-card px-3.5 py-2 text-left text-[14px] font-semibold transition-colors hover:border-primary hover:bg-blue-tint"
                       >
                         {text}
                       </button>
@@ -219,8 +219,8 @@ export function AssistantPanel({
               key={message.id}
               className={
                 message.role === "user"
-                  ? "ml-8 rounded-2xl bg-primary px-3 py-2 text-sm text-primary-foreground"
-                  : "mr-8 rounded-2xl bg-muted px-3 py-2 text-sm whitespace-pre-wrap"
+                  ? "ml-8 rounded-2xl rounded-br-md border border-line-blue bg-blue-tint px-3.5 py-2.5 text-[15.5px] leading-normal"
+                  : "mr-8 rounded-2xl rounded-bl-md border border-outline bg-card px-3.5 py-2.5 text-[15.5px] leading-normal whitespace-pre-wrap"
               }
             >
               {message.parts.map((part, i) =>
@@ -268,7 +268,7 @@ export function AssistantPanel({
                 placeholder={t("email")}
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="h-9 w-full rounded-md border bg-background px-3 text-sm"
+                className="h-11 w-full rounded-[14px] border-2 border-input bg-card px-3.5 text-base outline-none focus-visible:border-primary"
               />
               <input
                 type="text"
@@ -277,7 +277,7 @@ export function AssistantPanel({
                 maxLength={1000}
                 value={note}
                 onChange={(event) => setNote(event.target.value)}
-                className="h-9 w-full rounded-md border bg-background px-3 text-sm"
+                className="h-11 w-full rounded-[14px] border-2 border-input bg-card px-3.5 text-base outline-none focus-visible:border-primary"
               />
               {handoff === "error" && (
                 <p role="alert" className="text-xs text-destructive">
@@ -308,7 +308,7 @@ export function AssistantPanel({
               maxLength={2000}
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              className="h-10 min-w-0 flex-1 rounded-full border-2 border-soft-border bg-background px-4 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="h-[46px] min-w-0 flex-1 rounded-full border-2 border-line-blue bg-blue-tint px-4 text-base font-medium outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:bg-card"
             />
             <Button
               type="submit"

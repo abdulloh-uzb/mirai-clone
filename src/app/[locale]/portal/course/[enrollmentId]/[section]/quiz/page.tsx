@@ -3,7 +3,9 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { QuizRunner } from "@/components/course/quiz-runner";
+import { LmsHero, LmsWrap } from "@/components/layout/lms-page";
 import { Button } from "@/components/ui/button";
+import { Notice } from "@/components/ui/notice";
 import { Link, redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getCourseOutline, getEnrollment } from "@/lib/portal/enrollment";
@@ -57,32 +59,38 @@ export default async function SectionQuizPage({
       redirect({ href: back, locale });
     }
     return (
-      <main className="mx-auto max-w-3xl px-4 py-8">
-        <p role="alert" className="text-destructive">
-          {t(`errors.${started.error}`)}
-        </p>
-        <Button asChild className="mt-4">
-          <Link href={back}>{t("backToSection")}</Link>
-        </Button>
+      <main>
+        <LmsHero
+          kicker={t("sectionOf", { section: sectionPosition })}
+          title={t("heading")}
+        />
+        <LmsWrap className="max-w-3xl py-8 sm:py-10">
+          <Notice role="alert" tone="error">
+            {t(`errors.${started.error}`)}
+          </Notice>
+          <Button asChild size="lg" className="mt-6">
+            <Link href={back}>{t("backToSection")}</Link>
+          </Button>
+        </LmsWrap>
       </main>
     );
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8">
-      <p className="text-sm text-muted-foreground">
-        {t("sectionOf", { section: sectionPosition })}
-      </p>
-      <h1 className="mt-1 mb-2 text-3xl font-bold tracking-tight">
-        {t("heading")}
-      </h1>
-      <p className="mb-6 text-sm text-muted-foreground">{t("intro")}</p>
-      <QuizRunner
-        enrollmentId={enrollmentId}
-        section={sectionPosition}
-        isLastSection={sectionPosition === outline.length}
-        initial={started.quiz}
+    <main>
+      <LmsHero
+        kicker={t("sectionOf", { section: sectionPosition })}
+        title={t("heading")}
+        intro={t("intro")}
       />
+      <LmsWrap className="max-w-3xl py-8 sm:py-10">
+        <QuizRunner
+          enrollmentId={enrollmentId}
+          section={sectionPosition}
+          isLastSection={sectionPosition === outline.length}
+          initial={started.quiz}
+        />
+      </LmsWrap>
     </main>
   );
 }

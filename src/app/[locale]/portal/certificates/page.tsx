@@ -1,3 +1,4 @@
+import { LmsBody, LmsHero } from "@/components/layout/lms-page";
 import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -63,50 +64,52 @@ export default async function CertificatesPage({
   });
 
   return (
-    <section className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-      {issued.length ? (
-        <ul className="mt-6 space-y-4">
-          {issued.map((c) => (
-            <li
-              key={c.cert_no}
-              className="flex flex-wrap items-center justify-between gap-4 rounded-xl border bg-card p-5"
-            >
-              <div>
-                <p className="text-sm text-muted-foreground">{t("certNo")}</p>
-                <p className="font-mono font-semibold">{c.cert_no}</p>
-                {c.completedAt ? (
-                  <p className="mt-1 text-sm">
-                    {t("completedOn")} {date.format(new Date(c.completedAt))}
+    <>
+      <LmsHero title={t("title")} art="certificate" />
+      <LmsBody className="max-w-4xl">
+        {issued.length ? (
+          <ul className="grid gap-4">
+            {issued.map((c) => (
+              <li
+                key={c.cert_no}
+                className="flex flex-wrap items-center justify-between gap-4 rounded-[22px] border-t-[6px] border-b-[6px] border-t-brand-sky border-b-brand-green bg-card p-6 shadow-panel"
+              >
+                <div>
+                  <p className="text-sm text-muted-foreground">{t("certNo")}</p>
+                  <p className="font-mono font-semibold">{c.cert_no}</p>
+                  {c.completedAt ? (
+                    <p className="mt-1 text-sm">
+                      {t("completedOn")} {date.format(new Date(c.completedAt))}
+                    </p>
+                  ) : null}
+                </div>
+                {c.pdf_path ? (
+                  <a
+                    href={`/api/certificates/${c.cert_no}`}
+                    className={buttonVariants()}
+                  >
+                    {t("download")}
+                  </a>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    {t("preparing")}
                   </p>
-                ) : null}
-              </div>
-              {c.pdf_path ? (
-                <a
-                  href={`/api/certificates/${c.cert_no}`}
-                  className={buttonVariants()}
-                >
-                  {t("download")}
-                </a>
-              ) : (
-                <p className="text-sm text-muted-foreground">
-                  {t("preparing")}
-                </p>
-              )}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <div className="mt-6 rounded-xl border bg-card p-6">
-          <p>{rows.length ? t("inProgress") : t("empty")}</p>
-          <Link
-            href="/portal"
-            className={buttonVariants({ className: "mt-4" })}
-          >
-            {rows.length ? t("continue") : t("buy")}
-          </Link>
-        </div>
-      )}
-    </section>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="rounded-[22px] border border-line-blue bg-card p-6 sm:p-8">
+            <p>{rows.length ? t("inProgress") : t("empty")}</p>
+            <Link
+              href="/portal"
+              className={buttonVariants({ className: "mt-4" })}
+            >
+              {rows.length ? t("continue") : t("buy")}
+            </Link>
+          </div>
+        )}
+      </LmsBody>
+    </>
   );
 }

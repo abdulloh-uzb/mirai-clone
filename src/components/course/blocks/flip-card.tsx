@@ -1,7 +1,9 @@
 "use client";
 
+import { RotateCwIcon } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 export function FlipCardBlock({
   front,
@@ -17,15 +19,26 @@ export function FlipCardBlock({
       type="button"
       aria-pressed={flipped}
       onClick={() => setFlipped((f) => !f)}
-      className="block min-h-32 w-full rounded-xl border bg-card p-6 text-left shadow-sm transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring"
+      className={cn(
+        "block min-h-40 w-full rounded-[22px] border-2 p-6 text-left transition-colors sm:p-7",
+        flipped
+          ? "border-brand-green bg-green-tint"
+          : "border-line-blue bg-hero hover:border-primary",
+      )}
     >
-      <span className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+      <span
+        className={cn(
+          "inline-flex rounded-full px-3 py-1 text-[13px] font-extrabold tracking-[0.06em] uppercase",
+          flipped ? "bg-brand-green text-[#0f1217]" : "bg-card text-blue-text",
+        )}
+      >
         {flipped ? t("cardBack") : t("cardFront")}
       </span>
-      <span className="mt-2 block text-lg font-medium">
+      <span className="mt-3 block text-xl leading-snug font-extrabold tracking-tight text-balance">
         {flipped ? back : front}
       </span>
-      <span className="mt-3 block text-sm text-muted-foreground">
+      <span className="mt-4 flex items-center gap-2 text-[15px] font-semibold text-muted-foreground">
+        <RotateCwIcon aria-hidden className="size-4 shrink-0" />
         {t("flipHint")}
       </span>
     </button>

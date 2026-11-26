@@ -8,7 +8,11 @@ import {
   type IdentityCheck,
 } from "@/components/course/identity-check-dialog";
 import { LessonPlayer } from "@/components/course/lesson-player";
+import { LmsHero, LmsWrap } from "@/components/layout/lms-page";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Notice } from "@/components/ui/notice";
 import { Link, redirect } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { daysLeft, accessBanner } from "@/lib/course/access";
@@ -90,141 +94,152 @@ export default async function CourseSectionPage({
   const banner = accessBanner(daysLeft(enrollment.expiresAt, now));
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 px-4 py-8 md:grid-cols-[18rem_1fr]">
-      <aside
-        aria-label={t("outline")}
-        className="md:sticky md:top-4 md:self-start"
-      >
-        <ol className="space-y-3">
-          {outline.map((s) => (
-            <li key={s.id}>
-              {s.status === "locked" ? (
-                <p className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
-                  <LockIcon className="size-4" aria-hidden />
-                  <span>
-                    {s.position}. {s.title}
-                  </span>
-                  <span className="sr-only">{t("locked")}</span>
-                </p>
-              ) : (
-                <>
-                  <Link
-                    href={`/portal/course/${enrollmentId}/${s.position}`}
-                    aria-current={s.id === section.id ? "true" : undefined}
-                    className="flex items-center gap-2 text-sm font-semibold hover:underline"
-                  >
-                    {s.status === "completed" ? (
-                      <CheckCircle2Icon
-                        className="size-4 text-brand-green"
-                        aria-hidden
-                      />
-                    ) : (
-                      <CircleIcon className="size-4" aria-hidden />
-                    )}
-                    {s.position}. {s.title}
-                  </Link>
-                  {s.id === section.id ? (
-                    <ol className="mt-1 ml-6 space-y-1">
-                      {s.lessons.map((l) => (
-                        <li key={l.id} className="text-sm">
-                          {l.status === "locked" ? (
-                            <span className="flex items-center gap-1.5 text-muted-foreground">
-                              <LockIcon className="size-3.5" aria-hidden />
-                              {l.title}
-                              <span className="sr-only">{t("locked")}</span>
-                            </span>
-                          ) : (
-                            <Link
-                              href={lessonHref(l.position)}
-                              aria-current={
-                                l.id === lesson.id ? "page" : undefined
-                              }
-                              className={cn(
-                                "hover:underline",
-                                l.id === lesson.id && "font-semibold",
-                              )}
-                            >
-                              {l.status === "completed" ? "✓ " : ""}
-                              {l.title}
-                            </Link>
-                          )}
-                        </li>
-                      ))}
-                    </ol>
-                  ) : null}
-                </>
-              )}
-            </li>
-          ))}
-        </ol>
-      </aside>
+    <>
+      <LmsHero
+        kicker={t("sectionOf", { section: section.position })}
+        title={lesson.title}
+        intro={section.title}
+      />
+      <LmsWrap className="grid gap-8 py-8 sm:py-10 md:grid-cols-[17rem_minmax(0,1fr)] lg:grid-cols-[19rem_minmax(0,1fr)]">
+        <aside
+          aria-label={t("outline")}
+          className="md:sticky md:top-[calc(var(--header-h,76px)+16px)] md:max-h-[calc(100vh-var(--header-h,76px)-32px)] md:self-start md:overflow-y-auto"
+        >
+          <ol className="grid gap-2 rounded-[22px] border border-line-blue bg-surface p-3">
+            {outline.map((s) => (
+              <li key={s.id}>
+                {s.status === "locked" ? (
+                  <p className="flex min-h-11 items-center gap-2.5 rounded-[14px] px-3 py-2 text-[15px] font-bold text-muted-foreground">
+                    <LockIcon className="size-4 shrink-0" aria-hidden />
+                    <span>
+                      {s.position}. {s.title}
+                    </span>
+                    <span className="sr-only">{t("locked")}</span>
+                  </p>
+                ) : (
+                  <>
+                    <Link
+                      href={`/portal/course/${enrollmentId}/${s.position}`}
+                      aria-current={s.id === section.id ? "true" : undefined}
+                      className={cn(
+                        "flex min-h-11 items-center gap-2.5 rounded-[14px] px-3 py-2 text-[15px] leading-snug font-bold transition-colors hover:bg-hero",
+                        s.id === section.id &&
+                          "bg-card shadow-[0_2px_8px_-4px_#0a304659] hover:bg-card",
+                      )}
+                    >
+                      {s.status === "completed" ? (
+                        <CheckCircle2Icon
+                          className="size-[18px] shrink-0 text-green-ink"
+                          aria-hidden
+                        />
+                      ) : (
+                        <CircleIcon
+                          className="size-[18px] shrink-0 text-blue-text"
+                          aria-hidden
+                        />
+                      )}
+                      {s.position}. {s.title}
+                    </Link>
+                    {s.id === section.id ? (
+                      <ol className="mt-1 mb-1 ml-5 grid gap-0.5 border-l-2 border-line-blue pl-3">
+                        {s.lessons.map((l) => (
+                          <li key={l.id} className="text-[15px]">
+                            {l.status === "locked" ? (
+                              <span className="flex min-h-9 items-center gap-1.5 px-2 text-muted-foreground">
+                                <LockIcon
+                                  className="size-3.5 shrink-0"
+                                  aria-hidden
+                                />
+                                {l.title}
+                                <span className="sr-only">{t("locked")}</span>
+                              </span>
+                            ) : (
+                              <Link
+                                href={lessonHref(l.position)}
+                                aria-current={
+                                  l.id === lesson.id ? "page" : undefined
+                                }
+                                className={cn(
+                                  "flex min-h-9 items-center gap-1.5 rounded-[10px] px-2 py-1 hover:bg-hero",
+                                  l.id === lesson.id &&
+                                    "bg-blue-tint font-bold text-foreground",
+                                )}
+                              >
+                                {l.status === "completed" ? "✓ " : ""}
+                                {l.title}
+                              </Link>
+                            )}
+                          </li>
+                        ))}
+                      </ol>
+                    ) : null}
+                  </>
+                )}
+              </li>
+            ))}
+          </ol>
+        </aside>
 
-      <main id="lesson" className="min-w-0">
-        {check ? (
-          <IdentityCheckDialog enrollmentId={enrollmentId} check={check} />
-        ) : null}
-        {banner ? (
-          <p
-            role="status"
-            className="mb-4 rounded-lg border border-amber-500/50 bg-amber-500/10 px-4 py-3 text-sm"
-          >
-            {t(`accessBanner.d${banner}`)}
-          </p>
-        ) : null}
-        <p className="text-sm text-muted-foreground">
-          {t("sectionOf", { section: section.position })}
-        </p>
-        <h1 className="mt-1 mb-6 text-3xl font-bold tracking-tight">
-          {lesson.title}
-        </h1>
-        <LessonPlayer
-          key={lesson.id}
-          enrollmentId={enrollmentId}
-          lessonId={lesson.id}
-          minSeconds={lesson.minSeconds}
-          initialSeconds={lesson.secondsSpent}
-          completed={lesson.status === "completed"}
-          blocks={blocks}
-          nextHref={nextInSection ? lessonHref(nextInSection.position) : null}
-        />
+        <main id="lesson" className="min-w-0">
+          {check ? (
+            <IdentityCheckDialog enrollmentId={enrollmentId} check={check} />
+          ) : null}
+          {banner ? (
+            <Notice role="status" tone="warning" className="mb-6">
+              {t(`accessBanner.d${banner}`)}
+            </Notice>
+          ) : null}
+          <LessonPlayer
+            key={lesson.id}
+            enrollmentId={enrollmentId}
+            lessonId={lesson.id}
+            minSeconds={lesson.minSeconds}
+            initialSeconds={lesson.secondsSpent}
+            completed={lesson.status === "completed"}
+            blocks={blocks}
+            nextHref={nextInSection ? lessonHref(nextInSection.position) : null}
+          />
 
-        {lesson.status === "completed" ? (
-          <div className="mt-8 flex flex-wrap gap-3">
-            {nextInSection ? (
-              <Button asChild>
+          {lesson.status === "completed" && nextInSection ? (
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild size="lg">
                 <Link href={lessonHref(nextInSection.position)}>
                   {t("next")}
                 </Link>
               </Button>
-            ) : null}
-          </div>
-        ) : null}
-
-        {sectionDone && !nextInSection ? (
-          <div className="mt-8 rounded-xl border bg-card p-4">
-            <p className="font-semibold">{t("sectionDone")}</p>
-            <div className="mt-3 flex flex-wrap gap-3">
-              <Button asChild>
-                <Link href={`${here}/quiz`}>{t("takeQuiz")}</Link>
-              </Button>
-              {section.status === "completed" ? (
-                <p className="self-center text-sm text-brand-green">
-                  {t("quizPassed")}
-                </p>
-              ) : null}
-              {nextSection && nextSection.status !== "locked" ? (
-                <Button asChild variant="outline">
-                  <Link
-                    href={`/portal/course/${enrollmentId}/${nextSection.position}`}
-                  >
-                    {t("nextSection")}
-                  </Link>
-                </Button>
-              ) : null}
             </div>
-          </div>
-        ) : null}
-      </main>
-    </div>
+          ) : null}
+
+          {sectionDone && !nextInSection ? (
+            <Card variant="panel" padding="lg" className="mt-8">
+              <p className="flex items-center gap-2 text-[22px] font-extrabold tracking-tight">
+                <CheckCircle2Icon
+                  className="size-6 shrink-0 text-green-ink"
+                  aria-hidden
+                />
+                {t("sectionDone")}
+              </p>
+              <div className="mt-2 flex flex-wrap items-center gap-3">
+                <Button asChild size="lg">
+                  <Link href={`${here}/quiz`}>{t("takeQuiz")}</Link>
+                </Button>
+                {section.status === "completed" ? (
+                  <Badge tone="success">{t("quizPassed")}</Badge>
+                ) : null}
+                {nextSection && nextSection.status !== "locked" ? (
+                  <Button asChild size="lg" variant="outline">
+                    <Link
+                      href={`/portal/course/${enrollmentId}/${nextSection.position}`}
+                    >
+                      {t("nextSection")}
+                    </Link>
+                  </Button>
+                ) : null}
+              </div>
+            </Card>
+          ) : null}
+        </main>
+      </LmsWrap>
+    </>
   );
 }

@@ -3,7 +3,10 @@ import { hasLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ExamRunner, type ConfirmDetails } from "@/components/exam/exam-runner";
+import { CircleDashedIcon } from "lucide-react";
+import { LmsHero, LmsWrap, type LmsArt } from "@/components/layout/lms-page";
 import { Button } from "@/components/ui/button";
+import { Notice } from "@/components/ui/notice";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getDriverDetails } from "@/lib/portal/details";
@@ -45,13 +48,14 @@ export default async function ExamPage({
   if (!elig.ok) notFound();
   const e = elig.eligibility;
 
-  const shell = (children: React.ReactNode, examActive = false) => (
-    <main
-      className="mx-auto max-w-3xl px-4 py-8"
-      data-exam-active={examActive ? "true" : undefined}
-    >
-      <h1 className="mb-6 text-3xl font-bold tracking-tight">{t("heading")}</h1>
-      {children}
+  const shell = (
+    children: React.ReactNode,
+    examActive = false,
+    art?: LmsArt,
+  ) => (
+    <main data-exam-active={examActive ? "true" : undefined}>
+      <LmsHero title={t("heading")} art={art} />
+      <LmsWrap className="max-w-3xl py-8 sm:py-10">{children}</LmsWrap>
     </main>
   );
 
@@ -60,38 +64,51 @@ export default async function ExamPage({
     const rev = await getExamReview({ attemptId: e.latest.attemptId });
     if (rev.ok) {
       return shell(
-        <div className="space-y-4">
-          <p className="font-semibold">
-            {t("score", { score: rev.review.score, total: rev.review.total })}
-          </p>
+        <div className="grid gap-5">
+          <Notice tone="success">
+            <p className="text-xl font-extrabold tracking-tight">
+              {t("score", {
+                score: rev.review.score,
+                total: rev.review.total,
+              })}
+            </p>
+          </Notice>
           {rev.review.questions.map((q, i) => (
-            <section key={q.id} className="space-y-2 rounded-xl border p-4">
-              <h2 className="font-semibold">
+            <section
+              key={q.id}
+              className="grid gap-2.5 rounded-[22px] border border-line-blue bg-card p-5 sm:p-6"
+            >
+              <h2 className="mb-1 text-xl leading-snug font-extrabold tracking-tight text-balance">
                 {i + 1}. {q.text}
               </h2>
               {q.options.map((o) => (
                 <p
                   key={o.id}
-                  className={cn(
-                    "rounded-lg border px-3 py-2 text-sm",
-                    o.correct && "border-brand-green bg-brand-green/10",
-                    !o.correct &&
-                      q.chosenOptionId === o.id &&
-                      "border-destructive bg-destructive/10",
-                  )}
+                  className="lms-choice cursor-default"
+                  data-tone={
+                    o.correct
+                      ? "right"
+                      : q.chosenOptionId === o.id
+                        ? "wrong"
+                        : undefined
+                  }
                 >
                   {o.text}
                 </p>
               ))}
               {q.explanation ? (
-                <p className="text-sm text-muted-foreground">{q.explanation}</p>
+                <p className="mt-1 rounded-[16px] bg-hero px-4 py-3 text-[16px] text-muted-foreground">
+                  {q.explanation}
+                </p>
               ) : null}
             </section>
           ))}
-          <Button asChild>
+          <Button asChild size="lg" className="justify-self-start">
             <Link href="/portal/certificates">{t("getCertificate")}</Link>
           </Button>
         </div>,
+        false,
+        "certificate",
       );
     }
   }
@@ -105,41 +122,63 @@ export default async function ExamPage({
       e.reasons.includes("not_active"))
   ) {
     return shell(
-      <div className="space-y-4" data-testid="exam-finished">
-        <p className="text-xl font-semibold">
+      <div
+        className={cn(
+          "grid gap-4 rounded-[22px] border-t-[6px] border-b-[6px] bg-card p-6 shadow-panel sm:p-8",
+          e.passed
+            ? "border-t-brand-sky border-b-brand-green"
+            : "border-t-alert-line border-b-alert-line",
+        )}
+        data-testid="exam-finished"
+      >
+        <p className="text-[28px] leading-tight font-extrabold tracking-tight">
           {t("score", { score: e.latest.score ?? 0, total: e.latest.total })}
         </p>
-        <p>{e.passed ? t("passed") : t("locked")}</p>
-        <div className="flex flex-wrap gap-3">
+        <p className="text-lg">{e.passed ? t("passed") : t("locked")}</p>
+        <div className="mt-2 flex flex-wrap gap-3">
           {e.passed ? (
             <>
-              <Button asChild variant="outline">
+              <Button asChild size="lg">
+                <Link href="/portal/certificates">{t("getCertificate")}</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
                 <Link href={`/portal/exam/${enrollmentId}?review=1`}>
                   {t("viewAnswers")}
                 </Link>
               </Button>
-              <Button asChild>
-                <Link href="/portal/certificates">{t("getCertificate")}</Link>
-              </Button>
             </>
           ) : (
-            <Button asChild variant="outline">
+            <Button asChild size="lg" variant="outline">
               <Link href="/contact">{t("contactSupport")}</Link>
             </Button>
           )}
         </div>
       </div>,
+      false,
+      e.passed ? "finish" : undefined,
     );
   }
 
   // Not eligible: checklist with links.
   if (!e.eligible) {
     return shell(
-      <section className="space-y-4" data-testid="exam-not-eligible">
-        <p>{t("notEligible")}</p>
-        <ul className="list-disc space-y-1 pl-5 text-sm">
+      <section
+        className="grid gap-5 rounded-[22px] border border-line-blue bg-card p-6 sm:p-8"
+        data-testid="exam-not-eligible"
+      >
+        <p className="text-xl font-extrabold tracking-tight">
+          {t("notEligible")}
+        </p>
+        <ul className="grid gap-2.5">
           {e.reasons.map((r) => (
-            <li key={r}>
+            <li
+              key={r}
+              className="flex items-start gap-3 rounded-[16px] bg-hero px-4 py-3 text-[17px]"
+            >
+              <CircleDashedIcon
+                aria-hidden
+                className="mt-0.5 size-5 shrink-0 text-blue-text"
+              />
               {t(
                 `reasons.${REASON_KEYS[r as keyof typeof REASON_KEYS] ?? "notActive"}`,
                 {
@@ -151,11 +190,11 @@ export default async function ExamPage({
           ))}
         </ul>
         <div className="flex flex-wrap gap-3">
-          <Button asChild>
+          <Button asChild size="lg">
             <Link href="/portal">{t("continueCourse")}</Link>
           </Button>
           {e.reasons.includes("details_required") ? (
-            <Button asChild variant="outline">
+            <Button asChild size="lg" variant="outline">
               <Link
                 href={`/portal/details/${enrollmentId}?next=${encodeURIComponent(`/portal/exam/${enrollmentId}`)}`}
               >
@@ -165,6 +204,8 @@ export default async function ExamPage({
           ) : null}
         </div>
       </section>,
+      false,
+      "exam",
     );
   }
 

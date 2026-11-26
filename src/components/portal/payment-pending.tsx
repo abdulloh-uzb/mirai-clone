@@ -44,11 +44,24 @@ export function PaymentPending() {
   }, [router]);
 
   return (
-    <div role="status" className="rounded-2xl border bg-card p-6 shadow-sm">
-      <h2 className="text-xl font-bold">{t("confirming")}</h2>
-      <p className="mt-2 text-muted-foreground">
-        {slow ? t("slow") : t("confirmingText")}
-      </p>
+    <div
+      role="status"
+      className="flex max-w-2xl items-start gap-4 rounded-[22px] border-t-[6px] border-b-[6px] border-t-brand-sky border-b-brand-green bg-card p-6 shadow-panel sm:p-8"
+    >
+      {slow ? null : (
+        <span
+          aria-hidden
+          className="mt-1 inline-block size-6 shrink-0 animate-spin rounded-full border-[3px] border-primary border-t-transparent"
+        />
+      )}
+      <div>
+        <h2 className="text-[22px] leading-tight font-extrabold tracking-tight">
+          {t("confirming")}
+        </h2>
+        <p className="mt-2 text-[17px] text-muted-foreground">
+          {slow ? t("slow") : t("confirmingText")}
+        </p>
+      </div>
     </div>
   );
 }
