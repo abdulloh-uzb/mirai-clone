@@ -985,7 +985,72 @@
       "nonCommercial": "Commercial drivers and vehicles usually can't use traffic school to mask a ticket. Ask your court about your options.",
       "eligibleViolation": "Some violations don't qualify. Your court decides, so ask it whether yours does."
     },
-    "findCourt": "Find your court"
+    "findCourt": "Find your court",
+    "checksHeading": "What each question is checking",
+    "checks": {
+      "0": {
+        "q": "Do you have a valid driver's license?",
+        "a": "Traffic school is offered to licensed drivers. If your license is suspended or expired, the court will usually want that sorted out first."
+      },
+      "1": {
+        "q": "Has the court allowed you to attend traffic school for this ticket?",
+        "a": "Only the court can approve traffic school. Look for a line on your notice or on the court's website, or ask the clerk."
+      },
+      "2": {
+        "q": "Is your ticket for a minor moving violation (for example speeding or a missed stop sign)?",
+        "a": "Most basic moving violations qualify. Parking, equipment and registration tickets usually do not."
+      },
+      "3": {
+        "q": "Have you gone at least 18 months without attending traffic school?",
+        "a": "You can normally use traffic school once every 18 months, counted from the date of your last violation that used it."
+      },
+      "4": {
+        "q": "Were you driving a non-commercial vehicle with a non-commercial license?",
+        "a": "The rule looks at both the vehicle you drove and the license you hold. The next section explains the difference."
+      }
+    },
+    "noHeading": "Why a court may say no",
+    "noItems": {
+      "0": "A violation committed in a commercial vehicle",
+      "1": "Any misdemeanor",
+      "2": "Anything involving alcohol or drugs",
+      "3": "Reckless driving or a violation worth more than one point",
+      "4": "Failing to stop after an accident",
+      "5": "Speeding far above the limit",
+      "6": "Parking, registration and equipment tickets",
+      "7": "A ticket with an unresolved failure-to-appear"
+    },
+    "vehicleHeading": "The vehicle and the license are two different rules",
+    "vehicleCards": {
+      "0": {
+        "t": "You were driving a commercial vehicle",
+        "b": "Tickets earned in a commercial vehicle are not eligible, even if you hold a regular license."
+      },
+      "1": {
+        "t": "You hold a commercial license but drove your own car",
+        "b": "This one depends on the court. Ask before you pay for a course."
+      }
+    },
+    "pointHeading": "Traffic school hides the point. It does not delete the ticket.",
+    "pointBody": "You still pay the fine and the court fee. After you finish, the court keeps the violation point from showing on your driving record for insurance purposes.",
+    "faqHeading": "Common questions",
+    "faq": {
+      "0": {
+        "q": "Does this tool give legal advice?",
+        "a": "No. It is general guidance for a demo project. Your court always makes the final decision."
+      },
+      "1": {
+        "q": "Is anything I enter saved?",
+        "a": "No. Your answers stay in your browser."
+      },
+      "2": {
+        "q": "How long do I have to finish the course?",
+        "a": "Your court sets the deadline. It is printed on your notice."
+      }
+    },
+    "ctaHeading": "Court said yes? Start today.",
+    "ctaBody": "Pick your language and begin at your own pace.",
+    "ctaButton": "Choose your course"
   },
   "CitationState": {
     "chip": "Ticket from: {state}",

@@ -98,7 +98,7 @@ export function contentRoute(slug: string) {
       if (!hasLocale(routing.locales, locale)) notFound();
       const result = await getPage(slug, locale);
       if (!result) notFound();
-      return <ContentPage result={result} />;
+      return <ContentPage result={result} hero />;
     },
   };
 }

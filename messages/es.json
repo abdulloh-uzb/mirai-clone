@@ -986,7 +986,72 @@
       "nonCommercial": "Los conductores y vehículos comerciales normalmente no pueden usar la escuela de tránsito para ocultar una multa. Pregunta a tu tribunal por tus opciones.",
       "eligibleViolation": "Algunas infracciones no califican. El tribunal decide, así que pregúntale si la tuya califica."
     },
-    "findCourt": "Buscar tu tribunal"
+    "findCourt": "Buscar tu tribunal",
+    "checksHeading": "Qué comprueba cada pregunta",
+    "checks": {
+      "0": {
+        "q": "¿Tienes una licencia de conducir válida?",
+        "a": "La escuela de tránsito es para conductores con licencia. Si tu licencia está suspendida o vencida, el tribunal suele pedir que lo resuelvas primero."
+      },
+      "1": {
+        "q": "¿El tribunal te permitió asistir a la escuela de tránsito por esta multa?",
+        "a": "Solo el tribunal puede aprobar la escuela de tránsito. Busca una línea en tu aviso o en el sitio del tribunal, o pregunta en la secretaría."
+      },
+      "2": {
+        "q": "¿Tu multa es por una infracción menor en movimiento (por ejemplo, exceso de velocidad o no detenerse en un alto)?",
+        "a": "La mayoría de las infracciones de tránsito básicas califican. Las multas de estacionamiento, equipo y registro normalmente no."
+      },
+      "3": {
+        "q": "¿Han pasado al menos 18 meses desde la última vez que asististe a la escuela de tránsito?",
+        "a": "Normalmente puedes usar la escuela de tránsito una vez cada 18 meses."
+      },
+      "4": {
+        "q": "¿Conducías un vehículo no comercial con una licencia no comercial?",
+        "a": "La regla mira tanto el vehículo que conducías como la licencia que tienes. La siguiente sección explica la diferencia."
+      }
+    },
+    "noHeading": "Por qué un tribunal puede decir que no",
+    "noItems": {
+      "0": "Una infracción cometida en un vehículo comercial",
+      "1": "Cualquier delito menor",
+      "2": "Cualquier cosa relacionada con alcohol o drogas",
+      "3": "Conducción imprudente o una infracción de más de un punto",
+      "4": "No detenerse tras un accidente",
+      "5": "Exceso de velocidad muy por encima del límite",
+      "6": "Multas de estacionamiento, registro y equipo",
+      "7": "Una multa con una falta de comparecencia sin resolver"
+    },
+    "vehicleHeading": "El vehículo y la licencia son dos reglas distintas",
+    "vehicleCards": {
+      "0": {
+        "t": "Conducías un vehículo comercial",
+        "b": "Las multas recibidas en un vehículo comercial no califican, aunque tengas una licencia normal."
+      },
+      "1": {
+        "t": "Tienes licencia comercial pero conducías tu propio auto",
+        "b": "Depende del tribunal. Pregunta antes de pagar un curso."
+      }
+    },
+    "pointHeading": "La escuela de tránsito oculta el punto. No borra la multa.",
+    "pointBody": "Igual pagas la multa y la tarifa del tribunal. Al terminar, el tribunal evita que el punto aparezca en tu historial para fines de seguro.",
+    "faqHeading": "Preguntas frecuentes",
+    "faq": {
+      "0": {
+        "q": "¿Esta herramienta da asesoría legal?",
+        "a": "No. Es una guía general de un proyecto de demostración. El tribunal siempre decide."
+      },
+      "1": {
+        "q": "¿Se guarda lo que escribo?",
+        "a": "No. Tus respuestas se quedan en tu navegador."
+      },
+      "2": {
+        "q": "¿Cuánto tiempo tengo para terminar el curso?",
+        "a": "El tribunal fija el plazo. Aparece en tu aviso."
+      }
+    },
+    "ctaHeading": "¿El tribunal dijo que sí? Empieza hoy.",
+    "ctaBody": "Elige tu idioma y avanza a tu ritmo.",
+    "ctaButton": "Elegir mi curso"
   },
   "CitationState": {
     "chip": "Multa de: {state}",

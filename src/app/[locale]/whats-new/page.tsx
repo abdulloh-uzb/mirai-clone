@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { PageHero } from "@/components/layout/page-hero";
 import { Markdown } from "@/components/content/markdown";
 import { NotTranslatedNotice } from "@/components/content/not-translated-notice";
 import { routing } from "@/i18n/routing";
@@ -34,42 +35,41 @@ export default async function WhatsNewPage({
   ]);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <h1 className="text-4xl font-bold tracking-tight text-balance">
-        {t("title")}
-      </h1>
-      <p className="mt-4 text-lg text-muted-foreground">{t("intro")}</p>
-      <ol className="mt-10 grid gap-10">
-        {entries.map(({ slug, item, isFallback }) => (
-          <li key={slug}>
-            <article
-              id={slug}
-              className="scroll-mt-24 border-l-4 border-primary/60 pl-5"
-            >
-              <time
-                dateTime={item.published_at}
-                className="text-sm text-muted-foreground"
+    <>
+      <PageHero title={t("title")} intro={t("intro")} />
+      <div className="mx-auto max-w-3xl px-4 py-12">
+        <ol className="grid gap-10">
+          {entries.map(({ slug, item, isFallback }) => (
+            <li key={slug}>
+              <article
+                id={slug}
+                className="scroll-mt-24 border-l-4 border-primary/60 pl-5"
               >
-                {format.dateTime(new Date(item.published_at), {
-                  dateStyle: "long",
-                  timeZone: "America/Los_Angeles",
-                })}
-              </time>
-              <h2 className="mt-1 text-2xl font-bold tracking-tight">
-                <a href={`#${slug}`} className="hover:underline">
-                  {item.title}
-                </a>
-              </h2>
-              {isFallback ? (
-                <div className="mt-3">
-                  <NotTranslatedNotice />
-                </div>
-              ) : null}
-              <Markdown>{item.body}</Markdown>
-            </article>
-          </li>
-        ))}
-      </ol>
-    </div>
+                <time
+                  dateTime={item.published_at}
+                  className="text-sm text-muted-foreground"
+                >
+                  {format.dateTime(new Date(item.published_at), {
+                    dateStyle: "long",
+                    timeZone: "America/Los_Angeles",
+                  })}
+                </time>
+                <h2 className="mt-1 text-2xl font-bold tracking-tight">
+                  <a href={`#${slug}`} className="hover:underline">
+                    {item.title}
+                  </a>
+                </h2>
+                {isFallback ? (
+                  <div className="mt-3">
+                    <NotTranslatedNotice />
+                  </div>
+                ) : null}
+                <Markdown>{item.body}</Markdown>
+              </article>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </>
   );
 }

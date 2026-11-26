@@ -33,7 +33,7 @@ export default async function AccessibilityPage({
   if (!result) notFound();
 
   return (
-    <ContentPage result={result}>
+    <ContentPage result={result} hero>
       <h2 className="mt-10 text-xl font-semibold">{t("formHeading")}</h2>
       <div className="mt-4">
         <AdaRequestForm accountEmail={account?.email} />
